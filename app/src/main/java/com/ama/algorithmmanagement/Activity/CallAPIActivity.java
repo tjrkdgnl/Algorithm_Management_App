@@ -1,16 +1,16 @@
-package com.jeoksyeo.algorithmmanagement.Activity;
+package com.ama.algorithmmanagement.Activity;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.jeoksyeo.algorithmmanagement.Adapter.DefaultRecyclerViewAdapter;
-import com.jeoksyeo.algorithmmanagement.Base.BaseActivity;
-import com.jeoksyeo.algorithmmanagement.Model.ProblemsOfClass;
-import com.jeoksyeo.algorithmmanagement.Network.APIGenerator;
-import com.jeoksyeo.algorithmmanagement.R;
-import com.jeoksyeo.algorithmmanagement.databinding.DefaultActivityCallApiBinding;
+import com.ama.algorithmmanagement.Adapter.DefaultRecyclerViewAdapter;
+import com.ama.algorithmmanagement.Base.BaseActivity;
+import com.ama.algorithmmanagement.Model.ProblemsOfClass;
+import com.ama.algorithmmanagement.Network.APIGenerator;
+import com.ama.algorithmmanagement.R;
+import com.ama.algorithmmanagement.databinding.DefaultActivityCallApiBinding;
 
 import java.util.List;
 

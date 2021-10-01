@@ -1,12 +1,12 @@
-package com.jeoksyeo.algorithmmanagement.Adapter;
+package com.ama.algorithmmanagement.Adapter;
 
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jeoksyeo.algorithmmanagement.Model.ProblemsOfClass;
-import com.jeoksyeo.algorithmmanagement.ViewHolder.DefaultViewHolder;
+import com.ama.algorithmmanagement.Model.ProblemsOfClass;
+import com.ama.algorithmmanagement.ViewHolder.DefaultViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jeoksyeo.algorithmmanagement.Network;
+package com.ama.algorithmmanagement.Network;
 
 import androidx.annotation.NonNull;
 

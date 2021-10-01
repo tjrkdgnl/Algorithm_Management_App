@@ -1,11 +1,11 @@
-package com.jeoksyeo.algorithmmanagement.ViewHolder;
+package com.ama.algorithmmanagement.ViewHolder;
 
 import android.view.ViewGroup;
 
-import com.jeoksyeo.algorithmmanagement.Base.BaseViewHolder;
-import com.jeoksyeo.algorithmmanagement.Model.ProblemsOfClass;
-import com.jeoksyeo.algorithmmanagement.R;
-import com.jeoksyeo.algorithmmanagement.databinding.DefaultViewholderItemBinding;
+import com.ama.algorithmmanagement.Base.BaseViewHolder;
+import com.ama.algorithmmanagement.Model.ProblemsOfClass;
+import com.ama.algorithmmanagement.R;
+import com.ama.algorithmmanagement.databinding.DefaultViewholderItemBinding;
 
 public class DefaultViewHolder extends BaseViewHolder<DefaultViewholderItemBinding> {
 

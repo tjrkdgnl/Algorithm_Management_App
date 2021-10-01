@@ -1,4 +1,4 @@
-package com.jeoksyeo.algorithmmanagement.Base;
+package com.ama.algorithmmanagement.Base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

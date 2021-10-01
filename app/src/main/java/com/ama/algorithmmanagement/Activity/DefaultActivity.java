@@ -1,22 +1,13 @@
-package com.jeoksyeo.algorithmmanagement.Activity;
+package com.ama.algorithmmanagement.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jeoksyeo.algorithmmanagement.Base.BaseActivity;
-import com.jeoksyeo.algorithmmanagement.Fragment.MainFragment;
-import com.jeoksyeo.algorithmmanagement.Model.ProblemsOfClass;
-import com.jeoksyeo.algorithmmanagement.Network.APIGenerator;
-import com.jeoksyeo.algorithmmanagement.R;
-import com.jeoksyeo.algorithmmanagement.databinding.DefaultActivityMainBinding;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import com.ama.algorithmmanagement.Base.BaseActivity;
+import com.ama.algorithmmanagement.Fragment.MainFragment;
+import com.ama.algorithmmanagement.R;
+import com.ama.algorithmmanagement.databinding.DefaultActivityMainBinding;
 
 public class DefaultActivity extends BaseActivity<DefaultActivityMainBinding> implements View.OnClickListener {
 

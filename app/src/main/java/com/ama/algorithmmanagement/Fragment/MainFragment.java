@@ -1,4 +1,4 @@
-package com.jeoksyeo.algorithmmanagement.Fragment;
+package com.ama.algorithmmanagement.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.jeoksyeo.algorithmmanagement.Base.BaseFragment;
-import com.jeoksyeo.algorithmmanagement.R;
-import com.jeoksyeo.algorithmmanagement.databinding.DefaultFragmentMainBinding;
+import com.ama.algorithmmanagement.Base.BaseFragment;
+import com.ama.algorithmmanagement.R;
+import com.ama.algorithmmanagement.databinding.DefaultFragmentMainBinding;
 
 public class MainFragment extends BaseFragment<DefaultFragmentMainBinding> {
 
