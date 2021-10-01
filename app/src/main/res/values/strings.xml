@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AlgorithmManagement</string>
+    <string name="ActivityDefaultText">this is MainActivity</string>
+    <string name="FragmentDefaultText">this is MainFragment</string>
+    <string name="callAPI">API호출</string>
+
+</resources>
