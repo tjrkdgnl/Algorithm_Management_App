@@ -39,7 +39,6 @@ public class CallAPIActivity extends BaseActivity<DefaultActivityCallApiBinding>
                 List<ProblemsOfClass> list = response.body();
                 adapter.updateList(list);
             }
-
             @Override
             public void onFailure(Call<List<ProblemsOfClass>> call, Throwable t) {
 
