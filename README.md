@@ -26,4 +26,4 @@
 8. 대댓글 작성 알림 및 Tip 작성 Notification 알림 보내기
 
 ## Structure
-![image](https://user-images.githubusercontent.com/45396949/138390906-ba6c1961-0399-40a8-9d2c-5712811bc613.png)
+![image](https://user-images.githubusercontent.com/45396949/138391307-d374ecca-27a3-4739-8a18-d1beceed61b0.png)
