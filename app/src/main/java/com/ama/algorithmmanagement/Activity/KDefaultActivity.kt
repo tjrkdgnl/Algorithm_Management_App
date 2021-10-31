@@ -17,11 +17,19 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
         mainViewModel = ViewModelProvider(this).get(KDefaultMainViewModel::class.java)
         binding.viewModel = mainViewModel;
 
-        supportFragmentManager.beginTransaction().add(R.id.frameLayout_default, MainFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.frameLayout_default, MainFragment())
+            .commit()
 
         mainViewModel.moveToCallAPIAct.observe(this, {
             if (it) {
                 startActivity(Intent(this, KCallAPIActivity::class.java))
+                mainViewModel.moveToCallAPIAct.value = false
+            }
+        })
+
+        mainViewModel.moveToSolvedAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, KCallSolvedAlgorithmAct::class.java))
                 mainViewModel.moveToCallAPIAct.value = false
             }
         })

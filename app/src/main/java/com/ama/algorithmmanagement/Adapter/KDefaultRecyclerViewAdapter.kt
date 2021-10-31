@@ -17,13 +17,14 @@ class KDefaultRecyclerViewAdapter : RecyclerView.Adapter<KDefaultViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-       return list.size
+        return list.size
     }
 
     fun updateList(list: MutableList<KProblemsOfClass>?) {
-        if (list != null) {
-            this.list.addAll(list)
+        list?.let {
+            this.list.addAll(it)
             notifyDataSetChanged()
         }
     }
+
 }

@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlgorithmManagement">
@@ -20,6 +21,8 @@
         </activity>
 
         <activity android:name=".Activity.KCallAPIActivity"/>
+
+        <activity android:name=".Activity.KCallSolvedAlgorithmAct"/>
 
     </application>
 

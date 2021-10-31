@@ -16,7 +16,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_call_api"
-            app:setItemList="@{viewModel.classList}"
+            app:setSolvedProblemsList="@{viewModel.solvedList}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/default_viewholder_item" />
+            tools:listitem="@layout/default_solved_problems_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
