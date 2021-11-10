@@ -8,12 +8,13 @@ import com.ama.algorithmmanagement.Model.SolvedAlgorithms
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.Repository
+import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
-    private val repository = Repository()
+    private val repository = RepositoryLocator.getFakeRepository()
 
     private val _classList = MutableLiveData<List<KProblemsOfClass>>()
     val classList: LiveData<List<KProblemsOfClass>>
