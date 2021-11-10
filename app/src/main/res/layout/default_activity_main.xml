@@ -32,7 +32,7 @@
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToCallAPIActivity()}"
                 android:text="@string/callAPI"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 />
 
             <Button
@@ -40,7 +40,16 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToSolvedActivity()}"
-                android:text="@string/callSolvedAPI" />
+                android:text="@string/callSolvedAPI"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:onClick="@{()->viewModel.moveToLoginAct()}"
+                android:text="@string/login" />
 
         </LinearLayout>
 

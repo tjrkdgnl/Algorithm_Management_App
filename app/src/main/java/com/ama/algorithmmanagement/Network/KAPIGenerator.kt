@@ -7,8 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object
-KAPIGenerator {
+object KAPIGenerator {
     private lateinit var retrofit: Retrofit
     private val apiService: KAPIService by lazy {
         retrofit.create(KAPIService::class.java)

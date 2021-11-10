@@ -7,6 +7,7 @@ class KDefaultMainViewModel : ViewModel() {
 
     val moveToCallAPIAct = MutableLiveData<Boolean>(false)
     val moveToSolvedAct = MutableLiveData<Boolean>(false)
+    val moveToLoginAct = MutableLiveData<Boolean>(false)
 
     fun moveToCallAPIActivity() {
         moveToCallAPIAct.value = true;
@@ -14,6 +15,9 @@ class KDefaultMainViewModel : ViewModel() {
 
     fun moveToSolvedActivity() {
         moveToSolvedAct.value = true;
+    }
+    fun moveToLoginAct() {
+        moveToLoginAct.value = true;
     }
 
 }

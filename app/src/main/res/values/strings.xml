@@ -4,5 +4,6 @@
     <string name="solvedAlgorithmsQuery">solved_by:%s</string>
     <string name="callAPI">클래스번호 호출</string>
     <string name="callSolvedAPI">내가 푼 문제</string>
+    <string name="login">로그인</string>
 
 </resources>

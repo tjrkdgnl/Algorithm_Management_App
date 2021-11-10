@@ -1,14 +1,15 @@
 package com.ama.algorithmmanagement.Model
+
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class SolvedAlgorithms {
+data class SolvedAlgorithms(
     @SerializedName("count")
     @Expose
-    var count: Int? = null
+    var count: Int?,
 
     @SerializedName("items")
     @Expose
-    var problemList: MutableList<Problem>? = null
-}
+    var problemList: MutableList<Problem>?
+)

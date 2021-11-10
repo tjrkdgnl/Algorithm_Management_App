@@ -33,5 +33,13 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
                 mainViewModel.moveToCallAPIAct.value = false
             }
         })
+
+        mainViewModel.moveToLoginAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, KLoginActivity::class.java))
+                mainViewModel.moveToLoginAct.value = false
+            }
+        })
+
     }
 }

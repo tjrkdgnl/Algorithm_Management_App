@@ -4,40 +4,40 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class Problem {
+data class Problem(
     @SerializedName("problemId")
     @Expose
-    var problemId: Int? = null
+    var problemId: Int?,
 
     @SerializedName("titleKo")
     @Expose
-    var titleKo: String? = null
+    var titleKo: String?,
 
     @SerializedName("isSolvable")
     @Expose
-    var isSolvable: Boolean? = null
+    var isSolvable: Boolean?,
 
     @SerializedName("isPartial")
     @Expose
-    var isPartial: Boolean? = null
+    var isPartial: Boolean?,
 
     @SerializedName("acceptedUserCount")
     @Expose
-    var acceptedUserCount: Int? = null
+    var acceptedUserCount: Int?,
 
     @SerializedName("level")
     @Expose
-    var level: Int? = null
+    var level: Int?,
 
     @SerializedName("votedUserCount")
     @Expose
-    var votedUserCount: Int? = null
+    var votedUserCount: Int?,
 
     @SerializedName("isLevelLocked")
     @Expose
-    var isLevelLocked: Boolean? = null
+    var isLevelLocked: Boolean?,
 
     @SerializedName("averageTries")
     @Expose
-    var averageTries: Double? = null
-}
+    var averageTries: Double?
+)

@@ -6,7 +6,7 @@ import com.ama.algorithmmanagement.Network.KAPIService
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-class Repository() {
+class Repository {
 
     private val networkService = object : NetworkService() {
         override suspend fun getSolvedProblems(
