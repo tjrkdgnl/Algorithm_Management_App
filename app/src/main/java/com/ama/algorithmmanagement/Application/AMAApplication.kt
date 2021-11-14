@@ -8,11 +8,20 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AMAApplication : Application() {
-    lateinit var sharedPrefUtils: SharedPrefUtils
+    var sharedPrefUtils: SharedPrefUtils? = null
+
+    companion object {
+        lateinit var INSTANCE: AMAApplication
+            private set
+    }
+
 
     override fun onCreate() {
         super.onCreate()
+
+        INSTANCE = this
         sharedPrefUtils = SharedPrefUtils(this@AMAApplication)
+
 
         CoroutineScope(Dispatchers.Default).launch {
             Timber.plant(Timber.DebugTree())
