@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "25968473910",
+    "project_id": "algorithmmanagementapp",
+    "storage_bucket": "algorithmmanagementapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25968473910:android:b318214d66c39c97092597",
+        "android_client_info": {
+          "package_name": "com.ama.algorithmmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25968473910-dp7v231hne10dhi64i40b3qr6bojenak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ama.algorithmmanagement",
+            "certificate_hash": "a119bb6b73ca6217687d78a4f573aa751d579599"
+          }
+        },
+        {
+          "client_id": "25968473910-froku9sgk8tfbo9al97o489sggbtp9ks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx9vEkwyjOsPNRz9ib3edABx80ppOnK6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25968473910-froku9sgk8tfbo9al97o489sggbtp9ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
