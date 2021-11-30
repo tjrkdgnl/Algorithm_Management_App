@@ -31,8 +31,8 @@ class FakeRepository : BaseRepository {
         mSharedPrefUtils.setUserId(userId)
     }
 
-    fun checkUserInfo(userId: String, password: String) {
-        mFakeFirebaseReference.checkUserInfo(userId, password)
+    fun checkUserInfo(userId: String, password: String): Boolean {
+        return mFakeFirebaseReference.checkUserInfo(userId, password)
     }
 
     fun getuserInfo(): UserInfo? {
