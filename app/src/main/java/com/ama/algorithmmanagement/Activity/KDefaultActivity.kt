@@ -40,6 +40,5 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
                 mainViewModel.moveToLoginAct.value = false
             }
         })
-
     }
 }
