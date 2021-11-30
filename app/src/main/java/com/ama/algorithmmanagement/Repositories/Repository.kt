@@ -7,7 +7,7 @@ import com.ama.algorithmmanagement.Network.NetworkService
 
 class Repository : BaseRepository {
 
-    override val networkService = object : NetworkService() {
+    private val networkService = object : NetworkService() {
         override suspend fun getSolvedProblems(
             userId: String
         ): SolvedAlgorithms {

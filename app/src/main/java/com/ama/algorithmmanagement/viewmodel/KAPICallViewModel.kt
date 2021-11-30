@@ -34,6 +34,7 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun initList() {
         viewModelScope.launch {
             try {
+
                 _classList.value = KAPIGenerator.getInstance().getProblemsOfClass()
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
@@ -45,6 +46,7 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun getSolvedProblems() {
         viewModelScope.launch {
             try {
+
                 _solvedAlgorithms.value = repository.getSolvedProblems(
                     app.getString(R.string.solvedAlgorithmsQuery, "skjh0818")
                 )
