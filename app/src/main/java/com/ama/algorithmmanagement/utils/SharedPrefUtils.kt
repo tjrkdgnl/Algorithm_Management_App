@@ -1,26 +1,27 @@
 package com.ama.algorithmmanagement.utils
 
 import android.content.Context
+import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.R
 import timber.log.Timber
 
-class SharedPrefUtils(private val mContext: Context) {
+class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
     private val mSharedPreferences = mContext.getSharedPreferences("AMA_pref", Context.MODE_PRIVATE)
 
 
-    fun getUserIdFromLocal(): String? {
+    override fun getUserIdFromLocal(): String? {
         Timber.e(mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null))
         return mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null)
     }
 
-    fun delete() {
+    override fun delete() {
         with(mSharedPreferences.edit()) {
             remove(mContext.getString(R.string.prefGetUserId))
             commit()
         }
     }
 
-    fun setUserIdToLocal(userId: String) {
+    override fun setUserIdToLocal(userId: String) {
         with(mSharedPreferences.edit()) {
             putString(mContext.getString(R.string.prefGetUserId), userId)
             commit()

@@ -8,11 +8,9 @@ import com.ama.algorithmmanagement.Network.NetworkService
 import kotlinx.coroutines.delay
 
 class FakeRepository : BaseRepository {
-    private val fakeNetWorkDataProvider = FakeNetWorkDataProvider()
-    private val fakeFirebaseDataProvider = FakeFirebaseDataProvider()
-
+    private val mFakeNetWorkDataProvider = FakeNetWorkDataProvider()
+    private val mFakeFirebaseDataProvider = FakeFirebaseDataProvider()
     private val mSharedPrefUtils = AMAApplication.INSTANCE.sharedPrefUtils
-
 
     private val mNetworkService: NetworkService = object : NetworkService() {
         override suspend fun getSolvedProblems(
@@ -20,11 +18,12 @@ class FakeRepository : BaseRepository {
         ): SolvedAlgorithms {
             //fake network delay
             delay(1000)
-            return fakeNetWorkDataProvider.getSolvedAlgorithms()
+            return mFakeNetWorkDataProvider.getSolvedAlgorithms()
         }
     }
 
-    private val mFakeFirebaseReference = FakeFirebaseReference(fakeFirebaseDataProvider)
+    private val mFakeFirebaseReference =
+        FakeFirebaseReference(mFakeFirebaseDataProvider, mSharedPrefUtils)
 
     override suspend fun getSolvedProblems(userId: String): SolvedAlgorithms {
         return mNetworkService.getSolvedProblems(userId)

@@ -1,5 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
+import com.ama.algorithmmanagement.Model.DateInfos
+import com.ama.algorithmmanagement.Model.UserIdeaInfo
 import com.ama.algorithmmanagement.Model.UserInfo
 
 class FakeFirebaseDataProvider {
@@ -7,5 +9,12 @@ class FakeFirebaseDataProvider {
         mutableListOf()
     }
 
+    val dateSnapShot: MutableList<DateInfos> by lazy {
+        mutableListOf()
+    }
+
+    val ideaSnapShot: MutableList<UserIdeaInfo> by lazy {
+        mutableListOf()
+    }
 
 }

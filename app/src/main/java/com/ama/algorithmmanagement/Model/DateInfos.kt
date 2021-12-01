@@ -3,5 +3,5 @@ package com.ama.algorithmmanagement.Model
 data class DateInfos(
     val count: Int,
     val userId: String,
-    val dateList: List<DateInfo>
+    val dateList: MutableList<DateInfo>
 )

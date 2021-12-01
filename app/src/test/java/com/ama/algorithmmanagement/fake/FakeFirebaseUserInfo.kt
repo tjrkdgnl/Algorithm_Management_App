@@ -1,19 +1,20 @@
-package com.ama.algorithmmanagement.Repositories
+package com.ama.algorithmmanagement.fake
 
-import com.ama.algorithmmanagement.fake.FakeFirebaseDataProvider
-import com.ama.algorithmmanagement.fake.FakeFirebaseReference
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 class FakeFirebaseUserInfo {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
-    lateinit var fakeFirebaseDataProvider: FakeFirebaseDataProvider
+    lateinit var fakeSharedPreference: FakeSharedPreference
 
     @Before
     fun init() {
-        fakeFirebaseDataProvider = FakeFirebaseDataProvider()
-        fakeFirebaseReference = FakeFirebaseReference(fakeFirebaseDataProvider)
+        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference.setUserIdToLocal("skjh0818")
+
+        fakeFirebaseReference =
+            FakeFirebaseReference(FakeFirebaseDataProvider(), fakeSharedPreference)
     }
 
     @Test
