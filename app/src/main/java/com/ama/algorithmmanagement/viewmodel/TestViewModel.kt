@@ -1,7 +1,6 @@
 package com.ama.algorithmmanagement.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Model.UserInfo
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator

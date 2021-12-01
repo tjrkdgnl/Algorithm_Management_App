@@ -1,15 +1,19 @@
 package com.ama.algorithmmanagement.Repositories
 
+import com.ama.algorithmmanagement.fake.FakeFirebaseDataProvider
+import com.ama.algorithmmanagement.fake.FakeFirebaseReference
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 class FakeFirebaseUserInfo {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
+    lateinit var fakeFirebaseDataProvider: FakeFirebaseDataProvider
 
     @Before
     fun init() {
-        fakeFirebaseReference = FakeFirebaseReference()
+        fakeFirebaseDataProvider = FakeFirebaseDataProvider()
+        fakeFirebaseReference = FakeFirebaseReference(fakeFirebaseDataProvider)
     }
 
     @Test

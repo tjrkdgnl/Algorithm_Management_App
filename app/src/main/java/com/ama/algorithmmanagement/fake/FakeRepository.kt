@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Repositories
+package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
@@ -8,18 +8,23 @@ import com.ama.algorithmmanagement.Network.NetworkService
 import kotlinx.coroutines.delay
 
 class FakeRepository : BaseRepository {
+    private val fakeNetWorkDataProvider = FakeNetWorkDataProvider()
+    private val fakeFirebaseDataProvider = FakeFirebaseDataProvider()
+
+    private val mSharedPrefUtils = AMAApplication.INSTANCE.sharedPrefUtils
+
+
     private val mNetworkService: NetworkService = object : NetworkService() {
         override suspend fun getSolvedProblems(
             userId: String
         ): SolvedAlgorithms {
             //fake network delay
             delay(1000)
-            return DataProvider.getSolvedAlgorithms()
+            return fakeNetWorkDataProvider.getSolvedAlgorithms()
         }
     }
 
-    private val mFakeFirebaseReference = FakeFirebaseReference()
-    private val mSharedPrefUtils = AMAApplication.INSTANCE.sharedPrefUtils
+    private val mFakeFirebaseReference = FakeFirebaseReference(fakeFirebaseDataProvider)
 
     override suspend fun getSolvedProblems(userId: String): SolvedAlgorithms {
         return mNetworkService.getSolvedProblems(userId)
@@ -28,7 +33,7 @@ class FakeRepository : BaseRepository {
     fun setUserInfo(userId: String, password: String, fcmToken: String? = null) {
         mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)
         //로컬에 userId저장
-        mSharedPrefUtils.setUserId(userId)
+        mSharedPrefUtils.setUserIdToLocal(userId)
     }
 
     fun checkUserInfo(userId: String, password: String): Boolean {
@@ -36,7 +41,7 @@ class FakeRepository : BaseRepository {
     }
 
     fun getuserInfo(): UserInfo? {
-        return mSharedPrefUtils.getUserId()?.let { id ->
+        return mSharedPrefUtils.getUserIdFromLocal()?.let { id ->
             mFakeFirebaseReference.getUserInfo(id)
         }
     }

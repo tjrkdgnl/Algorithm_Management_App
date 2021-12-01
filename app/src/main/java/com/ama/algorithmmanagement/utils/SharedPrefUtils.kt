@@ -8,7 +8,7 @@ class SharedPrefUtils(private val mContext: Context) {
     private val mSharedPreferences = mContext.getSharedPreferences("AMA_pref", Context.MODE_PRIVATE)
 
 
-    fun getUserId(): String? {
+    fun getUserIdFromLocal(): String? {
         Timber.e(mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null))
         return mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null)
     }
@@ -20,7 +20,7 @@ class SharedPrefUtils(private val mContext: Context) {
         }
     }
 
-    fun setUserId(userId: String) {
+    fun setUserIdToLocal(userId: String) {
         with(mSharedPreferences.edit()) {
             putString(mContext.getString(R.string.prefGetUserId), userId)
             commit()

@@ -2,7 +2,6 @@ package com.ama.algorithmmanagement.Network
 
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
 import com.ama.algorithmmanagement.Model.SolvedAlgorithms
-import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 

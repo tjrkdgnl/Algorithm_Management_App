@@ -6,7 +6,6 @@ import com.ama.algorithmmanagement.viewmodel.TestViewModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -41,7 +40,10 @@ class FakeRepositoryTest {
 
         val userInfo = testViewModel.getUserInfo()
 
-        assertNotNull(userInfo)
+        assertEquals(userInfo?.userId,"skjh0818")
+        assertEquals(userInfo?.userPw,"myPwd")
+        assertEquals(userInfo?.fcmToken,null)
+
     }
 
     @Test

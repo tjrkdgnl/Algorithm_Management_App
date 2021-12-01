@@ -7,9 +7,7 @@ import com.ama.algorithmmanagement.Model.Problem
 import com.ama.algorithmmanagement.Model.SolvedAlgorithms
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.Repositories.Repository
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

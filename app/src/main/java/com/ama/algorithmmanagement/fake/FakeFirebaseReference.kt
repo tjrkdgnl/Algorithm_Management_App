@@ -1,19 +1,18 @@
-package com.ama.algorithmmanagement.Repositories
+package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Model.UserInfo
 import timber.log.Timber
 
-class FakeFirebaseReference {
-    val userInfos: MutableList<UserInfo> by lazy {
-        mutableListOf()
-    }
+class FakeFirebaseReference(private val fakeFirebaseDataProvider: FakeFirebaseDataProvider) {
 
     fun setUserInfo(userId: String, userPw: String, fcmToken: String?) {
-        userInfos.add(UserInfo(userId, userPw, fcmToken))
+        val userList = fakeFirebaseDataProvider.userSnapShot
+        userList.add(UserInfo(userId, userPw, fcmToken))
     }
 
     fun getUserInfo(userId: String): UserInfo? {
-        for (userInfo in userInfos) {
+        val userList = fakeFirebaseDataProvider.userSnapShot
+        for (userInfo in userList) {
             if (userInfo.userId == userId) {
                 return userInfo
             }
@@ -23,7 +22,9 @@ class FakeFirebaseReference {
     }
 
     fun checkUserInfo(userId: String, password: String): Boolean {
-        for (userInfo in userInfos) {
+        val userList = fakeFirebaseDataProvider.userSnapShot
+
+        for (userInfo in userList) {
             if (userInfo.userId == userId && userInfo.userPw == password) {
                 Timber.e("$userId 가 firebase에 존재합니다.")
                 return true;
@@ -32,4 +33,5 @@ class FakeFirebaseReference {
         Timber.e("$userId 가 firebase에 존재하지 않습니다.")
         return false
     }
+
 }

@@ -1,9 +1,9 @@
-package com.ama.algorithmmanagement.Repositories
+package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Model.Problem
 import com.ama.algorithmmanagement.Model.SolvedAlgorithms
 
-object DataProvider {
+class FakeNetWorkDataProvider {
 
     fun getSolvedAlgorithms(): SolvedAlgorithms {
         return SolvedAlgorithms(
@@ -14,4 +14,6 @@ object DataProvider {
             )
         )
     }
+
+
 }
