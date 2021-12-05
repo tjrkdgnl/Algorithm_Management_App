@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.fake
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.utils.DateUtils
-import com.ama.algorithmmanagement.utils.SharedPrefUtils
 import timber.log.Timber
+import java.lang.NullPointerException
 
 class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
@@ -12,6 +12,7 @@ class FakeFirebaseReference(
 ) {
 
     private val mUserId = mSharedPrefUtils.getUserIdFromLocal()
+    private val mTierType = mSharedPrefUtils.getTierType()
 
 
     fun setUserInfo(userId: String, userPw: String, fcmToken: String?) {
@@ -93,7 +94,7 @@ class FakeFirebaseReference(
                     if (ideainfos.problemId == problemId) {
                         problemCheck = true
                         ideainfos.ideaList.add(ideaInfo)
-                        ideaInfos.count++
+                        ideaInfos.count.plus(1)
                         return
                     }
                 }
@@ -105,7 +106,7 @@ class FakeFirebaseReference(
         }
 
         if (!userCheck) {
-            val userIdeaInfo = UserIdeaInfo(mUserId, mutableListOf(ideaInfos))
+            val userIdeaInfo = IdeaObject(mUserId, mutableListOf(ideaInfos))
             mFakeFirebaseDataProvider.ideaSnapShot.add(userIdeaInfo)
         }
     }
@@ -122,6 +123,50 @@ class FakeFirebaseReference(
 
             }
         }
+        return null
+    }
+
+
+    fun setComment(
+        problemId: Int,
+        comment: String
+    ): Result<Boolean> {
+        if (mUserId == null) {
+            return Result.failure(NullPointerException("userId가 존재하지 않습니다"))
+        }
+
+        if (mTierType == null) {
+            return Result.failure(NullPointerException("userTierType이 존재하지 않습니다"))
+        }
+
+        val commentId = mUserId + "RandomNumber"
+
+        val newCommentInfo =
+            CommentInfo(commentId, mUserId, mTierType, comment, DateUtils.createDate(), 0)
+
+        for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
+            if (commentObject.problemId == problemId) {
+                commentObject.commentList.add(newCommentInfo)
+
+                return Result.success(true)
+
+            }
+        }
+
+        val commentObject = CommentObject(1, problemId, mutableListOf(newCommentInfo))
+
+        mFakeFirebaseDataProvider.commentSnapShot.add(commentObject)
+
+        return Result.success(true)
+    }
+
+    fun getCommentObject(problemId: Int): CommentObject? {
+        for (commentinfo in mFakeFirebaseDataProvider.commentSnapShot) {
+            if (commentinfo.problemId == problemId) {
+                return commentinfo
+            }
+        }
+
         return null
     }
 

@@ -14,7 +14,7 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
         return mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null)
     }
 
-    override fun delete() {
+    override fun deleteToUserId() {
         with(mSharedPreferences.edit()) {
             remove(mContext.getString(R.string.prefGetUserId))
             commit()
@@ -26,5 +26,17 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
             putString(mContext.getString(R.string.prefGetUserId), userId)
             commit()
         }
+    }
+
+    override fun setTierType(tierType: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getTierType(): Int? {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteToTierType() {
+        TODO("Not yet implemented")
     }
 }

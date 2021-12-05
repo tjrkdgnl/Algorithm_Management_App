@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Model
 
-data class UserIdeaInfo(
+data class IdeaObject(
     val userId: String,
     val ideaInfosList: MutableList<IdeaInfos>
 )

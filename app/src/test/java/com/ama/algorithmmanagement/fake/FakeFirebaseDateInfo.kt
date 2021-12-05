@@ -30,7 +30,6 @@ class FakeFirebaseDateInfo {
 
         val dateInfoList = mutableListOf(DateInfo("2021.12.01"))
 
-
         assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.userId, "skjh0818")
         assertEquals(dateInfos?.dateList?.get(0),dateInfoList.get(0))

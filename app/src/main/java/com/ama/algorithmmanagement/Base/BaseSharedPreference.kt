@@ -5,8 +5,14 @@ interface BaseSharedPreference {
 
     fun getUserIdFromLocal(): String?
 
-    fun delete()
+    fun deleteToUserId()
 
     fun setUserIdToLocal(userId: String)
+
+    fun setTierType(tierType: Int)
+
+    fun getTierType(): Int?
+
+    fun deleteToTierType()
 
 }
