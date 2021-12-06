@@ -1,12 +1,15 @@
 package com.ama.algorithmmanagement.fake
 
+import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
 import timber.log.Timber
 import java.lang.NullPointerException
 
 class FakeFirebaseReference(
+    private val mApp: Application,
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
     private val mSharedPrefUtils: BaseSharedPreference
 ) {
@@ -127,19 +130,16 @@ class FakeFirebaseReference(
     }
 
 
-    fun setComment(
-        problemId: Int,
-        comment: String
-    ): Result<Boolean> {
+    fun setComment(problemId: Int, comment: String): Result<Boolean> {
         if (mUserId == null) {
-            return Result.failure(NullPointerException("userId가 존재하지 않습니다"))
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "userId")))
         }
 
         if (mTierType == null) {
-            return Result.failure(NullPointerException("userTierType이 존재하지 않습니다"))
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "tierType")))
         }
 
-        val commentId = mUserId + "RandomNumber"
+        val commentId = "RandomNumber"
 
         val newCommentInfo =
             CommentInfo(commentId, mUserId, mTierType, comment, DateUtils.createDate(), 0)
@@ -170,4 +170,45 @@ class FakeFirebaseReference(
         return null
     }
 
+    fun setChildComment(commentId: String?, comment: String): Result<Boolean> {
+        if (mUserId == null)
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "userId")))
+
+        if (mTierType == null) {
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "tierType")))
+        }
+
+        if (commentId == null) {
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "commentId")))
+        }
+
+        val childCommentInfo = ChildCommentInfo(mUserId, mTierType, comment, DateUtils.createDate())
+
+
+        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSanpShot) {
+            if (childCommentObject.commentId == commentId) {
+                childCommentObject.commentChildList.add(childCommentInfo)
+                return Result.success(true)
+            }
+        }
+
+        val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
+        mFakeFirebaseDataProvider.childCommentSanpShot.add(childCommentObject)
+
+        return Result.success(true)
+    }
+
+
+    fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+        if (commentId == null)
+            return null
+
+        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSanpShot) {
+            if (childCommentObject.commentId == commentId) {
+                return childCommentObject
+            }
+        }
+
+        return null
+    }
 }

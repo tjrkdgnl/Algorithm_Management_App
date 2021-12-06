@@ -1,16 +1,28 @@
 package com.ama.algorithmmanagement.Repositories
 
+import android.app.Application
 import com.ama.algorithmmanagement.fake.FakeRepository
 
 object RepositoryLocator {
 
-    private val repository = Repository()
+    lateinit var mRepository: Repository
 
-    private val fakeRepository = FakeRepository()
+    lateinit var mFakeRepository: FakeRepository
 
 
+    fun getRepository(): Repository {
+        if (this::mRepository.isInitialized) {
+            mRepository = Repository()
+        }
+        return mRepository
+    }
 
-    fun getRepository() = repository
-    fun getFakeRepository() = fakeRepository
+    fun getFakeRepository(app: Application): FakeRepository {
+        if (this::mFakeRepository.isInitialized) {
+            mFakeRepository = FakeRepository(app)
+        }
+
+        return mFakeRepository
+    }
 
 }

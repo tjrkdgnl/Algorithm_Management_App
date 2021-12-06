@@ -1,12 +1,17 @@
 package com.ama.algorithmmanagement.fake
 
 
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.DateInfo
 import org.junit.Assert.*
 import org.junit.Before
 
 import org.junit.Test
+import org.junit.runner.RunWith
 
+
+@RunWith(AndroidJUnit4::class)
 class FakeFirebaseDateInfo {
 
     lateinit var fakeFirebaseReference: FakeFirebaseReference
@@ -18,7 +23,11 @@ class FakeFirebaseDateInfo {
         fakeSharedPreference.setUserIdToLocal("skjh0818")
 
         fakeFirebaseReference =
-            FakeFirebaseReference(FakeFirebaseDataProvider(), fakeSharedPreference)
+            FakeFirebaseReference(
+                ApplicationProvider.getApplicationContext(),
+                FakeFirebaseDataProvider(),
+                fakeSharedPreference
+            )
     }
 
 
@@ -32,6 +41,6 @@ class FakeFirebaseDateInfo {
 
         assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.userId, "skjh0818")
-        assertEquals(dateInfos?.dateList?.get(0),dateInfoList.get(0))
+        assertEquals(dateInfos?.dateList?.get(0), dateInfoList.get(0))
     }
 }

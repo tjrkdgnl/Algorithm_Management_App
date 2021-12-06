@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Model.UserInfo
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
+import com.ama.algorithmmanagement.fake.FakeRepository
 
 
 class TestViewModel {
-    private val repository = RepositoryLocator.getFakeRepository()
+    private lateinit var repository :FakeRepository
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> = _userId

@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import android.app.Application
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.SolvedAlgorithms
@@ -7,7 +8,7 @@ import com.ama.algorithmmanagement.Model.UserInfo
 import com.ama.algorithmmanagement.Network.NetworkService
 import kotlinx.coroutines.delay
 
-class FakeRepository : BaseRepository {
+class FakeRepository(private val mApplication: Application) : BaseRepository {
     private val mFakeNetWorkDataProvider = FakeNetWorkDataProvider()
     private val mFakeFirebaseDataProvider = FakeFirebaseDataProvider()
     private val mSharedPrefUtils = AMAApplication.INSTANCE.sharedPrefUtils
@@ -23,7 +24,7 @@ class FakeRepository : BaseRepository {
     }
 
     private val mFakeFirebaseReference =
-        FakeFirebaseReference(mFakeFirebaseDataProvider, mSharedPrefUtils)
+        FakeFirebaseReference(mApplication, mFakeFirebaseDataProvider, mSharedPrefUtils)
 
     override suspend fun getSolvedProblems(userId: String): SolvedAlgorithms {
         return mNetworkService.getSolvedProblems(userId)

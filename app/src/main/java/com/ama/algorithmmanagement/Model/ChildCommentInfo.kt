@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Model
 
-data class CommentChildInfo(
+data class ChildCommentInfo(
     val userId: String,
     val tierType: Int,
     val comment: String,

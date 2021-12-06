@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
-    private val repository = RepositoryLocator.getFakeRepository()
+    private val repository = RepositoryLocator.getFakeRepository(app)
 
     private val _classList = MutableLiveData<List<KProblemsOfClass>>()
     val classList: LiveData<List<KProblemsOfClass>>

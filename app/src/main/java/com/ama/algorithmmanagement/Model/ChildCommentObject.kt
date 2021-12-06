@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.Model
 
-data class CommentChildInfos(
+data class ChildCommentObject(
     val count: Int,
     val commentId: String,
-    val commentChildList: List<CommentChildInfo>
+    val commentChildList: MutableList<ChildCommentInfo>
 )

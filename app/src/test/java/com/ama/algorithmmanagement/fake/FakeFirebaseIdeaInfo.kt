@@ -1,12 +1,16 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.IdeaInfo
 import org.junit.Assert.*
 import org.junit.Before
 
 import org.junit.Test
-import timber.log.Timber
+import org.junit.runner.RunWith
 
+
+@RunWith(AndroidJUnit4::class)
 class FakeFirebaseIdeaInfo {
 
     lateinit var fakeFirebaseReference: FakeFirebaseReference
@@ -18,7 +22,11 @@ class FakeFirebaseIdeaInfo {
         fakeSharedPreference.setUserIdToLocal("skjh0818")
 
         fakeFirebaseReference =
-            FakeFirebaseReference(FakeFirebaseDataProvider(), fakeSharedPreference)
+            FakeFirebaseReference(
+                ApplicationProvider.getApplicationContext(),
+                FakeFirebaseDataProvider(),
+                fakeSharedPreference
+            )
     }
 
 

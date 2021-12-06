@@ -1,11 +1,17 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.TestLifecycleApplication
 import java.lang.NullPointerException
 
+
+@RunWith(AndroidJUnit4::class)
 class FakeFirebaseComment {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
@@ -18,7 +24,11 @@ class FakeFirebaseComment {
         fakeSharedPreference.setTierType(1)
 
         fakeFirebaseReference =
-            FakeFirebaseReference(FakeFirebaseDataProvider(), fakeSharedPreference)
+            FakeFirebaseReference(
+                ApplicationProvider.getApplicationContext(),
+                FakeFirebaseDataProvider(),
+                fakeSharedPreference
+            )
     }
 
 
@@ -61,8 +71,23 @@ class FakeFirebaseComment {
         assertEquals(object1?.commentList?.size, 1)
 
         assertEquals(object2?.problemId, 2222)
-        assertEquals(object2?.commentList?.get(0)?.comment, "what?")
+        assertEquals(object2?.commentList?.get(0)?.comment, "how?")
         assertEquals(object2?.commentList?.size, 1)
+    }
+
+    @Test
+    fun getCommentInfo_moreThanComment() {
+        fakeFirebaseReference.setComment(1111, "what?")
+        fakeFirebaseReference.setComment(1111, "why?")
+
+        val object1 = fakeFirebaseReference.getCommentObject(1111)
+
+        assertEquals(object1?.problemId, 1111)
+        assertEquals(object1?.commentList?.get(0)?.comment, "what?")
+        assertEquals(object1?.commentList?.size, 2)
+
+        assertEquals(object1?.commentList?.get(1)?.comment, "why?")
+
     }
 
 }
