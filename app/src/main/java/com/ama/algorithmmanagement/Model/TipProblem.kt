@@ -4,6 +4,5 @@ data class TipProblem(
     val problem: TaggedProblem,
     val isShow: Boolean,
     val tipComment: String?,
-    val date: String,
-    val problemType: String
+    val date: String
 )

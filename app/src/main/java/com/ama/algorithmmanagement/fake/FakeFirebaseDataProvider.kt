@@ -19,7 +19,11 @@ class FakeFirebaseDataProvider {
         mutableListOf()
     }
 
-    val childCommentSanpShot: MutableList<ChildCommentObject> by lazy {
+    val childCommentSnapShot: MutableList<ChildCommentObject> by lazy {
+        mutableListOf()
+    }
+
+    val tipProblemSnapShot : MutableList<TippingProblemObject> by lazy{
         mutableListOf()
     }
 

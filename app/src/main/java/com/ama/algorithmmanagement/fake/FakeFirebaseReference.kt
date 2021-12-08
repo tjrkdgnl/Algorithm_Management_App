@@ -16,6 +16,7 @@ class FakeFirebaseReference(
 
     private val mUserId = mSharedPrefUtils.getUserIdFromLocal()
     private val mTierType = mSharedPrefUtils.getTierType()
+    private val mDate = DateUtils.createDate()
 
 
     fun setUserInfo(userId: String, userPw: String, fcmToken: String?) {
@@ -49,8 +50,7 @@ class FakeFirebaseReference(
     }
 
     fun setDateInfo() {
-        val date = DateUtils.createDate()
-        val dateInfo = DateInfo(date)
+        val dateInfo = DateInfo(mDate)
 
         if (mUserId == null) {
             return
@@ -78,9 +78,8 @@ class FakeFirebaseReference(
 
 
     fun setIdeaInfo(url: String?, comment: String?, problemId: Int) {
-        val date = DateUtils.createDate()
-        val ideaInfo = IdeaInfo(url, comment, date)
-        val ideaInfos = IdeaInfos(1, problemId, mutableListOf(IdeaInfo(url, comment, date)))
+        val ideaInfo = IdeaInfo(url, comment, mDate)
+        val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
 
         var userCheck = false
         var problemCheck = false
@@ -132,17 +131,31 @@ class FakeFirebaseReference(
 
     fun setComment(problemId: Int, comment: String): Result<Boolean> {
         if (mUserId == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "userId")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
         }
 
         if (mTierType == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "tierType")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "tierType"
+                    )
+                )
+            )
         }
 
         val commentId = "RandomNumber"
 
         val newCommentInfo =
-            CommentInfo(commentId, mUserId, mTierType, comment, DateUtils.createDate(), 0)
+            CommentInfo(commentId, mUserId, mTierType, comment, mDate, 0)
 
         for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentObject.problemId == problemId) {
@@ -172,20 +185,41 @@ class FakeFirebaseReference(
 
     fun setChildComment(commentId: String?, comment: String): Result<Boolean> {
         if (mUserId == null)
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "userId")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
 
         if (mTierType == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "tierType")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "tierType"
+                    )
+                )
+            )
         }
 
         if (commentId == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull, "commentId")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "commentId"
+                    )
+                )
+            )
         }
 
-        val childCommentInfo = ChildCommentInfo(mUserId, mTierType, comment, DateUtils.createDate())
+        val childCommentInfo = ChildCommentInfo(mUserId, mTierType, comment, mDate)
 
 
-        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSanpShot) {
+        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 childCommentObject.commentChildList.add(childCommentInfo)
                 return Result.success(true)
@@ -193,7 +227,7 @@ class FakeFirebaseReference(
         }
 
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
-        mFakeFirebaseDataProvider.childCommentSanpShot.add(childCommentObject)
+        mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 
         return Result.success(true)
     }
@@ -203,12 +237,52 @@ class FakeFirebaseReference(
         if (commentId == null)
             return null
 
-        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSanpShot) {
+        for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 return childCommentObject
             }
         }
 
+        return null
+    }
+
+    fun setTippingProblem(
+        problem: TaggedProblem,
+        isShow: Boolean,
+        tipComment: String?
+    ): Result<Boolean> {
+        if (mUserId == null) {
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
+        }
+
+        val tipProblem = TipProblem(problem, isShow, tipComment, mDate)
+
+        for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
+            if (tipProblemObject.userId == mUserId) {
+                tipProblemObject.problemList.add(tipProblem)
+                return Result.success(true)
+            }
+        }
+
+        val tipProblemObject = TippingProblemObject(1, mUserId, mutableListOf(tipProblem))
+        mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
+
+        return Result.success(true)
+    }
+
+    fun getTippingProblem(): TippingProblemObject? {
+        for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
+            if (tipProblemObject.userId == mUserId) {
+                return tipProblemObject
+            }
+        }
         return null
     }
 }

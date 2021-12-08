@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.Model
 
-data class TippingProblems(
+data class TippingProblemObject(
     val count: Int,
     val userId: String,
-    val problemList: List<TipProblem>
+    val problemList: MutableList<TipProblem>
 ) {
 
 }
