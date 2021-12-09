@@ -7,7 +7,7 @@ class FakeFirebaseDataProvider {
         mutableListOf()
     }
 
-    val dateSnapShot: MutableList<DateInfos> by lazy {
+    val dateSnapShot: MutableList<DateInfoObject> by lazy {
         mutableListOf()
     }
 

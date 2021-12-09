@@ -1,8 +1,11 @@
 package com.ama.algorithmmanagement.Repositories
 
+import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.core.app.ApplicationProvider
+import com.ama.algorithmmanagement.fake.*
 import com.ama.algorithmmanagement.utils.getOrAwaitValue
-import com.ama.algorithmmanagement.viewmodel.TestViewModel
+import com.ama.algorithmmanagement.viewmodel.test.TestViewModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,7 +22,14 @@ class FakeRepositoryTest {
 
     @Before
     fun init() {
-        testViewModel = TestViewModel()
+        val context: Application = ApplicationProvider.getApplicationContext()
+        val fakeFirebaseReference = FakeFirebaseReference(
+            context,
+            FakeFirebaseDataProvider(), FakeSharedPreference()
+        )
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+
+        testViewModel = TestViewModel(FakeRepository(fakeFirebaseReference, fakeNetworkService))
     }
 
 
@@ -40,9 +50,9 @@ class FakeRepositoryTest {
 
         val userInfo = testViewModel.getUserInfo()
 
-        assertEquals(userInfo?.userId,"skjh0818")
-        assertEquals(userInfo?.userPw,"myPwd")
-        assertEquals(userInfo?.fcmToken,null)
+        assertEquals(userInfo?.userId, "skjh0818")
+        assertEquals(userInfo?.userPw, "myPwd")
+        assertEquals(userInfo?.fcmToken, null)
 
     }
 
@@ -57,14 +67,12 @@ class FakeRepositoryTest {
     fun checkUserInfo_exist_returnTrue() {
         testViewModel.setUserInfo()
 
-        assertTrue(testViewModel.checkUserInfo("skjh0818","myPwd"))
+        assertTrue(testViewModel.checkUserInfo("skjh0818", "myPwd"))
     }
 
     @Test
     fun checkUserInfo_dontExist_returnFalse() {
 
-        assertFalse(testViewModel.checkUserInfo("skjh0818","myPwd"))
+        assertFalse(testViewModel.checkUserInfo("skjh0818", "myPwd"))
     }
-
-
 }

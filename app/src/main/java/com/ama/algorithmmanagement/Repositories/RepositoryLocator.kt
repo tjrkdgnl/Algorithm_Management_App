@@ -1,13 +1,14 @@
 package com.ama.algorithmmanagement.Repositories
 
 import android.app.Application
-import com.ama.algorithmmanagement.fake.FakeRepository
+import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.fake.*
 
 object RepositoryLocator {
 
     lateinit var mRepository: Repository
 
-    lateinit var mFakeRepository: FakeRepository
+    private lateinit var mFakeRepository: FakeRepository
 
 
     fun getRepository(): Repository {
@@ -19,7 +20,11 @@ object RepositoryLocator {
 
     fun getFakeRepository(app: Application): FakeRepository {
         if (this::mFakeRepository.isInitialized) {
-            mFakeRepository = FakeRepository(app)
+            val firebaseReference =
+                FakeFirebaseReference(app, FakeFirebaseDataProvider(), FakeSharedPreference())
+            val networkService = FakeNetworkService(FakeNetWorkDataProvider())
+
+            mFakeRepository = FakeRepository(firebaseReference, networkService)
         }
 
         return mFakeRepository

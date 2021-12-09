@@ -23,12 +23,14 @@ class FakeFirebaseReference(
         val userList = mFakeFirebaseDataProvider.userSnapShot
 
         userList.add(UserInfo(userId, userPw, fcmToken))
+
+        mSharedPrefUtils.setUserIdToLocal(userId)
     }
 
-    fun getUserInfo(userId: String): UserInfo? {
+    fun getUserInfo(): UserInfo? {
         val userList = mFakeFirebaseDataProvider.userSnapShot
         for (userInfo in userList) {
-            if (userInfo.userId == userId) {
+            if (userInfo.userId == mUserId) {
                 return userInfo
             }
         }
@@ -49,25 +51,26 @@ class FakeFirebaseReference(
         return false
     }
 
-    fun setDateInfo() {
+    fun setDateInfo() :Result<Boolean> {
         val dateInfo = DateInfo(mDate)
 
         if (mUserId == null) {
-            return
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull,"userId")))
         }
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == mUserId) {
                 dateInfos.dateList.add(dateInfo)
-                return
+                return Result.success(true)
             }
         }
 
-        val dateInfos = DateInfos(1, mUserId, mutableListOf(dateInfo))
+        val dateInfos = DateInfoObject(1, mUserId, mutableListOf(dateInfo))
         mFakeFirebaseDataProvider.dateSnapShot.add(dateInfos)
+        return Result.success(true)
     }
 
-    fun getDateInfos(): DateInfos? {
+    fun getDateInfos(): DateInfoObject? {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == mUserId) {
                 return dateInfos
@@ -77,40 +80,33 @@ class FakeFirebaseReference(
     }
 
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int) {
+    fun setIdeaInfo(url: String?, comment: String?, problemId: Int) :Result<Boolean> {
+        if (mUserId == null) {
+            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull,"userId")))
+        }
+
         val ideaInfo = IdeaInfo(url, comment, mDate)
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
 
-        var userCheck = false
-        var problemCheck = false
+        for (ideaObject in mFakeFirebaseDataProvider.ideaSnapShot) {
+            if (ideaObject.userId == mUserId) {
 
-        if (mUserId == null) {
-            return
-        }
-
-        for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
-            if (userIdeaInfo.userId == mUserId) {
-                userCheck = true
-
-                for (ideainfos in userIdeaInfo.ideaInfosList) {
+                for (ideainfos in ideaObject.ideaInfosList) {
                     if (ideainfos.problemId == problemId) {
-                        problemCheck = true
                         ideainfos.ideaList.add(ideaInfo)
-                        ideaInfos.count.plus(1)
-                        return
+                        return Result.success(true)
                     }
                 }
 
-                if (!problemCheck) {
-                    userIdeaInfo.ideaInfosList.add(ideaInfos)
-                }
+                ideaObject.ideaInfosList.add(ideaInfos)
+                return Result.success(true)
             }
         }
 
-        if (!userCheck) {
-            val userIdeaInfo = IdeaObject(mUserId, mutableListOf(ideaInfos))
-            mFakeFirebaseDataProvider.ideaSnapShot.add(userIdeaInfo)
-        }
+        val ideaObject = IdeaObject(mUserId, mutableListOf(ideaInfos))
+        mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
+
+        return Result.success(true)
     }
 
     fun getIdeaInfos(problemId: Int): IdeaInfos? {
@@ -127,7 +123,6 @@ class FakeFirebaseReference(
         }
         return null
     }
-
 
     fun setComment(problemId: Int, comment: String): Result<Boolean> {
         if (mUserId == null) {

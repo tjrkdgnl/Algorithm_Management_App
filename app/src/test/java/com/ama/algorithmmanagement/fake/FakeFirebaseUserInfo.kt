@@ -29,7 +29,7 @@ class FakeFirebaseUserInfo {
     fun getUserInfo_exist_returnUserInfo() {
         fakeFirebaseReference.setUserInfo("skjh0818", "myPassword", null)
 
-        val userInfo = fakeFirebaseReference.getUserInfo("skjh0818")
+        val userInfo = fakeFirebaseReference.getUserInfo()
 
         assertEquals(userInfo?.userId, "skjh0818")
         assertEquals(userInfo?.userPw, "myPassword")
@@ -38,7 +38,7 @@ class FakeFirebaseUserInfo {
 
     @Test
     fun getUserInfo_empty_returnNull() {
-        val userInfo = fakeFirebaseReference.getUserInfo("skjh0818")
+        val userInfo = fakeFirebaseReference.getUserInfo()
 
         assertNull(userInfo)
     }

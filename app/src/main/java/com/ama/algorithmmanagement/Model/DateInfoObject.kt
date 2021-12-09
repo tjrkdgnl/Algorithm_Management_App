@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Model
 
-data class DateInfos(
+data class DateInfoObject(
     val count: Int,
     val userId: String,
     val dateList: MutableList<DateInfo>
