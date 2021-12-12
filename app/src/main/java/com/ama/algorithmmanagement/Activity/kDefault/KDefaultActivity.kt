@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity
+package com.ama.algorithmmanagement.Activity.kDefault
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.Fragment.MainFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultActivityMainBinding
-import com.ama.algorithmmanagement.viewmodel.KDefaultMainViewModel
+import com.ama.algorithmmanagement.viewmodel.kDefault.KDefaultMainViewModel
 
 class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.default_activity_main) {
     private lateinit var mainViewModel: KDefaultMainViewModel

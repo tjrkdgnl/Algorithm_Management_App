@@ -9,8 +9,20 @@ class FakeRepository(
     private val mBaseNetworkService: BaseNetworkService
 ) : BaseRepository {
 
-    override suspend fun getSolvedProblems(userId: String): SolvedAlgorithms {
+    override suspend fun getSolvedProblems(userId: String): Problems {
         return mBaseNetworkService.getSolvedProblems(userId)
+    }
+
+    override suspend fun getSearchProblemList(problemId: String): Problems {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserStats(userId: String): List<Stats> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+        TODO("Not yet implemented")
     }
 
     override fun setUserInfo(userId: String, password: String, fcmToken: String?) {

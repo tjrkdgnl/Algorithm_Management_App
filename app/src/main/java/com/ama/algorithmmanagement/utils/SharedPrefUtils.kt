@@ -39,4 +39,12 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
     override fun deleteToTierType() {
         TODO("Not yet implemented")
     }
+
+    override fun setSolvedacToken(solvedacToken: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSolvedacToken(): String {
+        TODO("Not yet implemented")
+    }
 }

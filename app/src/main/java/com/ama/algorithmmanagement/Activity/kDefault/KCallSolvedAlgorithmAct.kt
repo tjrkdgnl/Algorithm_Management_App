@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity
+package com.ama.algorithmmanagement.Activity.kDefault
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -6,7 +6,7 @@ import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
 import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultActivitySolvedProblemsBinding
-import com.ama.algorithmmanagement.viewmodel.KAPICallViewModel
+import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
 
 class KCallSolvedAlgorithmAct :
     KBaseActivity<DefaultActivitySolvedProblemsBinding>(R.layout.default_activity_solved_problems) {

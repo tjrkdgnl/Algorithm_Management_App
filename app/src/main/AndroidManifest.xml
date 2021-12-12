@@ -14,18 +14,18 @@
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Activity.KDefaultActivity">
+        <activity android:name=".Activity.kDefault.KDefaultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.KCallAPIActivity" />
+        <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
-        <activity android:name=".Activity.KCallSolvedAlgorithmAct" />
+        <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
 
-        <activity android:name=".Activity.KLoginActivity" />
+        <activity android:name=".Activity.kDefault.KLoginActivity" />
 
     </application>
 

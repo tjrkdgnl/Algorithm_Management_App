@@ -5,6 +5,7 @@ import com.ama.algorithmmanagement.Base.BaseSharedPreference
 class FakeSharedPreference : BaseSharedPreference {
     private var mUserId: String? = null
     private var mTierType: Int? = null
+    private var mSolvedacToken :String? =null
 
     override fun getUserIdFromLocal(): String? {
         return mUserId
@@ -28,6 +29,14 @@ class FakeSharedPreference : BaseSharedPreference {
 
     override fun deleteToTierType() {
         mTierType = null
+    }
+
+    override fun setSolvedacToken(solvedacToken: String) {
+        mSolvedacToken = solvedacToken
+    }
+
+    override fun getSolvedacToken(): String? {
+        return mSolvedacToken
     }
 
 

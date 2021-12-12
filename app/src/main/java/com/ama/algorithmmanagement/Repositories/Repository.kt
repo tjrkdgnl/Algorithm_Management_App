@@ -8,16 +8,38 @@ import com.ama.algorithmmanagement.Network.BaseNetworkService
 class Repository : BaseRepository {
 
     private val networkService = object : BaseNetworkService {
-        override suspend fun getSolvedProblems(
-            userId: String
-        ): SolvedAlgorithms {
-            return KAPIGenerator.getInstance().getSolvedProblemList(userId)
+        override suspend fun getSolvedProblems(userId: String): Problems {
+            return KAPIGenerator.getInstance().getProblems(userId)
+        }
+
+        override suspend fun getUserStats(userId: String): List<Stats> {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun getSearchProblemList(problemId: String): Problems {
+            TODO("Not yet implemented")
         }
     }
 
 
-    override suspend fun getSolvedProblems(userId: String): SolvedAlgorithms {
+    override suspend fun getSolvedProblems(userId: String): Problems {
         return networkService.getSolvedProblems(userId)
+    }
+
+    override suspend fun getSearchProblemList(problemId: String): Problems {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserStats(userId: String): List<Stats> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+        TODO("Not yet implemented")
     }
 
     override fun setUserInfo(userId: String, password: String, fcmToken: String?) {

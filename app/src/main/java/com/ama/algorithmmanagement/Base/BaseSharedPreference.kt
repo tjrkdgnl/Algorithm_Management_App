@@ -15,4 +15,8 @@ interface BaseSharedPreference {
 
     fun deleteToTierType()
 
+    fun setSolvedacToken(solvedacToken:String)
+
+    fun getSolvedacToken(): String?
+
 }

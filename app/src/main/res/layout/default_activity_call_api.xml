@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KAPICallViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
