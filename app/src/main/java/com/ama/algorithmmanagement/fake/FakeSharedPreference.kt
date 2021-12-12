@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.Model.Problems
 
 class FakeSharedPreference : BaseSharedPreference {
     private var mUserId: String? = null
@@ -39,5 +40,12 @@ class FakeSharedPreference : BaseSharedPreference {
         return mSolvedacToken
     }
 
+    override fun setSolvedProblems(solvedProblem: Problems) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSolvedProblems(): Problems? {
+        TODO("Not yet implemented")
+    }
 
 }

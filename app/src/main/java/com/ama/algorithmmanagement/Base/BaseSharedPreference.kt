@@ -1,5 +1,8 @@
 package com.ama.algorithmmanagement.Base
 
+import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.Model.TaggedProblem
+
 
 interface BaseSharedPreference {
 
@@ -18,5 +21,9 @@ interface BaseSharedPreference {
     fun setSolvedacToken(solvedacToken:String)
 
     fun getSolvedacToken(): String?
+
+    fun setSolvedProblems(solvedProblem:Problems)
+
+    fun getSolvedProblems():Problems?
 
 }

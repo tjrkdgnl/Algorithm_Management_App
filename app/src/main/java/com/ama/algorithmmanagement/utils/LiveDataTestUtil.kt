@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.utils
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -34,4 +35,22 @@ fun <T> LiveData<T>.getOrAwaitValue(
     }
 
     return data as T
+}
+
+fun <T, K, R> combineWith(
+    firstLiveData: LiveData<T>,
+    secondLiveData: LiveData<K>,
+    block: (T?, K?) -> R
+): LiveData<R> {
+    val result = MediatorLiveData<R>()
+
+    result.addSource(firstLiveData) {
+        result.value = block(firstLiveData.value, secondLiveData.value)
+    }
+
+    result.addSource(secondLiveData) {
+        result.value = block(firstLiveData.value, secondLiveData.value)
+    }
+
+    return result
 }

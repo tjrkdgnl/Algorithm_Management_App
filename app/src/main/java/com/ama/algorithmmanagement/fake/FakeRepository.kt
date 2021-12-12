@@ -53,7 +53,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getIdeaInfos(problemId)
     }
 
-    override fun setComment(problemId: Int, comment: String): Result<Boolean> {
+    override fun setComment(problemId: Int, comment: String): Result<CommentInfo> {
         return mFakeFirebaseReference.setComment(problemId, comment)
     }
 
@@ -61,11 +61,11 @@ class FakeRepository(
        return mFakeFirebaseReference.getCommentObject(problemId)
     }
 
-    override fun setChildComment(commentId: String?, comment: String): Result<Boolean> {
+    override fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo> {
         return mFakeFirebaseReference.setChildComment(commentId, comment)
     }
 
-    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+    override fun getChildCommentObject(commentId: String): ChildCommentObject? {
         return mFakeFirebaseReference.getChildCommentObject(commentId)
     }
 

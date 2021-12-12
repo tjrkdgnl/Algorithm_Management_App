@@ -70,7 +70,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setComment(problemId: Int, comment: String): Result<Boolean> {
+    override fun setComment(problemId: Int, comment: String): Result<CommentInfo> {
         TODO("Not yet implemented")
     }
 
@@ -78,11 +78,11 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setChildComment(commentId: String?, comment: String): Result<Boolean> {
+    override fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo> {
         TODO("Not yet implemented")
     }
 
-    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+    override fun getChildCommentObject(commentId: String): ChildCommentObject? {
         TODO("Not yet implemented")
     }
 

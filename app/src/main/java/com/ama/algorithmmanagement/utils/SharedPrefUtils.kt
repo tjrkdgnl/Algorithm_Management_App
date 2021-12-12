@@ -2,6 +2,7 @@ package com.ama.algorithmmanagement.utils
 
 import android.content.Context
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.Model.Problems
 import com.ama.algorithmmanagement.R
 import timber.log.Timber
 
@@ -45,6 +46,14 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
     }
 
     override fun getSolvedacToken(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun setSolvedProblems(solvedProblem: Problems) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSolvedProblems(): Problems? {
         TODO("Not yet implemented")
     }
 }

@@ -27,13 +27,13 @@ interface BaseRepository {
 
     fun getIdeaInfos(problemId: Int): IdeaInfos?
 
-    fun setComment(problemId: Int, comment: String): Result<Boolean>
+    fun setComment(problemId: Int, comment: String): Result<CommentInfo>
 
     fun getCommentObject(problemId: Int): CommentObject?
 
-    fun setChildComment(commentId: String?, comment: String): Result<Boolean>
+    fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo>
 
-    fun getChildCommentObject(commentId: String?): ChildCommentObject?
+    fun getChildCommentObject(commentId: String): ChildCommentObject?
 
     fun setTippingProblem(
         problem: TaggedProblem,

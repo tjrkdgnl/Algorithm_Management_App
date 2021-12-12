@@ -124,7 +124,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    fun setComment(problemId: Int, comment: String): Result<Boolean> {
+    fun setComment(problemId: Int, comment: String): Result<CommentInfo> {
         if (mUserId == null) {
             return Result.failure(
                 NullPointerException(
@@ -156,7 +156,7 @@ class FakeFirebaseReference(
             if (commentObject.problemId == problemId) {
                 commentObject.commentList.add(newCommentInfo)
 
-                return Result.success(true)
+                return Result.success(newCommentInfo)
 
             }
         }
@@ -165,7 +165,7 @@ class FakeFirebaseReference(
 
         mFakeFirebaseDataProvider.commentSnapShot.add(commentObject)
 
-        return Result.success(true)
+        return Result.success(newCommentInfo)
     }
 
     fun getCommentObject(problemId: Int): CommentObject? {
@@ -178,7 +178,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    fun setChildComment(commentId: String?, comment: String): Result<Boolean> {
+    fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo> {
         if (mUserId == null)
             return Result.failure(
                 NullPointerException(
@@ -200,31 +200,20 @@ class FakeFirebaseReference(
             )
         }
 
-        if (commentId == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "commentId"
-                    )
-                )
-            )
-        }
-
         val childCommentInfo = ChildCommentInfo(mUserId, mTierType, comment, mDate)
 
 
         for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 childCommentObject.commentChildList.add(childCommentInfo)
-                return Result.success(true)
+                return Result.success(childCommentInfo)
             }
         }
 
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
         mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 
-        return Result.success(true)
+        return Result.success(childCommentInfo)
     }
 
 
