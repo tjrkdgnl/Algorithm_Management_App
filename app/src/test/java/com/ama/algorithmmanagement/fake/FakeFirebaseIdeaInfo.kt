@@ -18,7 +18,7 @@ class FakeFirebaseIdeaInfo {
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
         fakeSharedPreference.setUserIdToLocal("skjh0818")
 
         fakeFirebaseReference =
@@ -32,11 +32,14 @@ class FakeFirebaseIdeaInfo {
 
     @Test
     fun getIdeaInfos_exist_userId_returnIdeaInfos() {
+        //given
         fakeFirebaseReference.setIdeaInfo(null, "이건 dp로 풀어야해", 1111)
 
+        //when
         val ideaInfos = fakeFirebaseReference.getIdeaInfos(1111)
         val ideaInfo = ideaInfos?.ideaList?.get(0)
 
+        //then
         assertEquals(ideaInfos?.problemId, 1111)
         assertEquals(ideaInfos?.ideaList?.get(0)?.url, null)
         assertEquals(ideaInfos?.ideaList?.get(0)?.comment, "이건 dp로 풀어야해")
@@ -46,11 +49,14 @@ class FakeFirebaseIdeaInfo {
 
     @Test
     fun getIdeaInfos_exist_sameProblemIdea_returnIdeaInfos() {
+        // given
         fakeFirebaseReference.setIdeaInfo(null, "이건 dp로 풀어야해", 1111)
         fakeFirebaseReference.setIdeaInfo(null, "이건 완탐으로 풀어야해", 1111)
 
+        //when
         val ideaInfos = fakeFirebaseReference.getIdeaInfos(1111)
 
+        //then
         assertEquals(ideaInfos?.ideaList?.get(0)?.comment, "이건 dp로 풀어야해")
         assertEquals(ideaInfos?.ideaList?.get(1)?.comment, "이건 완탐으로 풀어야해")
 
@@ -58,12 +64,15 @@ class FakeFirebaseIdeaInfo {
 
     @Test
     fun getIdeaInfos_exist_differentProblemIdea_returnIdeaInfos() {
+        //given
         fakeFirebaseReference.setIdeaInfo(null, "이건 dp로 풀어야해", 1234)
         fakeFirebaseReference.setIdeaInfo(null, "이건 완탐으로 풀어야해", 4321)
 
+        //when
         val ideaInfos1 = fakeFirebaseReference.getIdeaInfos(1234)
         val ideaInfos2 = fakeFirebaseReference.getIdeaInfos(4321)
 
+        //then
         assertEquals(ideaInfos1?.ideaList?.get(0)?.comment, "이건 dp로 풀어야해")
         assertEquals(ideaInfos1?.problemId, 1234)
 
@@ -73,11 +82,14 @@ class FakeFirebaseIdeaInfo {
 
     @Test
     fun getIdeaInfos_dontExist_returnNull() {
+        //given
         fakeFirebaseReference.setIdeaInfo(null, "이건 dp로 풀어야해", 1234)
         fakeFirebaseReference.setIdeaInfo(null, "이건 완탐으로 풀어야해", 4321)
 
+        //when
         val ideaInfos = fakeFirebaseReference.getIdeaInfos(12312312)
 
+        //then
         assertNull(ideaInfos)
     }
 

@@ -19,7 +19,7 @@ class FakeFirebaseDateInfo {
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
         fakeSharedPreference.setUserIdToLocal("skjh0818")
 
         fakeFirebaseReference =
@@ -33,12 +33,14 @@ class FakeFirebaseDateInfo {
 
     @Test
     fun getDateInfos() {
+        //given
         fakeFirebaseReference.setDateInfo()
 
+        //when
         val dateInfos = fakeFirebaseReference.getDateInfos()
-
         val dateInfoList = mutableListOf(DateInfo("2021.12.01"))
 
+        //then
         assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.userId, "skjh0818")
         assertEquals(dateInfos?.dateList?.get(0), dateInfoList.get(0))

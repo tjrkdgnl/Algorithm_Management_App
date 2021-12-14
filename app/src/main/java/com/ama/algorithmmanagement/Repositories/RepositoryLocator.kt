@@ -19,9 +19,10 @@ class RepositoryLocator {
 
     fun getFakeRepository(app: Application): FakeRepository {
         if (!this::mFakeRepository.isInitialized) {
+            val fakeSharedPreference =  FakeSharedPreference(app)
             val firebaseReference =
-                FakeFirebaseReference(app, FakeFirebaseDataProvider(), FakeSharedPreference())
-            val networkService = FakeNetworkService(FakeNetWorkDataProvider())
+                FakeFirebaseReference(app, FakeFirebaseDataProvider(),fakeSharedPreference)
+            val networkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
 
             mFakeRepository = FakeRepository(firebaseReference, networkService)
         }

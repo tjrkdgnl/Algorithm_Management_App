@@ -8,12 +8,12 @@ class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataPr
     BaseNetworkService {
 
     override suspend fun getSolvedProblems(userId: String): Problems {
-        delay(1000)
+        delay(2000)
         //solvedby 붙여서 검색해야함
-        return mFakeNetWorkDataProvider.getSolvedAlgorithms()
+        return mFakeNetWorkDataProvider.getSolvedAlgorithms(userId)
     }
 
-    override suspend fun getSearchProblemList(problemId: String): Problems {
+    override suspend fun getSearchProblemList(problemId: Int): Problems {
         delay(2000)
         //부분 problem id or problem id
         return mFakeNetWorkDataProvider.getSearchProblemList(problemId)

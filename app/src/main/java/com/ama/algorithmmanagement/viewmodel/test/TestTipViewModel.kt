@@ -9,6 +9,8 @@ import timber.log.Timber
 
 class TestTipViewModel(private var repository: BaseRepository) {
 
+    var tippingProblemObject: TippingProblemObject? = null
+
     fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
@@ -21,7 +23,8 @@ class TestTipViewModel(private var repository: BaseRepository) {
         }
     }
 
-    fun getTippingProblem() {
+    fun initTippingProblem() {
+        tippingProblemObject = repository.getTippingProblem()
 
     }
 

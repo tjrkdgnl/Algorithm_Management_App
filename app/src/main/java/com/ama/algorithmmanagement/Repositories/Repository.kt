@@ -20,9 +20,10 @@ class Repository : BaseRepository {
             TODO("Not yet implemented")
         }
 
-        override suspend fun getSearchProblemList(problemId: String): Problems {
+        override suspend fun getSearchProblemList(problemId: Int): Problems {
             TODO("Not yet implemented")
         }
+
     }
 
 

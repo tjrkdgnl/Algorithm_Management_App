@@ -14,7 +14,7 @@ class FakeFirebaseUserInfo {
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
         fakeSharedPreference.setUserIdToLocal("skjh0818")
 
         fakeFirebaseReference =
@@ -27,10 +27,14 @@ class FakeFirebaseUserInfo {
 
     @Test
     fun getUserInfo_exist_returnUserInfo() {
+        //given
         fakeFirebaseReference.setUserInfo("skjh0818", "myPassword", null)
 
+
+        //when
         val userInfo = fakeFirebaseReference.getUserInfo()
 
+        //then
         assertEquals(userInfo?.userId, "skjh0818")
         assertEquals(userInfo?.userPw, "myPassword")
         assertEquals(userInfo?.fcmToken, null)
@@ -38,23 +42,31 @@ class FakeFirebaseUserInfo {
 
     @Test
     fun getUserInfo_empty_returnNull() {
+        //when
         val userInfo = fakeFirebaseReference.getUserInfo()
 
+        //then
         assertNull(userInfo)
     }
 
     @Test
     fun checkUserInfo_exist_returnTrue() {
+        //given
         fakeFirebaseReference.setUserInfo("skjh0818", "myPassword", null)
+
+        //when
         val checkUser = fakeFirebaseReference.checkUserInfo("skjh0818", "myPassword")
 
+        //then
         assertTrue(checkUser)
     }
 
     @Test
     fun checkUserInfo_dontExist_returnFalse() {
+        //when
         val checkUser = fakeFirebaseReference.checkUserInfo("skjh0818", "myPassword")
 
+        //then
         assertFalse(checkUser)
     }
 

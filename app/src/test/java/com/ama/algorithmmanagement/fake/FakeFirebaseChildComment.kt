@@ -16,7 +16,7 @@ class FakeFirebaseChildComment {
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
         fakeSharedPreference.setUserIdToLocal("skjh0818")
         fakeSharedPreference.setTierType(1)
 
@@ -30,17 +30,20 @@ class FakeFirebaseChildComment {
 
     @Test
     fun getChildCommentObject() {
+        //given
         fakeFirebaseReference.setComment(1111, "parent Comment")
 
         //intent로부터 commentId가 넘어옴
+        //when
         val commentId = fakeFirebaseReference.getCommentObject(1111)?.let { commentObject ->
             commentObject.commentList[0].commentId
         }
 
-        fakeFirebaseReference.setChildComment(commentId, "child Comment").onSuccess { isSuccess ->
+        //when
+        fakeFirebaseReference.setChildComment(commentId!!, "child Comment").onSuccess { isSuccess ->
 
             val childCommentObject = fakeFirebaseReference.getChildCommentObject(commentId)
-
+            //then
             childCommentObject?.let {
                 assertEquals(it.commentId, commentId)
                 assertEquals(it.commentChildList[0].comment, "child Comment")
@@ -57,13 +60,14 @@ class FakeFirebaseChildComment {
 
     @Test
     fun getChildCommentObject_parentIsNull_returnFailture() {
-//        fakeFirebaseReference.setComment(1111, "parent Comment")
-
+        //no given
+        //when
         val commentId = fakeFirebaseReference.getCommentObject(1111)?.let { commentObject ->
             commentObject.commentList[0].commentId
         }
 
-        fakeFirebaseReference.setChildComment(commentId, "child Comment").onSuccess { isSuccess ->
+        //then
+        fakeFirebaseReference.setChildComment(commentId!!, "child Comment").onSuccess { isSuccess ->
 
         }.onFailure {
             assertThrows(IllegalStateException::class.java) {
@@ -74,18 +78,23 @@ class FakeFirebaseChildComment {
 
     @Test
     fun getChildCommentObject_moreThanChildComment_returnChildCommentList() {
+        //given
         fakeFirebaseReference.setComment(1111, "parent Comment")
 
+        //when
         val commentId = fakeFirebaseReference.getCommentObject(1111)?.let { commentObject ->
             commentObject.commentList[0].commentId
         }
 
-        fakeFirebaseReference.setChildComment(commentId, "child 1")
+        //then
+        fakeFirebaseReference.setChildComment(commentId!!, "child 1")
         fakeFirebaseReference.setChildComment(commentId, "child 2")
         fakeFirebaseReference.setChildComment(commentId, "child 3")
 
+        //when
         val childCommentObject = fakeFirebaseReference.getChildCommentObject(commentId)
 
+        //then
         assertEquals(childCommentObject?.commentId,"RandomNumber")
         assertEquals(childCommentObject?.commentChildList?.get(0)?.comment,"child 1")
         assertEquals(childCommentObject?.commentChildList?.get(1)?.comment,"child 2")

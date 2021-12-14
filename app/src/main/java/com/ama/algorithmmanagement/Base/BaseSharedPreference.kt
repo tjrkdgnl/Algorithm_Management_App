@@ -22,8 +22,12 @@ interface BaseSharedPreference {
 
     fun getSolvedacToken(): String?
 
+    fun deleteSolvedacToken()
+
     fun setSolvedProblems(solvedProblem:Problems)
 
     fun getSolvedProblems():Problems?
+
+    fun deleteSolvedProblems()
 
 }
