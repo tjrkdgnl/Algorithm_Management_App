@@ -51,11 +51,18 @@ class FakeFirebaseReference(
         return false
     }
 
-    fun setDateInfo() :Result<Boolean> {
+    fun setDateInfo(): Result<Boolean> {
         val dateInfo = DateInfo(mDate)
 
         if (mUserId == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull,"userId")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
         }
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
@@ -80,9 +87,16 @@ class FakeFirebaseReference(
     }
 
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int) :Result<Boolean> {
+    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<Boolean> {
         if (mUserId == null) {
-            return Result.failure(NullPointerException(mApp.getString(R.string.objectIsNull,"userId")))
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
         }
 
         val ideaInfo = IdeaInfo(url, comment, mDate)
@@ -234,7 +248,7 @@ class FakeFirebaseReference(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<Boolean> {
+    ): Result<TipProblem> {
         if (mUserId == null) {
             return Result.failure(
                 NullPointerException(
@@ -251,22 +265,86 @@ class FakeFirebaseReference(
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == mUserId) {
                 tipProblemObject.problemList.add(tipProblem)
-                return Result.success(true)
+                return Result.success(tipProblem)
             }
         }
 
         val tipProblemObject = TippingProblemObject(1, mUserId, mutableListOf(tipProblem))
         mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
 
-        return Result.success(true)
+        return Result.success(tipProblem)
     }
 
-    fun getTippingProblem(): TippingProblemObject? {
+    fun getTippingProblemObject(): TippingProblemObject? {
+        if (mUserId == null) {
+            return null
+        }
+
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == mUserId) {
                 return tipProblemObject
             }
         }
         return null
+    }
+
+    fun modifyTippingProblem(
+        problemId: Int,
+        isShow: Boolean?,
+        comment: String?
+    ): Result<Boolean> {
+        if (mUserId == null)
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
+
+        for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
+            if (tipProblemObject.userId == mUserId) {
+
+                for (tipProblem in tipProblemObject.problemList.withIndex()) {
+                    if (tipProblem.value.problem.problemId == problemId) {
+                        if (isShow != null) {
+                            tipProblem.value.isShow = isShow
+                        }
+                        if (comment != null) {
+                            tipProblem.value.tipComment = comment
+                        }
+                        return Result.success(true)
+                    }
+                }
+            }
+        }
+
+        return Result.success(false)
+    }
+
+    fun deleteTippingProblem(problemId: Int): Result<Boolean> {
+        if (mUserId == null)
+            return Result.failure(
+                NullPointerException(
+                    mApp.getString(
+                        R.string.objectIsNull,
+                        "userId"
+                    )
+                )
+            )
+
+        for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
+            if (tipProblemObject.userId == mUserId) {
+
+                for (tipProblem in tipProblemObject.problemList.withIndex()) {
+                    if (tipProblem.value.problem.problemId == problemId) {
+                        tipProblemObject.problemList.removeAt(tipProblem.index)
+                        return Result.success(true)
+                    }
+                }
+            }
+        }
+        return Result.success(false)
     }
 }

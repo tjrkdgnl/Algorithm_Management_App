@@ -11,7 +11,6 @@ import org.junit.Before
 
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 @RunWith(AndroidJUnit4::class)
 class FakeFirebaseReferenceTest {
@@ -53,7 +52,7 @@ class FakeFirebaseReferenceTest {
         //when
         fakeFirebaseReference.setTippingProblem(taggedProblem, true, "dp를 사용하면 좋다")
 
-        val tippingProblemObject = fakeFirebaseReference.getTippingProblem()
+        val tippingProblemObject = fakeFirebaseReference.getTippingProblemObject()
 
         //then
         assertEquals(tippingProblemObject?.userId, "skjh0818")
@@ -107,7 +106,7 @@ class FakeFirebaseReferenceTest {
         fakeFirebaseReference.setTippingProblem(taggedProblem1, true, "dp를 사용하면 좋다")
         fakeFirebaseReference.setTippingProblem(taggedProblem2, true, "binarySearch를 이욯하면 되겠다")
 
-        val tippingProblemObject = fakeFirebaseReference.getTippingProblem()
+        val tippingProblemObject = fakeFirebaseReference.getTippingProblemObject()
 
         //then
         assertEquals(tippingProblemObject?.userId, "skjh0818")
@@ -126,7 +125,7 @@ class FakeFirebaseReferenceTest {
     @Test
     fun getTippingProblem_dontExist_returnNull() {
         //when
-        val tippingProblemObject = fakeFirebaseReference.getTippingProblem()
+        val tippingProblemObject = fakeFirebaseReference.getTippingProblemObject()
 
         //then
         assertNull(tippingProblemObject)

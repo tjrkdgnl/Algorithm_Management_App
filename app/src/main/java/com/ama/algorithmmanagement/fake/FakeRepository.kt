@@ -73,12 +73,12 @@ class FakeRepository(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<Boolean> {
+    ): Result<TipProblem> {
         return mFakeFirebaseReference.setTippingProblem(problem, isShow, tipComment)
     }
 
     override fun getTippingProblem(): TippingProblemObject? {
-        return mFakeFirebaseReference.getTippingProblem()
+        return mFakeFirebaseReference.getTippingProblemObject()
     }
 
 }

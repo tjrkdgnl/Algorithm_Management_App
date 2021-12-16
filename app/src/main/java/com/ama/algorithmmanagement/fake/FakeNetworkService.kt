@@ -6,6 +6,10 @@ import kotlinx.coroutines.delay
 
 class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataProvider) :
     BaseNetworkService {
+    override suspend fun getProblem(problemId: Int): TaggedProblem {
+        delay(2000)
+        return mFakeNetWorkDataProvider.getProblem(problemId)
+    }
 
     override suspend fun getSolvedProblems(userId: String): Problems {
         delay(2000)

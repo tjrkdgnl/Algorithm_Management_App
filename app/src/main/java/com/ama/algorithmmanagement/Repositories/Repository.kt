@@ -8,6 +8,10 @@ import com.ama.algorithmmanagement.Network.BaseNetworkService
 class Repository : BaseRepository {
 
     private val networkService = object : BaseNetworkService {
+        override suspend fun getProblem(problemId: Int): TaggedProblem {
+            TODO("Not yet implemented")
+        }
+
         override suspend fun getSolvedProblems(userId: String): Problems {
             return KAPIGenerator.getInstance().getProblems(userId)
         }
@@ -91,7 +95,7 @@ class Repository : BaseRepository {
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<Boolean> {
+    ): Result<TipProblem> {
         TODO("Not yet implemented")
     }
 

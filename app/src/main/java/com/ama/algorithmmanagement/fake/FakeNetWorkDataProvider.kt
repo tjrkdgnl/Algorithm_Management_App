@@ -4,6 +4,21 @@ import com.ama.algorithmmanagement.Model.*
 
 class FakeNetWorkDataProvider(private val mFakeSharedPreference: FakeSharedPreference) {
 
+    fun getProblem(problemId: Int): TaggedProblem {
+        return TaggedProblem(
+            problemId, "A+B", true, false, 151801, 1, 17, true, 2.333,
+            mutableListOf(
+                Tag(
+                    "arithmetic",
+                    false,
+                    121,
+                    494,
+                    mutableListOf(DisplayName("en", "arithmetic", "arithmetic"))
+                )
+            )
+        )
+    }
+
     fun getSolvedAlgorithms(userId: String): Problems {
         return Problems(
             30, MutableList(30) {

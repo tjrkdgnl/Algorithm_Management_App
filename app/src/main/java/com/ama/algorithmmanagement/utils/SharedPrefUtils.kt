@@ -49,11 +49,19 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
         TODO("Not yet implemented")
     }
 
+    override fun deleteSolvedacToken() {
+        TODO("Not yet implemented")
+    }
+
     override fun setSolvedProblems(solvedProblem: Problems) {
         TODO("Not yet implemented")
     }
 
     override fun getSolvedProblems(): Problems? {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteSolvedProblems() {
         TODO("Not yet implemented")
     }
 }

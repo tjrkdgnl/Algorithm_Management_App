@@ -39,7 +39,7 @@ interface BaseRepository {
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<Boolean>
+    ): Result<TipProblem>
 
     fun getTippingProblem(): TippingProblemObject?
 }
