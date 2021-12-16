@@ -45,7 +45,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getDateInfos()
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<Boolean> {
+    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo> {
         return mFakeFirebaseReference.setIdeaInfo(url, comment, problemId)
     }
 

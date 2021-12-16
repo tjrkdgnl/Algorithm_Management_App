@@ -23,7 +23,7 @@ interface BaseRepository {
 
     fun getDateInfoObject(): DateInfoObject?
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<Boolean>
+    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo>
 
     fun getIdeaInfos(problemId: Int): IdeaInfos?
 

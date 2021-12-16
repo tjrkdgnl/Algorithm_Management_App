@@ -67,7 +67,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<Boolean> {
+    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo> {
         TODO("Not yet implemented")
     }
 

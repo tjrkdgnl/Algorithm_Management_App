@@ -87,7 +87,7 @@ class FakeFirebaseReference(
     }
 
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<Boolean> {
+    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo> {
         if (mUserId == null) {
             return Result.failure(
                 NullPointerException(
@@ -108,19 +108,19 @@ class FakeFirebaseReference(
                 for (ideainfos in ideaObject.ideaInfosList) {
                     if (ideainfos.problemId == problemId) {
                         ideainfos.ideaList.add(ideaInfo)
-                        return Result.success(true)
+                        return Result.success(ideaInfo)
                     }
                 }
 
                 ideaObject.ideaInfosList.add(ideaInfos)
-                return Result.success(true)
+                return Result.success(ideaInfo)
             }
         }
 
         val ideaObject = IdeaObject(mUserId, mutableListOf(ideaInfos))
         mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
-        return Result.success(true)
+        return Result.success(ideaInfo)
     }
 
     fun getIdeaInfos(problemId: Int): IdeaInfos? {
