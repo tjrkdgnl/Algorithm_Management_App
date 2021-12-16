@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel
+package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

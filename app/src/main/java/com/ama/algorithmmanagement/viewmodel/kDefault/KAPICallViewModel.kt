@@ -1,32 +1,29 @@
-package com.ama.algorithmmanagement.viewmodel
+package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.Problem
-import com.ama.algorithmmanagement.Model.SolvedAlgorithms
+import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.Model.TaggedProblem
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.Repositories.Repository
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
-    private val repository = RepositoryLocator.getFakeRepository()
+    private val repository = RepositoryLocator().getRepository()
 
     private val _classList = MutableLiveData<List<KProblemsOfClass>>()
     val classList: LiveData<List<KProblemsOfClass>>
         get() = _classList
 
-    private val _solvedAlgorithms = MutableLiveData<SolvedAlgorithms>()
-    val solvedList: LiveData<MutableList<Problem>> = Transformations.map(_solvedAlgorithms) {
+    private val _solvedAlgorithms = MutableLiveData<Problems>()
+    val solvedList: LiveData<MutableList<TaggedProblem>> = Transformations.map(_solvedAlgorithms) {
         it.problemList
     }
 
     init {
-        initList()
         getSolvedProblems()
     }
 
@@ -34,6 +31,7 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun initList() {
         viewModelScope.launch {
             try {
+
                 _classList.value = KAPIGenerator.getInstance().getProblemsOfClass()
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
@@ -45,10 +43,11 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun getSolvedProblems() {
         viewModelScope.launch {
             try {
+
                 _solvedAlgorithms.value = repository.getSolvedProblems(
-                    app.getString(R.string.solvedAlgorithmsQuery, "skjh0818")
+                    app.getString(R.string.solvedProblemUserId, "skjh0818")
                 )
-            } catch (e:Exception){
+            } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
         }

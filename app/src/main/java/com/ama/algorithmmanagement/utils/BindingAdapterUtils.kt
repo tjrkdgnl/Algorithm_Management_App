@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.Problem
+import com.ama.algorithmmanagement.Model.TaggedProblem
 
 object BindingAdapterUtils {
 
@@ -19,7 +19,7 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("setSolvedProblemsList")
-    fun setSolvedProblemsList(recyclerView: RecyclerView, solvedAlgorithms: MutableList<Problem>?) {
+    fun setSolvedProblemsList(recyclerView: RecyclerView, solvedAlgorithms: MutableList<TaggedProblem>?) {
         val recyclerViewAdapter = recyclerView.adapter as KSolvedProblemsAdapter
         recyclerViewAdapter.updateList(solvedAlgorithms)
     }

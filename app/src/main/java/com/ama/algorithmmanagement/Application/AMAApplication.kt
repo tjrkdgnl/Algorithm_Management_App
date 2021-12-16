@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AMAApplication : Application() {
-    var sharedPrefUtils: SharedPrefUtils? = null
+    lateinit var sharedPrefUtils: SharedPrefUtils
 
     companion object {
         lateinit var INSTANCE: AMAApplication

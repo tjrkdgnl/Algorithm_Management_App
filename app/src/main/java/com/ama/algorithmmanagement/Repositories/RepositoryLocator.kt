@@ -1,14 +1,33 @@
 package com.ama.algorithmmanagement.Repositories
 
-object RepositoryLocator {
+import android.app.Application
+import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.fake.*
 
-    private val repository = Repository()
+class RepositoryLocator {
 
-    private val fakeRepository = FakeRepository()
+    private lateinit var mRepository: Repository
+    private lateinit var mFakeRepository: FakeRepository
 
 
+    fun getRepository(): Repository {
+        if (!this::mRepository.isInitialized) {
+            mRepository = Repository()
+        }
+        return mRepository
+    }
 
-    fun getRepository() = repository
-    fun getFakeRepository() = fakeRepository
+    fun getFakeRepository(app: Application): FakeRepository {
+        if (!this::mFakeRepository.isInitialized) {
+            val fakeSharedPreference =  FakeSharedPreference(app)
+            val firebaseReference =
+                FakeFirebaseReference(app, FakeFirebaseDataProvider(),fakeSharedPreference)
+            val networkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
+
+            mFakeRepository = FakeRepository(firebaseReference, networkService)
+        }
+
+        return mFakeRepository
+    }
 
 }
