@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Model.*
 
-class FakeNetWorkDataProvider(private val mFakeSharedPreference: FakeSharedPreference) {
+class FakeNetWorkDataProvider {
 
     fun getProblem(problemId: Int): TaggedProblem {
         return TaggedProblem(
@@ -56,7 +56,6 @@ class FakeNetWorkDataProvider(private val mFakeSharedPreference: FakeSharedPrefe
             }
         )
     }
-
 
     fun getStatsList(): List<Stats> {
         return MutableList<Stats>(20) {

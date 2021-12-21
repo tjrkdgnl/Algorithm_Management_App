@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.Repositories
 
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.Network.KAPIGenerator
 
 class Repository : BaseRepository {
 
@@ -30,16 +30,15 @@ class Repository : BaseRepository {
 
     }
 
-
-    override suspend fun getSolvedProblems(userId: String): Problems {
-        return networkService.getSolvedProblems(userId)
-    }
-
-    override suspend fun getSearchProblemList(problemId: String): Problems {
+    override suspend fun getSolvedProblems(): Problems {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUserStats(userId: String): List<Stats> {
+    override suspend fun getSearchProblemList(problemId: Int): Problems {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserStats(): List<Stats> {
         TODO("Not yet implemented")
     }
 
@@ -59,7 +58,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setDateInfo(): Result<Boolean> {
+    override fun setDateInfo(): Boolean {
         TODO("Not yet implemented")
     }
 
@@ -67,7 +66,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo> {
+    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo {
         TODO("Not yet implemented")
     }
 
@@ -75,7 +74,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setComment(problemId: Int, comment: String): Result<CommentInfo> {
+    override fun setComment(problemId: Int, comment: String): CommentInfo {
         TODO("Not yet implemented")
     }
 
@@ -83,7 +82,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo> {
+    override fun setChildComment(commentId: String, comment: String): ChildCommentInfo {
         TODO("Not yet implemented")
     }
 
@@ -95,11 +94,23 @@ class Repository : BaseRepository {
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<TipProblem> {
+    ): TipProblem {
         TODO("Not yet implemented")
     }
 
     override fun getTippingProblem(): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
+    override fun modifyTippingProblem(
+        problemId: Int,
+        isShow: Boolean?,
+        comment: String?
+    ): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTippingProblem(problemId: Int): Boolean {
         TODO("Not yet implemented")
     }
 }

@@ -1,33 +1,26 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.*
-import timber.log.Timber
+import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.Model.TipProblem
+import com.ama.algorithmmanagement.Model.TippingProblemObject
 
 
 class TestTipViewModel(private var repository: BaseRepository) {
     val tipProblems = ObservableArrayList<TipProblem>()
-
-    var tipProbleObject :TippingProblemObject? =null
+    var tipProbleObject: TippingProblemObject? = null
 
     fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
     ) {
-        repository.setTippingProblem(problem, isShow, tipComment).onSuccess {
-            if (!tipProblems.contains(it)) {
-                tipProblems.add(it)
-            }
-        }.onFailure {
-            Timber.e(it)
-        }
+        val tip = repository.setTippingProblem(problem, isShow, tipComment)
+        tipProblems.add(tip)
     }
 
-    fun getTipProblemObject(){
+    fun initTipProblemObject() {
         tipProbleObject = repository.getTippingProblem()
     }
 

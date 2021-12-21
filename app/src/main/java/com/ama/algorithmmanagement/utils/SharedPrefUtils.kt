@@ -10,19 +10,27 @@ class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {
     private val mSharedPreferences = mContext.getSharedPreferences("AMA_pref", Context.MODE_PRIVATE)
 
 
-    override fun getUserIdFromLocal(): String? {
+    override fun getUserId(): String? {
         Timber.e(mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null))
         return mSharedPreferences.getString(mContext.getString(R.string.prefGetUserId), null)
     }
 
-    override fun deleteToUserId() {
+    override fun setAutoLoginCheck(check: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAutoLoginCheck(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteUserId() {
         with(mSharedPreferences.edit()) {
             remove(mContext.getString(R.string.prefGetUserId))
             commit()
         }
     }
 
-    override fun setUserIdToLocal(userId: String) {
+    override fun setUserId(userId: String) {
         with(mSharedPreferences.edit()) {
             putString(mContext.getString(R.string.prefGetUserId), userId)
             commit()

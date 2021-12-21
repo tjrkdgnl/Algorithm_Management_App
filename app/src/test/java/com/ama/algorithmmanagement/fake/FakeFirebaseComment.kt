@@ -1,33 +1,34 @@
 package com.ama.algorithmmanagement.fake
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.TestLifecycleApplication
-import java.lang.NullPointerException
 
 
 @RunWith(AndroidJUnit4::class)
 class FakeFirebaseComment {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
-
+    lateinit var mUserId: String
+    var mTierType: Int =0
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference.setUserId("skjh0818")
         fakeSharedPreference.setTierType(1)
+
+        mUserId = fakeSharedPreference.getUserId()!!
+        mTierType = fakeSharedPreference.getTierType()!!
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                ApplicationProvider.getApplicationContext(),
+
                 FakeFirebaseDataProvider(),
-                fakeSharedPreference
+                DateUtils.createDate()
             )
     }
 
@@ -35,7 +36,7 @@ class FakeFirebaseComment {
     @Test
     fun getCommentObject() {
         //given
-        fakeFirebaseReference.setComment(1111, "이거 어떻게 풀어요?")
+        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "이거 어떻게 풀어요?")
 
         //when
         val commentObject = fakeFirebaseReference.getCommentObject(1111)
@@ -54,8 +55,8 @@ class FakeFirebaseComment {
     @Test
     fun getCommentInfo_moreThanOneValue() {
         //given
-        fakeFirebaseReference.setComment(1111, "what?")
-        fakeFirebaseReference.setComment(2222, "how?")
+        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "what?")
+        fakeFirebaseReference.setComment(mUserId,mTierType,2222, "how?")
 
         //when
         val object1 = fakeFirebaseReference.getCommentObject(1111)
@@ -74,8 +75,8 @@ class FakeFirebaseComment {
     @Test
     fun getCommentInfo_moreThanComment() {
         //given
-        fakeFirebaseReference.setComment(1111, "what?")
-        fakeFirebaseReference.setComment(1111, "why?")
+        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "what?")
+        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "why?")
 
         //when
         val object1 = fakeFirebaseReference.getCommentObject(1111)

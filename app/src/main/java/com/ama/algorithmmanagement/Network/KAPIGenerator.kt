@@ -1,13 +1,11 @@
 package com.ama.algorithmmanagement.Network
 
-import com.ama.algorithmmanagement.fake.FakeSharedPreference
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import timber.log.Timber
 
 object KAPIGenerator {
     private lateinit var retrofit: Retrofit

@@ -1,18 +1,15 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
-import android.app.Application
 import androidx.lifecycle.*
+import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
 import com.ama.algorithmmanagement.Model.Problems
 import com.ama.algorithmmanagement.Model.TaggedProblem
 import com.ama.algorithmmanagement.Network.KAPIGenerator
-import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
-    private val repository = RepositoryLocator().getRepository()
+class KAPICallViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     private val _classList = MutableLiveData<List<KProblemsOfClass>>()
     val classList: LiveData<List<KProblemsOfClass>>
@@ -43,10 +40,7 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun getSolvedProblems() {
         viewModelScope.launch {
             try {
-
-                _solvedAlgorithms.value = repository.getSolvedProblems(
-                    app.getString(R.string.solvedProblemUserId, "skjh0818")
-                )
+                _solvedAlgorithms.value = mRepository.getSolvedProblems()
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
