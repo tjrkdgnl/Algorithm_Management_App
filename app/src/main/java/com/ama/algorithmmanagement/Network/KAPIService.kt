@@ -1,6 +1,9 @@
 package com.ama.algorithmmanagement.Network
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.Model.BOJUser
+import com.ama.algorithmmanagement.Model.KProblemsOfClass
+import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.Model.Stats
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

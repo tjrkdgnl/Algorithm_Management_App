@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.utils.combineWith
+import com.ama.algorithmmanagement.Model.CommentInfo
+import com.ama.algorithmmanagement.Model.CommentObject
 import timber.log.Timber
 
 
@@ -27,21 +27,8 @@ class TestCommentViewModel(private var mRepository: BaseRepository) {
     }
 
     fun saveComment() {
-//        val checkData =
-//            combineWith(mProblemId, mComment) { id, comment -> id != null && comment != null }
-//
-//        checkData.value?.let { isPossible ->
-//            if (isPossible) {
-                mRepository.setComment(mProblemId.value!!, mComment.value!!)
-                    .onSuccess { commentInfo ->
-                        if (!commentInfoList.contains(commentInfo)) {
-                            commentInfoList.add(commentInfo)
-                        }
-                    }.onFailure {
-                        Timber.e(it)
-                    }
-//            }
-//        }
+        val comment = mRepository.setComment(mProblemId.value!!, mComment.value!!)
+        commentInfoList.add(comment)
     }
 
 

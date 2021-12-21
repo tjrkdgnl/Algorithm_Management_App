@@ -1,16 +1,19 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.TaggedProblem
 
 
 interface BaseSharedPreference {
 
-    fun getUserIdFromLocal(): String?
+    fun getUserId(): String?
 
-    fun deleteToUserId()
+    fun setAutoLoginCheck(check:Boolean)
 
-    fun setUserIdToLocal(userId: String)
+    fun getAutoLoginCheck(): Boolean
+
+    fun deleteUserId()
+
+    fun setUserId(userId: String)
 
     fun setTierType(tierType: Int)
 

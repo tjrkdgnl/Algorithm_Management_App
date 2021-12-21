@@ -1,8 +1,8 @@
 package com.ama.algorithmmanagement.Repositories
 
 import android.app.Application
-import com.ama.algorithmmanagement.Network.BaseNetworkService
 import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.utils.DateUtils
 
 class RepositoryLocator {
 
@@ -19,12 +19,12 @@ class RepositoryLocator {
 
     fun getFakeRepository(app: Application): FakeRepository {
         if (!this::mFakeRepository.isInitialized) {
-            val fakeSharedPreference =  FakeSharedPreference(app)
             val firebaseReference =
-                FakeFirebaseReference(app, FakeFirebaseDataProvider(),fakeSharedPreference)
-            val networkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
+                FakeFirebaseReference(FakeFirebaseDataProvider(), DateUtils.createDate())
+            val networkService = FakeNetworkService(FakeNetWorkDataProvider())
 
-            mFakeRepository = FakeRepository(firebaseReference, networkService)
+            mFakeRepository =
+                FakeRepository(app, firebaseReference, networkService, FakeSharedPreference())
         }
 
         return mFakeRepository

@@ -3,12 +3,12 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.combineWith
 import com.ama.algorithmmanagement.utils.getOrAwaitValue
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 
 class CommentViewModelTest {
@@ -21,20 +21,24 @@ class CommentViewModelTest {
 
     @Before
     fun init() {
-        val fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
+        val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference.setUserId("skjh0818")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            ApplicationProvider.getApplicationContext(),
-            FakeFirebaseDataProvider(), fakeSharedPreference
+            FakeFirebaseDataProvider(), DateUtils.createDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
 
         testCommentViewModel = TestCommentViewModel(
-            FakeRepository(fakeFirebaseReference, fakeNetworkService)
+            FakeRepository(
+                ApplicationProvider.getApplicationContext(),
+                fakeFirebaseReference,
+                fakeNetworkService,
+                fakeSharedPreference
+            )
         )
     }
 

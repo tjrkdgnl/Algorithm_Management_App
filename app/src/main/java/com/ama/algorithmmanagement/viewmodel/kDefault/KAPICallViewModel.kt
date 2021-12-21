@@ -43,10 +43,7 @@ class KAPICallViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun getSolvedProblems() {
         viewModelScope.launch {
             try {
-
-                _solvedAlgorithms.value = repository.getSolvedProblems(
-                    app.getString(R.string.solvedProblemUserId, "skjh0818")
-                )
+                _solvedAlgorithms.value = repository.getSolvedProblems()
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }

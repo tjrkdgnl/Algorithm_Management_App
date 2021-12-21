@@ -1,10 +1,9 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.Model.IdeaInfo
+import com.ama.algorithmmanagement.Model.IdeaInfos
 import timber.log.Timber
 
 
@@ -13,11 +12,8 @@ class TestIdeaViewModel(private var repository: BaseRepository) {
     var ideaLst = ObservableArrayList<IdeaInfo>()
 
     fun setIdeaInfo(url: String?, comment: String?, problemId: Int) {
-        repository.setIdeaInfo(url, comment, problemId).onSuccess {
-
-        }.onFailure {
-            Timber.e(it)
-        }
+        val idea = repository.setIdeaInfo(url, comment, problemId)
+        ideaLst.add(idea)
     }
 
     fun getIdeaInfos(problemId: Int) {
