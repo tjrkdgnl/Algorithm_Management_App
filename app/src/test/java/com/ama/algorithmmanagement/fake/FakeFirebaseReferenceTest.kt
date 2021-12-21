@@ -1,6 +1,5 @@
 package com.ama.algorithmmanagement.fake
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.DisplayName
 import com.ama.algorithmmanagement.Model.Tag

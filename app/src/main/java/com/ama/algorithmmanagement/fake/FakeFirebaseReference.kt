@@ -1,8 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
-import android.app.Application
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.R
 import timber.log.Timber
 
 class FakeFirebaseReference(

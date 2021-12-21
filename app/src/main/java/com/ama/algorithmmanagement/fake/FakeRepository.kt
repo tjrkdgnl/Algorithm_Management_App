@@ -6,7 +6,6 @@ import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.Network.BaseNetworkService
 import com.ama.algorithmmanagement.R
-import java.lang.NullPointerException
 
 class FakeRepository(
     private val mApp: Application,

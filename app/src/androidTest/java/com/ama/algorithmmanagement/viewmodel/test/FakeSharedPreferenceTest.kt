@@ -4,9 +4,8 @@ import com.ama.algorithmmanagement.fake.FakeNetWorkDataProvider
 import com.ama.algorithmmanagement.fake.FakeNetworkService
 import com.ama.algorithmmanagement.fake.FakeSharedPreference
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
 import org.junit.Test
 
 class FakeSharedPreferenceTest {

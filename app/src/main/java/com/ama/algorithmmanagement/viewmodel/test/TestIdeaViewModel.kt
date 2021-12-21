@@ -4,7 +4,6 @@ import androidx.databinding.ObservableArrayList
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.IdeaInfo
 import com.ama.algorithmmanagement.Model.IdeaInfos
-import timber.log.Timber
 
 
 class TestIdeaViewModel(private var repository: BaseRepository) {

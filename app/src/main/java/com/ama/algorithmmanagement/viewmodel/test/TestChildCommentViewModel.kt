@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.ChildCommentInfo
 import com.ama.algorithmmanagement.Model.ChildCommentObject
-import timber.log.Timber
 
 class TestChildCommentViewModel(private var mRepository: BaseRepository) : ViewModel() {
     var mChildCommentObject: ChildCommentObject? = null

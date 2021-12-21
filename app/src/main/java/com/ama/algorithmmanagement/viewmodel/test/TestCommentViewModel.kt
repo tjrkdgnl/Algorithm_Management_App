@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.CommentInfo
 import com.ama.algorithmmanagement.Model.CommentObject
-import timber.log.Timber
 
 
 class TestCommentViewModel(private var mRepository: BaseRepository) {

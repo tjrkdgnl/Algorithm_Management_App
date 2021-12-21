@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.DateInfoObject
 import com.ama.algorithmmanagement.Model.UserInfo
-import timber.log.Timber
 
 class TestViewModel(private var repository: BaseRepository) {
     private val _userId = MutableLiveData<String>()

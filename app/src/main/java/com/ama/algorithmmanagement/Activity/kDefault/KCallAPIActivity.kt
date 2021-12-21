@@ -3,9 +3,12 @@ package com.ama.algorithmmanagement.Activity.kDefault
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
+import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultActivityCallApiBinding
+import com.ama.algorithmmanagement.utils.BaseViewModelFactory
 import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
 
 class KCallAPIActivity :
@@ -15,7 +18,11 @@ class KCallAPIActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        callViewModel = ViewModelProvider(this)[KAPICallViewModel::class.java]
+        callViewModel = ViewModelProvider(
+            this,
+            BaseViewModelFactory(RepositoryLocator().getFakeRepository(AMAApplication.INSTANCE))
+        )[KAPICallViewModel::class.java]
+
         binding.viewModel = callViewModel
         binding.recyclerviewCallApi.adapter = KDefaultRecyclerViewAdapter()
 
