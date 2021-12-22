@@ -37,7 +37,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
     return data as T
 }
 
-fun <T, K, R> combineWith(
+internal fun <T, K, R> combineWith(
     firstLiveData: LiveData<T>,
     secondLiveData: LiveData<K>,
     block: (T?, K?) -> R

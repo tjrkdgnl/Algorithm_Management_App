@@ -40,5 +40,12 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
                 mainViewModel.moveToLoginAct.value = false
             }
         })
+
+        mainViewModel.moveToFirebaseTestAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, KDefaultFirebaseTest::class.java))
+                mainViewModel.moveToFirebaseTestAct.value = false
+            }
+        })
     }
 }

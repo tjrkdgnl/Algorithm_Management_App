@@ -2,11 +2,14 @@ package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.DateInfoObject
 import com.ama.algorithmmanagement.Model.UserInfo
+import kotlinx.coroutines.launch
 
-class TestViewModel(private var repository: BaseRepository) {
+class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> = _userId
 
@@ -21,13 +24,18 @@ class TestViewModel(private var repository: BaseRepository) {
 
 
     fun setUserInfo() {
-        this._userId.value = "skjh0818"
-        this._pwd.value = "myPwd"
-        repository.setUserInfo(_userId.value!!, _pwd.value!!)
+        viewModelScope.launch {
+            _userId.value = "skjh0818"
+            _pwd.value = "myPwd"
+            repository.setUserInfo(_userId.value!!, _pwd.value!!)
+        }
+
     }
 
-    fun getUserInfo(): UserInfo? {
-        return repository.getuserInfo()
+    fun getUserInfo() {
+        viewModelScope.launch {
+            val userInfo = repository.getUserInfo()
+        }
     }
 
     fun checkUserInfo(userId: String, password: String): Boolean {

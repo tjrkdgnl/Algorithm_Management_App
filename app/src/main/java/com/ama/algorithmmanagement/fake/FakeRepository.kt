@@ -41,16 +41,17 @@ class FakeRepository(
         return mBaseNetworkService.getBOJUserInfo()
     }
 
-    override fun setUserInfo(userId: String, password: String, fcmToken: String?) {
+    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?) :Boolean {
         mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)
         mSharedPrefUtils.setUserId(userId)
+        return true
     }
 
     override fun checkUserInfo(userId: String, password: String): Boolean {
         return mFakeFirebaseReference.checkUserInfo(userId, password)
     }
 
-    override fun getuserInfo(): UserInfo? {
+    override suspend fun getUserInfo(): UserInfo? {
         return mFakeFirebaseReference.getUserInfo(mUserId)
     }
 

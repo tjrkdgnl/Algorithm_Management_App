@@ -27,6 +27,8 @@
 
         <activity android:name=".Activity.kDefault.KLoginActivity" />
 
+        <activity android:name=".Activity.kDefault.KDefaultFirebaseTest"/>
+
     </application>
 
 </manifest>

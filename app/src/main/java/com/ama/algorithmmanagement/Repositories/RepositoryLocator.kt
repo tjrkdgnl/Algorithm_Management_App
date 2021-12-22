@@ -9,10 +9,15 @@ class RepositoryLocator {
     private lateinit var mRepository: Repository
     private lateinit var mFakeRepository: FakeRepository
 
-
-    fun getRepository(): Repository {
+    fun getRepository(app: Application): Repository {
         if (!this::mRepository.isInitialized) {
-            mRepository = Repository()
+            mRepository =
+                Repository(
+                    app,
+                    FirebaseService(app),
+                    FakeNetworkService(FakeNetWorkDataProvider()),
+                    FakeSharedPreference()
+                )
         }
         return mRepository
     }
