@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.DateInfoObject
-import com.ama.algorithmmanagement.Model.UserInfo
 import kotlinx.coroutines.launch
 
 class TestViewModel(private var repository: BaseRepository) : ViewModel() {

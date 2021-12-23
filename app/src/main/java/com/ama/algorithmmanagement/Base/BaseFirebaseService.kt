@@ -1,7 +1,6 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.*
-import timber.log.Timber
 
 interface BaseFirebaseService {
 

@@ -17,6 +17,10 @@ class FakeRepository(
     private val mUserId = mSharedPrefUtils.getUserId()
     private val mTierType = mSharedPrefUtils.getTierType()
 
+    override suspend fun getProblem(problemId: Int): TaggedProblem {
+       return mBaseNetworkService.getProblem(problemId)
+    }
+
     override suspend fun getSolvedProblems(): Problems {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
@@ -127,14 +131,14 @@ class FakeRepository(
 
     override fun modifyTippingProblem(
         problemId: Int,
-        isShow: Boolean?,
-        comment: String?
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.modifyTippingProblem(mUserId, problemId, isShow, comment)
+        return mFakeFirebaseReference.modifyTippingProblem(mUserId, problemId, isShow, tipComment)
     }
 
     override fun deleteTippingProblem(problemId: Int): Boolean {

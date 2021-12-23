@@ -7,13 +7,13 @@ interface BaseSharedPreference {
 
     fun getUserId(): String?
 
-    fun setAutoLoginCheck(check:Boolean)
-
-    fun getAutoLoginCheck(): Boolean
-
     fun deleteUserId()
 
     fun setUserId(userId: String)
+
+    fun setAutoLoginCheck(check:Boolean)
+
+    fun getAutoLoginCheck(): Boolean
 
     fun setTierType(tierType: Int)
 
@@ -27,7 +27,7 @@ interface BaseSharedPreference {
 
     fun deleteSolvedacToken()
 
-    fun setSolvedProblems(solvedProblem:Problems)
+    fun setSolvedProblems(solvedProblems:Problems)
 
     fun getSolvedProblems():Problems?
 

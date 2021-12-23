@@ -1,13 +1,12 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Network.KAPIGenerator
 
 interface BaseRepository {
 
-     suspend fun getProblem(problemId: Int): TaggedProblem
+    suspend fun getProblem(problemId: Int): TaggedProblem
 
-     suspend fun getSolvedProblems(): Problems
+    suspend fun getSolvedProblems(): Problems
 
     suspend fun getSearchProblemList(problemId: Int): Problems
 
@@ -47,8 +46,8 @@ interface BaseRepository {
 
     fun modifyTippingProblem(
         problemId: Int,
-        isShow: Boolean?,
-        comment: String?
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean
 
     fun deleteTippingProblem(problemId: Int): Boolean

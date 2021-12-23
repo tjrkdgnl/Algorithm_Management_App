@@ -1,9 +1,6 @@
 package com.ama.algorithmmanagement.Network
 
-import com.ama.algorithmmanagement.Model.BOJUser
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.Stats
+import com.ama.algorithmmanagement.Model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,12 +11,18 @@ interface KAPIService {
     suspend fun getProblemsOfClass() : List<KProblemsOfClass>
 
     @GET("search/problem")
-    suspend fun getProblems(@Query("query") param:String) : Problems
+    suspend fun getSearchProblemList(@Query("query") param:String) : Problems
+
+    @GET("search/problem")
+    suspend fun getSolvedProblems(@Query("query") param:String) : Problems
 
     @GET("account/verify_credentials")
     suspend fun getBOJUserInfo() : BOJUser
 
     @GET("user/problem_stats")
     suspend fun getUserStatsInfo(@Query("handle") userId:String) : Call<List<Stats>>
+
+    @GET("problem/show")
+    suspend fun getProblem(@Query("problemId")problemId:Int) : TaggedProblem
 
 }
