@@ -4,7 +4,7 @@ import com.ama.algorithmmanagement.Model.ProblemStatus
 import com.ama.algorithmmanagement.Model.Problems
 import com.ama.algorithmmanagement.Model.Stats
 import com.ama.algorithmmanagement.Model.TaggedProblem
-import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.Base.BaseNetworkService
 import kotlinx.coroutines.delay
 
 class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataProvider) :

@@ -8,7 +8,7 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultActivitySolvedProblemsBinding
-import com.ama.algorithmmanagement.utils.BaseViewModelFactory
+import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
 
 class KCallSolvedAlgorithmAct :

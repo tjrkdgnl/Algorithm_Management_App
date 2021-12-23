@@ -7,7 +7,7 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultFirebaseTestBinding
-import com.ama.algorithmmanagement.utils.BaseViewModelFactory
+import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.viewmodel.test.FirebaseVIewModel
 
 class KDefaultFirebaseTest :
@@ -18,15 +18,10 @@ class KDefaultFirebaseTest :
 
         val viewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[FirebaseVIewModel::class.java]
 
         binding.viewModel = viewModel
-
-        //mediatorLiveData Observer List에 등록
-        viewModel.checkUserInfo.observe(this, {
-
-        })
 
     }
 }

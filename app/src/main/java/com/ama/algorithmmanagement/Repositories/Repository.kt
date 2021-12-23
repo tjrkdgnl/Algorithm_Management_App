@@ -5,7 +5,7 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.R
 
 class Repository(

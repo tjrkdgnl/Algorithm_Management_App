@@ -1,16 +1,27 @@
-package com.ama.algorithmmanagement.utils
+package com.ama.algorithmmanagement.Base
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.Base.BaseRepository
 import java.lang.reflect.InvocationTargetException
 
-class BaseViewModelFactory(private val repository: BaseRepository) :
+class BaseViewModelFactory(
+    private val repository: BaseRepository,
+    private val lifecycleOwner: LifecycleOwner? = null
+) :
     ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (ViewModel::class.java.isAssignableFrom(modelClass)) {
             try {
+                if (lifecycleOwner != null) {
+                    return modelClass.getConstructor(
+                        BaseRepository::class.java,
+                        LifecycleOwner::class.java
+                    )
+                        .newInstance(repository, lifecycleOwner)
+                }
+
                 return modelClass.getConstructor(BaseRepository::class.java)
                     .newInstance(repository)
 

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Network
+package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.ProblemStatus
 import com.ama.algorithmmanagement.Model.Problems
