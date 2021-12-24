@@ -2,52 +2,113 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.FirebaseVIewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.RealVIewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
 
-        <EditText
-            android:id="@+id/id"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:hint="id입력"
-            android:paddingHorizontal="20dp"
-            android:text="@={viewModel.userId}" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="pwd입력"
-            android:paddingHorizontal="20dp"
-            android:text="@={viewModel.password}" />
+            <EditText
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:hint="id입력"
+                android:paddingHorizontal="20dp"
+                android:text="@={viewModel.userId}" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="70dp"
-            android:onClick="@{()->viewModel.saveUserInfo()}"
-            android:text="확인"
-            android:textSize="22sp" />
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:hint="pwd입력"
+                android:paddingHorizontal="20dp"
+                android:text="@={viewModel.password}" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:onClick="@{()->viewModel.getUserInfo()}"
-            android:text="정보 가져오기"
-            android:textSize="22sp" />
+            <EditText
+                android:id="@+id/problemId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="문제번호 입력"
+                android:paddingHorizontal="20dp"
+                android:text="@={viewModel.problemId}" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="50dp"
+                android:onClick="@{()->viewModel.saveUserInfo()}"
+                android:text="유저정보 저장"
+                android:textSize="22sp" />
 
-    </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getUserInfo()}"
+                android:text="유저정보 가져오기"
+                android:textSize="22sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getProblem()}"
+                android:text="문제 가져오기"
+                android:textSize="22sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getSolvedProblems()}"
+                android:text="푼 문제 가져오기"
+                android:textSize="22sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getStats()}"
+                android:text="유저 통계 가져오기"
+                android:textSize="22sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getSearchProblemList()}"
+                android:text="문제 검색"
+                android:textSize="22sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{()->viewModel.getUnSolvedProblems()}"
+                android:text="풀지 못한 문제 가져오기"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </layout>

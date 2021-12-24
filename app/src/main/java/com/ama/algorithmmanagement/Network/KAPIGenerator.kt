@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.Network
 
+import com.ama.algorithmmanagement.Application.AMAApplication
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,6 +13,7 @@ object KAPIGenerator {
     private val apiService: KAPIService by lazy {
         retrofit.create(KAPIService::class.java)
     }
+    private var solvedacToken: String? = null
 
     fun getInstance(): KAPIService {
         if (!this::retrofit.isInitialized) {
@@ -22,6 +24,17 @@ object KAPIGenerator {
                 .build()
         }
         return apiService
+    }
+
+    fun initRetrofit(solvedacToken: String) {
+        this.solvedacToken = solvedacToken
+
+        retrofit = Retrofit.Builder()
+            .baseUrl("https://solved.ac/api/v3/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getOkHttpClient())
+            .build()
+
     }
 
     private fun getOkHttpClient(): OkHttpClient {
@@ -41,20 +54,21 @@ object KAPIGenerator {
     //API에 자동으로 Header 설정하기 위한 Interceptor
     //여기선 header의 타입만 추가
     private fun getInterceptor(): Interceptor {
-//        Timber.e("초기화")
-//        val solvedacToken = with(FakeSharedPreference()) {
-//            setSolvedacToken("solvedacToken=s:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYW5kbGUiOiJza2poMDgxOCIsImlhdCI6MTYzOTEwMzM4Mn0.9zljB89UD-Au0pcypQgJ6sBk4YPntVo_FUXQYjJKBtc.h2ItJm2b4l29UH695OJdAGWcCjq6kCJ5xb+/OBmjnpc")
-//            getSolvedacToken()
-//        }
+        if (solvedacToken == null) {
+            solvedacToken = with(AMAApplication.INSTANCE.sharedPrefUtils) {
+                getSolvedacToken()
+            }
+        }
+
         return Interceptor { chain ->
             val request = chain.request()
             val headers = Headers.Builder().apply {
                 add("Content-Type", "application/json;charset=utf-8")
 
+                solvedacToken?.let { token ->
+                    add("Cookie", token)
+                }
 
-//                solvedacToken?.let { token ->
-//                    add("Cookie", token)
-//                }
             }.build()
 
             //생성한 헤더를 갖는 request를 새롭게 생성

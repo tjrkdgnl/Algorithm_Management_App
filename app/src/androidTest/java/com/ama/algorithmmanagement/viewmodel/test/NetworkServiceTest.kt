@@ -60,7 +60,7 @@ class NetworkServiceTest {
     @Test
     fun getBOJInfo() = runBlocking {
         //then
-        val lst = fakeRepository.getBOJUserInfo()
+        val lst = fakeRepository.getUnSolvedProblems()
 
         assertEquals(lst[0].status, "solved")
         assertEquals(lst[0].id, 1000)

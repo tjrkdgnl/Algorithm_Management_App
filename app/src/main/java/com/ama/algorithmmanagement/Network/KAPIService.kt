@@ -11,7 +11,7 @@ interface KAPIService {
     suspend fun getProblemsOfClass() : List<KProblemsOfClass>
 
     @GET("search/problem")
-    suspend fun getSearchProblemList(@Query("query") param:String) : Problems
+    suspend fun getSearchProblemList(@Query("query") problemId: Int) : Problems
 
     @GET("search/problem")
     suspend fun getSolvedProblems(@Query("query") param:String) : Problems
@@ -20,7 +20,7 @@ interface KAPIService {
     suspend fun getBOJUserInfo() : BOJUser
 
     @GET("user/problem_stats")
-    suspend fun getUserStatsInfo(@Query("handle") userId:String) : Call<List<Stats>>
+    fun getUserStatsInfo(@Query("handle") userId:String) : Call<List<Stats>>
 
     @GET("problem/show")
     suspend fun getProblem(@Query("problemId")problemId:Int) : TaggedProblem

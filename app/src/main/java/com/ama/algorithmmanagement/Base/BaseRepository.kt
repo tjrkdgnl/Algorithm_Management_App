@@ -12,7 +12,7 @@ interface BaseRepository {
 
     suspend fun getUserStats(): List<Stats>
 
-    suspend fun getBOJUserInfo(): List<ProblemStatus>
+    suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus>
 
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 

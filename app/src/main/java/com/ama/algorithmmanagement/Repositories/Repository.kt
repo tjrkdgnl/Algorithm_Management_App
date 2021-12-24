@@ -2,10 +2,10 @@ package com.ama.algorithmmanagement.Repositories
 
 import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
+import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.R
 
 class Repository(
@@ -20,7 +20,7 @@ class Repository(
 
     //NetworkService
     override suspend fun getProblem(problemId: Int): TaggedProblem {
-        TODO("Not yet implemented")
+        return mNetworkService.getProblem(problemId)
     }
 
     override suspend fun getSolvedProblems(): Problems {
@@ -28,19 +28,29 @@ class Repository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
         }
 
-        return mNetworkService.getSolvedProblems(mUserId!!)
+        val solvedByUser = mApp.getString(R.string.solvedProblemUserId,mUserId)
+
+        return mNetworkService.getSolvedProblems(solvedByUser)
     }
 
     override suspend fun getUserStats(): List<Stats> {
-        TODO("Not yet implemented")
+        if(mUserId ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        }
+
+        return mNetworkService.getUserStats(mUserId!!)
     }
 
     override suspend fun getSearchProblemList(problemId: Int): Problems {
-        TODO("Not yet implemented")
+        return mNetworkService.getSearchProblemList(problemId)
     }
 
-    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
-        TODO("Not yet implemented")
+    override suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus> {
+        if(solvedacToken ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"solvedacToken"))
+        }
+
+        return mNetworkService.getUnSolvedProblems(solvedacToken)
     }
 
     //Firebase Service

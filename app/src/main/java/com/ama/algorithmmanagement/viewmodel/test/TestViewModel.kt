@@ -37,8 +37,11 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
         }
     }
 
-    fun checkUserInfo(userId: String, password: String): Boolean {
-        return repository.checkUserInfo(userId, password)
+    fun checkUserInfo(userId: String, password: String){
+        viewModelScope.launch {
+             repository.checkUserInfo(userId, password)
+
+        }
     }
 
     fun setDateInfo() {

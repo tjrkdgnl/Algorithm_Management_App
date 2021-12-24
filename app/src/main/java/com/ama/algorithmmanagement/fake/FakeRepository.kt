@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
+import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.R
 
 class FakeRepository(
@@ -41,8 +41,12 @@ class FakeRepository(
         return mBaseNetworkService.getUserStats(mUserId)
     }
 
-    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
-        return mBaseNetworkService.getBOJUserInfo()
+    override suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus> {
+        if(solvedacToken ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"solvedacToken"))
+        }
+
+        return mBaseNetworkService.getUnSolvedProblems(solvedacToken)
     }
 
     override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?) :Boolean {
@@ -51,7 +55,7 @@ class FakeRepository(
         return true
     }
 
-    override fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         return mFakeFirebaseReference.checkUserInfo(userId, password)
     }
 

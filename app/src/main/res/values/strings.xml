@@ -2,6 +2,7 @@
     <string name="app_name">AlgorithmManagement</string>
     <string name="FragmentDefaultText">this is MainFragment</string>
     <string name="solvedProblemUserId">solved_by:%s</string>
+    <string name="solvedacToken">solvedacToken=%s</string>
     <string name="callAPI">클래스번호 호출</string>
     <string name="callSolvedAPI">내가 푼 문제</string>
     <string name="login">로그인</string>
