@@ -13,20 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".Activity.kDefault.KDefaultActivity">
+        <activity
+            android:name=".Activity.kDefault.KNoTipActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.kDefault.KDefaultActivity">
 
+        </activity>
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
-
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
-
         <activity android:name=".Activity.kDefault.KLoginActivity" />
-
     </application>
 
 </manifest>
