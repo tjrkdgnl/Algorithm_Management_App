@@ -241,7 +241,7 @@ class FakeFirebaseReference(
         return true
     }
 
-    fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
+    fun deleteTippingProblem(userId: String, problemId: Int): Boolean {
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {

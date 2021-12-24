@@ -14,7 +14,7 @@ class FakeRepository(
     private val mSharedPrefUtils: BaseSharedPreference,
 ) : BaseRepository {
 
-    private val mUserId = mSharedPrefUtils.getUserId()
+    private var mUserId = mSharedPrefUtils.getUserId()
     private val mTierType = mSharedPrefUtils.getTierType()
 
     override suspend fun getSolvedProblems(): Problems {
@@ -22,7 +22,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mBaseNetworkService.getSolvedProblems(mUserId)
+        return mBaseNetworkService.getSolvedProblems(mUserId!!)
     }
 
     override suspend fun getSearchProblemList(problemId: Int): Problems {
@@ -34,7 +34,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mBaseNetworkService.getUserStats(mUserId)
+        return mBaseNetworkService.getUserStats(mUserId!!)
     }
 
     override suspend fun getBOJUserInfo(): List<ProblemStatus> {
@@ -44,6 +44,7 @@ class FakeRepository(
     override fun setUserInfo(userId: String, password: String, fcmToken: String?) {
         mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)
         mSharedPrefUtils.setUserId(userId)
+        mUserId = mSharedPrefUtils.getUserId()
     }
 
     override fun checkUserInfo(userId: String, password: String): Boolean {
@@ -59,7 +60,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.setDateInfo(mUserId)
+        return mFakeFirebaseReference.setDateInfo(mUserId!!)
     }
 
     override fun getDateInfoObject(): DateInfoObject? {
@@ -71,7 +72,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.setIdeaInfo(mUserId, url, comment, problemId)
+        return mFakeFirebaseReference.setIdeaInfo(mUserId!!, url, comment, problemId)
     }
 
     override fun getIdeaInfos(problemId: Int): IdeaInfos? {
@@ -86,7 +87,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "mTierType"))
         }
 
-        return mFakeFirebaseReference.setComment(mUserId, mTierType, problemId, comment)
+        return mFakeFirebaseReference.setComment(mUserId!!, mTierType, problemId, comment)
     }
 
     override fun getCommentObject(problemId: Int): CommentObject? {
@@ -101,7 +102,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "mTierType"))
         }
 
-        return mFakeFirebaseReference.setChildComment(mUserId, mTierType, commentId, comment)
+        return mFakeFirebaseReference.setChildComment(mUserId!!, mTierType, commentId, comment)
     }
 
     override fun getChildCommentObject(commentId: String): ChildCommentObject? {
@@ -117,7 +118,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.setTippingProblem(mUserId, problem, isShow, tipComment)
+        return mFakeFirebaseReference.setTippingProblem(mUserId!!, problem, isShow, tipComment)
     }
 
     override fun getTippingProblem(): TippingProblemObject? {
@@ -133,7 +134,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.modifyTippingProblem(mUserId, problemId, isShow, comment)
+        return mFakeFirebaseReference.modifyTippingProblem(mUserId!!, problemId, isShow, comment)
     }
 
     override fun deleteTippingProblem(problemId: Int): Boolean {
@@ -141,7 +142,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.deleteTippingProblem(mUserId, problemId)
+        return mFakeFirebaseReference.deleteTippingProblem(mUserId!!, problemId)
     }
 
 }
