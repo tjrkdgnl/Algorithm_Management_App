@@ -63,8 +63,8 @@ class Repository(
         return mFirebaseService.getUserInfo(mUserId!!)
     }
 
-    override fun checkUserInfo(userId: String, password: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+        return mFirebaseService.checkUserInfo(userId,password)
     }
 
     override fun setDateInfo(): Boolean {

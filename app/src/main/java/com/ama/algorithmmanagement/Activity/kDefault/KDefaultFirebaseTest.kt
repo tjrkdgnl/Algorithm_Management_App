@@ -22,6 +22,6 @@ class KDefaultFirebaseTest :
         )[FirebaseVIewModel::class.java]
 
         binding.viewModel = viewModel
-
+        
     }
 }
