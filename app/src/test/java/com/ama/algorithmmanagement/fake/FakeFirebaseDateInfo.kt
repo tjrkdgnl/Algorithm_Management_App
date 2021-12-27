@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.DateInfo
 import com.ama.algorithmmanagement.utils.DateUtils
@@ -20,13 +21,13 @@ class FakeFirebaseDateInfo {
     @Before
     fun init() {
         fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
 
         mUserId = fakeSharedPreference.getUserId()!!
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(),
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
                 DateUtils.createDate()
             )
     }
@@ -42,8 +43,8 @@ class FakeFirebaseDateInfo {
         val dateInfoList = mutableListOf(DateInfo(DateUtils.createDate()))
 
         //then
-        assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.userId, "skjh0818")
+        assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.dateList?.get(0), dateInfoList.get(0))
     }
 }

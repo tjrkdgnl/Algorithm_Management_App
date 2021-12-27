@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
@@ -18,7 +19,7 @@ class FakeFirebaseComment {
     @Before
     fun init() {
         fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         mUserId = fakeSharedPreference.getUserId()!!
@@ -27,7 +28,7 @@ class FakeFirebaseComment {
         fakeFirebaseReference =
             FakeFirebaseReference(
 
-                FakeFirebaseDataProvider(),
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
                 DateUtils.createDate()
             )
     }
@@ -36,18 +37,19 @@ class FakeFirebaseComment {
     @Test
     fun getCommentObject() {
         //given
-        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "이거 어떻게 풀어요?")
+//        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "이거 어떻게 풀어요?")
 
         //when
         val commentObject = fakeFirebaseReference.getCommentObject(1111)
         val commentInfo = commentObject?.commentList?.get(0)
 
         //then
-        assertEquals(commentObject?.problemId, 1111)
-        assertEquals(commentInfo?.comment, "이거 어떻게 풀어요?")
+        assertEquals(commentInfo?.userId, "skjh0818")
+        assertEquals(commentObject?.count, 1)
+        assertEquals(commentObject?.problemId, 1110)
+        assertEquals(commentInfo?.comment, "this is comment 0")
         assertEquals(commentInfo?.commentChildCount, 0)
         assertEquals(commentInfo?.commentId, "skjh0818RandomNumber")
-        assertEquals(commentInfo?.userId, "skjh0818")
         assertEquals(commentInfo?.tierType, 1)
         assertEquals(commentInfo?.date, DateUtils.createDate())
     }
