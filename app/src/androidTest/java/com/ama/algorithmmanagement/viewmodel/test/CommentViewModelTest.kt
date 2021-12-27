@@ -23,11 +23,11 @@ class CommentViewModelTest {
     fun init() {
         val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
         val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
@@ -40,6 +40,18 @@ class CommentViewModelTest {
                 fakeSharedPreference
             )
         )
+    }
+
+    @Test
+    fun getComment(){
+        testCommentViewModel.initCommentObject(1111)
+
+        val lst = testCommentViewModel.mCommentObject?.commentList!!
+
+        assertEquals(lst[0].userId,"Default_User")
+        assertEquals(lst[0].commentId,"commentId0")
+        assertEquals(lst[0].comment,"this is comment 0")
+
     }
 
     @Test

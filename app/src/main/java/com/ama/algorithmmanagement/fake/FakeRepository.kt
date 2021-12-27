@@ -14,7 +14,7 @@ class FakeRepository(
     private val mSharedPrefUtils: BaseSharedPreference,
 ) : BaseRepository {
 
-    private var mUserId = mSharedPrefUtils.getUserId()
+    private var mUserId: String? = mSharedPrefUtils.getUserId() ?: mApp.getString(R.string.default_user)
     private val mTierType = mSharedPrefUtils.getTierType()
 
     override suspend fun getProblem(problemId: Int): TaggedProblem {

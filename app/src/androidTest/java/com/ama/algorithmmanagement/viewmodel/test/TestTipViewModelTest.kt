@@ -21,11 +21,11 @@ class TestTipViewModelTest {
     fun init() {
         val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
         mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
@@ -45,10 +45,12 @@ class TestTipViewModelTest {
         //given
         val problem = mFakeNetworkService.getProblem(1111)
 
-        //when
+//        when
         testTipViewModel.setTippingProblem(problem, false, "재귀를 사용하면 좋다")
 
-        val lst = testTipViewModel.tipProblems
+        testTipViewModel.initTipProblemObject()
+
+        val lst = testTipViewModel.tipProbleObject?.problemList!!
 
         //then
         assertEquals(lst[0].tipComment, "재귀를 사용하면 좋다")

@@ -8,6 +8,7 @@
     <string name="login">로그인</string>
     <string name="firbaseTest">shared 테스트</string>
     <string name="prefGetUserId">UserId</string>
+    <string name="default_user">Default_User</string>
     <string name="objectIsNull">%s가 존재하지 않습니다.</string>
 
 

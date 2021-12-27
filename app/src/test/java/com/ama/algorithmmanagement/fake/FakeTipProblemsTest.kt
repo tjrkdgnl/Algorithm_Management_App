@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.DisplayName
 import com.ama.algorithmmanagement.Model.Tag
@@ -12,7 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class FakeFirebaseReferenceTest {
+class FakeTipProblemsTest {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
     lateinit var mUserId: String
@@ -21,7 +22,7 @@ class FakeFirebaseReferenceTest {
     @Before
     fun init() {
         fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         mUserId = fakeSharedPreference.getUserId()!!
@@ -30,7 +31,7 @@ class FakeFirebaseReferenceTest {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(),
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
                 DateUtils.createDate()
             )
     }
@@ -53,12 +54,12 @@ class FakeFirebaseReferenceTest {
             )
 
         //when
-        fakeFirebaseReference.setTippingProblem(mUserId,taggedProblem, true, "dp를 사용하면 좋다")
+//        fakeFirebaseReference.setTippingProblem(mUserId,taggedProblem, true, "dp를 사용하면 좋다")
 
         val tippingProblemObject = fakeFirebaseReference.getTippingProblemObject(mUserId)
 
         //then
-        assertEquals(tippingProblemObject?.userId, "skjh0818")
+        assertEquals(tippingProblemObject?.userId, "Default_User")
         assertEquals(tippingProblemObject?.problemList?.get(0)?.tipComment, "dp를 사용하면 좋다")
         assertEquals(tippingProblemObject?.problemList?.get(0)?.isShow, true)
         assertEquals(tippingProblemObject?.problemList?.get(0)?.date, DateUtils.createDate())

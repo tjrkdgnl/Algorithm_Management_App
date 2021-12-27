@@ -25,7 +25,7 @@ class NetworkServiceTest {
         mUserId = fakeSharedPreference.getUserId()
 
         val fakeFirebaseReference =
-            FakeFirebaseReference(FakeFirebaseDataProvider(), DateUtils.createDate())
+            FakeFirebaseReference(FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate())
 
         fakeRepository =
             FakeRepository(context, fakeFirebaseReference, fakeNetworkService, fakeSharedPreference)
