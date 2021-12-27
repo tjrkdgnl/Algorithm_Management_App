@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.Repositories
 
 import android.app.Application
+import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.fake.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +19,7 @@ class RepositoryLocator {
                     app,
                     FirebaseService(app),
                     NetworkService(),
-                    FakeSharedPreference()
+                    AMAApplication.INSTANCE.sharedPrefUtils
                 )
         }
         return mRepository

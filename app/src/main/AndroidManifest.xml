@@ -29,6 +29,8 @@
 
         <activity android:name=".Activity.kDefault.KDefaultFirebaseTest"/>
 
+        <activity android:name=".Activity.kDefault.KSharedActivity"/>
+
     </application>
 
 </manifest>

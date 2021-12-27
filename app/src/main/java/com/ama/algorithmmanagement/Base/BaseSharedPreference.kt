@@ -15,9 +15,11 @@ interface BaseSharedPreference {
 
     fun getAutoLoginCheck(): Boolean
 
+    fun deleteAutoLoginCheck()
+
     fun setTierType(tierType: Int)
 
-    fun getTierType(): Int?
+    fun getTierType(): Int
 
     fun deleteToTierType()
 

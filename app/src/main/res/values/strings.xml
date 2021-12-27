@@ -6,7 +6,7 @@
     <string name="callAPI">클래스번호 호출</string>
     <string name="callSolvedAPI">내가 푼 문제</string>
     <string name="login">로그인</string>
-    <string name="firbaseTest">파이어베이스 테스트</string>
+    <string name="firbaseTest">shared 테스트</string>
     <string name="prefGetUserId">UserId</string>
     <string name="objectIsNull">%s가 존재하지 않습니다.</string>
 

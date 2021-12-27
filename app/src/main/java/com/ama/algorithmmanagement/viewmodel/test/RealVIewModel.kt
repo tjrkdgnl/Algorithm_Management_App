@@ -91,7 +91,7 @@ class RealVIewModel(
     fun getUnSolvedProblems() {
         viewModelScope.launch {
             try {
-                Timber.e(mRepository.getUnSolvedProblems(solvedacToken.value).toString())
+                mRepository.getUnSolvedProblems(solvedacToken.value).toString()
 
             } catch (e: Exception) {
                 Timber.e(e)

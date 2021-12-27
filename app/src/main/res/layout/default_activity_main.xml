@@ -64,6 +64,15 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToFirebaseTestAct()}"
+                android:text="@string/firbaseTest"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:onClick="@{()->viewModel.moveToSharedTestAct()}"
                 android:text="@string/firbaseTest" />
 
         </LinearLayout>

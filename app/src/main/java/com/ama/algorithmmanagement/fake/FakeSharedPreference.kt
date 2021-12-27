@@ -24,6 +24,10 @@ class FakeSharedPreference : BaseSharedPreference {
         return check ?: false
     }
 
+    override fun deleteAutoLoginCheck() {
+        fakeMap.remove(SharedKey.AUTO_LOGIN)
+    }
+
     override fun deleteUserId() {
         fakeMap.remove(SharedKey.USERID)
     }
@@ -32,8 +36,8 @@ class FakeSharedPreference : BaseSharedPreference {
         fakeMap[SharedKey.TIER] = tierType
     }
 
-    override fun getTierType(): Int? {
-        return fakeMap[SharedKey.TIER] as? Int
+    override fun getTierType(): Int {
+        return fakeMap[SharedKey.TIER] as Int
     }
 
     override fun deleteToTierType() {
@@ -52,9 +56,9 @@ class FakeSharedPreference : BaseSharedPreference {
         fakeMap.remove(SharedKey.TOKEN)
     }
 
-    override fun setSolvedProblems(solvedProblem: Problems) {
+    override fun setSolvedProblems(solvedProblems: Problems) {
         val gson = Gson()
-        val jsonObj = gson.toJson(solvedProblem)
+        val jsonObj = gson.toJson(solvedProblems)
 
         fakeMap[SharedKey.SOLVED] = jsonObj
     }
