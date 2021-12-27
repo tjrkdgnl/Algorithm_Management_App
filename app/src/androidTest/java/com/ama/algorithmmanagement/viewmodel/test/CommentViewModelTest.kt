@@ -3,12 +3,12 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.combineWith
 import com.ama.algorithmmanagement.utils.getOrAwaitValue
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 
 class CommentViewModelTest {
@@ -21,21 +21,37 @@ class CommentViewModelTest {
 
     @Before
     fun init() {
-        val fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
+        val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            ApplicationProvider.getApplicationContext(),
-            FakeFirebaseDataProvider(), fakeSharedPreference
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
 
         testCommentViewModel = TestCommentViewModel(
-            FakeRepository(fakeFirebaseReference, fakeNetworkService)
+            FakeRepository(
+                ApplicationProvider.getApplicationContext(),
+                fakeFirebaseReference,
+                fakeNetworkService,
+                fakeSharedPreference
+            )
         )
+    }
+
+    @Test
+    fun getComment(){
+        testCommentViewModel.initCommentObject(1111)
+
+        val lst = testCommentViewModel.mCommentObject?.commentList!!
+
+        assertEquals(lst[0].userId,"Default_User")
+        assertEquals(lst[0].commentId,"commentId0")
+        assertEquals(lst[0].comment,"this is comment 0")
+
     }
 
     @Test

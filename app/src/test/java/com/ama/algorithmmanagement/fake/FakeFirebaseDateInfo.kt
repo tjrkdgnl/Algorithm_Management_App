@@ -4,9 +4,9 @@ package com.ama.algorithmmanagement.fake
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.Model.DateInfo
-import org.junit.Assert.*
+import com.ama.algorithmmanagement.utils.DateUtils
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -16,17 +16,19 @@ class FakeFirebaseDateInfo {
 
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
+    lateinit var mUserId: String
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference.setUserId("Default_User")
+
+        mUserId = fakeSharedPreference.getUserId()!!
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                ApplicationProvider.getApplicationContext(),
-                FakeFirebaseDataProvider(),
-                fakeSharedPreference
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
+                DateUtils.createDate()
             )
     }
 
@@ -34,15 +36,15 @@ class FakeFirebaseDateInfo {
     @Test
     fun getDateInfos() {
         //given
-        fakeFirebaseReference.setDateInfo()
+        fakeFirebaseReference.setDateInfo(mUserId)
 
         //when
-        val dateInfos = fakeFirebaseReference.getDateInfos()
-        val dateInfoList = mutableListOf(DateInfo("2021.12.01"))
+        val dateInfos = fakeFirebaseReference.getDateInfos(mUserId)
+        val dateInfoList = mutableListOf(DateInfo(DateUtils.createDate()))
 
         //then
-        assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.userId, "skjh0818")
+        assertEquals(dateInfos?.count, 1)
         assertEquals(dateInfos?.dateList?.get(0), dateInfoList.get(0))
     }
 }

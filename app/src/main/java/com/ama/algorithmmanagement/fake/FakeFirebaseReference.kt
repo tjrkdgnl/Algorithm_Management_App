@@ -1,40 +1,25 @@
 package com.ama.algorithmmanagement.fake
 
-import android.app.Application
-import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.utils.DateUtils
 import timber.log.Timber
-import java.lang.NullPointerException
 
 class FakeFirebaseReference(
-    private val mApp: Application,
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
-    private val mSharedPrefUtils: BaseSharedPreference
+    private val mDate: String
 ) {
-
-    private val mUserId = mSharedPrefUtils.getUserIdFromLocal()
-    private val mTierType = mSharedPrefUtils.getTierType()
-    private val mDate = DateUtils.createDate()
-
 
     fun setUserInfo(userId: String, userPw: String, fcmToken: String?) {
         val userList = mFakeFirebaseDataProvider.userSnapShot
-
         userList.add(UserInfo(userId, userPw, fcmToken))
-
-        mSharedPrefUtils.setUserIdToLocal(userId)
     }
 
-    fun getUserInfo(): UserInfo? {
+    fun getUserInfo(userId: String?): UserInfo? {
         val userList = mFakeFirebaseDataProvider.userSnapShot
         for (userInfo in userList) {
-            if (userInfo.userId == mUserId) {
+            if (userInfo.userId == userId) {
                 return userInfo
             }
         }
-
         return null
     }
 
@@ -51,35 +36,24 @@ class FakeFirebaseReference(
         return false
     }
 
-    fun setDateInfo(): Result<Boolean> {
+    fun setDateInfo(userId: String): Boolean {
         val dateInfo = DateInfo(mDate)
 
-        if (mUserId == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
-        }
-
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
-            if (dateInfos.userId == mUserId) {
+            if (dateInfos.userId == userId) {
                 dateInfos.dateList.add(dateInfo)
-                return Result.success(true)
+                return true
             }
         }
 
-        val dateInfos = DateInfoObject(1, mUserId, mutableListOf(dateInfo))
+        val dateInfos = DateInfoObject(1, userId, mutableListOf(dateInfo))
         mFakeFirebaseDataProvider.dateSnapShot.add(dateInfos)
-        return Result.success(true)
+        return true
     }
 
-    fun getDateInfos(): DateInfoObject? {
+    fun getDateInfos(userId: String?): DateInfoObject? {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
-            if (dateInfos.userId == mUserId) {
+            if (dateInfos.userId == userId) {
                 return dateInfos
             }
         }
@@ -87,90 +61,67 @@ class FakeFirebaseReference(
     }
 
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo> {
-        if (mUserId == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
-        }
+    fun setIdeaInfo(
+        userId: String,
+        url: String?,
+        comment: String?,
+        problemId: Int
+    ): IdeaInfo {
 
         val ideaInfo = IdeaInfo(url, comment, mDate)
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
 
         for (ideaObject in mFakeFirebaseDataProvider.ideaSnapShot) {
-            if (ideaObject.userId == mUserId) {
+            if (ideaObject.userId == userId) {
 
                 for (ideainfos in ideaObject.ideaInfosList) {
                     if (ideainfos.problemId == problemId) {
                         ideainfos.ideaList.add(ideaInfo)
-                        return Result.success(ideaInfo)
+                        return ideaInfo
                     }
                 }
 
                 ideaObject.ideaInfosList.add(ideaInfos)
-                return Result.success(ideaInfo)
+                return ideaInfo
             }
         }
 
-        val ideaObject = IdeaObject(mUserId, mutableListOf(ideaInfos))
+        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
         mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
-        return Result.success(ideaInfo)
+        return ideaInfo
     }
 
-    fun getIdeaInfos(problemId: Int): IdeaInfos? {
+    fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
         for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
-            if (userIdeaInfo.userId == mUserId) {
+            if (userIdeaInfo.userId == userId) {
 
                 for (ideaInfos in userIdeaInfo.ideaInfosList) {
                     if (ideaInfos.problemId == problemId) {
                         return ideaInfos
                     }
                 }
-
             }
         }
         return null
     }
 
-    fun setComment(problemId: Int, comment: String): Result<CommentInfo> {
-        if (mUserId == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
-        }
-
-        if (mTierType == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "tierType"
-                    )
-                )
-            )
-        }
-
+    fun setComment(
+        userId: String,
+        tierType: Int,
+        problemId: Int,
+        comment: String
+    ): CommentInfo {
         val commentId = "RandomNumber"
 
         val newCommentInfo =
-            CommentInfo(commentId, mUserId, mTierType, comment, mDate, 0)
+            CommentInfo(commentId, userId, tierType, comment, mDate, 0)
 
         for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentObject.problemId == problemId) {
                 commentObject.commentList.add(newCommentInfo)
 
-                return Result.success(newCommentInfo)
+                return newCommentInfo
 
             }
         }
@@ -179,7 +130,7 @@ class FakeFirebaseReference(
 
         mFakeFirebaseDataProvider.commentSnapShot.add(commentObject)
 
-        return Result.success(newCommentInfo)
+        return newCommentInfo
     }
 
     fun getCommentObject(problemId: Int): CommentObject? {
@@ -188,46 +139,27 @@ class FakeFirebaseReference(
                 return commentinfo
             }
         }
-
         return null
     }
 
-    fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo> {
-        if (mUserId == null)
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
-
-        if (mTierType == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "tierType"
-                    )
-                )
-            )
-        }
-
-        val childCommentInfo = ChildCommentInfo(mUserId, mTierType, comment, mDate)
-
+    fun setChildComment(
+        userId: String,
+        tierType: Int,
+        commentId: String,
+        comment: String
+    ): ChildCommentInfo {
+        val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
 
         for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 childCommentObject.commentChildList.add(childCommentInfo)
-                return Result.success(childCommentInfo)
+                return childCommentInfo
             }
         }
-
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
         mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 
-        return Result.success(childCommentInfo)
+        return childCommentInfo
     }
 
 
@@ -245,43 +177,37 @@ class FakeFirebaseReference(
     }
 
     fun setTippingProblem(
+        userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<TipProblem> {
-        if (mUserId == null) {
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
-        }
+    ): TipProblem {
 
         val tipProblem = TipProblem(problem, isShow, tipComment, mDate)
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
-            if (tipProblemObject.userId == mUserId) {
+            if (tipProblemObject.userId == userId) {
                 tipProblemObject.problemList.add(tipProblem)
-                return Result.success(tipProblem)
+                return tipProblem
             }
         }
 
-        val tipProblemObject = TippingProblemObject(1, mUserId, mutableListOf(tipProblem))
+        val tipProblemObject = TippingProblemObject(
+            1,
+            userId, mutableListOf(tipProblem)
+        )
         mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
 
-        return Result.success(tipProblem)
+        return tipProblem
     }
 
-    fun getTippingProblemObject(): TippingProblemObject? {
-        if (mUserId == null) {
+    fun getTippingProblemObject(userId: String?): TippingProblemObject? {
+        if (userId == null) {
             return null
         }
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
-            if (tipProblemObject.userId == mUserId) {
+            if (tipProblemObject.userId == userId) {
                 return tipProblemObject
             }
         }
@@ -289,22 +215,14 @@ class FakeFirebaseReference(
     }
 
     fun modifyTippingProblem(
+        userId: String,
         problemId: Int,
         isShow: Boolean?,
         comment: String?
-    ): Result<Boolean> {
-        if (mUserId == null)
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
+    ): Boolean {
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
-            if (tipProblemObject.userId == mUserId) {
+            if (tipProblemObject.userId == userId) {
 
                 for (tipProblem in tipProblemObject.problemList.withIndex()) {
                     if (tipProblem.value.problem.problemId == problemId) {
@@ -314,37 +232,28 @@ class FakeFirebaseReference(
                         if (comment != null) {
                             tipProblem.value.tipComment = comment
                         }
-                        return Result.success(true)
+                        return true
                     }
                 }
             }
         }
 
-        return Result.success(false)
+        return true
     }
 
-    fun deleteTippingProblem(problemId: Int): Result<Boolean> {
-        if (mUserId == null)
-            return Result.failure(
-                NullPointerException(
-                    mApp.getString(
-                        R.string.objectIsNull,
-                        "userId"
-                    )
-                )
-            )
+    fun deleteTippingProblem(userId: String, problemId: Int): Boolean {
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
-            if (tipProblemObject.userId == mUserId) {
+            if (tipProblemObject.userId == userId) {
 
                 for (tipProblem in tipProblemObject.problemList.withIndex()) {
                     if (tipProblem.value.problem.problemId == problemId) {
                         tipProblemObject.problemList.removeAt(tipProblem.index)
-                        return Result.success(true)
+                        return true
                     }
                 }
             }
         }
-        return Result.success(false)
+        return true
     }
 }

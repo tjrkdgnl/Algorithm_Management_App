@@ -2,6 +2,7 @@ package com.ama.algorithmmanagement.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -11,17 +12,22 @@ import org.junit.runner.RunWith
 class FakeFirebaseUserInfo {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
+    lateinit var mUserId: String
+    var mTierType: Int =0
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference = FakeSharedPreference()
+        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setTierType(1)
+
+        mUserId = fakeSharedPreference.getUserId()!!
+        mTierType = fakeSharedPreference.getTierType()!!
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                ApplicationProvider.getApplicationContext(),
-                FakeFirebaseDataProvider(),
-                fakeSharedPreference
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
+                DateUtils.createDate()
             )
     }
 
@@ -32,7 +38,7 @@ class FakeFirebaseUserInfo {
 
 
         //when
-        val userInfo = fakeFirebaseReference.getUserInfo()
+        val userInfo = fakeFirebaseReference.getUserInfo(mUserId)
 
         //then
         assertEquals(userInfo?.userId, "skjh0818")
@@ -43,7 +49,7 @@ class FakeFirebaseUserInfo {
     @Test
     fun getUserInfo_empty_returnNull() {
         //when
-        val userInfo = fakeFirebaseReference.getUserInfo()
+        val userInfo = fakeFirebaseReference.getUserInfo(mUserId)
 
         //then
         assertNull(userInfo)

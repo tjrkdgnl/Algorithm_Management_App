@@ -3,9 +3,10 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.combineWith
 import com.ama.algorithmmanagement.utils.getOrAwaitValue
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -18,20 +19,19 @@ class TestChildCommentViewModelTest {
 
     @Before
     fun init() {
-        val fakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
+        val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserIdToLocal("skjh0818")
+        fakeSharedPreference.setUserId("skjh0818")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            ApplicationProvider.getApplicationContext(),
-            FakeFirebaseDataProvider(), fakeSharedPreference
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(fakeSharedPreference))
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
 
         testChildCommentViewModel = TestChildCommentViewModel(
-            FakeRepository(fakeFirebaseReference, fakeNetworkService)
+            FakeRepository(ApplicationProvider.getApplicationContext(),fakeFirebaseReference, fakeNetworkService,fakeSharedPreference)
         )
     }
 
@@ -78,7 +78,7 @@ class TestChildCommentViewModelTest {
             }
         }
 
-        assertEquals(lst.size, 10)
+        assertEquals(lst.size, 5)
         assertEquals(lst[0].comment, "hello0")
         assertEquals(lst[1].comment, "hello1")
         assertEquals(lst[2].comment, "hello2")

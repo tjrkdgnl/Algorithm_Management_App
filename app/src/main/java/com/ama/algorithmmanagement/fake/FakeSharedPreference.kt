@@ -1,26 +1,32 @@
 package com.ama.algorithmmanagement.fake
 
-import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.Problems
 import com.google.gson.Gson
-import kotlin.collections.HashMap
 
-class FakeSharedPreference(private val mApp: Application) : BaseSharedPreference {
+class FakeSharedPreference : BaseSharedPreference {
     private val fakeMap = HashMap<SharedKey, Any>()
 
-    override fun setUserIdToLocal(userId: String) {
+    override fun setUserId(userId: String) {
         fakeMap[SharedKey.USERID] = userId
     }
 
-    override fun getUserIdFromLocal(): String? {
+    override fun getUserId(): String? {
         return fakeMap[SharedKey.USERID] as? String
     }
 
-    override fun deleteToUserId() {
-        fakeMap.remove(SharedKey.USERID)
+    override fun setAutoLoginCheck(check: Boolean) {
+        fakeMap[SharedKey.AUTO_LOGIN] = check
     }
 
+    override fun getAutoLoginCheck(): Boolean {
+        val check = fakeMap[SharedKey.AUTO_LOGIN] as? Boolean
+        return check ?: false
+    }
+
+    override fun deleteUserId() {
+        fakeMap.remove(SharedKey.USERID)
+    }
 
     override fun setTierType(tierType: Int) {
         fakeMap[SharedKey.TIER] = tierType
@@ -47,12 +53,10 @@ class FakeSharedPreference(private val mApp: Application) : BaseSharedPreference
     }
 
     override fun setSolvedProblems(solvedProblem: Problems) {
-        if (!fakeMap.containsKey(SharedKey.SOLVED)) {
-            val gson = Gson()
-            val jsonObj = gson.toJson(solvedProblem)
+        val gson = Gson()
+        val jsonObj = gson.toJson(solvedProblem)
 
-            fakeMap[SharedKey.SOLVED] = jsonObj
-        }
+        fakeMap[SharedKey.SOLVED] = jsonObj
     }
 
     override fun getSolvedProblems(): Problems? {
@@ -66,9 +70,8 @@ class FakeSharedPreference(private val mApp: Application) : BaseSharedPreference
         fakeMap.remove(SharedKey.SOLVED)
     }
 
-
     enum class SharedKey {
-        SOLVED, USERID, TIER, TOKEN
+        SOLVED, USERID, TIER, TOKEN, AUTO_LOGIN
     }
 
 }

@@ -1,11 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -20,10 +19,10 @@ class FakeNetworkServiceTest {
 
     @Before
     fun init() {
-        mFakeSharedPreference = FakeSharedPreference(ApplicationProvider.getApplicationContext())
-        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(mFakeSharedPreference))
+        mFakeSharedPreference = FakeSharedPreference()
+        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
 
-        mFakeSharedPreference.setUserIdToLocal("skjh0818")
+        mFakeSharedPreference.setUserId("skjh0818")
 
     }
 
@@ -31,7 +30,7 @@ class FakeNetworkServiceTest {
     @Test
     fun getSolvedProblems() = runBlockingTest {
         //when
-        val userId = mFakeSharedPreference.getUserIdFromLocal()
+        val userId = mFakeSharedPreference.getUserId()
         val solvedProblems = mFakeNetworkService.getSolvedProblems(userId!!)
 
         //then
@@ -61,7 +60,7 @@ class FakeNetworkServiceTest {
     @Test
     fun getUserStats() = runBlockingTest {
         //when
-        val userid = mFakeSharedPreference.getUserIdFromLocal()
+        val userid = mFakeSharedPreference.getUserId()
         val userStats = mFakeNetworkService.getUserStats(userid!!)
 
         //then

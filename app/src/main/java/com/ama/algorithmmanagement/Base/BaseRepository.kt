@@ -1,15 +1,14 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.*
-import kotlinx.coroutines.delay
 
 interface BaseRepository {
 
-    suspend fun getSolvedProblems(userId: String): Problems
+    suspend fun getSolvedProblems(): Problems
 
-    suspend fun getSearchProblemList(problemId: String): Problems
+    suspend fun getSearchProblemList(problemId: Int): Problems
 
-    suspend fun getUserStats(userId: String): List<Stats>
+    suspend fun getUserStats(): List<Stats>
 
     suspend fun getBOJUserInfo(): List<ProblemStatus>
 
@@ -19,19 +18,19 @@ interface BaseRepository {
 
     fun getuserInfo(): UserInfo?
 
-    fun setDateInfo(): Result<Boolean>
+    fun setDateInfo(): Boolean
 
     fun getDateInfoObject(): DateInfoObject?
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Result<IdeaInfo>
+    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo
 
     fun getIdeaInfos(problemId: Int): IdeaInfos?
 
-    fun setComment(problemId: Int, comment: String): Result<CommentInfo>
+    fun setComment(problemId: Int, comment: String): CommentInfo
 
     fun getCommentObject(problemId: Int): CommentObject?
 
-    fun setChildComment(commentId: String, comment: String): Result<ChildCommentInfo>
+    fun setChildComment(commentId: String, comment: String): ChildCommentInfo
 
     fun getChildCommentObject(commentId: String): ChildCommentObject?
 
@@ -39,7 +38,15 @@ interface BaseRepository {
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): Result<TipProblem>
+    ): TipProblem
 
     fun getTippingProblem(): TippingProblemObject?
+
+    fun modifyTippingProblem(
+        problemId: Int,
+        isShow: Boolean?,
+        comment: String?
+    ): Boolean
+
+    fun deleteTippingProblem( problemId: Int): Boolean
 }
