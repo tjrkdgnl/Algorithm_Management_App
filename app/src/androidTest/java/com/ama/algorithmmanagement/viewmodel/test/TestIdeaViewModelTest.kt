@@ -15,15 +15,14 @@ class TestIdeaViewModelTest {
     fun init() {
         val fakeSharedPreference = FakeSharedPreference()
 
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
         val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
-
 
         testIdeaViewModelTest =
             TestIdeaViewModel(
@@ -40,11 +39,11 @@ class TestIdeaViewModelTest {
     @Test
     fun getIdeaInfos() {
         //given
-        testIdeaViewModelTest.setIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
+//        testIdeaViewModelTest.setIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
         testIdeaViewModelTest.getIdeaInfos(1111)
 
         //when
-        val infos = testIdeaViewModelTest.ideaLst
+        val infos = testIdeaViewModelTest.ideaInfos?.ideaList!!
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[0].url, null)

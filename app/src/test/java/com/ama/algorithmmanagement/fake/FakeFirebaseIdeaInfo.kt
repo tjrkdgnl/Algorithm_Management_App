@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
@@ -19,13 +20,13 @@ class FakeFirebaseIdeaInfo {
     @Before
     fun init() {
         fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
 
         mUserId = fakeSharedPreference.getUserId()!!
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(),
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
                 DateUtils.createDate()
             )
     }
@@ -34,14 +35,14 @@ class FakeFirebaseIdeaInfo {
     @Test
     fun getIdeaInfos_exist_userId_returnIdeaInfos() {
         //given
-        fakeFirebaseReference.setIdeaInfo(mUserId,null, "이건 dp로 풀어야해", 1111)
+//        fakeFirebaseReference.setIdeaInfo(mUserId,null, "이건 dp로 풀어야해", 1111)
 
         //when
-        val ideaInfos = fakeFirebaseReference.getIdeaInfos(mUserId,1111)
+        val ideaInfos = fakeFirebaseReference.getIdeaInfos(mUserId,1110)
         val ideaInfo = ideaInfos?.ideaList?.get(0)
 
         //then
-        assertEquals(ideaInfos?.problemId, 1111)
+        assertEquals(ideaInfos?.problemId, 1110)
         assertEquals(ideaInfos?.ideaList?.get(0)?.url, null)
         assertEquals(ideaInfos?.ideaList?.get(0)?.comment, "이건 dp로 풀어야해")
         assertEquals(ideaInfos?.ideaList?.get(0)?.date, DateUtils.createDate())

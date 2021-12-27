@@ -25,7 +25,7 @@ class TestChildCommentViewModelTest {
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
         val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())

@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
@@ -17,7 +18,7 @@ class FakeFirebaseChildComment {
     @Before
     fun init() {
         fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("skjh0818")
+        fakeSharedPreference.setUserId("Default_User")
         fakeSharedPreference.setTierType(1)
 
         mUserId = fakeSharedPreference.getUserId()!!
@@ -25,7 +26,7 @@ class FakeFirebaseChildComment {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(),
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
                 DateUtils.createDate()
             )
     }
@@ -47,9 +48,9 @@ class FakeFirebaseChildComment {
 
         //then
         childCommentObject?.let {
+            assertEquals(it.commentChildList[0].userId, "skjh0818")
             assertEquals(it.commentId, commentId)
             assertEquals(it.commentChildList[0].comment, "child Comment")
-            assertEquals(it.commentChildList[0].userId, "skjh0818")
             assertEquals(it.commentChildList[0].tierType, 1)
             assertEquals(it.commentChildList[0].date, DateUtils.createDate())
 
