@@ -2,9 +2,7 @@ package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -14,15 +12,13 @@ class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
     private val _classList = MutableLiveData<List<KProblemsOfClass>>()
     val classList: LiveData<List<KProblemsOfClass>> get() = _classList
 
-    private val _solvedAlgorithms = MutableLiveData<Problems>()
-    val solvedList: LiveData<MutableList<TaggedProblem>> = Transformations.map(_solvedAlgorithms) {
+    private val _noTipAlgorithms = MutableLiveData<TippingProblemObject>()
+    val noTipList: LiveData<MutableList<TipProblem>> = Transformations.map(_noTipAlgorithms) {
         it.problemList
     }
 
     init {
-        // set save user account
-        mRepository.setUserInfo("hongdroid94@gmail.com", "password")
-        getSolvedProblems()
+        getNotTippingProblem()
     }
 
     // request api using coroutine
@@ -36,10 +32,10 @@ class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
         }
     }
 
-    private fun getSolvedProblems() {
+    private fun getNotTippingProblem() {
         viewModelScope.launch {
             try {
-                _solvedAlgorithms.value = mRepository.getSolvedProblems()
+                _noTipAlgorithms.value = mRepository.getNotTippingProblem()
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }

@@ -7,6 +7,7 @@ import com.ama.algorithmmanagement.Adapter.KNoTipProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
 import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.Model.TipProblem
 
 object BindingAdapterUtils {
 
@@ -27,7 +28,7 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("setNoTipProblemsList")
-    fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TaggedProblem>?) {
+    fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblem>?) {
         val recyclerViewAdapter = recyclerView.adapter as KNoTipProblemsAdapter
         recyclerViewAdapter.updateList(noTipProblems)
     }
