@@ -13,7 +13,7 @@ interface BaseNetworkService {
 
     suspend fun getUserStats(userId:String) : List<Stats>
 
-    suspend fun getBOJUserInfo() : List<ProblemStatus>
+    suspend fun getUnSolvedProblems() : List<ProblemStatus>
 
     suspend fun getSearchProblemList(problemId:Int): Problems
 

@@ -41,6 +41,19 @@ class TestTipViewModelTest {
     }
 
     @Test
+    fun getNotTippingProblem(){
+        //when
+        val obj = testTipViewModel.getNottipProblemObject()
+
+        assertEquals(obj!!.problemList[0].tipComment, null)
+        assertEquals(obj.problemList[0].isShow, false)
+        assertEquals(obj.problemList[0].problem.problemId, 1010)
+        assertEquals(obj.problemList[0].problem.titleKo, "A+B")
+        assertEquals(obj.problemList[0].problem.level, 11)
+
+    }
+
+    @Test
     fun setTippingProblem() = runBlocking {
         //given
         val problem = mFakeNetworkService.getProblem(1111)
@@ -48,7 +61,7 @@ class TestTipViewModelTest {
 //        when
         testTipViewModel.setTippingProblem(problem, false, "재귀를 사용하면 좋다")
 
-        testTipViewModel.initTipProblemObject()
+        testTipViewModel.getTipProblemObject()
 
         val lst = testTipViewModel.tipProbleObject?.problemList!!
 

@@ -14,8 +14,13 @@ class FakeRepository(
     private val mSharedPrefUtils: BaseSharedPreference,
 ) : BaseRepository {
 
-    private var mUserId: String? = mSharedPrefUtils.getUserId() ?: mApp.getString(R.string.default_user)
+    private var mUserId: String? =
+        mSharedPrefUtils.getUserId() ?: mApp.getString(R.string.default_user)
     private val mTierType = mSharedPrefUtils.getTierType()
+
+    override suspend fun getProblem(problemId: Int): TaggedProblem {
+        return mBaseNetworkService.getProblem(problemId)
+    }
 
     override suspend fun getSolvedProblems(): Problems {
         if (mUserId == null) {
@@ -37,22 +42,25 @@ class FakeRepository(
         return mBaseNetworkService.getUserStats(mUserId!!)
     }
 
-    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
-        return mBaseNetworkService.getBOJUserInfo()
+    override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
+        return mBaseNetworkService.getUnSolvedProblems()
     }
 
-    override fun setUserInfo(userId: String, password: String, fcmToken: String?) {
-        mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)
-        mSharedPrefUtils.setUserId(userId)
-        mUserId = mSharedPrefUtils.getUserId()
+    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?): Boolean {
+        if (mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)) {
+            mSharedPrefUtils.setUserId(userId)
+            mUserId = mSharedPrefUtils.getUserId()
+            return true
+        }
+        return false
     }
 
-    override fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         return mFakeFirebaseReference.checkUserInfo(userId, password)
     }
 
-    override fun getuserInfo(): UserInfo? {
-        return mFakeFirebaseReference.getUserInfo(mUserId)
+    override suspend fun getUserInfo(): UserInfo? {
+        return mFakeFirebaseReference.getUserInfo(mUserId!!)
     }
 
     override fun setDateInfo(): Boolean {
@@ -122,19 +130,31 @@ class FakeRepository(
     }
 
     override fun getTippingProblem(): TippingProblemObject? {
-        return mFakeFirebaseReference.getTippingProblemObject(mUserId)
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFakeFirebaseReference.getTippingProblemObject(mUserId!!)
+    }
+
+    override fun getNotTippingProblem(): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFakeFirebaseReference.getNotTippingProblemObject(mUserId!!)
     }
 
     override fun modifyTippingProblem(
         problemId: Int,
-        isShow: Boolean?,
-        comment: String?
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.modifyTippingProblem(mUserId!!, problemId, isShow, comment)
+        return mFakeFirebaseReference.modifyTippingProblem(mUserId!!, problemId, isShow, tipComment)
     }
 
     override fun deleteTippingProblem(problemId: Int): Boolean {

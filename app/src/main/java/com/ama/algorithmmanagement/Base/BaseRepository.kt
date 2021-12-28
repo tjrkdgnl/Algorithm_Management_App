@@ -4,19 +4,22 @@ import com.ama.algorithmmanagement.Model.*
 
 interface BaseRepository {
 
+
+    suspend fun getProblem(problemId: Int): TaggedProblem
+
     suspend fun getSolvedProblems(): Problems
 
     suspend fun getSearchProblemList(problemId: Int): Problems
 
     suspend fun getUserStats(): List<Stats>
 
-    suspend fun getBOJUserInfo(): List<ProblemStatus>
+    suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus>
 
-    fun setUserInfo(userId: String, password: String, fcmToken: String? = null)
+    suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 
-    fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun checkUserInfo(userId: String, password: String): Boolean
 
-    fun getuserInfo(): UserInfo?
+    suspend fun getUserInfo(): UserInfo?
 
     fun setDateInfo(): Boolean
 
@@ -42,11 +45,13 @@ interface BaseRepository {
 
     fun getTippingProblem(): TippingProblemObject?
 
+    fun getNotTippingProblem(): TippingProblemObject?
+
     fun modifyTippingProblem(
         problemId: Int,
-        isShow: Boolean?,
-        comment: String?
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean
 
-    fun deleteTippingProblem( problemId: Int): Boolean
+    fun deleteTippingProblem(problemId: Int): Boolean
 }

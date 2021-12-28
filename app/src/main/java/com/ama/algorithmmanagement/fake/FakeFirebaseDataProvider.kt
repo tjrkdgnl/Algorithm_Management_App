@@ -31,7 +31,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
     }
 
     val commentSnapShot: MutableList<CommentObject> by lazy {
-        MutableList(20) { it->
+        MutableList(20) { it ->
             CommentObject(20, 1110 + it, MutableList(20) {
                 CommentInfo(
                     "commentId${it}",
@@ -46,9 +46,14 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
     }
 
     val childCommentSnapShot: MutableList<ChildCommentObject> by lazy {
-        MutableList(20) {it->
+        MutableList(20) { it ->
             ChildCommentObject(20, "commentId${it}", MutableList(20) {
-                ChildCommentInfo("user_${it}", it, "this is child comment test $it", DateUtils.createDate())
+                ChildCommentInfo(
+                    "user_${it}",
+                    it,
+                    "this is child comment test $it",
+                    DateUtils.createDate()
+                )
             })
         }
     }
@@ -76,7 +81,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
                 TipProblem(
                     problems.problemList?.get(it)!!,
                     false,
-                    "this is tip test $it",
+                    if (it < 10) "this is tip test $it" else null,
                     DateUtils.createDate()
                 )
             })
