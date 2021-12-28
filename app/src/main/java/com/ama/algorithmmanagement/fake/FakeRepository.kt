@@ -38,21 +38,21 @@ class FakeRepository(
     }
 
     override suspend fun getBOJUserInfo(): List<ProblemStatus> {
-        return mBaseNetworkService.getBOJUserInfo()
+        return mBaseNetworkService.getUnSolvedProblems()
     }
 
-    override fun setUserInfo(userId: String, password: String, fcmToken: String?) {
+    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?) {
         mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)
         mSharedPrefUtils.setUserId(userId)
         mUserId = mSharedPrefUtils.getUserId()
     }
 
-    override fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         return mFakeFirebaseReference.checkUserInfo(userId, password)
     }
 
-    override fun getuserInfo(): UserInfo? {
-        return mFakeFirebaseReference.getUserInfo(mUserId)
+    override suspend fun getUserInfo(): UserInfo? {
+        return mFakeFirebaseReference.getUserInfo(mUserId!!)
     }
 
     override fun setDateInfo(): Boolean {

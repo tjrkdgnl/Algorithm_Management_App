@@ -27,7 +27,7 @@ class TestViewModel(private var repository: BaseRepository) {
     }
 
     fun getUserInfo(): UserInfo? {
-        return repository.getuserInfo()
+        return repository.getUserInfo()
     }
 
     fun checkUserInfo(userId: String, password: String): Boolean {

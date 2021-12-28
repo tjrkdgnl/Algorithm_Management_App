@@ -82,7 +82,7 @@ class FakeNetworkServiceTest {
     fun getBOJUserInfo() = runBlockingTest {
         //when
         //solvedToken을 셋팅하는 작업이 필요함
-        val bojUser = mFakeNetworkService.getBOJUserInfo()
+        val bojUser = mFakeNetworkService.getUnSolvedProblems()
 
         //then
         assertEquals(bojUser[0].id, 1000)

@@ -20,7 +20,7 @@ class Repository : BaseRepository {
             TODO("Not yet implemented")
         }
 
-        override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+        override suspend fun getUnSolvedProblems(): List<ProblemStatus> {
             TODO("Not yet implemented")
         }
 
@@ -54,7 +54,7 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getuserInfo(): UserInfo? {
+    override fun getUserInfo(): UserInfo? {
         TODO("Not yet implemented")
     }
 

@@ -12,11 +12,11 @@ interface BaseRepository {
 
     suspend fun getBOJUserInfo(): List<ProblemStatus>
 
-    fun setUserInfo(userId: String, password: String, fcmToken: String? = null)
+    suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = null)
 
-    fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun checkUserInfo(userId: String, password: String): Boolean
 
-    fun getuserInfo(): UserInfo?
+    suspend fun getUserInfo(): UserInfo?
 
     fun setDateInfo(): Boolean
 
@@ -48,5 +48,5 @@ interface BaseRepository {
         comment: String?
     ): Boolean
 
-    fun deleteTippingProblem( problemId: Int): Boolean
+    fun deleteTippingProblem(problemId: Int): Boolean
 }

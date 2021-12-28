@@ -1,29 +1,20 @@
 package com.ama.algorithmmanagement.fake
 
+import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
 import timber.log.Timber
 
 class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
     private val mDate: String
-) {
+) : BaseFirebaseService {
 
-    fun setUserInfo(userId: String, userPw: String, fcmToken: String?) {
+    override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
         val userList = mFakeFirebaseDataProvider.userSnapShot
-        userList.add(UserInfo(userId, userPw, fcmToken))
+        return userList.add(UserInfo(userId, userPw, fcmToken))
     }
 
-    fun getUserInfo(userId: String?): UserInfo? {
-        val userList = mFakeFirebaseDataProvider.userSnapShot
-        for (userInfo in userList) {
-            if (userInfo.userId == userId) {
-                return userInfo
-            }
-        }
-        return null
-    }
-
-    fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         val userList = mFakeFirebaseDataProvider.userSnapShot
 
         for (userInfo in userList) {
@@ -36,7 +27,17 @@ class FakeFirebaseReference(
         return false
     }
 
-    fun setDateInfo(userId: String): Boolean {
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        val userList = mFakeFirebaseDataProvider.userSnapShot
+        for (userInfo in userList) {
+            if (userInfo.userId == userId) {
+                return userInfo
+            }
+        }
+        return null
+    }
+
+    override fun setDateInfo(userId: String): Boolean {
         val dateInfo = DateInfo(mDate)
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
@@ -51,7 +52,7 @@ class FakeFirebaseReference(
         return true
     }
 
-    fun getDateInfos(userId: String?): DateInfoObject? {
+    override fun getDateInfos(userId: String?): DateInfoObject? {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == userId) {
                 return dateInfos
@@ -60,8 +61,7 @@ class FakeFirebaseReference(
         return null
     }
 
-
-    fun setIdeaInfo(
+    override fun setIdeaInfo(
         userId: String,
         url: String?,
         comment: String?,
@@ -92,7 +92,7 @@ class FakeFirebaseReference(
         return ideaInfo
     }
 
-    fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
+    override fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
         for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
             if (userIdeaInfo.userId == userId) {
 
@@ -106,7 +106,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    fun setComment(
+    override fun setComment(
         userId: String,
         tierType: Int,
         problemId: Int,
@@ -133,7 +133,7 @@ class FakeFirebaseReference(
         return newCommentInfo
     }
 
-    fun getCommentObject(problemId: Int): CommentObject? {
+    override fun getCommentObject(problemId: Int): CommentObject? {
         for (commentinfo in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentinfo.problemId == problemId) {
                 return commentinfo
@@ -142,7 +142,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    fun setChildComment(
+    override fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
@@ -163,7 +163,7 @@ class FakeFirebaseReference(
     }
 
 
-    fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
         if (commentId == null)
             return null
 
@@ -176,7 +176,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    fun setTippingProblem(
+    override fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
@@ -201,20 +201,46 @@ class FakeFirebaseReference(
         return tipProblem
     }
 
-    fun getTippingProblemObject(userId: String?): TippingProblemObject? {
+    override fun getTippingProblemObject(userId: String?): TippingProblemObject? {
         if (userId == null) {
             return null
         }
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
+                val lst =
+                    tipProblemObject.problemList.filter { it.tipComment != null }.toMutableList()
+
+                tipProblemObject.problemList.clear()
+                tipProblemObject.problemList.addAll(ArrayList(lst))
+
                 return tipProblemObject
             }
         }
         return null
     }
 
-    fun modifyTippingProblem(
+    override fun getNotTippingProblemObject(userId: String?): TippingProblemObject? {
+        if (userId == null) {
+            return null
+        }
+
+        for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
+            if (tipProblemObject.userId == userId) {
+                val lst =
+                    tipProblemObject.problemList.filter { it.tipComment == null }.toMutableList()
+
+                tipProblemObject.problemList.clear()
+                tipProblemObject.problemList.addAll(ArrayList(lst))
+
+                return tipProblemObject
+            }
+        }
+
+        return null
+    }
+
+    override fun modifyTippingProblem(
         userId: String,
         problemId: Int,
         isShow: Boolean?,
@@ -241,8 +267,7 @@ class FakeFirebaseReference(
         return true
     }
 
-    fun deleteTippingProblem(userId: String, problemId: Int): Boolean {
-
+    override fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
 
