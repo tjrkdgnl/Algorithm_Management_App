@@ -9,7 +9,7 @@ import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 
 class Repository(
-    private val mApp:Application,
+    private val mApp: Application,
     private val mFirebaseService: BaseFirebaseService,
     private val mNetworkService: BaseNetworkService,
     private val mSharedPrefUtils: BaseSharedPreference,
@@ -24,18 +24,18 @@ class Repository(
     }
 
     override suspend fun getSolvedProblems(): Problems {
-        if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        val solvedByUser = mApp.getString(R.string.solvedProblemUserId,mUserId)
+        val solvedByUser = mApp.getString(R.string.solvedProblemUserId, mUserId)
 
         return mNetworkService.getSolvedProblems(solvedByUser)
     }
 
     override suspend fun getUserStats(): List<Stats> {
-        if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
         return mNetworkService.getUserStats(mUserId!!)
@@ -45,24 +45,32 @@ class Repository(
         return mNetworkService.getSearchProblemList(problemId)
     }
 
-    override suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus> {
-        if(solvedacToken ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"solvedacToken"))
+    override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
+        if (solvedacToken == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "solvedacToken"))
         }
 
         return mNetworkService.getUnSolvedProblems(solvedacToken)
     }
 
     //Firebase Service
-    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?) :Boolean {
-        return if(mFirebaseService.setUserInfo(userId, password, fcmToken)){
+    override suspend fun setUserInfo(
+        userId: String,
+        password: String,
+        fcmToken: String?
+    ): Boolean {
+        return if (mFirebaseService.setUserInfo(userId, password, fcmToken)) {
             mSharedPrefUtils.setUserId(userId)
             mUserId = mSharedPrefUtils.getUserId()
 
             true
-        } else{
+        } else {
             false
         }
+    }
+
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getUserInfo(): UserInfo? {
@@ -71,10 +79,6 @@ class Repository(
         }
 
         return mFirebaseService.getUserInfo(mUserId!!)
-    }
-
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        return mFirebaseService.checkUserInfo(userId,password)
     }
 
     override fun setDateInfo(): Boolean {
@@ -118,6 +122,10 @@ class Repository(
     }
 
     override fun getTippingProblem(): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getNotTippingProblem(): TippingProblemObject? {
         TODO("Not yet implemented")
     }
 

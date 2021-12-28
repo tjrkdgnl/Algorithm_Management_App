@@ -8,8 +8,10 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultFirebaseTestBinding
-import com.ama.algorithmmanagement.viewmodel.test.RealVIewModel
+import com.ama.algorithmmanagement.viewmodel.test.RealViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class KDefaultFirebaseTest :
     KBaseActivity<DefaultFirebaseTestBinding>(R.layout.default_firebase_test) {
 
@@ -19,7 +21,7 @@ class KDefaultFirebaseTest :
         val viewModel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
-        )[RealVIewModel::class.java]
+        )[RealViewModel::class.java]
 
         binding.viewModel = viewModel
 

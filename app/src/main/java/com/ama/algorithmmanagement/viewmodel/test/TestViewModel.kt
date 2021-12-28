@@ -8,6 +8,7 @@ import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.DateInfoObject
 import kotlinx.coroutines.launch
 
+
 class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> = _userId
@@ -28,7 +29,6 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
             _pwd.value = "myPwd"
             repository.setUserInfo(_userId.value!!, _pwd.value!!)
         }
-
     }
 
     fun getUserInfo() {
@@ -37,10 +37,9 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
         }
     }
 
-    fun checkUserInfo(userId: String, password: String){
+    fun checkUserInfo(userId: String, password: String) {
         viewModelScope.launch {
-             repository.checkUserInfo(userId, password)
-
+            repository.checkUserInfo(userId, password)
         }
     }
 

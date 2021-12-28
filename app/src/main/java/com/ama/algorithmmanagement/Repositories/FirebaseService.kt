@@ -133,7 +133,11 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         TODO("Not yet implemented")
     }
 
-    override fun getTippingProblemObject(userId: String?): TippingProblemObject? {
+    override fun getTippingProblemObject(userId: String): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
         TODO("Not yet implemented")
     }
 

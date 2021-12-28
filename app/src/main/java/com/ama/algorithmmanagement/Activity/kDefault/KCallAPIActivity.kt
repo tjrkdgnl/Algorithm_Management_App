@@ -10,7 +10,9 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultActivityCallApiBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class KCallAPIActivity :
     KBaseActivity<DefaultActivityCallApiBinding>(R.layout.default_activity_call_api) {
 

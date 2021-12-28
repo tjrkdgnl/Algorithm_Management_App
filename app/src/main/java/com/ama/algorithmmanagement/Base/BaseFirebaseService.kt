@@ -38,7 +38,10 @@ interface BaseFirebaseService {
         tipComment: String?
     ): TipProblem
 
-    fun getTippingProblemObject(userId: String?): TippingProblemObject?
+
+    fun getTippingProblemObject(userId: String): TippingProblemObject?
+
+    fun getNotTippingProblemObject(userId:String) : TippingProblemObject?
 
     fun modifyTippingProblem(
         userId: String,

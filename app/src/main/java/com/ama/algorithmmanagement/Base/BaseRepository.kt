@@ -3,7 +3,6 @@ package com.ama.algorithmmanagement.Base
 import com.ama.algorithmmanagement.Model.*
 
 interface BaseRepository {
-
     suspend fun getProblem(problemId: Int): TaggedProblem
 
     suspend fun getSolvedProblems(): Problems
@@ -43,6 +42,8 @@ interface BaseRepository {
     ): TipProblem
 
     fun getTippingProblem(): TippingProblemObject?
+
+    fun getNotTippingProblem(): TippingProblemObject?
 
     fun modifyTippingProblem(
         problemId: Int,

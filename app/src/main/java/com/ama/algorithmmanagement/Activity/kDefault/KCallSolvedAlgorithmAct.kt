@@ -10,7 +10,9 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultActivitySolvedProblemsBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class KCallSolvedAlgorithmAct :
     KBaseActivity<DefaultActivitySolvedProblemsBinding>(R.layout.default_activity_solved_problems) {
 
