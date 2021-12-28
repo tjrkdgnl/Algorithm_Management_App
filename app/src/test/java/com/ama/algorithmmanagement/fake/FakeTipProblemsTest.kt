@@ -42,7 +42,8 @@ class FakeTipProblemsTest {
         val notTippingProblemObj = fakeFirebaseReference.getNotTippingProblemObject(mUserId)
 
         assertEquals(notTippingProblemObj?.userId, "Default_User")
-        assertEquals(notTippingProblemObj?.problemList?.get(0)?.tipComment, "")
+        assertEquals(notTippingProblemObj?.problemList?.size, 10)
+        assertEquals(notTippingProblemObj?.problemList?.get(0)?.tipComment, null)
         assertEquals(notTippingProblemObj?.problemList?.get(0)?.isShow, true)
         assertEquals(notTippingProblemObj?.problemList?.get(0)?.date, DateUtils.createDate())
 

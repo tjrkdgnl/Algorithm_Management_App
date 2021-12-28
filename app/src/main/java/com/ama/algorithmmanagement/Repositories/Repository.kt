@@ -7,27 +7,8 @@ import com.ama.algorithmmanagement.Network.KAPIGenerator
 
 class Repository : BaseRepository {
 
-    private val networkService = object : BaseNetworkService {
-        override suspend fun getProblem(problemId: Int): TaggedProblem {
-            TODO("Not yet implemented")
-        }
-
-        override suspend fun getSolvedProblems(userId: String): Problems {
-            return KAPIGenerator.getInstance().getProblems(userId)
-        }
-
-        override suspend fun getUserStats(userId: String): List<Stats> {
-            TODO("Not yet implemented")
-        }
-
-        override suspend fun getUnSolvedProblems(): List<ProblemStatus> {
-            TODO("Not yet implemented")
-        }
-
-        override suspend fun getSearchProblemList(problemId: Int): Problems {
-            TODO("Not yet implemented")
-        }
-
+    override suspend fun getProblem(problemId: Int): TaggedProblem {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getSolvedProblems(): Problems {
@@ -42,19 +23,19 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+    override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
         TODO("Not yet implemented")
     }
 
-    override fun setUserInfo(userId: String, password: String, fcmToken: String?) {
+    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun getUserInfo(): UserInfo? {
+    override suspend fun getUserInfo(): UserInfo? {
         TODO("Not yet implemented")
     }
 
@@ -102,10 +83,14 @@ class Repository : BaseRepository {
         TODO("Not yet implemented")
     }
 
+    override fun getNotTippingProblem(): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
     override fun modifyTippingProblem(
         problemId: Int,
-        isShow: Boolean?,
-        comment: String?
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean {
         TODO("Not yet implemented")
     }

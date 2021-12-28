@@ -201,11 +201,7 @@ class FakeFirebaseReference(
         return tipProblem
     }
 
-    override fun getTippingProblemObject(userId: String?): TippingProblemObject? {
-        if (userId == null) {
-            return null
-        }
-
+    override fun getTippingProblemObject(userId: String): TippingProblemObject? {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
@@ -220,11 +216,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun getNotTippingProblemObject(userId: String?): TippingProblemObject? {
-        if (userId == null) {
-            return null
-        }
-
+    override fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
