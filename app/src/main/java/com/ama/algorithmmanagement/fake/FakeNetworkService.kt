@@ -31,7 +31,7 @@ class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataPr
         return mFakeNetWorkDataProvider.getStatsList()
     }
 
-    override suspend fun getBOJUserInfo(): List<ProblemStatus> {
+    override suspend fun getUnSolvedProblems(): List<ProblemStatus> {
         delay(2000)
         return mFakeNetWorkDataProvider.getProblemStatsList()
     }
