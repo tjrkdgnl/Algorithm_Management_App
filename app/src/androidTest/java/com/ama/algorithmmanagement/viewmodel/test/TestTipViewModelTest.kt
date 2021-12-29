@@ -28,7 +28,7 @@ class TestTipViewModelTest {
             FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
-        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         testTipViewModel = TestTipViewModel(
             FakeRepository(
