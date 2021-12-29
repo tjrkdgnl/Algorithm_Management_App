@@ -1,12 +1,15 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
+import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
 
 class FakeFirebaseDataProvider(private val mApp: Application) {
     private val mDefaultUserId = mApp.getString(R.string.default_user)
+    private val mProblemId = mApp.getString(R.string.default_problemId).toInt()
+    private val mCount = mApp.getString(R.string.default_count).toInt()
 
     val userSnapShot: MutableList<UserInfo> by lazy {
         mutableListOf()
@@ -14,16 +17,16 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
 
     val dateSnapShot: MutableList<DateInfoObject> by lazy {
         MutableList(20) {
-            DateInfoObject(20, mDefaultUserId, MutableList(20) {
+            DateInfoObject(mCount, mDefaultUserId, MutableList(20) {
                 DateInfo(DateUtils.createDate())
             })
         }
     }
 
     val ideaSnapShot: MutableList<IdeaObject> by lazy {
-        MutableList(20) {
-            IdeaObject(mDefaultUserId, MutableList(20) {
-                IdeaInfos(20, 1110 + it, MutableList(20) {
+        MutableList(mCount) {
+            IdeaObject(mDefaultUserId, MutableList(mCount) {
+                IdeaInfos(mCount, mProblemId + it, MutableList(mCount) {
                     IdeaInfo(null, "this is idea test ${it}", DateUtils.createDate())
                 })
             })
@@ -31,8 +34,8 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
     }
 
     val commentSnapShot: MutableList<CommentObject> by lazy {
-        MutableList(20) { it ->
-            CommentObject(20, 1110 + it, MutableList(20) {
+        MutableList(mCount) { it ->
+            CommentObject(mCount, mProblemId + it, MutableList(mCount) {
                 CommentInfo(
                     "commentId${it}",
                     mDefaultUserId,
@@ -46,8 +49,8 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
     }
 
     val childCommentSnapShot: MutableList<ChildCommentObject> by lazy {
-        MutableList(20) { it ->
-            ChildCommentObject(20, "commentId${it}", MutableList(20) {
+        MutableList(mCount) { it ->
+            ChildCommentObject(mCount, "commentId${it}", MutableList(mCount) {
                 ChildCommentInfo(
                     "user_${it}",
                     it,
@@ -60,9 +63,9 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
 
     val tipProblemSnapShot: MutableList<TippingProblemObject> by lazy {
         val problems = Problems(
-            20, MutableList(20) {
+            mCount, MutableList(mCount) {
                 TaggedProblem(
-                    it + 1000, "A+B", true, false, 151801, it + 1, 17, true, it + 2.333,
+                    it + mProblemId, "A+B", true, false, 151801, it + 1, 17, true, it + 2.333,
                     mutableListOf(
                         Tag(
                             "arithmetic",
@@ -76,12 +79,12 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
             }
         )
 
-        MutableList(20) {
-            TippingProblemObject(20, mDefaultUserId, MutableList(20) {
+        MutableList(mCount) {
+            TippingProblemObject(mCount, mDefaultUserId, MutableList(mCount) {
                 TipProblem(
                     problems.problemList?.get(it)!!,
                     false,
-                    if (it < 10) "this is tip test $it" else null,
+                    if (it < 15) "this is tip test $it" else null,
                     DateUtils.createDate()
                 )
             })

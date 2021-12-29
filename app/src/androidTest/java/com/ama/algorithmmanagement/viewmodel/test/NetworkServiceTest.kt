@@ -18,7 +18,7 @@ class NetworkServiceTest {
     fun init() {
         val context = ApplicationProvider.getApplicationContext<Application>()
         val fakeSharedPreference = FakeSharedPreference()
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         fakeSharedPreference.setUserId("skjh0818")
 

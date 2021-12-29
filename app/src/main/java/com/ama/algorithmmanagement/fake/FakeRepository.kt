@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
+import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
@@ -9,7 +10,7 @@ import com.ama.algorithmmanagement.R
 
 class FakeRepository(
     private val mApp: Application,
-    private val mFakeFirebaseReference: FakeFirebaseReference,
+    private val mFakeFirebaseReference: BaseFirebaseService,
     private val mBaseNetworkService: BaseNetworkService,
     private val mSharedPrefUtils: BaseSharedPreference,
 ) : BaseRepository {
