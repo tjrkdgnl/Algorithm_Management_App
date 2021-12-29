@@ -21,7 +21,7 @@ class RepositoryLocator {
         if (!this::mFakeRepository.isInitialized) {
             val firebaseReference =
                 FakeFirebaseReference(FakeFirebaseDataProvider(app), DateUtils.createDate())
-            val networkService = FakeNetworkService(FakeNetWorkDataProvider())
+            val networkService = FakeNetworkService(FakeNetWorkDataProvider(app))
 
             mFakeRepository =
                 FakeRepository(app, firebaseReference, networkService, FakeSharedPreference())

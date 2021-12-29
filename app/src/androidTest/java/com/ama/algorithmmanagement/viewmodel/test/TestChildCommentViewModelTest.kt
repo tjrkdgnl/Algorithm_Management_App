@@ -28,7 +28,7 @@ class TestChildCommentViewModelTest {
             FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         testChildCommentViewModel = TestChildCommentViewModel(
             FakeRepository(ApplicationProvider.getApplicationContext(),fakeFirebaseReference, fakeNetworkService,fakeSharedPreference)
