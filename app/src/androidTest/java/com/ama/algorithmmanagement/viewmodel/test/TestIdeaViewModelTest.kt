@@ -9,7 +9,7 @@ import org.junit.Test
 
 class TestIdeaViewModelTest {
 
-    lateinit var testIdeaViewModelTest: TestIdeaViewModel
+    lateinit var testIdeaViewModel: IdeaViewModel
 
     @Before
     fun init() {
@@ -24,8 +24,8 @@ class TestIdeaViewModelTest {
 
         val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
-        testIdeaViewModelTest =
-            TestIdeaViewModel(
+        testIdeaViewModel =
+            IdeaViewModel(
                 FakeRepository(
                     ApplicationProvider.getApplicationContext(),
                     fakeFirebaseReference,
@@ -40,10 +40,10 @@ class TestIdeaViewModelTest {
     fun getIdeaInfos() {
         //given
 //        testIdeaViewModelTest.setIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
-        testIdeaViewModelTest.getIdeaInfos(1111)
+        testIdeaViewModel.getIdeaInfos(1111)
 
         //when
-        val infos = testIdeaViewModelTest.ideaInfos?.ideaList!!
+        val infos = testIdeaViewModel.ideaList
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[0].url, null)
@@ -52,13 +52,13 @@ class TestIdeaViewModelTest {
     @Test
     fun getIdeaInfos_moreThanOne() {
         //given
-        testIdeaViewModelTest.setIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
-        testIdeaViewModelTest.setIdeaInfo(null, "투 포인터 이용하자", 1111)
-        testIdeaViewModelTest.setIdeaInfo(null, "그래프를 이용하자", 1111)
-        testIdeaViewModelTest.getIdeaInfos(1111)
+        testIdeaViewModel.saveIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
+        testIdeaViewModel.saveIdeaInfo(null, "투 포인터 이용하자", 1111)
+        testIdeaViewModel.saveIdeaInfo(null, "그래프를 이용하자", 1111)
+        testIdeaViewModel.getIdeaInfos(1111)
 
         //when
-        val infos = testIdeaViewModelTest.ideaLst
+        val infos = testIdeaViewModel.ideaLst
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[1].comment, "투 포인터 이용하자")

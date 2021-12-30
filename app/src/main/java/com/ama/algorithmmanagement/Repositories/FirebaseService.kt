@@ -4,6 +4,7 @@ import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.utils.DateUtils
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,20 +13,22 @@ import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class FirebaseService(private val mApp: Application) : BaseFirebaseService {
-    private val firebaseRef = Firebase.database.reference
-    private val userTable = mApp.getString(R.string.userTable)
+    private val mFirebaseRef = Firebase.database.reference
+    private val mUserTable = mApp.getString(R.string.userTable)
+    private val mIdeaTable = mApp.getString(R.string.ideaTable)
+    private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
-        val key = firebaseRef.child(userTable).key
+        val key = mFirebaseRef.child(mUserTable).key
 
         if (key == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, userTable))
-            firebaseRef.child(userTable).push()
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
+            mFirebaseRef.child(mUserTable).push()
         }
 
         return if (checkUserInfo(userId, userPw)) {
             val userInfo = UserInfo(userId, userPw, fcmToken)
-            firebaseRef.child(userTable).push().setValue(userInfo)
+            mFirebaseRef.child(mUserTable).push().setValue(userInfo)
 
             true
         } else {
@@ -34,14 +37,14 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     }
 
     override suspend fun getUserInfo(userId: String): UserInfo? {
-        val key = firebaseRef.child(userTable).key
+        val key = mFirebaseRef.child(mUserTable).key
 
         if (key == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, userTable))
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
             return null
         }
 
-        val snapshot = firebaseRef.child(userTable).get().await()
+        val snapshot = mFirebaseRef.child(mUserTable).get().await()
 
         for (user in snapshot.children) {
             val userInfo = user.getValue(UserInfo::class.java)
@@ -54,12 +57,12 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             }
         }
 
-        Timber.d("${userTable}에 ${userId}와 일치하는 UserInfo가 존재하지 않습니다.")
+        Timber.d("${mUserTable}에 ${userId}와 일치하는 UserInfo가 존재하지 않습니다.")
         return null
     }
 
     override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        val snapshot = firebaseRef.child(userTable).get().await()
+        val snapshot = mFirebaseRef.child(mUserTable).get().await()
 
         for (user in snapshot.children) {
             val userInfo = user.getValue(UserInfo::class.java)
@@ -82,17 +85,74 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         TODO("Not yet implemented")
     }
 
-    override fun setIdeaInfo(
+    override suspend fun setIdeaInfo(
         userId: String,
         url: String?,
         comment: String?,
         problemId: Int
-    ): IdeaInfo {
-        TODO("Not yet implemented")
+    ): Boolean {
+        val key = mFirebaseRef.child(mUserTable).key
+
+        if (key == null) {
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
+            mFirebaseRef.child(mUserTable).push()
+        }
+
+        val snapshot = mFirebaseRef.child(mIdeaTable).get().await()
+
+        val ideaInfo = IdeaInfo(url, comment, mDate)
+        val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
+
+        for (idea in snapshot.children) {
+            val ideaObject = idea.getValue(IdeaObject::class.java)
+
+            ideaObject?.let {
+                if (it.userId == userId) {
+                    for (infos in it.ideaInfosList) {
+                        if (infos.problemId == problemId) {
+                            infos.ideaList.add(ideaInfo)
+                            return true
+                        }
+                    }
+
+                    it.ideaInfosList.add(ideaInfos)
+                    return true
+                }
+            }
+        }
+
+        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
+        mFirebaseRef.child(mUserTable).setValue(ideaObject)
+
+        return true
     }
 
-    override fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
-        TODO("Not yet implemented")
+    override suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos? {
+        val key = mFirebaseRef.child(mIdeaTable).key
+
+        if (key == null) {
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mIdeaTable).get().await()
+
+        for (idea in snapshot.children) {
+            val ideaObject = idea.getValue(IdeaObject::class.java)
+
+            ideaObject?.let {
+                if (it.userId == userId) {
+                    for (ideaInfos in it.ideaInfosList) {
+                        if (ideaInfos.problemId == problemId) {
+                            return ideaInfos
+                        }
+                    }
+                }
+            }
+        }
+
+        Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+        return null
     }
 
     override fun setComment(

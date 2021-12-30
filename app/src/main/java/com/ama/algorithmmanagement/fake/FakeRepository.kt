@@ -86,7 +86,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getDateInfos(mUserId)
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo {
+    override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -94,8 +94,12 @@ class FakeRepository(
         return mFakeFirebaseReference.setIdeaInfo(mUserId!!, url, comment, problemId)
     }
 
-    override fun getIdeaInfos(problemId: Int): IdeaInfos? {
-        return mFakeFirebaseReference.getIdeaInfos(mUserId, problemId)
+    override suspend fun getIdeaInfos(problemId: Int): IdeaInfos? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFakeFirebaseReference.getIdeaInfos(mUserId!!, problemId)
     }
 
     override fun setComment(problemId: Int, comment: String): CommentInfo {

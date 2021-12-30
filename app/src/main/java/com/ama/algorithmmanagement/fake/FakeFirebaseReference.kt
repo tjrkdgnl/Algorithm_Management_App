@@ -61,12 +61,12 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setIdeaInfo(
+    override suspend fun setIdeaInfo(
         userId: String,
         url: String?,
         comment: String?,
         problemId: Int
-    ): IdeaInfo {
+    ): Boolean {
 
         val ideaInfo = IdeaInfo(url, comment, mDate)
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
@@ -77,22 +77,22 @@ class FakeFirebaseReference(
                 for (ideainfos in ideaObject.ideaInfosList) {
                     if (ideainfos.problemId == problemId) {
                         ideainfos.ideaList.add(ideaInfo)
-                        return ideaInfo
+                        return true
                     }
                 }
 
                 ideaObject.ideaInfosList.add(ideaInfos)
-                return ideaInfo
+                return true
             }
         }
 
         val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
         mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
-        return ideaInfo
+        return true
     }
 
-    override fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
+    override suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos? {
         for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
             if (userIdeaInfo.userId == userId) {
 

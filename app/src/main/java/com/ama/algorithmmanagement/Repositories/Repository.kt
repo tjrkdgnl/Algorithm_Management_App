@@ -89,12 +89,20 @@ class Repository(
         TODO("Not yet implemented")
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo {
-        TODO("Not yet implemented")
+    override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {
+        if(mUserId ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,mUserId))
+        }
+
+        return mFirebaseService.setIdeaInfo(mUserId!!,url, comment, problemId)
     }
 
-    override fun getIdeaInfos(problemId: Int): IdeaInfos? {
-        TODO("Not yet implemented")
+    override suspend fun getIdeaInfos(problemId: Int): IdeaInfos? {
+        if(mUserId ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,mUserId))
+        }
+
+        return mFirebaseService.getIdeaInfos(mUserId!!,problemId)
     }
 
     override fun setComment(problemId: Int, comment: String): CommentInfo {

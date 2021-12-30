@@ -11,7 +11,7 @@ interface BaseRepository {
 
     suspend fun getUserStats(): List<Stats>
 
-    suspend fun getUnSolvedProblems(solvedacToken:String?): List<ProblemStatus>
+    suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus>
 
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 
@@ -23,9 +23,9 @@ interface BaseRepository {
 
     fun getDateInfoObject(): DateInfoObject?
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo
+    suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 
-    fun getIdeaInfos(problemId: Int): IdeaInfos?
+    suspend fun getIdeaInfos(problemId: Int): IdeaInfos?
 
     fun setComment(problemId: Int, comment: String): CommentInfo
 

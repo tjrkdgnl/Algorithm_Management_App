@@ -14,9 +14,9 @@ interface BaseFirebaseService {
 
     fun getDateInfos(userId: String?): DateInfoObject?
 
-    fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): IdeaInfo
+    suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 
-    fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos?
+    suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos?
 
     fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): CommentInfo
 

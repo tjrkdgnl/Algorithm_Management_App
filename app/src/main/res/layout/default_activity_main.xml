@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.ama.algorithmmanagement.viewmodel.kDefault.KDefaultMainViewModel" />
@@ -12,10 +13,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.DefaultActivity"
-        android:orientation="vertical"
         android:gravity="center"
-        >
+        android:orientation="vertical"
+        tools:context=".Activity.DefaultActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout_default"
@@ -28,20 +28,18 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToCallAPIActivity()}"
-                android:text="@string/callAPI"
-                android:layout_marginEnd="10dp"
-                />
+                android:text="@string/callAPI" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToSolvedActivity()}"
-                android:text="@string/callSolvedAPI"
-                android:layout_marginEnd="10dp"
-                />
+                android:text="@string/callSolvedAPI" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -54,26 +52,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginHorizontal="10dp"
             android:gravity="center"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToFirebaseTestAct()}"
-                android:text="@string/firbaseTest"
+                android:text="@string/firbaseTest" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                />
+                android:background="@null"
+                android:onClick="@{()->viewModel.moveToSharedTestAct()}"
+                android:text="@string/sharedTest" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="@{()->viewModel.moveToSharedTestAct()}"
-                android:text="@string/firbaseTest" />
+                android:text="@string/idea" />
 
         </LinearLayout>
 

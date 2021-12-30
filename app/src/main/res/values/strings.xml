@@ -6,7 +6,9 @@
     <string name="callAPI">클래스번호 호출</string>
     <string name="callSolvedAPI">내가 푼 문제</string>
     <string name="login">로그인</string>
-    <string name="firbaseTest">shared 테스트</string>
+    <string name="firbaseTest">firebase</string>
+    <string name="sharedTest">shared</string>
+    <string name="idea">idea</string>
     <string name="prefGetUserId">UserId</string>
     <string name="default_user">Default_User</string>
     <string name="default_problemId">1110</string>
