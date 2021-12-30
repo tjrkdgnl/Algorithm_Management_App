@@ -70,12 +70,12 @@ class Repository(
     }
 
     override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        TODO("Not yet implemented")
+        return mFirebaseService.checkUserInfo(userId, password)
     }
 
     override suspend fun getUserInfo(): UserInfo? {
         if (mUserId == null) {
-            return null
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
         return mFirebaseService.getUserInfo(mUserId!!)

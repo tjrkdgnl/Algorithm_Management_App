@@ -16,6 +16,13 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val userTable = mApp.getString(R.string.userTable)
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
+        val key = firebaseRef.child(userTable).key
+
+        if (key == null) {
+            Timber.e(mApp.getString(R.string.firebaseIsNull, userTable))
+            firebaseRef.child(userTable).push()
+        }
+
         return if (checkUserInfo(userId, userPw)) {
             val userInfo = UserInfo(userId, userPw, fcmToken)
             firebaseRef.child(userTable).push().setValue(userInfo)
@@ -30,8 +37,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val key = firebaseRef.child(userTable).key
 
         if (key == null) {
-            Timber.e("${userTable}이 Firebase Database에 존재하지 않습니다.")
-            firebaseRef.child(userTable).push()
+            Timber.e(mApp.getString(R.string.firebaseIsNull, userTable))
             return null
         }
 
@@ -53,15 +59,6 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     }
 
     override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        val key = firebaseRef.child(userTable).key
-
-        if (key == null) {
-            Timber.e("${userTable}이 Firebase Database에 존재하지 않습니다.")
-            firebaseRef.child(userTable).push()
-
-            return false
-        }
-
         val snapshot = firebaseRef.child(userTable).get().await()
 
         for (user in snapshot.children) {

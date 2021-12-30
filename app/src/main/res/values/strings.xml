@@ -12,9 +12,11 @@
     <string name="default_problemId">1110</string>
     <string name="default_count">30</string>
     <string name="objectIsNull">%s가 존재하지 않습니다.</string>
+    <string name="firebaseIsNull">%s가 firebase에 존재하지 않습니다.</string>
 
 
     //firebase
     <string name="userTable">UserTable</string>
+    <string name="ideaTable">IdeaTable</string>
 
 </resources>
