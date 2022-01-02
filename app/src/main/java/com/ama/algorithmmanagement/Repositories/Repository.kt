@@ -7,6 +7,7 @@ import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
+import kotlinx.coroutines.flow.Flow
 
 class Repository(
     private val mApp: Application,
@@ -97,7 +98,7 @@ class Repository(
         return mFirebaseService.setIdeaInfo(mUserId!!,url, comment, problemId)
     }
 
-    override suspend fun getIdeaInfos(problemId: Int): IdeaInfos? {
+    override suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?> {
         if(mUserId ==null){
             throw NullPointerException(mApp.getString(R.string.objectIsNull,mUserId))
         }

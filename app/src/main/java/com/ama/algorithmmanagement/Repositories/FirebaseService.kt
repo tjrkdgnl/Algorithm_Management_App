@@ -5,9 +5,16 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
@@ -91,11 +98,11 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         comment: String?,
         problemId: Int
     ): Boolean {
-        val key = mFirebaseRef.child(mUserTable).key
+        val key = mFirebaseRef.child(mIdeaTable).key
 
         if (key == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
-            mFirebaseRef.child(mUserTable).push()
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+            mFirebaseRef.child(mIdeaTable).push()
         }
 
         val snapshot = mFirebaseRef.child(mIdeaTable).get().await()
@@ -111,49 +118,61 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
                     for (infos in it.ideaInfosList) {
                         if (infos.problemId == problemId) {
                             infos.ideaList.add(ideaInfo)
+                            infos.count++
+                            mFirebaseRef.child(mIdeaTable).child(idea.key!!)
+                                .updateChildren(it.toMap())
                             return true
                         }
                     }
 
                     it.ideaInfosList.add(ideaInfos)
+                    it.count++
+                    mFirebaseRef.child(mIdeaTable).child(idea.key!!).updateChildren(it.toMap())
                     return true
                 }
             }
         }
 
-        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
-        mFirebaseRef.child(mUserTable).setValue(ideaObject)
+        val ideaObject = IdeaObject(userId, 1, arrayListOf(ideaInfos))
+        mFirebaseRef.child(mIdeaTable).push().setValue(ideaObject)
 
         return true
     }
 
-    override suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos? {
-        val key = mFirebaseRef.child(mIdeaTable).key
+    override suspend fun getIdeaInfos(userId: String, problemId: Int): Flow<IdeaInfos?> =
+        callbackFlow {
+            val key = mFirebaseRef.child(mIdeaTable).key
 
-        if (key == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
-            return null
-        }
+            if (key == null) {
+                Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+                trySend(null)
+            }
 
-        val snapshot = mFirebaseRef.child(mIdeaTable).get().await()
+            mFirebaseRef.child(mIdeaTable).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (idea in snapshot.children) {
+                        val ideaObject = idea.getValue(IdeaObject::class.java)
 
-        for (idea in snapshot.children) {
-            val ideaObject = idea.getValue(IdeaObject::class.java)
-
-            ideaObject?.let {
-                if (it.userId == userId) {
-                    for (ideaInfos in it.ideaInfosList) {
-                        if (ideaInfos.problemId == problemId) {
-                            return ideaInfos
+                        ideaObject?.let {
+                            if (it.userId == userId) {
+                                for (ideaInfos in it.ideaInfosList) {
+                                    if (ideaInfos.problemId == problemId) {
+                                        trySend(ideaInfos)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
 
-        Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
-        return null
-    }
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.e(error.message)
+                }
+            })
+
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+            awaitClose { }
+        }
 
     override fun setComment(
         userId: String,

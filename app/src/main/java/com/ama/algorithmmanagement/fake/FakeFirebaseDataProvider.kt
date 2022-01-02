@@ -25,7 +25,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
 
     val ideaSnapShot: MutableList<IdeaObject> by lazy {
         MutableList(mCount) {
-            IdeaObject(mDefaultUserId, MutableList(mCount) {
+            IdeaObject(mDefaultUserId,mCount, MutableList(mCount) {
                 IdeaInfos(mCount, mProblemId + it, MutableList(mCount) {
                     IdeaInfo(null, "this is idea test ${it}", DateUtils.createDate())
                 })

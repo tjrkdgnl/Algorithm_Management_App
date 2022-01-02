@@ -19,10 +19,12 @@ class TestIdeaViewModelTest {
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
+            DateUtils.createDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
+        val fakeNetworkService =
+            FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         testIdeaViewModel =
             IdeaViewModel(
@@ -31,7 +33,7 @@ class TestIdeaViewModelTest {
                     fakeFirebaseReference,
                     fakeNetworkService,
                     fakeSharedPreference
-                )
+                ), null
             )
     }
 
@@ -40,7 +42,7 @@ class TestIdeaViewModelTest {
     fun getIdeaInfos() {
         //given
 //        testIdeaViewModelTest.setIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
-        testIdeaViewModel.getIdeaInfos(1111)
+
 
         //when
         val infos = testIdeaViewModel.ideaList
@@ -52,13 +54,11 @@ class TestIdeaViewModelTest {
     @Test
     fun getIdeaInfos_moreThanOne() {
         //given
-        testIdeaViewModel.saveIdeaInfo(null, "dp를 이용하면 좋지 않을까?", 1111)
-        testIdeaViewModel.saveIdeaInfo(null, "투 포인터 이용하자", 1111)
-        testIdeaViewModel.saveIdeaInfo(null, "그래프를 이용하자", 1111)
-        testIdeaViewModel.getIdeaInfos(1111)
+        testIdeaViewModel.saveIdeaInfo()
+
 
         //when
-        val infos = testIdeaViewModel.ideaLst
+        val infos = testIdeaViewModel.ideaList
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[1].comment, "투 포인터 이용하자")

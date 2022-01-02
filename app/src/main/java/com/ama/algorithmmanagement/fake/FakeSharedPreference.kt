@@ -36,8 +36,8 @@ class FakeSharedPreference : BaseSharedPreference {
         fakeMap[SharedKey.TIER] = tierType
     }
 
-    override fun getTierType(): Int {
-        return fakeMap[SharedKey.TIER] as Int
+    override fun getTierType(): Int? {
+        return fakeMap[SharedKey.TIER] as? Int
     }
 
     override fun deleteToTierType() {

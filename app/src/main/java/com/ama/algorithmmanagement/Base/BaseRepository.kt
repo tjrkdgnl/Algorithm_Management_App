@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.*
+import kotlinx.coroutines.flow.Flow
 
 interface BaseRepository {
     suspend fun getProblem(problemId: Int): TaggedProblem
@@ -25,7 +26,7 @@ interface BaseRepository {
 
     suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 
-    suspend fun getIdeaInfos(problemId: Int): IdeaInfos?
+    suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?>
 
     fun setComment(problemId: Int, comment: String): CommentInfo
 

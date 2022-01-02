@@ -10,6 +10,7 @@ class KDefaultMainViewModel : ViewModel() {
     val moveToLoginAct = MutableLiveData<Boolean>(false)
     val moveToFirebaseTestAct = MutableLiveData<Boolean>(false)
     val moveToSharedTestAct = MutableLiveData<Boolean>(false)
+    val moveToIdeaTestAct = MutableLiveData<Boolean>(false)
 
 
     fun moveToCallAPIActivity() {
@@ -28,5 +29,7 @@ class KDefaultMainViewModel : ViewModel() {
     fun moveToSharedTestAct() {
         moveToSharedTestAct.value = true;
     }
-
+    fun moveToIdeaTestAct() {
+        moveToIdeaTestAct.value = true;
+    }
 }

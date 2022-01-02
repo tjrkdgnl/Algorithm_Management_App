@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.Base
 
 import com.ama.algorithmmanagement.Model.*
+import kotlinx.coroutines.flow.Flow
 
 interface BaseFirebaseService {
 
@@ -16,7 +17,7 @@ interface BaseFirebaseService {
 
     suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 
-    suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos?
+    suspend fun getIdeaInfos(userId: String, problemId: Int): Flow<IdeaInfos?>
 
     fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): CommentInfo
 

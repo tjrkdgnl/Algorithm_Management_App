@@ -31,6 +31,8 @@
 
         <activity android:name=".Activity.kDefault.KSharedActivity"/>
 
+        <activity android:name=".Activity.kDefault.IdeaActivity"/>
+
     </application>
 
 </manifest>

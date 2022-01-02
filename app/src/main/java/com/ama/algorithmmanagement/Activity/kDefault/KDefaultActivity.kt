@@ -54,5 +54,12 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
                 mainViewModel.moveToFirebaseTestAct.value = false
             }
         })
+
+        mainViewModel.moveToIdeaTestAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, IdeaActivity::class.java))
+                mainViewModel.moveToIdeaTestAct.value = false
+            }
+        })
     }
 }

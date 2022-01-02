@@ -2,6 +2,8 @@ package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 
 class FakeFirebaseReference(
@@ -86,24 +88,24 @@ class FakeFirebaseReference(
             }
         }
 
-        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
-        mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
+//        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
+//        mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
         return true
     }
 
-    override suspend fun getIdeaInfos(userId: String, problemId: Int): IdeaInfos? {
+    override suspend fun getIdeaInfos(userId: String, problemId: Int) = flow<IdeaInfos?> {
         for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
             if (userIdeaInfo.userId == userId) {
 
                 for (ideaInfos in userIdeaInfo.ideaInfosList) {
                     if (ideaInfos.problemId == problemId) {
-                        return ideaInfos
+                        emit(ideaInfos)
                     }
                 }
             }
         }
-        return null
+        emit(null)
     }
 
     override fun setComment(
