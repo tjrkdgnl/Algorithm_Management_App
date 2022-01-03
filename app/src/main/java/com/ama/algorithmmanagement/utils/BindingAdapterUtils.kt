@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KNoTipProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
+import com.ama.algorithmmanagement.Adapter.TryFailedAdapter
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
 import com.ama.algorithmmanagement.Model.TaggedProblem
 import com.ama.algorithmmanagement.Model.TipProblem
@@ -31,6 +32,13 @@ object BindingAdapterUtils {
     fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblem>?) {
         val recyclerViewAdapter = recyclerView.adapter as KNoTipProblemsAdapter
         recyclerViewAdapter.updateList(noTipProblems)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setTryFailedProblemsList")
+    fun setTryFailedProblemsList(recyclerView: RecyclerView, tryFailedList: MutableList<TaggedProblem>?) {
+        val recyclerViewAdapter = recyclerView.adapter as TryFailedAdapter
+        recyclerViewAdapter.updateList(tryFailedList)
     }
 
 }

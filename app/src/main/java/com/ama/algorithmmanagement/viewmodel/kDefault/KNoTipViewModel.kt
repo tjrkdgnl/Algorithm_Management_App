@@ -9,9 +9,6 @@ import timber.log.Timber
 
 class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
-    private val _classList = MutableLiveData<List<KProblemsOfClass>>()
-    val classList: LiveData<List<KProblemsOfClass>> get() = _classList
-
     private val _noTipAlgorithms = MutableLiveData<TippingProblemObject>()
     val noTipList: LiveData<MutableList<TipProblem>> = Transformations.map(_noTipAlgorithms) {
         it.problemList
@@ -19,17 +16,6 @@ class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     init {
         getNotTippingProblem()
-    }
-
-    // request api using coroutine
-    private fun initList() {
-        viewModelScope.launch {
-            try {
-                _classList.value = KAPIGenerator.getInstance().getProblemsOfClass()
-            } catch (e: Exception) {
-                Timber.e(e.message.toString())
-            }
-        }
     }
 
     private fun getNotTippingProblem() {
@@ -41,6 +27,4 @@ class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
             }
         }
     }
-
-
 }
