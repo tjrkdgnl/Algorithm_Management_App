@@ -9,6 +9,7 @@
     <string name="firbaseTest">firebase</string>
     <string name="sharedTest">shared</string>
     <string name="idea">idea</string>
+    <string name="date">date</string>
     <string name="prefGetUserId">UserId</string>
     <string name="default_user">Default_User</string>
     <string name="default_problemId">1110</string>
@@ -20,5 +21,6 @@
     //firebase
     <string name="userTable">UserTable</string>
     <string name="ideaTable">IdeaTable</string>
+    <string name="dateTable">DateTable</string>
 
 </resources>

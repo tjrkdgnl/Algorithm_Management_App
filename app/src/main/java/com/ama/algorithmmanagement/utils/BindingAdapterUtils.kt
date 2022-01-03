@@ -4,7 +4,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
+import com.ama.algorithmmanagement.Adapter.test.DateAdpater
 import com.ama.algorithmmanagement.Adapter.test.IdeaAdpater
+import com.ama.algorithmmanagement.Model.DateInfo
 import com.ama.algorithmmanagement.Model.IdeaInfo
 import com.ama.algorithmmanagement.Model.KProblemsOfClass
 import com.ama.algorithmmanagement.Model.TaggedProblem
@@ -33,6 +35,16 @@ object BindingAdapterUtils {
     @BindingAdapter("testIdeaProblems")
     fun setTestIdeaProblems(recyclerView: RecyclerView, problems: MutableList<IdeaInfo>?) {
         val adapter = recyclerView.adapter as IdeaAdpater
+
+        problems?.let {
+            adapter.updateList(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("testDateList")
+    fun setTestDateList(recyclerView: RecyclerView, problems: MutableList<DateInfo>?) {
+        val adapter = recyclerView.adapter as DateAdpater
 
         problems?.let {
             adapter.updateList(it)

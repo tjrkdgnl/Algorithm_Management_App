@@ -75,7 +75,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getUserInfo(mUserId!!)
     }
 
-    override fun setDateInfo(): Boolean {
+    override suspend fun setDateInfo(): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -83,7 +83,7 @@ class FakeRepository(
         return mFakeFirebaseReference.setDateInfo(mUserId!!)
     }
 
-    override fun getDateInfoObject(): DateInfoObject? {
+    override suspend fun getDateInfoObject(): Flow<DateInfoObject?> {
         return mFakeFirebaseReference.getDateInfos(mUserId)
     }
 

@@ -61,5 +61,13 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
                 mainViewModel.moveToIdeaTestAct.value = false
             }
         })
+
+        mainViewModel.moveToDateTestAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, T_DateActivity::class.java))
+                mainViewModel.moveToDateTestAct.value = false
+            }
+        })
+
     }
 }

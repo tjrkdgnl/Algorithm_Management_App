@@ -20,9 +20,9 @@ interface BaseRepository {
 
     suspend fun getUserInfo(): UserInfo?
 
-    fun setDateInfo(): Boolean
+    suspend fun setDateInfo(): Boolean
 
-    fun getDateInfoObject(): DateInfoObject?
+    suspend fun getDateInfoObject(): Flow<DateInfoObject?>
 
     suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 

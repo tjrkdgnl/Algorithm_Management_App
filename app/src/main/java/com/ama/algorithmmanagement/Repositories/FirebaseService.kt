@@ -22,6 +22,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mFirebaseRef = Firebase.database.reference
     private val mUserTable = mApp.getString(R.string.userTable)
     private val mIdeaTable = mApp.getString(R.string.ideaTable)
+    private val mDateTable = mApp.getString(R.string.dateTable)
     private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
@@ -83,12 +84,66 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return true
     }
 
-    override fun setDateInfo(userId: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun setDateInfo(userId: String): Boolean {
+        val key = mFirebaseRef.child(mDateTable).key
+
+        if (key == null) {
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
+            mFirebaseRef.child(mDateTable).push()
+        }
+
+        val snapshot = mFirebaseRef.child(mDateTable).get().await()
+
+        val dateInfo = DateInfo(mDate)
+
+        for (obj in snapshot.children) {
+            val dateObject = obj.getValue(DateInfoObject::class.java)
+
+            dateObject?.let { dateObj ->
+                if (dateObj.userId == userId) {
+                    dateObj.count++
+                    dateObj.dateList.add(dateInfo)
+                    mFirebaseRef.child(mDateTable).child(obj.key!!).updateChildren(dateObj.toMap())
+
+                    return true
+                }
+            }
+        }
+
+        val dateInfoObject = DateInfoObject(1, userId, mutableListOf(dateInfo))
+        mFirebaseRef.child(mDateTable).push().setValue(dateInfoObject)
+
+        return true
     }
 
-    override fun getDateInfos(userId: String?): DateInfoObject? {
-        TODO("Not yet implemented")
+    override suspend fun getDateInfos(userId: String?): Flow<DateInfoObject?> = callbackFlow {
+        val key = mFirebaseRef.child(mDateTable).key
+
+        if (key == null) {
+            Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
+            trySend(null)
+        }
+
+        val listener =
+            mFirebaseRef.child(mDateTable).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (obj in snapshot.children) {
+                        val dateObject = obj.getValue(DateInfoObject::class.java)
+
+                        dateObject?.let { dateObj ->
+                            if (dateObj.userId == userId) {
+                                trySend(dateObj)
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.e(error.message)
+                }
+            })
+
+        awaitClose { mFirebaseRef.removeEventListener(listener) }
     }
 
     override suspend fun setIdeaInfo(

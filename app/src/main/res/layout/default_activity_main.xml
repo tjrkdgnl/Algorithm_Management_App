@@ -82,6 +82,21 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:onClick="@{()->viewModel.moveToDateTestAct()}"
+                android:text="@string/date" />
+
+        </LinearLayout>
+
         <FrameLayout
             android:id="@+id/frameLayout_default"
             android:layout_width="match_parent"

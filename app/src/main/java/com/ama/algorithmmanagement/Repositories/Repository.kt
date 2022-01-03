@@ -82,12 +82,20 @@ class Repository(
         return mFirebaseService.getUserInfo(mUserId!!)
     }
 
-    override fun setDateInfo(): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun setDateInfo(): Boolean {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.setDateInfo(mUserId!!)
     }
 
-    override fun getDateInfoObject(): DateInfoObject? {
-        TODO("Not yet implemented")
+    override suspend fun getDateInfoObject(): Flow<DateInfoObject?> {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.getDateInfos(mUserId!!)
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {

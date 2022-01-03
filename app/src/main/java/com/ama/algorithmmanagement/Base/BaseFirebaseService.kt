@@ -5,15 +5,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface BaseFirebaseService {
 
-    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?) :Boolean
+    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean
 
     suspend fun getUserInfo(userId: String): UserInfo?
 
     suspend fun checkUserInfo(userId: String, password: String): Boolean
 
-    fun setDateInfo(userId: String): Boolean
+    suspend fun setDateInfo(userId: String): Boolean
 
-    fun getDateInfos(userId: String?): DateInfoObject?
+    suspend fun getDateInfos(userId: String?): Flow<DateInfoObject?>
 
     suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 
@@ -42,7 +42,7 @@ interface BaseFirebaseService {
 
     fun getTippingProblemObject(userId: String): TippingProblemObject?
 
-    fun getNotTippingProblemObject(userId:String) : TippingProblemObject?
+    fun getNotTippingProblemObject(userId: String): TippingProblemObject?
 
     fun modifyTippingProblem(
         userId: String,

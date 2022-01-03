@@ -2,6 +2,7 @@ package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 
@@ -38,7 +39,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setDateInfo(userId: String): Boolean {
+    override suspend fun setDateInfo(userId: String): Boolean {
         val dateInfo = DateInfo(mDate)
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
@@ -53,13 +54,13 @@ class FakeFirebaseReference(
         return true
     }
 
-    override fun getDateInfos(userId: String?): DateInfoObject? {
+    override suspend fun getDateInfos(userId: String?) = flow<DateInfoObject?> {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == userId) {
-                return dateInfos
+                emit(dateInfos)
             }
         }
-        return null
+        emit(null)
     }
 
     override suspend fun setIdeaInfo(

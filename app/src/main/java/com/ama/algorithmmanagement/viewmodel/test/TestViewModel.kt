@@ -44,11 +44,16 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     }
 
     fun setDateInfo() {
-        val date = repository.setDateInfo()
+        viewModelScope.launch {
+            val date = repository.setDateInfo()
+
+        }
     }
 
     fun getDateInfoObejct() {
-        _dateInfoObejct.value = repository.getDateInfoObject()
+        viewModelScope.launch {
+
+        }
     }
 
 }
