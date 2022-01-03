@@ -26,9 +26,9 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
-        val key = mFirebaseRef.child(mUserTable).key
+        val tableKey = mFirebaseRef.child(mUserTable).key
 
-        if (key == null) {
+        if (tableKey == null) {
             Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
             mFirebaseRef.child(mUserTable).push()
         }
@@ -44,17 +44,17 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     }
 
     override suspend fun getUserInfo(userId: String): UserInfo? {
-        val key = mFirebaseRef.child(mUserTable).key
+        val tableKey = mFirebaseRef.child(mUserTable).key
 
-        if (key == null) {
+        if (tableKey == null) {
             Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
             return null
         }
 
         val snapshot = mFirebaseRef.child(mUserTable).get().await()
 
-        for (user in snapshot.children) {
-            val userInfo = user.getValue(UserInfo::class.java)
+        for (obj in snapshot.children) {
+            val userInfo = obj.getValue(UserInfo::class.java)
 
             userInfo?.let {
                 if (it.userId == userId) {
@@ -85,9 +85,9 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     }
 
     override suspend fun setDateInfo(userId: String): Boolean {
-        val key = mFirebaseRef.child(mDateTable).key
+        val tableKey = mFirebaseRef.child(mDateTable).key
 
-        if (key == null) {
+        if (tableKey == null) {
             Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
             mFirebaseRef.child(mDateTable).push()
         }
@@ -117,9 +117,9 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     }
 
     override suspend fun getDateInfos(userId: String?): Flow<DateInfoObject?> = callbackFlow {
-        val key = mFirebaseRef.child(mDateTable).key
+        val tableKey = mFirebaseRef.child(mDateTable).key
 
-        if (key == null) {
+        if (tableKey == null) {
             Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
             trySend(null)
         }
@@ -152,9 +152,9 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         comment: String?,
         problemId: Int
     ): Boolean {
-        val key = mFirebaseRef.child(mIdeaTable).key
+        val tableKey = mFirebaseRef.child(mIdeaTable).key
 
-        if (key == null) {
+        if (tableKey == null) {
             Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
             mFirebaseRef.child(mIdeaTable).push()
         }
@@ -164,8 +164,8 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val ideaInfo = IdeaInfo(url, comment, mDate)
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
 
-        for (idea in snapshot.children) {
-            val ideaObject = idea.getValue(IdeaObject::class.java)
+        for (obj in snapshot.children) {
+            val ideaObject = obj.getValue(IdeaObject::class.java)
 
             ideaObject?.let {
                 if (it.userId == userId) {
@@ -173,7 +173,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
                         if (infos.problemId == problemId) {
                             infos.ideaList.add(ideaInfo)
                             infos.count++
-                            mFirebaseRef.child(mIdeaTable).child(idea.key!!)
+                            mFirebaseRef.child(mIdeaTable).child(obj.key!!)
                                 .updateChildren(it.toMap())
                             return true
                         }
@@ -181,7 +181,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
                     it.ideaInfosList.add(ideaInfos)
                     it.count++
-                    mFirebaseRef.child(mIdeaTable).child(idea.key!!).updateChildren(it.toMap())
+                    mFirebaseRef.child(mIdeaTable).child(obj.key!!).updateChildren(it.toMap())
                     return true
                 }
             }
@@ -195,9 +195,9 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
     override suspend fun getIdeaInfos(userId: String, problemId: Int): Flow<IdeaInfos?> =
         callbackFlow {
-            val key = mFirebaseRef.child(mIdeaTable).key
+            val tableKey = mFirebaseRef.child(mIdeaTable).key
 
-            if (key == null) {
+            if (tableKey == null) {
                 Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
                 trySend(null)
             }
@@ -205,8 +205,8 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             val listener =
                 mFirebaseRef.child(mIdeaTable).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        for (idea in snapshot.children) {
-                            val ideaObject = idea.getValue(IdeaObject::class.java)
+                        for (obj in snapshot.children) {
+                            val ideaObject = obj.getValue(IdeaObject::class.java)
 
                             ideaObject?.let {
                                 if (it.userId == userId) {
