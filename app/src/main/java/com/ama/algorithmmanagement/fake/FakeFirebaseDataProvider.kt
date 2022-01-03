@@ -1,7 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils

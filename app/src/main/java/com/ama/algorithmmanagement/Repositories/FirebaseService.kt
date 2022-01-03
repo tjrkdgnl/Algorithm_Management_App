@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
@@ -148,30 +147,30 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
                 trySend(null)
             }
 
-            mFirebaseRef.child(mIdeaTable).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (idea in snapshot.children) {
-                        val ideaObject = idea.getValue(IdeaObject::class.java)
+            val listener =
+                mFirebaseRef.child(mIdeaTable).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (idea in snapshot.children) {
+                            val ideaObject = idea.getValue(IdeaObject::class.java)
 
-                        ideaObject?.let {
-                            if (it.userId == userId) {
-                                for (ideaInfos in it.ideaInfosList) {
-                                    if (ideaInfos.problemId == problemId) {
-                                        trySend(ideaInfos)
+                            ideaObject?.let {
+                                if (it.userId == userId) {
+                                    for (ideaInfos in it.ideaInfosList) {
+                                        if (ideaInfos.problemId == problemId) {
+                                            trySend(ideaInfos)
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.e(error.message)
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                        Timber.e(error.message)
+                    }
+                })
 
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
-            awaitClose { }
+            awaitClose { mFirebaseRef.removeEventListener(listener) }
         }
 
     override fun setComment(

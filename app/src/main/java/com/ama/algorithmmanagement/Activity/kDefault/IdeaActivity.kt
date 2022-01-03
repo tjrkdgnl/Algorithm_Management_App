@@ -11,8 +11,6 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultIdeaTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.IdeaViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 
 class IdeaActivity : KBaseActivity<DefaultIdeaTestBinding>(R.layout.default_idea_test) {
 

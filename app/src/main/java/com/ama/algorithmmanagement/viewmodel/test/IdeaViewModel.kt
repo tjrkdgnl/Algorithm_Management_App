@@ -6,10 +6,8 @@ import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Model.IdeaInfo
 import com.ama.algorithmmanagement.Model.IdeaInfos
 import com.ama.algorithmmanagement.utils.combineWith
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 class IdeaViewModel(
@@ -28,7 +26,6 @@ class IdeaViewModel(
     private val observe = Observer<Boolean>() {}
 
     val ideaInfos: LiveData<IdeaInfos?> = liveData {
-
         mRepository.getIdeaInfos(1111).collect {
             emit(it)
         }
