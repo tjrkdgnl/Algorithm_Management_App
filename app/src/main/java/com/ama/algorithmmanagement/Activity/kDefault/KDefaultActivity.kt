@@ -57,15 +57,22 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
 
         mainViewModel.moveToIdeaTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, IdeaActivity::class.java))
+                startActivity(Intent(this, KIdeaActivity::class.java))
                 mainViewModel.moveToIdeaTestAct.value = false
             }
         })
 
         mainViewModel.moveToDateTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, T_DateActivity::class.java))
+                startActivity(Intent(this, KDateActivity::class.java))
                 mainViewModel.moveToDateTestAct.value = false
+            }
+        })
+
+        mainViewModel.moveToCommentTestAct.observe(this, {
+            if (it) {
+                startActivity(Intent(this, KDefaultCommentActivity::class.java))
+                mainViewModel.moveToCommentTestAct.value = false
             }
         })
 

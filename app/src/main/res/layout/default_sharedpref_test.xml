@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.SharedViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestSharedViewModel" />
     </data>
 
     <ScrollView

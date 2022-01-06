@@ -100,7 +100,7 @@ class Repository(
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {
         if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,mUserId))
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
         }
 
         return mFirebaseService.setIdeaInfo(mUserId!!,url, comment, problemId)
@@ -108,18 +108,26 @@ class Repository(
 
     override suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?> {
         if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,mUserId))
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
         }
 
         return mFirebaseService.getIdeaInfos(mUserId!!,problemId)
     }
 
-    override fun setComment(problemId: Int, comment: String): CommentInfo {
-        TODO("Not yet implemented")
+    override suspend fun setComment(problemId: Int, comment: String): Boolean {
+        if(mUserId ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        }
+
+        if(mTiertype ==null){
+            throw NullPointerException(mApp.getString(R.string.objectIsNull,"tierType"))
+        }
+
+       return mFirebaseService.setComment(mUserId!!,mTiertype,problemId, comment)
     }
 
-    override fun getCommentObject(problemId: Int): CommentObject? {
-        TODO("Not yet implemented")
+    override suspend fun getCommentObject(problemId: Int): Flow<CommentObject?> {
+        return mFirebaseService.getCommentObject(problemId)
     }
 
     override fun setChildComment(commentId: String, comment: String): ChildCommentInfo {

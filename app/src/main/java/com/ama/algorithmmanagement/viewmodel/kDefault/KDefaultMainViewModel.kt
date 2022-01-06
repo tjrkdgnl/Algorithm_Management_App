@@ -12,6 +12,7 @@ class KDefaultMainViewModel : ViewModel() {
     val moveToSharedTestAct = MutableLiveData<Boolean>(false)
     val moveToIdeaTestAct = MutableLiveData<Boolean>(false)
     val moveToDateTestAct = MutableLiveData<Boolean>(false)
+    val moveToCommentTestAct = MutableLiveData<Boolean>(false)
 
 
     fun moveToCallAPIActivity() {
@@ -35,6 +36,9 @@ class KDefaultMainViewModel : ViewModel() {
     }
     fun moveToDateTestAct() {
         moveToDateTestAct.value = true;
+    }
+    fun moveToCommentTestAct() {
+        moveToCommentTestAct.value = true;
     }
 
 }

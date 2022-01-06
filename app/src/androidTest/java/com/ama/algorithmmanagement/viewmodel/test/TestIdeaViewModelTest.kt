@@ -9,7 +9,7 @@ import org.junit.Test
 
 class TestIdeaViewModelTest {
 
-    lateinit var testIdeaViewModel: IdeaViewModel
+    lateinit var testTestIdeaViewModel: TestIdeaViewModel
 
     @Before
     fun init() {
@@ -26,8 +26,8 @@ class TestIdeaViewModelTest {
         val fakeNetworkService =
             FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
-        testIdeaViewModel =
-            IdeaViewModel(
+        testTestIdeaViewModel =
+            TestIdeaViewModel(
                 FakeRepository(
                     ApplicationProvider.getApplicationContext(),
                     fakeFirebaseReference,
@@ -45,7 +45,7 @@ class TestIdeaViewModelTest {
 
 
         //when
-        val infos = testIdeaViewModel.ideaList
+        val infos = testTestIdeaViewModel.ideaList
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[0].url, null)
@@ -54,11 +54,11 @@ class TestIdeaViewModelTest {
     @Test
     fun getIdeaInfos_moreThanOne() {
         //given
-        testIdeaViewModel.saveIdeaInfo()
+        testTestIdeaViewModel.saveIdeaInfo()
 
 
         //when
-        val infos = testIdeaViewModel.ideaList
+        val infos = testTestIdeaViewModel.ideaList
 
         assertEquals(infos[0].comment, "dp를 이용하면 좋지 않을까?")
         assertEquals(infos[1].comment, "투 포인터 이용하자")

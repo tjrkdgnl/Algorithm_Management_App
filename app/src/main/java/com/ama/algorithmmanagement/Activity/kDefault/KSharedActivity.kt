@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSharedprefTestBinding
-import com.ama.algorithmmanagement.viewmodel.test.SharedViewModel
+import com.ama.algorithmmanagement.viewmodel.test.TestSharedViewModel
 
 class KSharedActivity :
     KBaseActivity<DefaultSharedprefTestBinding>(R.layout.default_sharedpref_test) {
@@ -13,7 +13,7 @@ class KSharedActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: SharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        val viewModel: TestSharedViewModel = ViewModelProvider(this)[TestSharedViewModel::class.java]
         binding.viewModel = viewModel
 
 

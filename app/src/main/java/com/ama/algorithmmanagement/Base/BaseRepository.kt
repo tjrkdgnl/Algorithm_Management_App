@@ -28,9 +28,9 @@ interface BaseRepository {
 
     suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?>
 
-    fun setComment(problemId: Int, comment: String): CommentInfo
+    suspend fun setComment(problemId: Int, comment: String): Boolean
 
-    fun getCommentObject(problemId: Int): CommentObject?
+    suspend fun getCommentObject(problemId: Int): Flow<CommentObject?>
 
     fun setChildComment(commentId: String, comment: String): ChildCommentInfo
 

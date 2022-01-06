@@ -31,8 +31,9 @@
 
         <activity android:name=".Activity.kDefault.KSharedActivity"/>
 
-        <activity android:name=".Activity.kDefault.IdeaActivity"/>
-        <activity android:name=".Activity.kDefault.T_DateActivity"/>
+        <activity android:name=".Activity.kDefault.KIdeaActivity"/>
+        <activity android:name=".Activity.kDefault.KDateActivity"/>
+        <activity android:name=".Activity.kDefault.KDefaultCommentActivity"/>
 
     </application>
 

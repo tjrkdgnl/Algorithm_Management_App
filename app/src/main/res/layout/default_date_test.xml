@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.DateViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestDateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

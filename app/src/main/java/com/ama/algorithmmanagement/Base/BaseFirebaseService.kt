@@ -19,9 +19,9 @@ interface BaseFirebaseService {
 
     suspend fun getIdeaInfos(userId: String, problemId: Int): Flow<IdeaInfos?>
 
-    fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): CommentInfo
+    suspend fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): Boolean
 
-    fun getCommentObject(problemId: Int): CommentObject?
+    suspend fun getCommentObject(problemId: Int): Flow<CommentObject?>
 
     fun setChildComment(
         userId: String,

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.IdeaViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestCommentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ideaRecyclerView"
-            testIdeaProblems="@{viewModel.ideaList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -44,9 +43,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:hint="idea입력"
-            android:paddingHorizontal="20dp"
             android:text="@={viewModel.comment}"
-            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/okButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -58,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:onClick="@{()->viewModel.saveIdeaInfo()}"
+            android:onClick="@{()->viewModel.saveComment()}"
             android:text="확인"
             android:src="@null"
             app:layout_constraintBottom_toBottomOf="parent"

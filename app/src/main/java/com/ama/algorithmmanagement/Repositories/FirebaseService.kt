@@ -5,6 +5,8 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
+import com.ama.algorithmmanagement.utils.RandomIdGenerator
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -23,13 +25,14 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mUserTable = mApp.getString(R.string.userTable)
     private val mIdeaTable = mApp.getString(R.string.ideaTable)
     private val mDateTable = mApp.getString(R.string.dateTable)
+    private val mCommentTable = mApp.getString(R.string.commentTable)
     private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
         val tableKey = mFirebaseRef.child(mUserTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
+            Timber.e(mApp.getString(R.string.generateTable, mUserTable))
             mFirebaseRef.child(mUserTable).push()
         }
 
@@ -47,7 +50,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mUserTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mUserTable))
+            Timber.e(mApp.getString(R.string.generateTable, mUserTable))
             return null
         }
 
@@ -88,7 +91,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
+            Timber.e(mApp.getString(R.string.generateTable, mDateTable))
             mFirebaseRef.child(mDateTable).push()
         }
 
@@ -120,7 +123,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mDateTable))
+            Timber.e(mApp.getString(R.string.generateTable, mDateTable))
             trySend(null)
         }
 
@@ -155,7 +158,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mIdeaTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+            Timber.d(mApp.getString(R.string.generateTable, mIdeaTable))
             mFirebaseRef.child(mIdeaTable).push()
         }
 
@@ -198,7 +201,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             val tableKey = mFirebaseRef.child(mIdeaTable).key
 
             if (tableKey == null) {
-                Timber.e(mApp.getString(R.string.firebaseIsNull, mIdeaTable))
+                Timber.e(mApp.getString(R.string.generateTable, mIdeaTable))
                 trySend(null)
             }
 
@@ -228,18 +231,73 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             awaitClose { mFirebaseRef.removeEventListener(listener) }
         }
 
-    override fun setComment(
+    override suspend fun setComment(
         userId: String,
         tierType: Int,
         problemId: Int,
         comment: String
-    ): CommentInfo {
-        TODO("Not yet implemented")
+    ): Boolean {
+        val tableKey = mFirebaseRef.child(mCommentTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mCommentTable))
+            mFirebaseRef.child(mCommentTable).push()
+        }
+
+        val commentId = RandomIdGenerator.generateRandDomId()
+
+        val commentInfo = CommentInfo(commentId, userId, tierType, comment, mDate, 0)
+
+        val snapShot = mFirebaseRef.child(mCommentTable).get().await()
+
+        for (obj in snapShot.children) {
+            val commentObject = obj.getValue(CommentObject::class.java)
+
+            commentObject?.let {
+                if (it.problemId == problemId) {
+                    it.commentList.add(commentInfo)
+                    it.count = it.commentList.size
+                    mFirebaseRef.child(tableKey!!).child(obj.key!!).updateChildren(it.toMap())
+                    return true
+                }
+            }
+        }
+
+        val commentObject = CommentObject(1, problemId, mutableListOf(commentInfo))
+        mFirebaseRef.child(mCommentTable).push().setValue(commentObject)
+        return true
     }
 
-    override fun getCommentObject(problemId: Int): CommentObject? {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getCommentObject(problemId: Int): Flow<CommentObject?> =
+        callbackFlow {
+            val tableKey = mFirebaseRef.child(mCommentTable).key
+
+            if (tableKey == null) {
+                Timber.e(mApp.getString(R.string.generateTable, mCommentTable))
+                trySend(null)
+            }
+
+            val listener =
+                mFirebaseRef.child(mCommentTable).addValueEventListener(object :ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for(obj in snapshot.children){
+                            val commentObject = obj.getValue(CommentObject::class.java)
+
+                            commentObject?.let {
+                                if(it.problemId ==problemId){
+                                    trySend(it)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Timber.e(error.message)
+                    }
+                })
+
+            awaitClose { mFirebaseRef.removeEventListener(listener) }
+        }
 
     override fun setChildComment(
         userId: String,

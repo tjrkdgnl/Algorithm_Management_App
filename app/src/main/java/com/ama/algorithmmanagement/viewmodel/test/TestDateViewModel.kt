@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
-class DateViewModel(private val mRepository: BaseRepository) : ViewModel() {
+class TestDateViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     val dateList = ObservableArrayList<DateInfo>()
 

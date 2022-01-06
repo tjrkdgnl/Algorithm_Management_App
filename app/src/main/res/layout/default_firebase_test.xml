@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.RealViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestRealViewModel" />
     </data>
 
     <ScrollView

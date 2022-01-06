@@ -12,7 +12,7 @@ import com.ama.algorithmmanagement.databinding.DefaultIdeaTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.IdeaViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class IdeaActivity : KBaseActivity<DefaultIdeaTestBinding>(R.layout.default_idea_test) {
+class KIdeaActivity : KBaseActivity<DefaultIdeaTestBinding>(R.layout.default_idea_test) {
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {

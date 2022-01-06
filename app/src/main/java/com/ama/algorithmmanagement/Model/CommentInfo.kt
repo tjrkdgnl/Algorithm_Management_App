@@ -7,4 +7,8 @@ data class CommentInfo(
     val comment: String,
     val date: String,
     val commentChildCount: Int
-)
+) {
+    constructor() : this("", "", 0, "", "", 0)
+
+
+}

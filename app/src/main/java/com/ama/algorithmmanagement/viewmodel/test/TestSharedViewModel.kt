@@ -9,7 +9,7 @@ import com.ama.algorithmmanagement.Network.KAPIGenerator
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class SharedViewModel : ViewModel() {
+class TestSharedViewModel : ViewModel() {
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
     val _userId = MutableLiveData<String>()
     val _userTier = MutableLiveData<String>()

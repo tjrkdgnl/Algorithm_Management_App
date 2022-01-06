@@ -6,7 +6,7 @@ import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class RealViewModel(
+class TestRealViewModel(
     private val mRepository: BaseRepository,
     private val mLifecycleOwner: LifecycleOwner
 ) : ViewModel() {

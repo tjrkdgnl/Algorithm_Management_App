@@ -88,8 +88,8 @@ class FakeFirebaseReference(
             }
         }
 
-//        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
-//        mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
+        val ideaObject = IdeaObject(userId, 0, mutableListOf(ideaInfos))
+        mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
         return true
     }
@@ -108,12 +108,12 @@ class FakeFirebaseReference(
         emit(null)
     }
 
-    override fun setComment(
+    override suspend fun setComment(
         userId: String,
         tierType: Int,
         problemId: Int,
         comment: String
-    ): CommentInfo {
+    ): Boolean {
         val commentId = "RandomNumber"
 
         val newCommentInfo =
@@ -123,7 +123,7 @@ class FakeFirebaseReference(
             if (commentObject.problemId == problemId) {
                 commentObject.commentList.add(newCommentInfo)
 
-                return newCommentInfo
+                return true
 
             }
         }
@@ -132,16 +132,16 @@ class FakeFirebaseReference(
 
         mFakeFirebaseDataProvider.commentSnapShot.add(commentObject)
 
-        return newCommentInfo
+        return true
     }
 
-    override fun getCommentObject(problemId: Int): CommentObject? {
-        for (commentinfo in mFakeFirebaseDataProvider.commentSnapShot) {
-            if (commentinfo.problemId == problemId) {
-                return commentinfo
+    override suspend fun getCommentObject(problemId: Int) = flow<CommentObject?> {
+        for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
+            if (commentObject.problemId == problemId) {
+                emit(commentObject)
             }
         }
-        return null
+        emit(null)
     }
 
     override fun setChildComment(

@@ -6,10 +6,7 @@ import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.test.DateAdpater
 import com.ama.algorithmmanagement.Adapter.test.IdeaAdpater
-import com.ama.algorithmmanagement.Model.DateInfo
-import com.ama.algorithmmanagement.Model.IdeaInfo
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.Model.*
 
 object BindingAdapterUtils {
 
@@ -40,6 +37,8 @@ object BindingAdapterUtils {
             adapter.updateList(it)
         }
     }
+
+
 
     @JvmStatic
     @BindingAdapter("testDateList")
