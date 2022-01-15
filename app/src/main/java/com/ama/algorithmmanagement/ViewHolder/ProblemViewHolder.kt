@@ -1,6 +1,11 @@
 package com.ama.algorithmmanagement.ViewHolder
 
+import android.content.Intent
+import android.os.Build
+import android.provider.MediaStore
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.Model.TaggedProblem
 import com.ama.algorithmmanagement.R
@@ -9,7 +14,8 @@ import com.google.android.material.chip.Chip
 
 class ProblemViewHolder(private val parent: ViewGroup) :
     KBaseViewHolder<DefaultSolvedProblemsItemBinding>(
-        parent, R.layout.default_solved_problems_item
+        parent,
+        R.layout.default_solved_problems_item
     ) {
 
     fun setData(data: TaggedProblem) {
@@ -24,6 +30,23 @@ class ProblemViewHolder(private val parent: ViewGroup) :
                 chip.text = tagList[i].displayNames[0].name
                 binding.chipGroupTags.addView(chip)
             }
+        }
+
+        itemView.setOnClickListener {
+            val strOptionArry = arrayOf("문제보기 (코멘트 작성화면)", "문제 풀이 히스토리")
+            val builder = AlertDialog.Builder(parent.context)
+            builder.setItems(strOptionArry) { _, position ->
+                when (position) {
+                    0-> {
+                        // 문제보기 (코멘트 작성화면)
+
+                    }
+                    1-> {
+                        // 문제 풀이 히스토리
+                    }
+                }
+            }
+            builder.show()
         }
     }
 }
