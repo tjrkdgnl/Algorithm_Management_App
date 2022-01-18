@@ -23,14 +23,14 @@ interface BaseFirebaseService {
 
     suspend fun getCommentObject(problemId: Int): CommentObject?
 
-    fun setChildComment(
+    suspend fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
         comment: String
-    ): ChildCommentInfo
+    ): Boolean
 
-    fun getChildCommentObject(commentId: String?): ChildCommentObject?
+    suspend fun getChildCommentObject(commentId: String?): ChildCommentObject?
 
     fun setTippingProblem(
         userId: String,

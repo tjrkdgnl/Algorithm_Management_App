@@ -35,6 +35,8 @@
         <activity android:name=".Activity.kDefault.KDateActivity"/>
         <activity android:name=".Activity.kDefault.KDefaultCommentActivity"/>
 
+        <activity android:name=".Activity.kDefault.KChildCommentActivity"/>
+
     </application>
 
 </manifest>

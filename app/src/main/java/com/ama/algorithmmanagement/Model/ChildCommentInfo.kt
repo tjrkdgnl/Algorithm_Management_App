@@ -5,4 +5,6 @@ data class ChildCommentInfo(
     val tierType: Int,
     val comment: String,
     val date: String
-)
+) {
+    constructor() : this("", 0, "", "")
+}

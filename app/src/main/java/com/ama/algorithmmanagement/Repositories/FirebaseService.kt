@@ -6,7 +6,6 @@ import com.ama.algorithmmanagement.Model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.RandomIdGenerator
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -26,6 +25,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mIdeaTable = mApp.getString(R.string.ideaTable)
     private val mDateTable = mApp.getString(R.string.dateTable)
     private val mCommentTable = mApp.getString(R.string.commentTable)
+    private val mChildCommentTable = mApp.getString(R.string.childCommentTable)
     private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
@@ -288,17 +288,62 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
-    override fun setChildComment(
+    override suspend fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
         comment: String
-    ): ChildCommentInfo {
-        TODO("Not yet implemented")
+    ): Boolean {
+        val tableKey = mFirebaseRef.child(mChildCommentTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mChildCommentTable))
+            mFirebaseRef.child(mChildCommentTable).push()
+        }
+
+        val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
+
+        val snapShot = mFirebaseRef.child(mChildCommentTable).get().await()
+
+        for (obj in snapShot.children) {
+            val childCommentObject = obj.getValue(ChildCommentObject::class.java)
+
+            childCommentObject?.let {
+                if (it.commentId == commentId) {
+                    it.commentChildList.add(childCommentInfo)
+                    it.count = it.commentChildList.size
+                    mFirebaseRef.child(tableKey!!).child(obj.key!!).updateChildren(it.toMap())
+                    return true
+                }
+            }
+        }
+
+        val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
+        mFirebaseRef.child(mChildCommentTable).push().setValue(childCommentObject)
+        return true
     }
 
-    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
-        TODO("Not yet implemented")
+    override suspend fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+        val tableKey = mFirebaseRef.child(mChildCommentTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mChildCommentTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mChildCommentTable).get().await()
+
+        for (obj in snapshot.children) {
+            val childCommentObject = obj.getValue(ChildCommentObject::class.java)
+
+            childCommentObject?.let {
+                if (it.commentId == commentId) {
+                    return it
+                }
+            }
+        }
+
+        return null
     }
 
     override fun setTippingProblem(

@@ -118,7 +118,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getCommentObject(problemId)
     }
 
-    override fun setChildComment(commentId: String, comment: String): ChildCommentInfo {
+    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -129,7 +129,7 @@ class FakeRepository(
         return mFakeFirebaseReference.setChildComment(mUserId!!, mTierType, commentId, comment)
     }
 
-    override fun getChildCommentObject(commentId: String): ChildCommentObject? {
+    override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {
         return mFakeFirebaseReference.getChildCommentObject(commentId)
     }
 

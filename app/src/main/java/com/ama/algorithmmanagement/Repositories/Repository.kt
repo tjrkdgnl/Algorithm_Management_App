@@ -99,43 +99,50 @@ class Repository(
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {
-        if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFirebaseService.setIdeaInfo(mUserId!!,url, comment, problemId)
+        return mFirebaseService.setIdeaInfo(mUserId!!, url, comment, problemId)
     }
 
     override suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?> {
-        if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFirebaseService.getIdeaInfos(mUserId!!,problemId)
+        return mFirebaseService.getIdeaInfos(mUserId!!, problemId)
     }
 
     override suspend fun setComment(problemId: Int, comment: String): Boolean {
-        if(mUserId ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"userId"))
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        if(mTiertype ==null){
-            throw NullPointerException(mApp.getString(R.string.objectIsNull,"tierType"))
+        if (mTiertype == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "tierType"))
         }
 
-       return mFirebaseService.setComment(mUserId!!,mTiertype,problemId, comment)
+        return mFirebaseService.setComment(mUserId!!, mTiertype, problemId, comment)
     }
 
     override suspend fun getCommentObject(problemId: Int): CommentObject? {
         return mFirebaseService.getCommentObject(problemId)
     }
 
-    override fun setChildComment(commentId: String, comment: String): ChildCommentInfo {
-        TODO("Not yet implemented")
+    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+        if (mTiertype == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "tierType"))
+        }
+
+        return mFirebaseService.setChildComment(mUserId!!, mTiertype, commentId, comment)
     }
 
-    override fun getChildCommentObject(commentId: String): ChildCommentObject? {
-        TODO("Not yet implemented")
+    override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {
+        return mFirebaseService.getChildCommentObject(commentId)
     }
 
     override fun setTippingProblem(

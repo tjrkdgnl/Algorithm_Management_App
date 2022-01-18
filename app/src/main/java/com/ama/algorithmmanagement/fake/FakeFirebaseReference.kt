@@ -144,28 +144,28 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setChildComment(
+    override suspend fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
         comment: String
-    ): ChildCommentInfo {
+    ): Boolean {
         val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
 
         for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 childCommentObject.commentChildList.add(childCommentInfo)
-                return childCommentInfo
+                return true
             }
         }
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
         mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 
-        return childCommentInfo
+        return false
     }
 
 
-    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+    override suspend fun getChildCommentObject(commentId: String?): ChildCommentObject? {
         if (commentId == null)
             return null
 

@@ -25,5 +25,6 @@
     <string name="ideaTable">IdeaTable</string>
     <string name="dateTable">DateTable</string>
     <string name="commentTable">CommentTable</string>
+    <string name="childCommentTable">ChildCommentTable</string>
 
 </resources>
