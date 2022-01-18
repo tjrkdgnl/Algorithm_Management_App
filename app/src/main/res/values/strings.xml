@@ -17,6 +17,7 @@
     <string name="default_count">30</string>
     <string name="objectIsNull">%s가 존재하지 않습니다.</string>
     <string name="generateTable">%s를 firebase의 새 table로 생성합니다.</string>
+    <string name="existDataOnFirebase">firebase %s에 이미 존재하는 데이터입니다.</string>
 
 
     //firebase

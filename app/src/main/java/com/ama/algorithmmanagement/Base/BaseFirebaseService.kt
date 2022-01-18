@@ -13,7 +13,7 @@ interface BaseFirebaseService {
 
     suspend fun setDateInfo(userId: String): Boolean
 
-    suspend fun getDateInfos(userId: String?): Flow<DateInfoObject?>
+    suspend fun getDateInfos(userId: String?): DateInfoObject?
 
     suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 
@@ -21,7 +21,7 @@ interface BaseFirebaseService {
 
     suspend fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): Boolean
 
-    suspend fun getCommentObject(problemId: Int): Flow<CommentObject?>
+    suspend fun getCommentObject(problemId: Int): CommentObject?
 
     fun setChildComment(
         userId: String,

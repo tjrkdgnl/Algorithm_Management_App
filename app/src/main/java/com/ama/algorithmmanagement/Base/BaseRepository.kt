@@ -22,7 +22,7 @@ interface BaseRepository {
 
     suspend fun setDateInfo(): Boolean
 
-    suspend fun getDateInfoObject(): Flow<DateInfoObject?>
+    suspend fun getDateInfoObject(): DateInfoObject?
 
     suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 
@@ -30,7 +30,7 @@ interface BaseRepository {
 
     suspend fun setComment(problemId: Int, comment: String): Boolean
 
-    suspend fun getCommentObject(problemId: Int): Flow<CommentObject?>
+    suspend fun getCommentObject(problemId: Int): CommentObject?
 
     fun setChildComment(commentId: String, comment: String): ChildCommentInfo
 

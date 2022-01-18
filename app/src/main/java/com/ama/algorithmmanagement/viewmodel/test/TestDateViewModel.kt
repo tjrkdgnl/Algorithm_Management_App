@@ -16,18 +16,25 @@ class TestDateViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     val dateList = ObservableArrayList<DateInfo>()
 
-    val dateInfoObject = liveData {
-        mRepository.getDateInfoObject()
-            .catch { e -> Timber.e(e) }
-            .collect {
-                emit(it)
-            }
-    }
-
     fun saveDate() {
         viewModelScope.launch {
             try {
                 mRepository.setDateInfo()
+
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
+
+    fun getDateObj() {
+        viewModelScope.launch {
+            try {
+                val dateObj = mRepository.getDateInfoObject()
+
+                dateObj?.let {
+                    dateList.addAll(it.dateList)
+                }
 
             } catch (e: Exception) {
                 Timber.e(e)

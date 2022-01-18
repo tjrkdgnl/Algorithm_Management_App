@@ -104,10 +104,14 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
             dateObject?.let { dateObj ->
                 if (dateObj.userId == userId) {
+                    if (dateObj.dateList.contains(dateInfo)) {
+                        Timber.e(mApp.getString(R.string.existDataOnFirebase, mDateTable))
+                        return false;
+                    }
+
                     dateObj.count++
                     dateObj.dateList.add(dateInfo)
                     mFirebaseRef.child(mDateTable).child(obj.key!!).updateChildren(dateObj.toMap())
-
                     return true
                 }
             }
@@ -119,34 +123,27 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return true
     }
 
-    override suspend fun getDateInfos(userId: String?): Flow<DateInfoObject?> = callbackFlow {
+    override suspend fun getDateInfos(userId: String?): DateInfoObject? {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
             Timber.e(mApp.getString(R.string.generateTable, mDateTable))
-            trySend(null)
+            return null
         }
 
-        val listener =
-            mFirebaseRef.child(mDateTable).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (obj in snapshot.children) {
-                        val dateObject = obj.getValue(DateInfoObject::class.java)
+        val snapshot = mFirebaseRef.child(mDateTable).get().await()
 
-                        dateObject?.let { dateObj ->
-                            if (dateObj.userId == userId) {
-                                trySend(dateObj)
-                            }
-                        }
-                    }
+        for (obj in snapshot.children) {
+            val dateObject = obj.getValue(DateInfoObject::class.java)
+
+            dateObject?.let { dateObj ->
+                if (dateObj.userId == userId) {
+                    return dateObj
                 }
+            }
+        }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.e(error.message)
-                }
-            })
-
-        awaitClose { mFirebaseRef.removeEventListener(listener) }
+        return null
     }
 
     override suspend fun setIdeaInfo(
@@ -268,36 +265,28 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return true
     }
 
-    override suspend fun getCommentObject(problemId: Int): Flow<CommentObject?> =
-        callbackFlow {
-            val tableKey = mFirebaseRef.child(mCommentTable).key
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
+        val tableKey = mFirebaseRef.child(mCommentTable).key
 
-            if (tableKey == null) {
-                Timber.e(mApp.getString(R.string.generateTable, mCommentTable))
-                trySend(null)
-            }
-
-            val listener =
-                mFirebaseRef.child(mCommentTable).addValueEventListener(object :ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for(obj in snapshot.children){
-                            val commentObject = obj.getValue(CommentObject::class.java)
-
-                            commentObject?.let {
-                                if(it.problemId ==problemId){
-                                    trySend(it)
-                                }
-                            }
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Timber.e(error.message)
-                    }
-                })
-
-            awaitClose { mFirebaseRef.removeEventListener(listener) }
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mCommentTable))
+            return null
         }
+
+        val snapshot = mFirebaseRef.child(mCommentTable).get().await()
+
+        for (obj in snapshot.children) {
+            val commentObject = obj.getValue(CommentObject::class.java)
+
+            commentObject?.let {
+                if (it.problemId == problemId) {
+                    return it
+                }
+            }
+        }
+
+        return null
+    }
 
     override fun setChildComment(
         userId: String,

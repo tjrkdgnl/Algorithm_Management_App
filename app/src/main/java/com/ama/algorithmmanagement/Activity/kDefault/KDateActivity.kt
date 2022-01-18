@@ -26,10 +26,6 @@ class KDateActivity : KBaseActivity<DefaultDateTestBinding>(R.layout.default_dat
         binding.dateRecyclerView.adapter = DateAdpater()
         binding.dateRecyclerView.setHasFixedSize(false)
 
-        viewModel.dateInfoObject.observe(this, {
-            it?.let { dateObj ->
-                viewModel.dateList.addAll(dateObj.dateList)
-            }
-        })
+
     }
 }

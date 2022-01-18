@@ -83,7 +83,7 @@ class FakeRepository(
         return mFakeFirebaseReference.setDateInfo(mUserId!!)
     }
 
-    override suspend fun getDateInfoObject(): Flow<DateInfoObject?> {
+    override suspend fun getDateInfoObject(): DateInfoObject? {
         return mFakeFirebaseReference.getDateInfos(mUserId)
     }
 
@@ -114,7 +114,7 @@ class FakeRepository(
         return mFakeFirebaseReference.setComment(mUserId!!, mTierType, problemId, comment)
     }
 
-    override suspend fun getCommentObject(problemId: Int): Flow<CommentObject?> {
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
         return mFakeFirebaseReference.getCommentObject(problemId)
     }
 

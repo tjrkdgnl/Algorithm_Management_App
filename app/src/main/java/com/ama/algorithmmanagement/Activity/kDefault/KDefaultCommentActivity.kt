@@ -24,12 +24,5 @@ class KDefaultCommentActivity :
 
         binding.viewModel = viewModel
 
-        viewModel.mCommentObject.observe(this, {
-            it?.let {
-                Timber.e(it.toString())
-            }
-        })
-
-
     }
 }

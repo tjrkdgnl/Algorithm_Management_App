@@ -90,7 +90,7 @@ class Repository(
         return mFirebaseService.setDateInfo(mUserId!!)
     }
 
-    override suspend fun getDateInfoObject(): Flow<DateInfoObject?> {
+    override suspend fun getDateInfoObject(): DateInfoObject? {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -126,7 +126,7 @@ class Repository(
        return mFirebaseService.setComment(mUserId!!,mTiertype,problemId, comment)
     }
 
-    override suspend fun getCommentObject(problemId: Int): Flow<CommentObject?> {
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
         return mFirebaseService.getCommentObject(problemId)
     }
 

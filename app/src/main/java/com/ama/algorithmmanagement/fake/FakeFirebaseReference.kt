@@ -54,13 +54,13 @@ class FakeFirebaseReference(
         return true
     }
 
-    override suspend fun getDateInfos(userId: String?) = flow<DateInfoObject?> {
+    override suspend fun getDateInfos(userId: String?): DateInfoObject? {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == userId) {
-                emit(dateInfos)
+                return dateInfos
             }
         }
-        emit(null)
+        return null
     }
 
     override suspend fun setIdeaInfo(
@@ -135,13 +135,13 @@ class FakeFirebaseReference(
         return true
     }
 
-    override suspend fun getCommentObject(problemId: Int) = flow<CommentObject?> {
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
         for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentObject.problemId == problemId) {
-                emit(commentObject)
+                return commentObject
             }
         }
-        emit(null)
+        return null
     }
 
     override fun setChildComment(

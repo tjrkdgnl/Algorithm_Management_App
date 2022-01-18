@@ -8,6 +8,7 @@ import com.ama.algorithmmanagement.Model.CommentObject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 
 
 class TestCommentViewModel(private var mRepository: BaseRepository) : ViewModel() {
@@ -18,12 +19,6 @@ class TestCommentViewModel(private var mRepository: BaseRepository) : ViewModel(
     //two-way binding으로 사용
     val comment = MutableLiveData<String>()
 
-    var mCommentObject: LiveData<CommentObject?> = liveData {
-        mRepository.getCommentObject(1111).collect {
-            emit(it)
-        }
-
-    }
 
     fun initCommentObject(problemId: Int) {
         viewModelScope.launch {
@@ -34,6 +29,24 @@ class TestCommentViewModel(private var mRepository: BaseRepository) : ViewModel(
     fun saveComment() {
         viewModelScope.launch {
             mRepository.setComment(problemId.value!!.toInt(), comment.value!!)
+        }
+    }
+
+    fun getCommentObj() {
+        viewModelScope.launch {
+            try {
+                problemId.value?.let { id ->
+                    val commentObj = mRepository.getCommentObject(id.toInt())
+
+                    commentObj?.let { obj ->
+                        commentInfoList.addAll(commentObj.commentList)
+                        Timber.e(commentObj.toString())
+                    }
+                }
+
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
     }
 }
