@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.ProblemStatus
-import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.Stats
-import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.model.ProblemStatus
+import com.ama.algorithmmanagement.model.Problems
+import com.ama.algorithmmanagement.model.Stats
+import com.ama.algorithmmanagement.model.TaggedProblem
 
 interface BaseNetworkService {
 

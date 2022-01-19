@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
-import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.model.Problems
 import com.google.gson.Gson
 
 class FakeSharedPreference : BaseSharedPreference {

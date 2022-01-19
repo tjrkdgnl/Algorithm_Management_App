@@ -1,11 +1,11 @@
 package com.ama.algorithmmanagement.Repositories
 
 import com.ama.algorithmmanagement.Base.BaseNetworkService
-import com.ama.algorithmmanagement.Model.ProblemStatus
-import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.Stats
-import com.ama.algorithmmanagement.Model.TaggedProblem
 import com.ama.algorithmmanagement.Network.KAPIGenerator
+import com.ama.algorithmmanagement.model.ProblemStatus
+import com.ama.algorithmmanagement.model.Problems
+import com.ama.algorithmmanagement.model.Stats
+import com.ama.algorithmmanagement.model.TaggedProblem
 import retrofit2.await
 
 class NetworkService : BaseNetworkService {
@@ -15,7 +15,24 @@ class NetworkService : BaseNetworkService {
     }
 
     override suspend fun getSolvedProblems(userId: String): Problems {
-        return KAPIGenerator.getInstance().getSolvedProblems(userId)
+        val solvedProblems = Problems(0, mutableListOf())
+        var page = 1
+
+        while (true) {
+            val data = KAPIGenerator.getInstance().getSolvedProblems(userId, null, page, null)
+
+            if (data.problemList == null) {
+                break
+            }
+            if (data.problemList?.size == 0) {
+                break
+            }
+
+            solvedProblems.problemList?.addAll(data.problemList!!)
+            page++
+        }
+
+        return solvedProblems
     }
 
     override suspend fun getUserStats(userId: String): List<Stats> {

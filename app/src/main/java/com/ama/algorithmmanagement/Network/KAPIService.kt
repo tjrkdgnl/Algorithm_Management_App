@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Network
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,21 +8,26 @@ import retrofit2.http.Query
 interface KAPIService {
 
     @GET("problem/class")
-    suspend fun getProblemsOfClass() : List<KProblemsOfClass>
+    suspend fun getProblemsOfClass(): List<KProblemsOfClass>
 
     @GET("search/problem")
-    suspend fun getSearchProblemList(@Query("query") problemId: Int) : Problems
+    suspend fun getSearchProblemList(@Query("query") problemId: Int): Problems
 
     @GET("search/problem")
-    suspend fun getSolvedProblems(@Query("query") param:String) : Problems
+    suspend fun getSolvedProblems(
+        @Query("query") query: String,
+        @Query("direction") direction: String? = null,
+        @Query("page") page: Int = 1,
+        @Query("sort") sort: String? = null
+    ): Problems
 
     @GET("account/verify_credentials")
-    suspend fun getBOJUserInfo() : BOJUser
+    suspend fun getBOJUserInfo(): BOJUser
 
     @GET("user/problem_stats")
-    fun getUserStatsInfo(@Query("handle") userId:String) : Call<List<Stats>>
+    fun getUserStatsInfo(@Query("handle") userId: String): Call<List<Stats>>
 
     @GET("problem/show")
-    suspend fun getProblem(@Query("problemId")problemId:Int) : TaggedProblem
+    suspend fun getProblem(@Query("problemId") problemId: Int): TaggedProblem
 
 }

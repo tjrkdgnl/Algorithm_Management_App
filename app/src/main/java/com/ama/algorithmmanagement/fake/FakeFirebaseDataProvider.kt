@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
 
@@ -80,7 +80,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
 
         MutableList(mCount) {
             TippingProblemObject(mCount, mDefaultUserId, MutableList(mCount) {
-                TipProblem(
+                TipProblemInfo(
                     problems.problemList?.get(it)!!,
                     false,
                     if (it < 15) "this is tip test $it" else null,

@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.Repositories
 
 import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.RandomIdGenerator
@@ -11,14 +11,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
-@ExperimentalCoroutinesApi
+
 class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mFirebaseRef = Firebase.database.reference
     private val mUserTable = mApp.getString(R.string.userTable)
@@ -26,6 +25,8 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mDateTable = mApp.getString(R.string.dateTable)
     private val mCommentTable = mApp.getString(R.string.commentTable)
     private val mChildCommentTable = mApp.getString(R.string.childCommentTable)
+    private val mTipTable = mApp.getString(R.string.tipTable)
+
     private val mDate = DateUtils.createDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
@@ -50,7 +51,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mUserTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.generateTable, mUserTable))
+            Timber.e(mApp.getString(R.string.objectIsNull, mUserTable))
             return null
         }
 
@@ -127,7 +128,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.generateTable, mDateTable))
+            Timber.e(mApp.getString(R.string.objectIsNull, mDateTable))
             return null
         }
 
@@ -198,7 +199,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             val tableKey = mFirebaseRef.child(mIdeaTable).key
 
             if (tableKey == null) {
-                Timber.e(mApp.getString(R.string.generateTable, mIdeaTable))
+                Timber.e(mApp.getString(R.string.objectIsNull, mIdeaTable))
                 trySend(null)
             }
 
@@ -269,7 +270,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mCommentTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.generateTable, mCommentTable))
+            Timber.e(mApp.getString(R.string.objectIsNull, mCommentTable))
             return null
         }
 
@@ -327,7 +328,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tableKey = mFirebaseRef.child(mChildCommentTable).key
 
         if (tableKey == null) {
-            Timber.e(mApp.getString(R.string.generateTable, mChildCommentTable))
+            Timber.e(mApp.getString(R.string.objectIsNull, mChildCommentTable))
             return null
         }
 
@@ -346,35 +347,218 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
-    override fun setTippingProblem(
+    override suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem {
-        TODO("Not yet implemented")
+    ): Boolean {
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mTipTable))
+            return false
+        }
+
+        val tipId = RandomIdGenerator.generateRandDomId()
+
+        val tipProblemInfo = TipProblemInfo(problem, isShow, tipComment, mDate)
+
+        val snapShot = mFirebaseRef.child(mTipTable).get().await()
+
+        for (obj in snapShot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+                    it.problemInfoList.add(tipProblemInfo)
+                    it.count = it.problemInfoList.size
+                    mFirebaseRef.child(tableKey).child(obj.key!!).updateChildren(it.toMap())
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 
-    override fun getTippingProblemObject(userId: String): TippingProblemObject? {
-        TODO("Not yet implemented")
+    override suspend fun initTipProblems(
+        userId: String,
+        problems: List<TaggedProblem>
+    ): TippingProblemObject {
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.generateTable, mTipTable))
+            mFirebaseRef.child(mTipTable).push()
+        }
+
+        val tipProblems = mutableListOf<TipProblemInfo>()
+
+        for (problem in problems) {
+            tipProblems.add(
+                TipProblemInfo(
+                    problem,
+                    false,
+                    null,
+                    mDate
+                )
+            )
+        }
+
+        val snapShot = mFirebaseRef.child(mTipTable).get().await()
+
+        for (obj in snapShot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+
+                    for (tipProblemInfo in tipProblems) {
+                        if (it.problemInfoList.contains(tipProblemInfo)) continue
+
+                        it.problemInfoList.add(tipProblemInfo)
+                        it.count = it.problemInfoList.size
+                        mFirebaseRef.child(tableKey!!).child(obj.key!!).updateChildren(it.toMap())
+                    }
+
+                    return it
+                }
+            }
+        }
+
+        val tippingProblemObject = TippingProblemObject(tipProblems.size, userId, tipProblems)
+        mFirebaseRef.child(mTipTable).push().setValue(tippingProblemObject)
+        return tippingProblemObject
     }
 
-    override fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
-        TODO("Not yet implemented")
+    override suspend fun getTippingProblemObject(userId: String): TippingProblemObject? {
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mTipTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mTipTable).get().await()
+
+        val filteredProblems = TippingProblemObject(0, userId, mutableListOf())
+
+        for (obj in snapshot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+                    for (tipProblemInfo in it.problemInfoList) {
+                        if (tipProblemInfo.tipComment == null) continue
+
+                        filteredProblems.problemInfoList.add(tipProblemInfo)
+                    }
+
+                    return filteredProblems
+                }
+            }
+        }
+
+        return null
     }
 
-    override fun modifyTippingProblem(
+    override suspend fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mTipTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mTipTable).get().await()
+
+        val filteredProblems = TippingProblemObject(0, userId, mutableListOf())
+
+        for (obj in snapshot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+                    for (tipProblemInfo in it.problemInfoList) {
+                        if (tipProblemInfo.tipComment != null) continue
+
+                        filteredProblems.problemInfoList.add(tipProblemInfo)
+                    }
+
+                    return filteredProblems
+                }
+            }
+        }
+
+        return null
+    }
+
+    override suspend fun modifyTippingProblem(
         userId: String,
         problemId: Int,
-        isShow: Boolean?,
+        isShow: Boolean,
         comment: String?
     ): Boolean {
-        TODO("Not yet implemented")
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mTipTable))
+            return false
+        }
+
+        val snapshot = mFirebaseRef.child(mTipTable).get().await()
+
+        for (obj in snapshot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+                    for (tipProblemInfo in it.problemInfoList) {
+                        tipProblemInfo.problem?.let { problem ->
+                            if (problem.problemId == problemId) {
+                                tipProblemInfo.isShow = isShow
+                                tipProblemInfo.tipComment = comment
+                                mFirebaseRef.child(tableKey).child(obj.key!!)
+                                    .updateChildren(it.toMap())
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false
     }
 
-    override fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
+        val tableKey = mFirebaseRef.child(mTipTable).key
 
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mTipTable))
+            return false
+        }
+
+        val snapshot = mFirebaseRef.child(mTipTable).get().await()
+
+        for (obj in snapshot.children) {
+            val tippingProblemObject = obj.getValue(TippingProblemObject::class.java)
+
+            tippingProblemObject?.let {
+                if (it.userId == userId) {
+                    for (tipProblemInfo in it.problemInfoList) {
+                        if (tipProblemInfo.problem?.problemId == problemId) {
+                            it.problemInfoList.remove(tipProblemInfo)
+                            mFirebaseRef.child(tableKey).child(obj.key!!)
+                                .updateChildren(it.toMap())
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+
+        return false
+    }
 
 }

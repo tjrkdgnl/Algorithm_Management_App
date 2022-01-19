@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.ViewHolder
 
 import android.view.ViewGroup
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
+import com.ama.algorithmmanagement.model.KProblemsOfClass
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultViewholderItemBinding
 

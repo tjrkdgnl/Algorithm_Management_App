@@ -5,7 +5,7 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import kotlinx.coroutines.flow.Flow
 
@@ -145,31 +145,59 @@ class Repository(
         return mFirebaseService.getChildCommentObject(commentId)
     }
 
-    override fun setTippingProblem(
+    override suspend fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem {
-        TODO("Not yet implemented")
+    ): Boolean {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.setTippingProblem(mUserId!!, problem, isShow, tipComment)
     }
 
-    override fun getTippingProblem(): TippingProblemObject? {
-        TODO("Not yet implemented")
+    override suspend fun initTipProblems(problems: List<TaggedProblem>): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.initTipProblems(mUserId!!, problems)
     }
 
-    override fun getNotTippingProblem(): TippingProblemObject? {
-        TODO("Not yet implemented")
+    override suspend fun getTippingProblem(): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.getTippingProblemObject(mUserId!!)
     }
 
-    override fun modifyTippingProblem(
+    override suspend fun getNotTippingProblem(): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.getNotTippingProblemObject(mUserId!!)
+    }
+
+    override suspend fun modifyTippingProblem(
         problemId: Int,
         isShow: Boolean,
         tipComment: String?
     ): Boolean {
-        TODO("Not yet implemented")
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.modifyTippingProblem(mUserId!!, problemId, isShow, tipComment)
     }
 
-    override fun deleteTippingProblem(problemId: Int): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun deleteTippingProblem(problemId: Int): Boolean {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.deleteTippingProblem(mUserId!!, problemId)
     }
 }

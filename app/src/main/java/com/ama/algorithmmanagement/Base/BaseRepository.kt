@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface BaseRepository {
@@ -36,21 +36,23 @@ interface BaseRepository {
 
     suspend fun getChildCommentObject(commentId: String): ChildCommentObject?
 
-    fun setTippingProblem(
+    suspend fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem
+    ): Boolean
 
-    fun getTippingProblem(): TippingProblemObject?
+    suspend fun initTipProblems(problems: List<TaggedProblem>): TippingProblemObject?
 
-    fun getNotTippingProblem(): TippingProblemObject?
+    suspend fun getTippingProblem(): TippingProblemObject?
 
-    fun modifyTippingProblem(
+    suspend fun getNotTippingProblem(): TippingProblemObject?
+
+    suspend fun modifyTippingProblem(
         problemId: Int,
         isShow: Boolean,
         tipComment: String?
     ): Boolean
 
-    fun deleteTippingProblem(problemId: Int): Boolean
+    suspend fun deleteTippingProblem(problemId: Int): Boolean
 }

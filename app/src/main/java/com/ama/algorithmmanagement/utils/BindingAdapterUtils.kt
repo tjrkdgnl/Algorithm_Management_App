@@ -3,12 +3,8 @@ package com.ama.algorithmmanagement.utils
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
-import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
-import com.ama.algorithmmanagement.Adapter.test.CommentAdapter
-import com.ama.algorithmmanagement.Adapter.test.DateAdpater
-import com.ama.algorithmmanagement.Adapter.test.IdeaAdpater
-import com.ama.algorithmmanagement.Adapter.test.TestChildCommentAdapter
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.Adapter.test.*
+import com.ama.algorithmmanagement.model.*
 
 object BindingAdapterUtils {
 
@@ -21,12 +17,12 @@ object BindingAdapterUtils {
 
 
     @JvmStatic
-    @BindingAdapter("setSolvedProblemsList")
+    @BindingAdapter("setTipProblemList")
     fun setSolvedProblemsList(
         recyclerView: RecyclerView,
-        solvedAlgorithms: MutableList<TaggedProblem>?
+        solvedAlgorithms: MutableList<TipProblemInfo>?
     ) {
-        val recyclerViewAdapter = recyclerView.adapter as KSolvedProblemsAdapter
+        val recyclerViewAdapter = recyclerView.adapter as TestTipAdapter
         recyclerViewAdapter.updateList(solvedAlgorithms)
     }
 

@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface BaseFirebaseService {
@@ -32,25 +32,26 @@ interface BaseFirebaseService {
 
     suspend fun getChildCommentObject(commentId: String?): ChildCommentObject?
 
-    fun setTippingProblem(
+    suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem
+    ): Boolean
 
+    suspend fun initTipProblems(userId:String,problems:List<TaggedProblem>): TippingProblemObject?
 
-    fun getTippingProblemObject(userId: String): TippingProblemObject?
+    suspend fun getTippingProblemObject(userId: String): TippingProblemObject?
 
-    fun getNotTippingProblemObject(userId: String): TippingProblemObject?
+    suspend fun getNotTippingProblemObject(userId: String): TippingProblemObject?
 
-    fun modifyTippingProblem(
+    suspend fun modifyTippingProblem(
         userId: String,
         problemId: Int,
-        isShow: Boolean?,
+        isShow: Boolean,
         comment: String?
     ): Boolean
 
-    fun deleteTippingProblem(userId: String?, problemId: Int): Boolean
+    suspend fun deleteTippingProblem(userId: String?, problemId: Int): Boolean
 
 }

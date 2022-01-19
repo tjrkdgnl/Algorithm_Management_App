@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Model
+package com.ama.algorithmmanagement.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

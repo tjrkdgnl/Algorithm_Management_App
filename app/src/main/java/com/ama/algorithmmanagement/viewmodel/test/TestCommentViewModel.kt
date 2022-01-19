@@ -3,9 +3,7 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.CommentInfo
-import com.ama.algorithmmanagement.Model.CommentObject
-import kotlinx.coroutines.flow.collect
+import com.ama.algorithmmanagement.model.CommentInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception

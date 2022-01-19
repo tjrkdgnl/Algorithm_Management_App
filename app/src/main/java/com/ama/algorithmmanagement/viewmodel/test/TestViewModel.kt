@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.DateInfoObject
+import com.ama.algorithmmanagement.model.DateInfoObject
 import kotlinx.coroutines.launch
 
 

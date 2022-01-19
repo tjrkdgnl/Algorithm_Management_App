@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -29,7 +30,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 
@@ -88,7 +89,7 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:1.1.4-alpha03"
     testImplementation "androidx.test:core-ktx:1.4.1-alpha03"
     testImplementation "org.robolectric:robolectric:4.6"
-    androidTestImplementation  "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
     testImplementation "org.json:json:20180813"
 }

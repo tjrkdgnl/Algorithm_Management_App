@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
-import com.ama.algorithmmanagement.Model.*
-import kotlinx.coroutines.flow.Flow
+import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
+import java.lang.NullPointerException
 
 class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
@@ -178,19 +178,24 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setTippingProblem(
+    override suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem {
+    ): Boolean {
 
-        val tipProblem = TipProblem(problem, isShow, tipComment, mDate)
+        val tipProblem = TipProblemInfo(
+            problem,
+            isShow,
+            tipComment,
+            mDate
+        )
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
-                tipProblemObject.problemList.add(tipProblem)
-                return tipProblem
+                tipProblemObject.problemInfoList.add(tipProblem)
+                return true
             }
         }
 
@@ -200,58 +205,76 @@ class FakeFirebaseReference(
         )
         mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
 
-        return tipProblem
+        return true
     }
 
-    override fun getTippingProblemObject(userId: String): TippingProblemObject? {
+    override suspend fun initTipProblems(userId: String, problems: List<TaggedProblem>): TippingProblemObject? {
+        val tipProblems = mutableListOf<TipProblemInfo>()
+
+        for (problem in problems) {
+            tipProblems.add(
+                TipProblemInfo(
+                    problem,
+                    false,
+                    null,
+                    mDate
+                )
+            )
+        }
+
+        val tipProblemObject = TippingProblemObject(1, userId, tipProblems)
+        mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
+
+        return tipProblemObject
+    }
+
+    override suspend fun getTippingProblemObject(userId: String): TippingProblemObject {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
-                    tipProblemObject.problemList.filter { it.tipComment != null }.toMutableList()
+                    tipProblemObject.problemInfoList.filter { it.tipComment != null }
+                        .toMutableList()
 
-                tipProblemObject.problemList.clear()
-                tipProblemObject.problemList.addAll(ArrayList(lst))
+                tipProblemObject.problemInfoList.clear()
+                tipProblemObject.problemInfoList.addAll(ArrayList(lst))
 
                 return tipProblemObject
             }
         }
-        return null
+        throw NullPointerException("")
     }
 
-    override fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
+    override suspend fun getNotTippingProblemObject(userId: String): TippingProblemObject {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
-                    tipProblemObject.problemList.filter { it.tipComment == null }.toMutableList()
+                    tipProblemObject.problemInfoList.filter { it.tipComment == null }
+                        .toMutableList()
 
-                tipProblemObject.problemList.clear()
-                tipProblemObject.problemList.addAll(ArrayList(lst))
+                tipProblemObject.problemInfoList.clear()
+                tipProblemObject.problemInfoList.addAll(ArrayList(lst))
 
                 return tipProblemObject
             }
         }
 
-        return null
+        throw NullPointerException("")
     }
 
-    override fun modifyTippingProblem(
+    override suspend fun modifyTippingProblem(
         userId: String,
         problemId: Int,
-        isShow: Boolean?,
+        isShow: Boolean,
         comment: String?
     ): Boolean {
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
 
-                for (tipProblem in tipProblemObject.problemList.withIndex()) {
-                    if (tipProblem.value.problem.problemId == problemId) {
-                        if (isShow != null) {
-                            tipProblem.value.isShow = isShow
-                        }
-                        if (comment != null) {
-                            tipProblem.value.tipComment = comment
-                        }
+                for (tipProblem in tipProblemObject.problemInfoList.withIndex()) {
+                    if (tipProblem.value.problem?.problemId == problemId) {
+                        tipProblem.value.isShow = isShow
+                        tipProblem.value.tipComment = comment
                         return true
                     }
                 }
@@ -261,13 +284,13 @@ class FakeFirebaseReference(
         return true
     }
 
-    override fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
+    override suspend fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
 
-                for (tipProblem in tipProblemObject.problemList.withIndex()) {
-                    if (tipProblem.value.problem.problemId == problemId) {
-                        tipProblemObject.problemList.removeAt(tipProblem.index)
+                for (tipProblem in tipProblemObject.problemInfoList.withIndex()) {
+                    if (tipProblem.value.problem?.problemId == problemId) {
+                        tipProblemObject.problemInfoList.removeAt(tipProblem.index)
                         return true
                     }
                 }

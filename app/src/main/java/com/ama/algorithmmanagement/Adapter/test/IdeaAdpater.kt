@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.Adapter.test
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Model.IdeaInfo
+import com.ama.algorithmmanagement.model.IdeaInfo
 import com.ama.algorithmmanagement.ViewHolder.test.IdeaViewHolder
 
 class IdeaAdpater : RecyclerView.Adapter<IdeaViewHolder>() {

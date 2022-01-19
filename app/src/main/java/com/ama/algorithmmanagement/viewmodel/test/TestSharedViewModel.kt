@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.model.Problems
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import kotlinx.coroutines.launch
 import timber.log.Timber

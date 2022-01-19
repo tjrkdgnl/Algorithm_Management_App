@@ -36,6 +36,7 @@
         <activity android:name=".Activity.kDefault.KDefaultCommentActivity"/>
 
         <activity android:name=".Activity.kDefault.KChildCommentActivity"/>
+        <activity android:name=".Activity.kDefault.KTestTippingItemAct"/>
 
     </application>
 

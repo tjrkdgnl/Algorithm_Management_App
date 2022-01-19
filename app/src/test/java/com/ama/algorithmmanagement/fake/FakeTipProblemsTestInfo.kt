@@ -2,9 +2,9 @@ package com.ama.algorithmmanagement.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ama.algorithmmanagement.Model.DisplayName
-import com.ama.algorithmmanagement.Model.Tag
-import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.model.DisplayName
+import com.ama.algorithmmanagement.model.Tag
+import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -13,7 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class FakeTipProblemsTest {
+class FakeTipProblemsTestInfo {
     lateinit var fakeFirebaseReference: FakeFirebaseReference
     lateinit var fakeSharedPreference: FakeSharedPreference
     lateinit var mUserId: String
@@ -42,10 +42,10 @@ class FakeTipProblemsTest {
         val notTippingProblemObj = fakeFirebaseReference.getNotTippingProblemObject(mUserId)
 
         assertEquals(notTippingProblemObj?.userId, "Default_User")
-        assertEquals(notTippingProblemObj?.problemList?.size, 10)
-        assertEquals(notTippingProblemObj?.problemList?.get(0)?.tipComment, null)
-        assertEquals(notTippingProblemObj?.problemList?.get(0)?.isShow, true)
-        assertEquals(notTippingProblemObj?.problemList?.get(0)?.date, DateUtils.createDate())
+        assertEquals(notTippingProblemObj?.problemInfoList?.size, 10)
+        assertEquals(notTippingProblemObj?.problemInfoList?.get(0)?.tipComment, null)
+        assertEquals(notTippingProblemObj?.problemInfoList?.get(0)?.isShow, true)
+        assertEquals(notTippingProblemObj?.problemInfoList?.get(0)?.date, DateUtils.createDate())
 
     }
 
@@ -73,19 +73,19 @@ class FakeTipProblemsTest {
 
         //then
         assertEquals(tippingProblemObject?.userId, "Default_User")
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.tipComment, "dp를 사용하면 좋다")
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.isShow, true)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.date, DateUtils.createDate())
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.tipComment, "dp를 사용하면 좋다")
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.isShow, true)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.date, DateUtils.createDate())
 
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.problemId, 1000)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.acceptedUserCount, 151801)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.averageTries, 2.333)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.isLevelLocked, true)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.isPartial, false)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.isSolvable, true)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.level, 1)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.tags?.size, 1)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.votedUserCount, 17)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.problemId, 1000)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.acceptedUserCount, 151801)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.averageTries, 2.333)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.isLevelLocked, true)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.isPartial, false)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.isSolvable, true)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.level, 1)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.tags?.size, 1)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.votedUserCount, 17)
 
     }
 
@@ -127,15 +127,15 @@ class FakeTipProblemsTest {
 
         //then
         assertEquals(tippingProblemObject?.userId, "skjh0818")
-        assertEquals(tippingProblemObject?.problemList?.size, 2)
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.tipComment, "dp를 사용하면 좋다")
-        assertEquals(tippingProblemObject?.problemList?.get(0)?.problem?.problemId, 1111)
+        assertEquals(tippingProblemObject?.problemInfoList?.size, 2)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.tipComment, "dp를 사용하면 좋다")
+        assertEquals(tippingProblemObject?.problemInfoList?.get(0)?.problem?.problemId, 1111)
 
         assertEquals(
-            tippingProblemObject?.problemList?.get(1)?.tipComment,
+            tippingProblemObject?.problemInfoList?.get(1)?.tipComment,
             "binarySearch를 이욯하면 되겠다"
         )
-        assertEquals(tippingProblemObject?.problemList?.get(1)?.problem?.problemId, 2222)
+        assertEquals(tippingProblemObject?.problemInfoList?.get(1)?.problem?.problemId, 2222)
     }
 
 

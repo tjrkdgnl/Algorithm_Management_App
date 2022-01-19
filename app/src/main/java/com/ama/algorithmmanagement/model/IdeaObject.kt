@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Model
+package com.ama.algorithmmanagement.model
 
 data class IdeaObject(
     val userId: String,
