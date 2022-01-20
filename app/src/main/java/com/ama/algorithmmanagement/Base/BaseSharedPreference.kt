@@ -1,19 +1,21 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.model.Problems
 
 
 interface BaseSharedPreference {
 
     fun getUserId(): String?
 
+    fun deleteUserId()
+
+    fun setUserId(userId: String)
+
     fun setAutoLoginCheck(check:Boolean)
 
     fun getAutoLoginCheck(): Boolean
 
-    fun deleteUserId()
-
-    fun setUserId(userId: String)
+    fun deleteAutoLoginCheck()
 
     fun setTierType(tierType: Int)
 
@@ -27,7 +29,7 @@ interface BaseSharedPreference {
 
     fun deleteSolvedacToken()
 
-    fun setSolvedProblems(solvedProblem:Problems)
+    fun setSolvedProblems(solvedProblems:Problems)
 
     fun getSolvedProblems():Problems?
 

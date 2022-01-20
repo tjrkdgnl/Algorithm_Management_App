@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
-import com.ama.algorithmmanagement.Model.ProblemStatus
-import com.ama.algorithmmanagement.Model.Problems
-import com.ama.algorithmmanagement.Model.Stats
-import com.ama.algorithmmanagement.Model.TaggedProblem
-import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.Base.BaseNetworkService
+import com.ama.algorithmmanagement.model.ProblemStatus
+import com.ama.algorithmmanagement.model.Problems
+import com.ama.algorithmmanagement.model.Stats
+import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.delay
 
 class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataProvider) :
@@ -31,7 +31,7 @@ class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataPr
         return mFakeNetWorkDataProvider.getStatsList()
     }
 
-    override suspend fun getUnSolvedProblems(): List<ProblemStatus> {
+    override suspend fun getUnSolvedProblems(solvedacToken: String): List<ProblemStatus> {
         delay(2000)
         return mFakeNetWorkDataProvider.getProblemStatsList()
     }

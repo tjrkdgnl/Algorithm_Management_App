@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.DateInfoObject
-import com.ama.algorithmmanagement.Model.UserInfo
+import com.ama.algorithmmanagement.model.DateInfoObject
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     private val _userId = MutableLiveData<String>()
@@ -25,25 +24,16 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
 
 
     fun setUserInfo() {
-        this._userId.value = "skjh0818"
-        this._pwd.value = "myPwd"
-
         viewModelScope.launch {
-            try {
-                repository.setUserInfo(_userId.value!!, _pwd.value!!)
-            } catch (e: Exception) {
-
-            }
+            _userId.value = "skjh0818"
+            _pwd.value = "myPwd"
+            repository.setUserInfo(_userId.value!!, _pwd.value!!)
         }
     }
 
     fun getUserInfo() {
         viewModelScope.launch {
-            try {
-                repository.getUserInfo()
-            } catch (e: Exception) {
-
-            }
+            val userInfo = repository.getUserInfo()
         }
     }
 
@@ -54,11 +44,16 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     }
 
     fun setDateInfo() {
-        val date = repository.setDateInfo()
+        viewModelScope.launch {
+            val date = repository.setDateInfo()
+
+        }
     }
 
     fun getDateInfoObejct() {
-        _dateInfoObejct.value = repository.getDateInfoObject()
+        viewModelScope.launch {
+
+        }
     }
 
 }

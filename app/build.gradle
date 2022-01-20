@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -29,12 +30,19 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 
     testOptions.unitTests {
         includeAndroidResources = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += [
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
     }
 
 }
@@ -67,6 +75,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.3'
+
+    //coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
 
     // Firebase UI Library
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
@@ -76,7 +89,7 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:1.1.4-alpha03"
     testImplementation "androidx.test:core-ktx:1.4.1-alpha03"
     testImplementation "org.robolectric:robolectric:4.6"
-    androidTestImplementation  "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
     testImplementation "org.json:json:20180813"
 }

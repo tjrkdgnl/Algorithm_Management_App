@@ -56,12 +56,12 @@ class CommentViewModelTest {
 
     @Test
     fun saveComment() {
-        testCommentViewModel.mComment.value = "hello"
-        testCommentViewModel.mProblemId.value = 1111
+        testCommentViewModel.comment.value = "hello"
+        testCommentViewModel.problemId.value = 1111
 
         val checkData = combineWith(
-            testCommentViewModel.mProblemId,
-            testCommentViewModel.mComment
+            testCommentViewModel.problemId,
+            testCommentViewModel.comment
         ) { id, comment -> id != null && comment != null }
 
         val result = checkData.getOrAwaitValue()
@@ -80,14 +80,14 @@ class CommentViewModelTest {
 
     @Test
     fun saveComment_moreThanOne() {
-        testCommentViewModel.mProblemId.value = 1111
+        testCommentViewModel.problemId.value = 1111
 
         for (i in 0 until 10) {
-            testCommentViewModel.mComment.value = "hello$i"
+            testCommentViewModel.comment.value = "hello$i"
 
             val checkData = combineWith(
-                testCommentViewModel.mProblemId,
-                testCommentViewModel.mComment
+                testCommentViewModel.problemId,
+                testCommentViewModel.comment
             ) { id, comment -> id != null && comment != null }
 
             val result = checkData.getOrAwaitValue()

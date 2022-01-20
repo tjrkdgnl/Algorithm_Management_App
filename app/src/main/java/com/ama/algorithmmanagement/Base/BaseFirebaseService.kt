@@ -1,54 +1,57 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
+import kotlinx.coroutines.flow.Flow
 
 interface BaseFirebaseService {
 
-    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?) :Boolean
+    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean
 
     suspend fun getUserInfo(userId: String): UserInfo?
 
     suspend fun checkUserInfo(userId: String, password: String): Boolean
 
-    fun setDateInfo(userId: String): Boolean
+    suspend fun setDateInfo(userId: String): Boolean
 
-    fun getDateInfos(userId: String?): DateInfoObject?
+    suspend fun getDateInfos(userId: String?): DateInfoObject?
 
-    fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): IdeaInfo
+    suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 
-    fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos?
+    suspend fun getIdeaInfos(userId: String, problemId: Int): Flow<IdeaInfos?>
 
-    fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): CommentInfo
+    suspend fun setComment(userId: String, tierType: Int, problemId: Int, comment: String): Boolean
 
-    fun getCommentObject(problemId: Int): CommentObject?
+    suspend fun getCommentObject(problemId: Int): CommentObject?
 
-    fun setChildComment(
+    suspend fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
         comment: String
-    ): ChildCommentInfo
+    ): Boolean
 
-    fun getChildCommentObject(commentId: String?): ChildCommentObject?
+    suspend fun getChildCommentObject(commentId: String?): ChildCommentObject?
 
-    fun setTippingProblem(
+    suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem
+    ): Boolean
 
-    fun getTippingProblemObject(userId: String): TippingProblemObject?
+    suspend fun initTipProblems(userId:String,problems:List<TaggedProblem>): TippingProblemObject?
 
-    fun getNotTippingProblemObject(userId:String) : TippingProblemObject?
+    suspend fun getTippingProblemObject(userId: String): TippingProblemObject?
 
-    fun modifyTippingProblem(
+    suspend fun getNotTippingProblemObject(userId: String): TippingProblemObject?
+
+    suspend fun modifyTippingProblem(
         userId: String,
         problemId: Int,
-        isShow: Boolean?,
+        isShow: Boolean,
         comment: String?
     ): Boolean
 
-    fun deleteTippingProblem(userId: String?, problemId: Int): Boolean
+    suspend fun deleteTippingProblem(userId: String?, problemId: Int): Boolean
 
 }

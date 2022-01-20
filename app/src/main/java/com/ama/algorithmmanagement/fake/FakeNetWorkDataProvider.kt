@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 
 class FakeNetWorkDataProvider(private val mApp: Application) {

@@ -1,8 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
+import java.lang.NullPointerException
 
 class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
@@ -37,7 +39,7 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setDateInfo(userId: String): Boolean {
+    override suspend fun setDateInfo(userId: String): Boolean {
         val dateInfo = DateInfo(mDate)
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
@@ -52,7 +54,7 @@ class FakeFirebaseReference(
         return true
     }
 
-    override fun getDateInfos(userId: String?): DateInfoObject? {
+    override suspend fun getDateInfos(userId: String?): DateInfoObject? {
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == userId) {
                 return dateInfos
@@ -61,12 +63,12 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setIdeaInfo(
+    override suspend fun setIdeaInfo(
         userId: String,
         url: String?,
         comment: String?,
         problemId: Int
-    ): IdeaInfo {
+    ): Boolean {
 
         val ideaInfo = IdeaInfo(url, comment, mDate)
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
@@ -77,41 +79,41 @@ class FakeFirebaseReference(
                 for (ideainfos in ideaObject.ideaInfosList) {
                     if (ideainfos.problemId == problemId) {
                         ideainfos.ideaList.add(ideaInfo)
-                        return ideaInfo
+                        return true
                     }
                 }
 
                 ideaObject.ideaInfosList.add(ideaInfos)
-                return ideaInfo
+                return true
             }
         }
 
-        val ideaObject = IdeaObject(userId, mutableListOf(ideaInfos))
+        val ideaObject = IdeaObject(userId, 0, mutableListOf(ideaInfos))
         mFakeFirebaseDataProvider.ideaSnapShot.add(ideaObject)
 
-        return ideaInfo
+        return true
     }
 
-    override fun getIdeaInfos(userId: String?, problemId: Int): IdeaInfos? {
+    override suspend fun getIdeaInfos(userId: String, problemId: Int) = flow<IdeaInfos?> {
         for (userIdeaInfo in mFakeFirebaseDataProvider.ideaSnapShot) {
             if (userIdeaInfo.userId == userId) {
 
                 for (ideaInfos in userIdeaInfo.ideaInfosList) {
                     if (ideaInfos.problemId == problemId) {
-                        return ideaInfos
+                        emit(ideaInfos)
                     }
                 }
             }
         }
-        return null
+        emit(null)
     }
 
-    override fun setComment(
+    override suspend fun setComment(
         userId: String,
         tierType: Int,
         problemId: Int,
         comment: String
-    ): CommentInfo {
+    ): Boolean {
         val commentId = "RandomNumber"
 
         val newCommentInfo =
@@ -121,7 +123,7 @@ class FakeFirebaseReference(
             if (commentObject.problemId == problemId) {
                 commentObject.commentList.add(newCommentInfo)
 
-                return newCommentInfo
+                return true
 
             }
         }
@@ -130,40 +132,40 @@ class FakeFirebaseReference(
 
         mFakeFirebaseDataProvider.commentSnapShot.add(commentObject)
 
-        return newCommentInfo
+        return true
     }
 
-    override fun getCommentObject(problemId: Int): CommentObject? {
-        for (commentinfo in mFakeFirebaseDataProvider.commentSnapShot) {
-            if (commentinfo.problemId == problemId) {
-                return commentinfo
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
+        for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
+            if (commentObject.problemId == problemId) {
+                return commentObject
             }
         }
         return null
     }
 
-    override fun setChildComment(
+    override suspend fun setChildComment(
         userId: String,
         tierType: Int,
         commentId: String,
         comment: String
-    ): ChildCommentInfo {
+    ): Boolean {
         val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
 
         for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
                 childCommentObject.commentChildList.add(childCommentInfo)
-                return childCommentInfo
+                return true
             }
         }
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
         mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 
-        return childCommentInfo
+        return false
     }
 
 
-    override fun getChildCommentObject(commentId: String?): ChildCommentObject? {
+    override suspend fun getChildCommentObject(commentId: String?): ChildCommentObject? {
         if (commentId == null)
             return null
 
@@ -176,19 +178,24 @@ class FakeFirebaseReference(
         return null
     }
 
-    override fun setTippingProblem(
+    override suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem {
+    ): Boolean {
 
-        val tipProblem = TipProblem(problem, isShow, tipComment, mDate)
+        val tipProblem = TipProblemInfo(
+            problem,
+            isShow,
+            tipComment,
+            mDate
+        )
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
-                tipProblemObject.problemList.add(tipProblem)
-                return tipProblem
+                tipProblemObject.problemInfoList.add(tipProblem)
+                return true
             }
         }
 
@@ -198,58 +205,76 @@ class FakeFirebaseReference(
         )
         mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
 
-        return tipProblem
+        return true
     }
 
-    override fun getTippingProblemObject(userId: String): TippingProblemObject? {
+    override suspend fun initTipProblems(userId: String, problems: List<TaggedProblem>): TippingProblemObject? {
+        val tipProblems = mutableListOf<TipProblemInfo>()
+
+        for (problem in problems) {
+            tipProblems.add(
+                TipProblemInfo(
+                    problem,
+                    false,
+                    null,
+                    mDate
+                )
+            )
+        }
+
+        val tipProblemObject = TippingProblemObject(1, userId, tipProblems)
+        mFakeFirebaseDataProvider.tipProblemSnapShot.add(tipProblemObject)
+
+        return tipProblemObject
+    }
+
+    override suspend fun getTippingProblemObject(userId: String): TippingProblemObject {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
-                    tipProblemObject.problemList.filter { it.tipComment != null }.toMutableList()
+                    tipProblemObject.problemInfoList.filter { it.tipComment != null }
+                        .toMutableList()
 
-                tipProblemObject.problemList.clear()
-                tipProblemObject.problemList.addAll(ArrayList(lst))
+                tipProblemObject.problemInfoList.clear()
+                tipProblemObject.problemInfoList.addAll(ArrayList(lst))
 
                 return tipProblemObject
             }
         }
-        return null
+        throw NullPointerException("")
     }
 
-    override fun getNotTippingProblemObject(userId: String): TippingProblemObject? {
+    override suspend fun getNotTippingProblemObject(userId: String): TippingProblemObject {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
                 val lst =
-                    tipProblemObject.problemList.filter { it.tipComment == null }.toMutableList()
+                    tipProblemObject.problemInfoList.filter { it.tipComment == null }
+                        .toMutableList()
 
-                tipProblemObject.problemList.clear()
-                tipProblemObject.problemList.addAll(ArrayList(lst))
+                tipProblemObject.problemInfoList.clear()
+                tipProblemObject.problemInfoList.addAll(ArrayList(lst))
 
                 return tipProblemObject
             }
         }
 
-        return null
+        throw NullPointerException("")
     }
 
-    override fun modifyTippingProblem(
+    override suspend fun modifyTippingProblem(
         userId: String,
         problemId: Int,
-        isShow: Boolean?,
+        isShow: Boolean,
         comment: String?
     ): Boolean {
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
 
-                for (tipProblem in tipProblemObject.problemList.withIndex()) {
-                    if (tipProblem.value.problem.problemId == problemId) {
-                        if (isShow != null) {
-                            tipProblem.value.isShow = isShow
-                        }
-                        if (comment != null) {
-                            tipProblem.value.tipComment = comment
-                        }
+                for (tipProblem in tipProblemObject.problemInfoList.withIndex()) {
+                    if (tipProblem.value.problem?.problemId == problemId) {
+                        tipProblem.value.isShow = isShow
+                        tipProblem.value.tipComment = comment
                         return true
                     }
                 }
@@ -259,13 +284,13 @@ class FakeFirebaseReference(
         return true
     }
 
-    override fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
+    override suspend fun deleteTippingProblem(userId: String?, problemId: Int): Boolean {
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
             if (tipProblemObject.userId == userId) {
 
-                for (tipProblem in tipProblemObject.problemList.withIndex()) {
-                    if (tipProblem.value.problem.problemId == problemId) {
-                        tipProblemObject.problemList.removeAt(tipProblem.index)
+                for (tipProblem in tipProblemObject.problemInfoList.withIndex()) {
+                    if (tipProblem.value.problem?.problemId == problemId) {
+                        tipProblemObject.problemInfoList.removeAt(tipProblem.index)
                         return true
                     }
                 }

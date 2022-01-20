@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ama.algorithmmanagement.Model.DateInfo
+import com.ama.algorithmmanagement.model.DateInfo
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
 import org.junit.Before
