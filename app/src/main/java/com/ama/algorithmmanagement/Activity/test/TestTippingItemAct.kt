@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +10,7 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultTippingItemBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestTipItemViewModel
 
-class KTestTippingItemAct :
+class TestTippingItemAct :
     KBaseActivity<DefaultTippingItemBinding>(R.layout.default_tipping_item) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

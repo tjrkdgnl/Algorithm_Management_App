@@ -6,7 +6,7 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultDateItemBinding
 import com.ama.algorithmmanagement.databinding.DefaultIdeaItemBinding
 
-class DateViewHolder(parent: ViewGroup) :
+class TestDateViewHolder(parent: ViewGroup) :
     KBaseViewHolder<DefaultDateItemBinding>(parent, R.layout.default_date_item) {
 
     fun setData(date: String?) {

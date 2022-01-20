@@ -5,7 +5,7 @@ import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultCommentItemBinding
 
-class CommentViewHolder(parent: ViewGroup, private val moveToChild: (String) -> Unit) :
+class TestCommentViewHolder(parent: ViewGroup, private val moveToChild: (String) -> Unit) :
     KBaseViewHolder<DefaultCommentItemBinding>(parent, R.layout.default_comment_item) {
     private var commentId: String? = null
 

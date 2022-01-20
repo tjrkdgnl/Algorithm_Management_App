@@ -360,8 +360,6 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             return false
         }
 
-        val tipId = RandomIdGenerator.generateRandDomId()
-
         val tipProblemInfo = TipProblemInfo(problem, isShow, tipComment, mDate)
 
         val snapShot = mFirebaseRef.child(mTipTable).get().await()

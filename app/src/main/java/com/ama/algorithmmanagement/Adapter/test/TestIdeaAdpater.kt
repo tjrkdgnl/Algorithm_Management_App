@@ -3,17 +3,17 @@ package com.ama.algorithmmanagement.Adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.IdeaInfo
-import com.ama.algorithmmanagement.ViewHolder.test.IdeaViewHolder
+import com.ama.algorithmmanagement.ViewHolder.test.TestIdeaViewHolder
 
-class IdeaAdpater : RecyclerView.Adapter<IdeaViewHolder>() {
+class TestIdeaAdpater : RecyclerView.Adapter<TestIdeaViewHolder>() {
     private val lst = mutableListOf<IdeaInfo>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IdeaViewHolder {
-        return IdeaViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestIdeaViewHolder {
+        return TestIdeaViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: IdeaViewHolder, position: Int) {
-        holder.setData(lst[position].comment)
+    override fun onBindViewHolder(holderTest: TestIdeaViewHolder, position: Int) {
+        holderTest.setData(lst[position].comment)
     }
 
     override fun getItemCount(): Int {

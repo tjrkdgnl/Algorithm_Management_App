@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.test.IdeaViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestIdeaViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

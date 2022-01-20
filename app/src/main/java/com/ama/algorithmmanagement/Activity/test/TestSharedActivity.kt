@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSharedprefTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestSharedViewModel
 
-class KSharedActivity :
+class TestSharedActivity :
     KBaseActivity<DefaultSharedprefTestBinding>(R.layout.default_sharedpref_test) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

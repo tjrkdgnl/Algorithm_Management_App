@@ -1,15 +1,17 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Activity.kDefault.KCallAPIActivity
+import com.ama.algorithmmanagement.Activity.kDefault.KCallSolvedAlgorithmAct
 import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.Fragment.MainFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultActivityMainBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KDefaultMainViewModel
 
-class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.default_activity_main) {
+class TestDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.default_activity_main) {
     private lateinit var mainViewModel: KDefaultMainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,42 +38,42 @@ class KDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.defa
 
         mainViewModel.moveToLoginAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KLoginActivity::class.java))
+                startActivity(Intent(this, TestLoginActivity::class.java))
                 mainViewModel.moveToLoginAct.value = false
             }
         })
 
         mainViewModel.moveToFirebaseTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KDefaultFirebaseTest::class.java))
+                startActivity(Intent(this, TestFirebaseTest::class.java))
                 mainViewModel.moveToFirebaseTestAct.value = false
             }
         })
 
         mainViewModel.moveToSharedTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KSharedActivity::class.java))
+                startActivity(Intent(this, TestSharedActivity::class.java))
                 mainViewModel.moveToFirebaseTestAct.value = false
             }
         })
 
         mainViewModel.moveToIdeaTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KIdeaActivity::class.java))
+                startActivity(Intent(this, TestIdeaActivity::class.java))
                 mainViewModel.moveToIdeaTestAct.value = false
             }
         })
 
         mainViewModel.moveToDateTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KDateActivity::class.java))
+                startActivity(Intent(this, TestDateActivity::class.java))
                 mainViewModel.moveToDateTestAct.value = false
             }
         })
 
         mainViewModel.moveToCommentTestAct.observe(this, {
             if (it) {
-                startActivity(Intent(this, KDefaultCommentActivity::class.java))
+                startActivity(Intent(this, TestCommentActivity::class.java))
                 mainViewModel.moveToCommentTestAct.value = false
             }
         })

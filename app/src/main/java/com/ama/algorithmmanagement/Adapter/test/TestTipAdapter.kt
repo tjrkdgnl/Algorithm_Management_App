@@ -3,20 +3,20 @@ package com.ama.algorithmmanagement.Adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.TipProblemInfo
-import com.ama.algorithmmanagement.ViewHolder.test.TipViewHolder
+import com.ama.algorithmmanagement.ViewHolder.test.TestTipViewHolder
 
 class TestTipAdapter(
     private val moveToWriteTip: (TipProblemInfo) -> Unit
-) : RecyclerView.Adapter<TipViewHolder>() {
+) : RecyclerView.Adapter<TestTipViewHolder>() {
 
     private val lst = mutableListOf<TipProblemInfo>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TipViewHolder {
-        return TipViewHolder(parent, moveToWriteTip)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestTipViewHolder {
+        return TestTipViewHolder(parent, moveToWriteTip)
     }
 
-    override fun onBindViewHolder(holder: TipViewHolder, position: Int) {
-        holder.bind(lst[position])
+    override fun onBindViewHolder(holderTest: TestTipViewHolder, position: Int) {
+        holderTest.bind(lst[position])
     }
 
     override fun getItemCount(): Int {

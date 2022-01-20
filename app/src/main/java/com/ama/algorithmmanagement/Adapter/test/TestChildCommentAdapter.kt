@@ -3,19 +3,19 @@ package com.ama.algorithmmanagement.Adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.ChildCommentInfo
-import com.ama.algorithmmanagement.ViewHolder.test.ChildCommentViewHolder
+import com.ama.algorithmmanagement.ViewHolder.test.TestChildCommentViewHolder
 
 class TestChildCommentAdapter :
-    RecyclerView.Adapter<ChildCommentViewHolder>() {
+    RecyclerView.Adapter<TestChildCommentViewHolder>() {
 
     private val lst = mutableListOf<ChildCommentInfo>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildCommentViewHolder {
-        return ChildCommentViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestChildCommentViewHolder {
+        return TestChildCommentViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: ChildCommentViewHolder, position: Int) {
-        holder.bind(lst[position].comment)
+    override fun onBindViewHolder(holderTest: TestChildCommentViewHolder, position: Int) {
+        holderTest.bind(lst[position].comment)
     }
 
     override fun getItemCount(): Int {

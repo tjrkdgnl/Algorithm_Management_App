@@ -6,7 +6,7 @@ import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSolvedProblemsItemBinding
 
-class TipViewHolder(val parent: ViewGroup, private val moveToWriteAct: (TipProblemInfo) -> Unit) :
+class TestTipViewHolder(val parent: ViewGroup, private val moveToWriteAct: (TipProblemInfo) -> Unit) :
     KBaseViewHolder<DefaultSolvedProblemsItemBinding>(
         parent,
         R.layout.default_solved_problems_item

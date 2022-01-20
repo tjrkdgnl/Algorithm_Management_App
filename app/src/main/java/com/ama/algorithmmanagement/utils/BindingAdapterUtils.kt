@@ -29,7 +29,7 @@ object BindingAdapterUtils {
     @JvmStatic
     @BindingAdapter("testIdeaProblems")
     fun setTestIdeaProblems(recyclerView: RecyclerView, problems: MutableList<IdeaInfo>?) {
-        val adapter = recyclerView.adapter as IdeaAdpater
+        val adapter = recyclerView.adapter as TestIdeaAdpater
 
         problems?.let {
             adapter.updateList(it)
@@ -39,7 +39,7 @@ object BindingAdapterUtils {
     @JvmStatic
     @BindingAdapter("testCommentList")
     fun setTestCommentList(recyclerView: RecyclerView, problems: MutableList<CommentInfo>?) {
-        val adapter = recyclerView.adapter as CommentAdapter
+        val adapter = recyclerView.adapter as TestCommentAdapter
 
         problems?.let {
             adapter.updateList(it)
@@ -61,7 +61,7 @@ object BindingAdapterUtils {
     @JvmStatic
     @BindingAdapter("testDateList")
     fun setTestDateList(recyclerView: RecyclerView, problems: MutableList<DateInfo>?) {
-        val adapter = recyclerView.adapter as DateAdpater
+        val adapter = recyclerView.adapter as TestDateAdpater
 
         problems?.let {
             adapter.updateList(it)

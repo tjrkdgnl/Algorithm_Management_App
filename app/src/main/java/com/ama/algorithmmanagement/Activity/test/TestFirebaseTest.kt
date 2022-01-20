@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +12,7 @@ import com.ama.algorithmmanagement.viewmodel.test.TestRealViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class KDefaultFirebaseTest :
+class TestFirebaseTest :
     KBaseActivity<DefaultFirebaseTestBinding>(R.layout.default_firebase_test) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

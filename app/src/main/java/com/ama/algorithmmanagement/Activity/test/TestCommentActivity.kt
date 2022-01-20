@@ -1,9 +1,9 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.Adapter.test.CommentAdapter
+import com.ama.algorithmmanagement.Adapter.test.TestCommentAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
@@ -12,11 +12,11 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultCommentTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestCommentViewModel
 
-class KDefaultCommentActivity :
+class TestCommentActivity :
     KBaseActivity<DefaultCommentTestBinding>(R.layout.default_comment_test) {
 
     val moveToChild: (String) -> Unit = { commentId ->
-        val intent = Intent(applicationContext, KChildCommentActivity::class.java)
+        val intent = Intent(applicationContext, TestChildCommentActivity::class.java)
         val bundle = Bundle()
         bundle.putString("commentId", commentId)
 
@@ -32,7 +32,7 @@ class KDefaultCommentActivity :
         )[TestCommentViewModel::class.java]
 
         binding.viewModel = viewModel
-        binding.ideaRecyclerView.adapter = CommentAdapter(moveToChild)
+        binding.ideaRecyclerView.adapter = TestCommentAdapter(moveToChild)
         binding.ideaRecyclerView.setHasFixedSize(false)
     }
 }

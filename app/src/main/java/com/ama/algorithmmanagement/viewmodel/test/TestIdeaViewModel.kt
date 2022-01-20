@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
-class IdeaViewModel(
+class TestIdeaViewModel(
     private var mRepository: BaseRepository,
     private val mLifeCycleOwner: LifecycleOwner?
 ) :

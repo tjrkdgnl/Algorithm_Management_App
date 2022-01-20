@@ -5,7 +5,7 @@ import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultChildcommentItemBinding
 
-class ChildCommentViewHolder(parent: ViewGroup) :
+class TestChildCommentViewHolder(parent: ViewGroup) :
     KBaseViewHolder<DefaultChildcommentItemBinding>(
         parent,
         R.layout.default_childcomment_item

@@ -3,17 +3,17 @@ package com.ama.algorithmmanagement.Adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.DateInfo
-import com.ama.algorithmmanagement.ViewHolder.test.DateViewHolder
+import com.ama.algorithmmanagement.ViewHolder.test.TestDateViewHolder
 
-class DateAdpater : RecyclerView.Adapter<DateViewHolder>() {
+class TestDateAdpater : RecyclerView.Adapter<TestDateViewHolder>() {
     private val lst = mutableListOf<DateInfo>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateViewHolder {
-        return DateViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestDateViewHolder {
+        return TestDateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
-        holder.setData(lst[position].date)
+    override fun onBindViewHolder(holderTest: TestDateViewHolder, position: Int) {
+        holderTest.setData(lst[position].date)
     }
 
     override fun getItemCount(): Int {

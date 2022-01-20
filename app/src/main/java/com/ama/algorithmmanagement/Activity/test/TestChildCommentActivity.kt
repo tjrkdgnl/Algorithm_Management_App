@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Activity.kDefault
+package com.ama.algorithmmanagement.Activity.test
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +11,7 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultChildcommentTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestChildCommentViewModel
 
-class KChildCommentActivity :
+class TestChildCommentActivity :
     KBaseActivity<DefaultChildcommentTestBinding>(R.layout.default_childcomment_test) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
