@@ -2,11 +2,12 @@ package com.ama.algorithmmanagement.fake
 
 import android.app.Application
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
+import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
-import com.ama.algorithmmanagement.Model.*
-import com.ama.algorithmmanagement.Network.BaseNetworkService
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
+import kotlinx.coroutines.flow.Flow
 
 class FakeRepository(
     private val mApp: Application,
@@ -43,8 +44,13 @@ class FakeRepository(
         return mBaseNetworkService.getUserStats(mUserId!!)
     }
 
+
     override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
-        return mBaseNetworkService.getUnSolvedProblems()
+        if (solvedacToken == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "solvedacToken"))
+        }
+
+        return mBaseNetworkService.getUnSolvedProblems(solvedacToken)
     }
 
     override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?): Boolean {
@@ -54,6 +60,7 @@ class FakeRepository(
             return true
         }
         return false
+
     }
 
     override suspend fun checkUserInfo(userId: String, password: String): Boolean {
@@ -61,10 +68,14 @@ class FakeRepository(
     }
 
     override suspend fun getUserInfo(): UserInfo? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
         return mFakeFirebaseReference.getUserInfo(mUserId!!)
     }
 
-    override fun setDateInfo(): Boolean {
+    override suspend fun setDateInfo(): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -72,11 +83,11 @@ class FakeRepository(
         return mFakeFirebaseReference.setDateInfo(mUserId!!)
     }
 
-    override fun getDateInfoObject(): DateInfoObject? {
+    override suspend fun getDateInfoObject(): DateInfoObject? {
         return mFakeFirebaseReference.getDateInfos(mUserId)
     }
 
-    override fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo {
+    override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -84,11 +95,15 @@ class FakeRepository(
         return mFakeFirebaseReference.setIdeaInfo(mUserId!!, url, comment, problemId)
     }
 
-    override fun getIdeaInfos(problemId: Int): IdeaInfos? {
-        return mFakeFirebaseReference.getIdeaInfos(mUserId, problemId)
+    override suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?> {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFakeFirebaseReference.getIdeaInfos(mUserId!!, problemId)
     }
 
-    override fun setComment(problemId: Int, comment: String): CommentInfo {
+    override suspend fun setComment(problemId: Int, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -99,11 +114,11 @@ class FakeRepository(
         return mFakeFirebaseReference.setComment(mUserId!!, mTierType, problemId, comment)
     }
 
-    override fun getCommentObject(problemId: Int): CommentObject? {
+    override suspend fun getCommentObject(problemId: Int): CommentObject? {
         return mFakeFirebaseReference.getCommentObject(problemId)
     }
 
-    override fun setChildComment(commentId: String, comment: String): ChildCommentInfo {
+    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -114,15 +129,15 @@ class FakeRepository(
         return mFakeFirebaseReference.setChildComment(mUserId!!, mTierType, commentId, comment)
     }
 
-    override fun getChildCommentObject(commentId: String): ChildCommentObject? {
+    override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {
         return mFakeFirebaseReference.getChildCommentObject(commentId)
     }
 
-    override fun setTippingProblem(
+    override suspend fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem {
+    ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -130,7 +145,15 @@ class FakeRepository(
         return mFakeFirebaseReference.setTippingProblem(mUserId!!, problem, isShow, tipComment)
     }
 
-    override fun getTippingProblem(): TippingProblemObject? {
+    override suspend fun initTipProblems(problems: List<TaggedProblem>): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFakeFirebaseReference.initTipProblems(mUserId!!,problems)
+    }
+
+    override suspend fun getTippingProblem(): TippingProblemObject? {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -138,7 +161,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getTippingProblemObject(mUserId!!)
     }
 
-    override fun getNotTippingProblem(): TippingProblemObject? {
+    override suspend fun getNotTippingProblem(): TippingProblemObject? {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -146,7 +169,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getNotTippingProblemObject(mUserId!!)
     }
 
-    override fun modifyTippingProblem(
+    override suspend fun modifyTippingProblem(
         problemId: Int,
         isShow: Boolean,
         tipComment: String?
@@ -158,7 +181,7 @@ class FakeRepository(
         return mFakeFirebaseReference.modifyTippingProblem(mUserId!!, problemId, isShow, tipComment)
     }
 
-    override fun deleteTippingProblem(problemId: Int): Boolean {
+    override suspend fun deleteTippingProblem(problemId: Int): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }

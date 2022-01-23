@@ -45,11 +45,11 @@ class TestTipViewModelTest {
         //when
         val obj = testTipViewModel.getNottipProblemObject()
 
-        assertEquals(obj!!.problemList[0].tipComment, null)
-        assertEquals(obj.problemList[0].isShow, false)
-        assertEquals(obj.problemList[0].problem.problemId, 1010)
-        assertEquals(obj.problemList[0].problem.titleKo, "A+B")
-        assertEquals(obj.problemList[0].problem.level, 11)
+        assertEquals(obj!!.problemInfoList[0].tipComment, null)
+        assertEquals(obj.problemInfoList[0].isShow, false)
+        assertEquals(obj.problemInfoList[0].problem.problemId, 1010)
+        assertEquals(obj.problemInfoList[0].problem.titleKo, "A+B")
+        assertEquals(obj.problemInfoList[0].problem.level, 11)
 
     }
 
@@ -63,7 +63,7 @@ class TestTipViewModelTest {
 
         testTipViewModel.getTipProblemObject()
 
-        val lst = testTipViewModel.tipProbleObject?.problemList!!
+        val lst = testTipViewModel.tipProbleObject?.problemInfoList!!
 
         //then
         assertEquals(lst[0].tipComment, "재귀를 사용하면 좋다")

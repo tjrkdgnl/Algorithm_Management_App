@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.test.TestTipViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_call_api"
-            app:setSolvedProblemsList="@{viewModel.solvedList}"
+            app:setTipProblemList="@{viewModel.tipProblems}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -1,31 +1,42 @@
 package com.ama.algorithmmanagement.Activity.kDefault
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
+import com.ama.algorithmmanagement.Activity.test.TestTippingItemAct
+import com.ama.algorithmmanagement.Adapter.test.TestTipAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
+import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
+import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultActivitySolvedProblemsBinding
-import com.ama.algorithmmanagement.utils.BaseViewModelFactory
-import com.ama.algorithmmanagement.viewmodel.kDefault.KAPICallViewModel
+import com.ama.algorithmmanagement.viewmodel.test.TestTipViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class KCallSolvedAlgorithmAct :
     KBaseActivity<DefaultActivitySolvedProblemsBinding>(R.layout.default_activity_solved_problems) {
 
-    private lateinit var callViewModel: KAPICallViewModel
+    private val moveToTippingAct: (TipProblemInfo) -> Unit = {
+        val intent = Intent(applicationContext, TestTippingItemAct::class.java)
+        val bundle = Bundle()
+        bundle.putParcelable("tipProblemInfo", it)
+        intent.putExtra("problemBundle", bundle)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        callViewModel = ViewModelProvider(
+        val callViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getFakeRepository(AMAApplication.INSTANCE))
-        )[KAPICallViewModel::class.java]
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
+        )[TestTipViewModel::class.java]
 
         binding.viewModel = callViewModel
-        binding.recyclerviewCallApi.adapter = KSolvedProblemsAdapter()
+        binding.recyclerviewCallApi.adapter = TestTipAdapter(moveToTippingAct)
 
     }
 }

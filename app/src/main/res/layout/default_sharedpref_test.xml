@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ama.algorithmmanagement.viewmodel.test.TestSharedViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="userId 입력"
+                android:layout_marginTop="50dp"
+                android:text="@={viewModel._userId}"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tier 입력"
+                android:layout_marginTop="20dp"
+                android:text="@={viewModel._userTier}"
+                android:textSize="20sp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel._loginCheck}"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저ID 저장"
+                android:onClick="@{()->viewModel.saveUserId()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저ID 가져오기"
+                android:onClick="@{()->viewModel.getUserId()}"
+
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저ID 삭제"
+                android:onClick="@{()->viewModel.deleteUserId()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저 티어 저장"
+                android:onClick="@{()->viewModel.saveTierType()}"
+
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저 티어 가져오기"
+                android:onClick="@{()->viewModel.getTierType()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저 티어 삭제"
+                android:onClick="@{()->viewModel.deleteToTierType()}"
+                />
+
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="자동로그인 여부 저장"
+                android:onClick="@{()->viewModel.saveAutoLoginCheck()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="자동로그인 여부 가져오기"
+                android:onClick="@{()->viewModel.getAutoLoginCheck()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="자동로그인 여부 삭제"
+                android:onClick="@{()->viewModel.deleteAutoLoginCheck()}"
+                />
+
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="solvedProblems 저장"
+                android:onClick="@{()->viewModel.saveSolvedProblems()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="solvedProblems 가져오기"
+                android:onClick="@{()->viewModel.getSolvedProblems()}"
+
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="solvedProblems 삭제"
+                android:onClick="@{()->viewModel.deleteSolvedProblems()}"
+                />
+
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="토큰 불러오기"
+                android:onClick="@{()->viewModel.changeTokenState()}"/>
+
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="토큰 저장"
+                android:onClick="@{()->viewModel.saveSolvedacToken()}" />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="토큰 가져오기"
+                android:onClick="@{()->viewModel.getSolvedacToken()}"
+
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="토큰 삭제"
+                android:onClick="@{()->viewModel.deleteSolvedacToken()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="내가 풀지 못한 문제 불러오기"
+                android:onClick="@{()->viewModel.unSolvedProblems()}"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

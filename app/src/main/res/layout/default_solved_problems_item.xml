@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<layout>
+
+    <data>
+        <variable
+            name="problem"
+            type="com.ama.algorithmmanagement.model.TaggedProblem" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,6 +18,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@{problem.titleKo}"
             android:textSize="20sp" />
 
         <TextView

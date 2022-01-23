@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.Adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
+import com.ama.algorithmmanagement.model.KProblemsOfClass
 import com.ama.algorithmmanagement.ViewHolder.KDefaultViewHolder
 
 class KDefaultRecyclerViewAdapter : RecyclerView.Adapter<KDefaultViewHolder>() {
