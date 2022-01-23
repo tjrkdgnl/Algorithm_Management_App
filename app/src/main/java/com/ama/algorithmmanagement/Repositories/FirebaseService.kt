@@ -88,7 +88,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return true
     }
 
-    override suspend fun setDateInfo(userId: String): Boolean {
+    override suspend fun setDateInfo(userId: String,count:Int): Boolean {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
@@ -98,7 +98,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
         val snapshot = mFirebaseRef.child(mDateTable).get().await()
 
-        val dateInfo = DateInfo(mDate)
+        val dateInfo = DateInfo(mDate,count)
 
         for (obj in snapshot.children) {
             val dateObject = obj.getValue(DateInfoObject::class.java)

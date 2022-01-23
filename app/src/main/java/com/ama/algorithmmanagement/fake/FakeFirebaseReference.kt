@@ -39,8 +39,8 @@ class FakeFirebaseReference(
         return null
     }
 
-    override suspend fun setDateInfo(userId: String): Boolean {
-        val dateInfo = DateInfo(mDate)
+    override suspend fun setDateInfo(userId: String,count:Int): Boolean {
+        val dateInfo = DateInfo(mDate,count)
 
         for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
             if (dateInfos.userId == userId) {

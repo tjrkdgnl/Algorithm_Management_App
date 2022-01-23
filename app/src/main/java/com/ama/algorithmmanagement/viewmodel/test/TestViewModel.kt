@@ -22,6 +22,7 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     private val _dateInfoObejct = MutableLiveData<DateInfoObject?>()
     val dateInfoObejct: LiveData<DateInfoObject?> = _dateInfoObejct
 
+    var solvedProblemsCount :Int =0
 
     fun setUserInfo() {
         viewModelScope.launch {
@@ -45,7 +46,7 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
 
     fun setDateInfo() {
         viewModelScope.launch {
-            val date = repository.setDateInfo()
+            val date = repository.setDateInfo(solvedProblemsCount)
 
         }
     }

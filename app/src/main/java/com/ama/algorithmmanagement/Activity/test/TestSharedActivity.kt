@@ -2,8 +2,11 @@ package com.ama.algorithmmanagement.Activity.test
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Application.AMAApplication
+import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultSharedprefTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestSharedViewModel
 
@@ -13,7 +16,10 @@ class TestSharedActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: TestSharedViewModel = ViewModelProvider(this)[TestSharedViewModel::class.java]
+        val viewModel: TestSharedViewModel = ViewModelProvider(
+            this,
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
+        )[TestSharedViewModel::class.java]
         binding.viewModel = viewModel
 
 

@@ -1,9 +1,6 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.model.ProblemStatus
-import com.ama.algorithmmanagement.model.Problems
-import com.ama.algorithmmanagement.model.Stats
-import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.model.*
 
 interface BaseNetworkService {
 
@@ -17,5 +14,6 @@ interface BaseNetworkService {
 
     suspend fun getSearchProblemList(problemId:Int): Problems
 
+    suspend fun getUserInfo(userId:String) : User
 
 }
