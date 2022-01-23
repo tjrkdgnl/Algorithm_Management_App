@@ -59,6 +59,13 @@
                 style="@style/TestButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="유저ID 확인하기"
+                android:onClick="@{()->viewModel.confirmUserId()}"
+                />
+            <Button
+                style="@style/TestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="유저ID 가져오기"
                 android:onClick="@{()->viewModel.getUserId()}"
 

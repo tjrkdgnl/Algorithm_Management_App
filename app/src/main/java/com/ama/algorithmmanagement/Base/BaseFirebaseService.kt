@@ -11,7 +11,7 @@ interface BaseFirebaseService {
 
     suspend fun checkUserInfo(userId: String, password: String): Boolean
 
-    suspend fun setDateInfo(userId: String): Boolean
+    suspend fun setDateInfo(userId: String,count:Int): Boolean
 
     suspend fun getDateInfos(userId: String?): DateInfoObject?
 

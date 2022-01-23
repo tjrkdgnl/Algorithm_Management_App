@@ -13,10 +13,13 @@ class TestDateViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     val dateList = ObservableArrayList<DateInfo>()
 
+    var solvedProblemsCount: Int = 0
+
+
     fun saveDate() {
         viewModelScope.launch {
             try {
-                mRepository.setDateInfo()
+                mRepository.setDateInfo(solvedProblemsCount)
 
             } catch (e: Exception) {
                 Timber.e(e)

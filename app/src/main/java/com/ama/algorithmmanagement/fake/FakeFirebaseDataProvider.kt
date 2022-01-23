@@ -17,7 +17,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
     val dateSnapShot: MutableList<DateInfoObject> by lazy {
         MutableList(20) {
             DateInfoObject(mCount, mDefaultUserId, MutableList(20) {
-                DateInfo(DateUtils.createDate())
+                DateInfo(DateUtils.createDate(),1)
             })
         }
     }

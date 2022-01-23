@@ -70,6 +70,19 @@ class Repository(
         }
     }
 
+    override suspend fun confirmUserInfo(userId: String): Boolean {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return try {
+            mNetworkService.getUserInfo(mUserId!!)
+            true;
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     override suspend fun checkUserInfo(userId: String, password: String): Boolean {
         return mFirebaseService.checkUserInfo(userId, password)
     }
@@ -82,12 +95,12 @@ class Repository(
         return mFirebaseService.getUserInfo(mUserId!!)
     }
 
-    override suspend fun setDateInfo(): Boolean {
+    override suspend fun setDateInfo(count: Int): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFirebaseService.setDateInfo(mUserId!!)
+        return mFirebaseService.setDateInfo(mUserId!!, count)
     }
 
     override suspend fun getDateInfoObject(): DateInfoObject? {

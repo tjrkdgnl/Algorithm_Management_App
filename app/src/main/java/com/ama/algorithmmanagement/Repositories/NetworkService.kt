@@ -2,10 +2,7 @@ package com.ama.algorithmmanagement.Repositories
 
 import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Network.KAPIGenerator
-import com.ama.algorithmmanagement.model.ProblemStatus
-import com.ama.algorithmmanagement.model.Problems
-import com.ama.algorithmmanagement.model.Stats
-import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.model.*
 import retrofit2.await
 
 class NetworkService : BaseNetworkService {
@@ -49,6 +46,10 @@ class NetworkService : BaseNetworkService {
 
     override suspend fun getSearchProblemList(problemId: Int): Problems {
         return KAPIGenerator.getInstance().getSearchProblemList(problemId)
+    }
+
+    override suspend fun getUserInfo(userId: String): User {
+        return KAPIGenerator.getInstance().getUserInfo(userId)
     }
 
 }

@@ -4,12 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Application.AMAApplication
+import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.Problems
 import com.ama.algorithmmanagement.Network.KAPIGenerator
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class TestSharedViewModel : ViewModel() {
+class TestSharedViewModel(private val mRepository: BaseRepository) : ViewModel() {
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
     val _userId = MutableLiveData<String>()
     val _userTier = MutableLiveData<String>()
@@ -27,6 +28,21 @@ class TestSharedViewModel : ViewModel() {
             _solvedProblems = KAPIGenerator.getInstance().getSolvedProblems("solved_by:skjh0818")
         }
     }
+
+    fun confirmUserId() {
+        viewModelScope.launch {
+            try {
+                sharedPref.getUserId()?.let { id ->
+                    val user = mRepository.confirmUserInfo(id)
+                    Timber.e(user.toString())
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+
+        }
+    }
+
 
     fun saveUserId() {
         _userId.value?.let {
