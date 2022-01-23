@@ -1,15 +1,12 @@
 package com.ama.algorithmmanagement.ViewHolder
 
-import android.content.Intent
-import android.os.Build
-import android.provider.MediaStore
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.FileProvider
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSolvedProblemsItemBinding
+import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.google.android.material.chip.Chip
 
 class ProblemViewHolder(private val parent: ViewGroup) :

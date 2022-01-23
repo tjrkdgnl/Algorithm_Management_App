@@ -2,9 +2,10 @@ package com.ama.algorithmmanagement.Adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Model.TaggedProblem
-import com.ama.algorithmmanagement.Model.TipProblem
+
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
+import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.model.TipProblemInfo
 
 class KNoTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
@@ -21,9 +22,9 @@ class KNoTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
         return list.size
     }
 
-    fun updateList(list: MutableList<TipProblem>?) {
+    fun updateList(list: MutableList<TipProblemInfo>?) {
         for (i in list?.indices!!) {
-            this.list.add(list[i].problem)
+            this.list.add(list[i].problem!!)
         }
         notifyDataSetChanged()
 

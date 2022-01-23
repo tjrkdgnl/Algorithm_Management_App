@@ -4,9 +4,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
+import com.ama.algorithmmanagement.model.TaggedProblem
 
 class KSolvedProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
-    private val list = mutableListOf<TipProblemInfo>()
+    private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
         return ProblemViewHolder(parent)
@@ -21,7 +22,7 @@ class KSolvedProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     }
 
 
-    fun updateList(list: MutableList<TipProblemInfo>?) {
+    fun updateList(list: MutableList<TaggedProblem>?) {
         list?.let {
             this.list.addAll(it)
             notifyDataSetChanged()

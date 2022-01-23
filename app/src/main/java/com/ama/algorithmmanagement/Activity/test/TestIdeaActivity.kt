@@ -14,7 +14,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class TestIdeaActivity : KBaseActivity<DefaultIdeaTestBinding>(R.layout.default_idea_test) {
 
-    @ExperimentalCoroutinesApi
+//    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

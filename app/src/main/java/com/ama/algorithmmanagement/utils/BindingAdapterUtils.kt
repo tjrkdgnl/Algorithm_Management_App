@@ -2,15 +2,14 @@ package com.ama.algorithmmanagement.utils
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.test.*
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.Adapter.KNoTipProblemsAdapter
-import com.ama.algorithmmanagement.Adapter.KSolvedProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.TryFailedAdapter
-import com.ama.algorithmmanagement.Model.KProblemsOfClass
-import com.ama.algorithmmanagement.Model.TaggedProblem
-import com.ama.algorithmmanagement.Model.TipProblem
+import com.ama.algorithmmanagement.Adapter.CommentListAdapter
+
 
 object BindingAdapterUtils {
 
@@ -76,7 +75,7 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("setNoTipProblemsList")
-    fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblem>?) {
+    fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblemInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as KNoTipProblemsAdapter
         recyclerViewAdapter.updateList(noTipProblems)
     }
@@ -86,6 +85,20 @@ object BindingAdapterUtils {
     fun setTryFailedProblemsList(recyclerView: RecyclerView, tryFailedList: MutableList<TaggedProblem>?) {
         val recyclerViewAdapter = recyclerView.adapter as TryFailedAdapter
         recyclerViewAdapter.updateList(tryFailedList)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setMyCommentList")
+    fun setMyCommentList(recyclerView: RecyclerView, commentInfo: MutableList<CommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as CommentListAdapter
+        recyclerViewAdapter.updateList(commentInfo)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setMyIdeaList")
+    fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>) {
+        val recyclerViewAdapter = recyclerView.adapter as TestIdeaAdpater
+        recyclerViewAdapter.updateList(ideaInfo)
     }
 
 }

@@ -3,8 +3,8 @@
 
     <data>
         <variable
-            name="problem"
-            type="com.ama.algorithmmanagement.model.TaggedProblem" />
+            name="commentInfo"
+            type="com.ama.algorithmmanagement.model.CommentInfo" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,13 +16,16 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{problem.titleKo}"
+            android:text="@{commentInfo.comment}"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/problemId"
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@{commentInfo.date}"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
 

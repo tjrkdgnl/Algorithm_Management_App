@@ -4,7 +4,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.TaggedProblem
+import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -19,7 +19,7 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
     private fun getTryFailedProblem() {
         viewModelScope.launch {
             try {
-                val lstUnSolvedProblem = mRepository.getUnSolvedProblems("cookie")
+                val lstUnSolvedProblem = mRepository.getUnSolvedProblems("cookie") // List<ProblemStatus>
                 for (i in lstUnSolvedProblem.indices) {
                     tryFailedList.add(mRepository.getProblem(lstUnSolvedProblem[i].id))
                 }

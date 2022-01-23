@@ -2,8 +2,9 @@ package com.ama.algorithmmanagement.Adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Model.TaggedProblem
+
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
+import com.ama.algorithmmanagement.model.TaggedProblem
 
 class TryFailedAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
