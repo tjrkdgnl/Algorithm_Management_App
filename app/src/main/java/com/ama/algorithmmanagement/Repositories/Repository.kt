@@ -71,12 +71,8 @@ class Repository(
     }
 
     override suspend fun confirmUserInfo(userId: String): Boolean {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
         return try {
-            mNetworkService.getUserInfo(mUserId!!)
+            mNetworkService.getUserInfo(userId)
             true;
         } catch (e: Exception) {
             false
