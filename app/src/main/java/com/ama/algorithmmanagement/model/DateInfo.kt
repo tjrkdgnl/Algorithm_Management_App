@@ -1,7 +1,8 @@
 package com.ama.algorithmmanagement.model
 
 data class DateInfo(
-    val date :String
+    val date: String,
+    val count: Int
 ) {
-    constructor() :this("")
+    constructor() : this("",0)
 }

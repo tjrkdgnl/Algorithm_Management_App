@@ -63,8 +63,12 @@ class FakeRepository(
 
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        return mFakeFirebaseReference.checkUserInfo(userId, password)
+    override suspend fun confirmUserInfo(userId: String): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
+        return mFakeFirebaseReference.signUpUserInfo(userId, password)
     }
 
     override suspend fun getUserInfo(): UserInfo? {
@@ -75,16 +79,16 @@ class FakeRepository(
         return mFakeFirebaseReference.getUserInfo(mUserId!!)
     }
 
-    override suspend fun setDateInfo(): Boolean {
+    override suspend fun setDateInfo(count:Int): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFakeFirebaseReference.setDateInfo(mUserId!!)
+        return mFakeFirebaseReference.setDateInfo(mUserId!!,count)
     }
 
-    override suspend fun getDateInfoObject(): DateInfoObject? {
-        return mFakeFirebaseReference.getDateInfos(mUserId)
+    override suspend fun getDateObject(): DateObject? {
+        return mFakeFirebaseReference.getDateObject(mUserId)
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {

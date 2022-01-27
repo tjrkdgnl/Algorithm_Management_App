@@ -16,13 +16,15 @@ interface BaseRepository {
 
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 
-    suspend fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun confirmUserInfo(userId: String) : Boolean
+
+    suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
     suspend fun getUserInfo(): UserInfo?
 
-    suspend fun setDateInfo(): Boolean
+    suspend fun setDateInfo(count:Int): Boolean
 
-    suspend fun getDateInfoObject(): DateInfoObject?
+    suspend fun getDateObject(): DateObject?
 
     suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 

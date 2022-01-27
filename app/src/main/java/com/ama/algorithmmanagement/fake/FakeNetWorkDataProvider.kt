@@ -72,4 +72,5 @@ class FakeNetWorkDataProvider(private val mApp: Application) {
             ProblemStatus(it + mProblemId, if (it > 10) "tried" else "solved")
         }
     }
+
 }

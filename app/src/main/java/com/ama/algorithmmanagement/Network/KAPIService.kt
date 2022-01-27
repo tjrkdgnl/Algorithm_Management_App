@@ -27,6 +27,9 @@ interface KAPIService {
     @GET("user/problem_stats")
     fun getUserStatsInfo(@Query("handle") userId: String): Call<List<Stats>>
 
+    @GET("user/show")
+    suspend fun getUserInfo(@Query("handle") userId: String): User
+
     @GET("problem/show")
     suspend fun getProblem(@Query("problemId") problemId: Int): TaggedProblem
 

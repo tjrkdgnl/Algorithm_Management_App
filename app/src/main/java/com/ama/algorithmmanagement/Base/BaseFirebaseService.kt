@@ -9,11 +9,11 @@ interface BaseFirebaseService {
 
     suspend fun getUserInfo(userId: String): UserInfo?
 
-    suspend fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
-    suspend fun setDateInfo(userId: String): Boolean
+    suspend fun setDateInfo(userId: String,count:Int): Boolean
 
-    suspend fun getDateInfos(userId: String?): DateInfoObject?
+    suspend fun getDateObject(userId: String?): DateObject?
 
     suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 

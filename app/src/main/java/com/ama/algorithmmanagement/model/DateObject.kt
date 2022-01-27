@@ -1,18 +1,16 @@
 package com.ama.algorithmmanagement.model
 
-data class DateInfoObject(
-    var count: Int,
+data class DateObject(
     val userId: String,
-    val dateList: MutableList<DateInfo>
+    val yearInfo:MutableList<YearInfo>
 ) {
-    constructor() : this(0, "", mutableListOf())
+    constructor() : this("", mutableListOf())
 
     fun toMap(): Map<String, Any> {
         val map = HashMap<String, Any>()
 
-        map["count"] = count
         map["userId"] = userId
-        map["dateList"] = dateList
+        map["year"] = yearInfo
         return map
     }
 

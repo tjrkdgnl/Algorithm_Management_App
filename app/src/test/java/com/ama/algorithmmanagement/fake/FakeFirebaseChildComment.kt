@@ -3,6 +3,7 @@ package com.ama.algorithmmanagement.fake
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -26,13 +27,12 @@ class FakeFirebaseChildComment {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-                DateUtils.createDate()
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext())
             )
     }
 
     @Test
-    fun getChildCommentObject() {
+    fun getChildCommentObject() = runBlockingTest {
         //given
         fakeFirebaseReference.setComment(mUserId, mTierType, 1111, "parent Comment")
 
@@ -52,13 +52,13 @@ class FakeFirebaseChildComment {
             assertEquals(it.commentId, commentId)
             assertEquals(it.commentChildList[0].comment, "child Comment")
             assertEquals(it.commentChildList[0].tierType, 1)
-            assertEquals(it.commentChildList[0].date, DateUtils.createDate())
+            assertEquals(it.commentChildList[0].date, DateUtils.getDate())
 
         }
     }
 
     @Test
-    fun getChildCommentObject_parentIsNull_returnFailture() {
+    fun getChildCommentObject_parentIsNull_returnFailture()= runBlockingTest {
         //no given
         //when
         val commentId = fakeFirebaseReference.getCommentObject(1111)?.let { commentObject ->
@@ -71,7 +71,7 @@ class FakeFirebaseChildComment {
     }
 
     @Test
-    fun getChildCommentObject_moreThanChildComment_returnChildCommentList() {
+    fun getChildCommentObject_moreThanChildComment_returnChildCommentList()= runBlockingTest {
         //given
         fakeFirebaseReference.setComment(mUserId, mTierType, 1111, "parent Comment")
 

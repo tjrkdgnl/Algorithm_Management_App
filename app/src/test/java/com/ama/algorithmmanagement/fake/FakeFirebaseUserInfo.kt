@@ -2,7 +2,6 @@ package com.ama.algorithmmanagement.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
@@ -29,8 +28,7 @@ class FakeFirebaseUserInfo {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-                DateUtils.createDate()
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext())
             )
     }
 
@@ -64,7 +62,7 @@ class FakeFirebaseUserInfo {
         fakeFirebaseReference.setUserInfo("skjh0818", "myPassword", null)
 
         //when
-        val checkUser = fakeFirebaseReference.checkUserInfo("skjh0818", "myPassword")
+        val checkUser = fakeFirebaseReference.signUpUserInfo("skjh0818", "myPassword")
 
         //then
         assertTrue(checkUser)
@@ -73,7 +71,7 @@ class FakeFirebaseUserInfo {
     @Test
     fun checkUserInfo_dontExist_returnFalse()= runBlockingTest {
         //when
-        val checkUser = fakeFirebaseReference.checkUserInfo("skjh0818", "myPassword")
+        val checkUser = fakeFirebaseReference.signUpUserInfo("skjh0818", "myPassword")
 
         //then
         assertFalse(checkUser)

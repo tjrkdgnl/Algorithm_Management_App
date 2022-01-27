@@ -27,7 +27,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
     private val mChildCommentTable = mApp.getString(R.string.childCommentTable)
     private val mTipTable = mApp.getString(R.string.tipTable)
 
-    private val mDate = DateUtils.createDate()
+    private val mDate = DateUtils.getDate()
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
         val tableKey = mFirebaseRef.child(mUserTable).key
@@ -37,7 +37,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             mFirebaseRef.child(mUserTable).push()
         }
 
-        return if (checkUserInfo(userId, userPw)) {
+        return if (signUpUserInfo(userId, userPw)) {
             val userInfo = UserInfo(userId, userPw, fcmToken)
             mFirebaseRef.child(mUserTable).push().setValue(userInfo)
 
@@ -72,7 +72,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
         val snapshot = mFirebaseRef.child(mUserTable).get().await()
 
         for (user in snapshot.children) {
@@ -88,7 +88,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return true
     }
 
-    override suspend fun setDateInfo(userId: String): Boolean {
+    override suspend fun setDateInfo(userId: String, count: Int): Boolean {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
@@ -98,33 +98,53 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
         val snapshot = mFirebaseRef.child(mDateTable).get().await()
 
-        val dateInfo = DateInfo(mDate)
+        val dateInfo = DateInfo(mDate, count)
 
         for (obj in snapshot.children) {
-            val dateObject = obj.getValue(DateInfoObject::class.java)
+            val dateObject = obj.getValue(DateObject::class.java)
 
             dateObject?.let { dateObj ->
                 if (dateObj.userId == userId) {
-                    if (dateObj.dateList.contains(dateInfo)) {
-                        Timber.e(mApp.getString(R.string.existDataOnFirebase, mDateTable))
-                        return false;
-                    }
 
-                    dateObj.count++
-                    dateObj.dateList.add(dateInfo)
-                    mFirebaseRef.child(mDateTable).child(obj.key!!).updateChildren(dateObj.toMap())
-                    return true
+                    for (yearInfo in dateObj.yearInfo) {
+                        if (DateUtils.getYear() == yearInfo.year) {
+
+                            for (monthInfo in yearInfo.monthInfoList) {
+                                if (monthInfo.dateList.contains(dateInfo)) {
+                                    Timber.e(
+                                        mApp.getString(
+                                            R.string.existDataOnFirebase,
+                                            mDateTable
+                                        )
+                                    )
+                                    return false;
+                                }
+
+                                if (DateUtils.getMonth() == monthInfo.month) {
+                                    monthInfo.count++
+                                    monthInfo.dateList.add(dateInfo)
+                                    mFirebaseRef.child(mDateTable).child(obj.key!!)
+                                        .updateChildren(dateObj.toMap())
+                                    return true
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        val dateInfoObject = DateInfoObject(1, userId, mutableListOf(dateInfo))
-        mFirebaseRef.child(mDateTable).push().setValue(dateInfoObject)
+        val yearInfo = YearInfo(
+            DateUtils.getYear(),
+            mutableListOf(MonthInfo(DateUtils.getMonth(), 1, mutableListOf(dateInfo)))
+        )
+        val dateObject = DateObject(userId, mutableListOf(yearInfo))
+        mFirebaseRef.child(mDateTable).push().setValue(dateObject)
 
         return true
     }
 
-    override suspend fun getDateInfos(userId: String?): DateInfoObject? {
+    override suspend fun getDateObject(userId: String?): DateObject? {
         val tableKey = mFirebaseRef.child(mDateTable).key
 
         if (tableKey == null) {
@@ -135,7 +155,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val snapshot = mFirebaseRef.child(mDateTable).get().await()
 
         for (obj in snapshot.children) {
-            val dateObject = obj.getValue(DateInfoObject::class.java)
+            val dateObject = obj.getValue(DateObject::class.java)
 
             dateObject?.let { dateObj ->
                 if (dateObj.userId == userId) {
