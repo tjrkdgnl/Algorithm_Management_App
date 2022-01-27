@@ -20,7 +20,7 @@ class TestTestIdeaViewModelTest {
 
         val fakeFirebaseReference = FakeFirebaseReference(
             FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-            DateUtils.createDate()
+            DateUtils.getDate()
         )
 
         val fakeNetworkService =

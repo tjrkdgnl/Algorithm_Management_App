@@ -24,7 +24,7 @@ interface BaseRepository {
 
     suspend fun setDateInfo(count:Int): Boolean
 
-    suspend fun getDateInfoObject(): DateInfoObject?
+    suspend fun getDateObject(): DateObject?
 
     suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 

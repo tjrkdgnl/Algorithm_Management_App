@@ -13,7 +13,7 @@ interface BaseFirebaseService {
 
     suspend fun setDateInfo(userId: String,count:Int): Boolean
 
-    suspend fun getDateInfos(userId: String?): DateInfoObject?
+    suspend fun getDateObject(userId: String?): DateObject?
 
     suspend fun setIdeaInfo(userId: String, url: String?, comment: String?, problemId: Int): Boolean
 

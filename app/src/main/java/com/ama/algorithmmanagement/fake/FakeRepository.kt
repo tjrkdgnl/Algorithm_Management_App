@@ -87,8 +87,8 @@ class FakeRepository(
         return mFakeFirebaseReference.setDateInfo(mUserId!!,count)
     }
 
-    override suspend fun getDateInfoObject(): DateInfoObject? {
-        return mFakeFirebaseReference.getDateInfos(mUserId)
+    override suspend fun getDateObject(): DateObject? {
+        return mFakeFirebaseReference.getDateObject(mUserId)
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.model.DateInfoObject
+import com.ama.algorithmmanagement.model.DateObject
 import kotlinx.coroutines.launch
 
 
@@ -19,8 +19,8 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
     private val _fcmToken = MutableLiveData<String>()
     val fcmToken: LiveData<String> = _fcmToken
 
-    private val _dateInfoObejct = MutableLiveData<DateInfoObject?>()
-    val dateInfoObejct: LiveData<DateInfoObject?> = _dateInfoObejct
+    private val _dateInfoObejct = MutableLiveData<DateObject?>()
+    val dateObejct: LiveData<DateObject?> = _dateInfoObejct
 
     var solvedProblemsCount :Int =0
 

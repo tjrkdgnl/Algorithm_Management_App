@@ -29,8 +29,7 @@ class FakeFirebaseUserInfo {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-                DateUtils.createDate()
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext())
             )
     }
 

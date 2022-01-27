@@ -99,12 +99,12 @@ class Repository(
         return mFirebaseService.setDateInfo(mUserId!!, count)
     }
 
-    override suspend fun getDateInfoObject(): DateInfoObject? {
+    override suspend fun getDateObject(): DateObject? {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
 
-        return mFirebaseService.getDateInfos(mUserId!!)
+        return mFirebaseService.getDateObject(mUserId!!)
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {

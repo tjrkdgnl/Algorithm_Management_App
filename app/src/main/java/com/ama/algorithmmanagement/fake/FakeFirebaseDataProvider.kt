@@ -14,19 +14,28 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
         mutableListOf()
     }
 
-    val dateSnapShot: MutableList<DateInfoObject> by lazy {
-        MutableList(20) {
-            DateInfoObject(mCount, mDefaultUserId, MutableList(20) {
-                DateInfo(DateUtils.createDate(),1)
-            })
+    val dateSnapShot: MutableList<DateObject> by lazy {
+        MutableList(1) {
+            val years = mutableListOf<YearInfo>( // 2년전부터 현재까지
+                YearInfo(DateUtils.getYear() - 2, mutableListOf()),
+                YearInfo(DateUtils.getYear() - 1, mutableListOf()),
+                YearInfo(DateUtils.getYear(), mutableListOf())
+            )
+
+            for (year in years) {
+                for (i in 0..11) { //1~12월
+                    year.monthInfoList.add(MonthInfo(i, 0, mutableListOf()))
+                }
+            }
+            DateObject(mDefaultUserId, years)
         }
     }
 
     val ideaSnapShot: MutableList<IdeaObject> by lazy {
         MutableList(mCount) {
-            IdeaObject(mDefaultUserId,mCount, MutableList(mCount) {
+            IdeaObject(mDefaultUserId, mCount, MutableList(mCount) {
                 IdeaInfos(mCount, mProblemId + it, MutableList(mCount) {
-                    IdeaInfo(null, "this is idea test ${it}", DateUtils.createDate())
+                    IdeaInfo(null, "this is idea test ${it}", DateUtils.getDate())
                 })
             })
         }
@@ -40,7 +49,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
                     mDefaultUserId,
                     it,
                     "this is comment $it",
-                    DateUtils.createDate(),
+                    DateUtils.getDate(),
                     10
                 )
             })
@@ -54,7 +63,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
                     "user_${it}",
                     it,
                     "this is child comment test $it",
-                    DateUtils.createDate()
+                    DateUtils.getDate()
                 )
             })
         }
@@ -84,7 +93,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
                     problems.problemList?.get(it)!!,
                     false,
                     if (it < 15) "this is tip test $it" else null,
-                    DateUtils.createDate()
+                    DateUtils.getDate()
                 )
             })
         }
