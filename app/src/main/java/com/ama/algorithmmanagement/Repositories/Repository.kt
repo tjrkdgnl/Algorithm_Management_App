@@ -79,8 +79,8 @@ class Repository(
         }
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        return mFirebaseService.checkUserInfo(userId, password)
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
+        return mFirebaseService.signUpUserInfo(userId, password)
     }
 
     override suspend fun getUserInfo(): UserInfo? {

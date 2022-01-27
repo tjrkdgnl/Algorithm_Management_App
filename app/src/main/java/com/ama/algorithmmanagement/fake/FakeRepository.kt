@@ -67,8 +67,8 @@ class FakeRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        return mFakeFirebaseReference.checkUserInfo(userId, password)
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
+        return mFakeFirebaseReference.signUpUserInfo(userId, password)
     }
 
     override suspend fun getUserInfo(): UserInfo? {

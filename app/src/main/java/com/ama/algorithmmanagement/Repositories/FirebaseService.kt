@@ -37,7 +37,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             mFirebaseRef.child(mUserTable).push()
         }
 
-        return if (checkUserInfo(userId, userPw)) {
+        return if (signUpUserInfo(userId, userPw)) {
             val userInfo = UserInfo(userId, userPw, fcmToken)
             mFirebaseRef.child(mUserTable).push().setValue(userInfo)
 
@@ -72,7 +72,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
         val snapshot = mFirebaseRef.child(mUserTable).get().await()
 
         for (user in snapshot.children) {

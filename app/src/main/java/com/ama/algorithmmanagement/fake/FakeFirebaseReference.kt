@@ -16,7 +16,7 @@ class FakeFirebaseReference(
         return userList.add(UserInfo(userId, userPw, fcmToken))
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
         val userList = mFakeFirebaseDataProvider.userSnapShot
 
         for (userInfo in userList) {

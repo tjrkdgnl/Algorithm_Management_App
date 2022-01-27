@@ -9,7 +9,7 @@ interface BaseFirebaseService {
 
     suspend fun getUserInfo(userId: String): UserInfo?
 
-    suspend fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
     suspend fun setDateInfo(userId: String,count:Int): Boolean
 
