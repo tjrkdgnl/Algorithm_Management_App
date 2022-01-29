@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "25968473910",
+    "firebase_url": "https://algorithmmanagementapp-default-rtdb.firebaseio.com",
     "project_id": "algorithmmanagementapp",
     "storage_bucket": "algorithmmanagementapp.appspot.com"
   },
@@ -19,6 +20,14 @@
           "android_info": {
             "package_name": "com.ama.algorithmmanagement",
             "certificate_hash": "a119bb6b73ca6217687d78a4f573aa751d579599"
+          }
+        },
+        {
+          "client_id": "25968473910-lq2cu0e5vg8n7v611pe785h9vsjar42e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ama.algorithmmanagement",
+            "certificate_hash": "149cc9e2349c12e488d77b64ea02deb34b4ee25b"
           }
         },
         {

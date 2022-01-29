@@ -11,7 +11,6 @@ import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import com.ama.algorithmmanagement.databinding.DefaultFragmentMainBinding
 import com.ama.algorithmmanagement.databinding.FragmentCommentBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyCommentViewModel
 
@@ -34,8 +33,9 @@ class PagerCommentFragment : KBaseFragment<FragmentCommentBinding>(R.layout.frag
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyCommentViewModel::class.java]
 
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = myCommentViewModel
         binding.rvMyComment.adapter = CommentListAdapter()
+        binding.rvMyComment.setHasFixedSize(false)
     }
-
 }

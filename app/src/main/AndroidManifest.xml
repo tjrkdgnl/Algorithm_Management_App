@@ -25,7 +25,10 @@
         <activity
             android:name=".Activity.kDefault.TryFailedActivity"
             android:exported="true"></activity>
-        <activity android:name=".Activity.test.TestDefaultActivity"></activity>
+
+        <activity android:name=".Activity.test.TestDefaultActivity">
+
+        </activity>
         <activity
             android:name=".Activity.kDefault.KNoTipActivity"
             android:exported="true">
@@ -38,7 +41,8 @@
         <activity android:name=".Activity.test.TestSharedActivity" />
         <activity android:name=".Activity.test.TestIdeaActivity" />
         <activity android:name=".Activity.test.TestDateActivity" />
-        <activity android:name=".Activity.test.TestCommentActivity" />
+        <activity android:name=".Activity.test.TestCommentActivity">
+        </activity>
         <activity android:name=".Activity.test.TestChildCommentActivity" />
         <activity android:name=".Activity.test.TestTippingItemAct" />
     </application>

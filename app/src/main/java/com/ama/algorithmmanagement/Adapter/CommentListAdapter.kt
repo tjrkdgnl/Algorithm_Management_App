@@ -23,12 +23,9 @@ class CommentListAdapter : RecyclerView.Adapter<CommentViewHolder>() {
         return list.size
     }
 
-    fun updateList(list: MutableList<CommentInfo>?) {
-        if (list.isNullOrEmpty())
-            return
-
-        for (i in list.indices) {
-            this.list.add(list[i])
+    fun updateList(commentList: MutableList<CommentInfo>?) {
+        commentList?.let {
+            list.addAll(it)
         }
         notifyDataSetChanged()
     }

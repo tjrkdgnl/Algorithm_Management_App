@@ -9,6 +9,7 @@ import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.Adapter.KNoTipProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.TryFailedAdapter
 import com.ama.algorithmmanagement.Adapter.CommentListAdapter
+import timber.log.Timber
 
 
 object BindingAdapterUtils {
@@ -91,7 +92,13 @@ object BindingAdapterUtils {
     @BindingAdapter("setMyCommentList")
     fun setMyCommentList(recyclerView: RecyclerView, commentInfo: MutableList<CommentInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as CommentListAdapter
-        recyclerViewAdapter.updateList(commentInfo)
+//        recyclerViewAdapter.updateList(commentInfo)
+
+        Timber.e("hongchul" + commentInfo.toString())
+
+        commentInfo?.let {
+            recyclerViewAdapter.updateList(it)
+        }
     }
 
     @JvmStatic
