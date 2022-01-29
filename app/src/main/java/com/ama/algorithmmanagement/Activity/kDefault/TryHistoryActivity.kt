@@ -24,7 +24,7 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         tryHistoryViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getFakeRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[TryHistoryViewModel::class.java]
 
         val tryHistoryAdapter = TryHistoryAdapter(this)

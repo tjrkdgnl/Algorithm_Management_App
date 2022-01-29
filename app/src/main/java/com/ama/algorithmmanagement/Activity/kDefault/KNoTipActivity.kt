@@ -19,7 +19,7 @@ class KNoTipActivity : KBaseActivity<ActivityNoTipBinding>(R.layout.activity_no_
         super.onCreate(savedInstanceState)
         noTipViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getFakeRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[KNoTipViewModel::class.java]
 
         binding.viewModel = noTipViewModel

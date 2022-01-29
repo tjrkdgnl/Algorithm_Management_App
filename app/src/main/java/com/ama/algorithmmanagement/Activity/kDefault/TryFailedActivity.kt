@@ -11,6 +11,9 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityTryFailedBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.TryFailedViewModel
 
+/**
+ * author
+ */
 class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activity_try_failed) {
 
     private lateinit var tryFailedViewModel: TryFailedViewModel
@@ -19,10 +22,18 @@ class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activ
         super.onCreate(savedInstanceState)
         tryFailedViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getFakeRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[TryFailedViewModel::class.java]
 
         binding.viewModel = tryFailedViewModel
         binding.rvTryFailed.adapter = TryFailedAdapter()
+
+        tryFailedViewModel.setSolvedacToken(
+            getString(
+                R.string.solvedacToken,
+                "s:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYW5kbGUiOiJza2poMDgxOCIsImlhdCI6MTY0MDMyMjMyN30.McETfhdB0ifUV5DCAxPxv1lEKOWmrE2f1Lz1k5AQMKc.oSZuHUp7e6llQUYp2KHZx4utH1XSS8Ile8R4rrfuO6U"
+            )
+        )
+
     }
 }

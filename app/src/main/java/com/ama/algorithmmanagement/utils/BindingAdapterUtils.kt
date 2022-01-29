@@ -92,10 +92,6 @@ object BindingAdapterUtils {
     @BindingAdapter("setMyCommentList")
     fun setMyCommentList(recyclerView: RecyclerView, commentInfo: MutableList<CommentInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as CommentListAdapter
-//        recyclerViewAdapter.updateList(commentInfo)
-
-        Timber.e("hongchul" + commentInfo.toString())
-
         commentInfo?.let {
             recyclerViewAdapter.updateList(it)
         }

@@ -5,27 +5,43 @@
             name="viewModel"
             type="com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel" />
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="Idea"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Idea"/>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_my_idea"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="16dp"-->
-<!--            app:setMyIdeaList="@{viewModel.myIdeaList}"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_idea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                app:setMyIdeaList="@{viewModel.ideaList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_idea"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="bottom|end"/>
+
+
+    </FrameLayout>
 
 </layout>
