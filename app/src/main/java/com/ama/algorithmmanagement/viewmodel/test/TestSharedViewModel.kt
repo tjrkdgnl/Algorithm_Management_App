@@ -32,7 +32,7 @@ class TestSharedViewModel(private val mRepository: BaseRepository) : ViewModel()
     fun confirmUserId() {
         viewModelScope.launch {
             try {
-                sharedPref.getUserId()?.let { id ->
+                _userId.value?.let { id ->
                     val user = mRepository.confirmUserInfo(id)
                     Timber.e(user.toString())
                 }

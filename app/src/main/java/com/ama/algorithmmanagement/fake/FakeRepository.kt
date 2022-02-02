@@ -67,8 +67,8 @@ class FakeRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
-        return mFakeFirebaseReference.checkUserInfo(userId, password)
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
+        return mFakeFirebaseReference.signUpUserInfo(userId, password)
     }
 
     override suspend fun getUserInfo(): UserInfo? {
@@ -87,8 +87,8 @@ class FakeRepository(
         return mFakeFirebaseReference.setDateInfo(mUserId!!,count)
     }
 
-    override suspend fun getDateInfoObject(): DateInfoObject? {
-        return mFakeFirebaseReference.getDateInfos(mUserId)
+    override suspend fun getDateObject(): DateObject? {
+        return mFakeFirebaseReference.getDateObject(mUserId)
     }
 
     override suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean {

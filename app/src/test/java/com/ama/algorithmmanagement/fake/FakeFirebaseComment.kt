@@ -3,6 +3,7 @@ package com.ama.algorithmmanagement.fake
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ama.algorithmmanagement.utils.DateUtils
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -27,15 +28,13 @@ class FakeFirebaseComment {
 
         fakeFirebaseReference =
             FakeFirebaseReference(
-
-                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-                DateUtils.createDate()
+                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext())
             )
     }
 
 
     @Test
-    fun getCommentObject() {
+    fun getCommentObject() = runBlockingTest {
         //given
 //        fakeFirebaseReference.setComment(mUserId,mTierType,1111, "이거 어떻게 풀어요?")
 
@@ -51,11 +50,11 @@ class FakeFirebaseComment {
         assertEquals(commentInfo?.commentChildCount, 0)
         assertEquals(commentInfo?.commentId, "skjh0818RandomNumber")
         assertEquals(commentInfo?.tierType, 1)
-        assertEquals(commentInfo?.date, DateUtils.createDate())
+        assertEquals(commentInfo?.date, DateUtils.getDate())
     }
 
     @Test
-    fun getCommentInfo_moreThanOneValue() {
+    fun getCommentInfo_moreThanOneValue()= runBlockingTest {
         //given
         fakeFirebaseReference.setComment(mUserId,mTierType,1111, "what?")
         fakeFirebaseReference.setComment(mUserId,mTierType,2222, "how?")
@@ -75,7 +74,7 @@ class FakeFirebaseComment {
     }
 
     @Test
-    fun getCommentInfo_moreThanComment() {
+    fun getCommentInfo_moreThanComment()= runBlockingTest {
         //given
         fakeFirebaseReference.setComment(mUserId,mTierType,1111, "what?")
         fakeFirebaseReference.setComment(mUserId,mTierType,1111, "why?")

@@ -2,13 +2,13 @@ package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.model.*
+import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.lang.NullPointerException
 
 class FakeFirebaseReference(
-    private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider,
-    private val mDate: String
+    private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider
 ) : BaseFirebaseService {
 
     override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
@@ -16,7 +16,7 @@ class FakeFirebaseReference(
         return userList.add(UserInfo(userId, userPw, fcmToken))
     }
 
-    override suspend fun checkUserInfo(userId: String, password: String): Boolean {
+    override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
         val userList = mFakeFirebaseDataProvider.userSnapShot
 
         for (userInfo in userList) {
@@ -40,24 +40,38 @@ class FakeFirebaseReference(
     }
 
     override suspend fun setDateInfo(userId: String,count:Int): Boolean {
-        val dateInfo = DateInfo(mDate,count)
+        val dateInfo = DateInfo(DateUtils.getDate(),count)
+        val year = DateUtils.getYear()
+        val month = DateUtils.getMonth()
 
-        for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
-            if (dateInfos.userId == userId) {
-                dateInfos.dateList.add(dateInfo)
-                return true
+        for (dateInfoObject in mFakeFirebaseDataProvider.dateSnapShot) {
+            if (dateInfoObject.userId == userId) {
+
+                for(yearInfo in dateInfoObject.yearInfo){
+                    if (year == yearInfo.year) {
+
+                        for(monthInfo in yearInfo.monthInfoList){
+                            if (month == monthInfo.month) {
+                                monthInfo.count++
+                                monthInfo.dateList.add(dateInfo)
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        val dateInfos = DateInfoObject(1, userId, mutableListOf(dateInfo))
-        mFakeFirebaseDataProvider.dateSnapShot.add(dateInfos)
+        val yearInfo = YearInfo(year, mutableListOf(MonthInfo(month, 1, mutableListOf(dateInfo))))
+        val dateObject = DateObject(userId, mutableListOf(yearInfo))
+        mFakeFirebaseDataProvider.dateSnapShot.add(dateObject)
+
         return true
     }
 
-    override suspend fun getDateInfos(userId: String?): DateInfoObject? {
-        for (dateInfos in mFakeFirebaseDataProvider.dateSnapShot) {
-            if (dateInfos.userId == userId) {
-                return dateInfos
+    override suspend fun getDateObject(userId: String?): DateObject? {
+        for (dateObject in mFakeFirebaseDataProvider.dateSnapShot) {
+            if (dateObject.userId == userId) {
+                return dateObject
             }
         }
         return null
@@ -70,7 +84,7 @@ class FakeFirebaseReference(
         problemId: Int
     ): Boolean {
 
-        val ideaInfo = IdeaInfo(url, comment, mDate)
+        val ideaInfo = IdeaInfo(url, comment, DateUtils.getDate())
         val ideaInfos = IdeaInfos(1, problemId, mutableListOf(ideaInfo))
 
         for (ideaObject in mFakeFirebaseDataProvider.ideaSnapShot) {
@@ -117,7 +131,7 @@ class FakeFirebaseReference(
         val commentId = "RandomNumber"
 
         val newCommentInfo =
-            CommentInfo(commentId, userId, tierType, comment, mDate, 0)
+            CommentInfo(commentId, userId, tierType, comment, DateUtils.getDate(), 0)
 
         for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentObject.problemId == problemId) {
@@ -150,7 +164,7 @@ class FakeFirebaseReference(
         commentId: String,
         comment: String
     ): Boolean {
-        val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
+        val childCommentInfo = ChildCommentInfo(userId, tierType, comment, DateUtils.getDate())
 
         for (childCommentObject in mFakeFirebaseDataProvider.childCommentSnapShot) {
             if (childCommentObject.commentId == commentId) {
@@ -189,7 +203,7 @@ class FakeFirebaseReference(
             problem,
             isShow,
             tipComment,
-            mDate
+            DateUtils.getDate()
         )
 
         for (tipProblemObject in mFakeFirebaseDataProvider.tipProblemSnapShot) {
@@ -217,7 +231,7 @@ class FakeFirebaseReference(
                     problem,
                     false,
                     null,
-                    mDate
+                    DateUtils.getDate()
                 )
             )
         }

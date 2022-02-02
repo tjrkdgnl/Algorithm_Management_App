@@ -30,10 +30,10 @@ class TestDateViewModel(private val mRepository: BaseRepository) : ViewModel() {
     fun getDateObj() {
         viewModelScope.launch {
             try {
-                val dateObj = mRepository.getDateInfoObject()
+                val dateObj = mRepository.getDateObject()
 
                 dateObj?.let {
-                    dateList.addAll(it.dateList)
+                    dateList.addAll(it.yearInfo[0].monthInfoList[0].dateList)
                 }
 
             } catch (e: Exception) {

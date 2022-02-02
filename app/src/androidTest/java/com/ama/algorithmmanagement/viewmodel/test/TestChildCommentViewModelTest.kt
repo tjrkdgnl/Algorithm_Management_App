@@ -5,7 +5,6 @@ import androidx.test.core.app.ApplicationProvider
 import com.ama.algorithmmanagement.fake.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.combineWith
-import com.ama.algorithmmanagement.utils.getOrAwaitValue
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -25,7 +24,7 @@ class TestChildCommentViewModelTest {
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.getDate()
         )
 
         val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
