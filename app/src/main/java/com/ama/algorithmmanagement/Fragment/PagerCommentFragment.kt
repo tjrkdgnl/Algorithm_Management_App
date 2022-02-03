@@ -33,7 +33,6 @@ class PagerCommentFragment : KBaseFragment<FragmentCommentBinding>(R.layout.frag
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyCommentViewModel::class.java]
 
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = myCommentViewModel
         binding.rvMyComment.adapter = CommentListAdapter()
         binding.rvMyComment.setHasFixedSize(false)

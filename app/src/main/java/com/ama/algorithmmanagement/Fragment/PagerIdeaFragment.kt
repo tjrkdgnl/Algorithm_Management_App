@@ -32,7 +32,6 @@ class PagerIdeaFragment : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_i
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyIdeaInfoViewModel::class.java]
 
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = myIdeaInfoViewModel
     }
 
