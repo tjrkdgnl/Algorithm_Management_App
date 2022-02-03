@@ -12,12 +12,13 @@ import timber.log.Timber
 class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val tryFailedList = ObservableArrayList<TaggedProblem>()
+    val isGetSolvedAcToken = MutableLiveData<Boolean>()
     val solvedacToken = MutableLiveData<String>()
 
 
     init {
         setUserInfo()
-        getTryFailedProblem()
+//        getTryFailedProblem()
     }
 
     fun setUserInfo() {
@@ -30,7 +31,7 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
         solvedacToken.value = token
     }
 
-    private fun getTryFailedProblem() {
+    fun getTryFailedProblem() {
         viewModelScope.launch {
             try {
                 val lstUnSolvedProblem = mRepository.getUnSolvedProblems(solvedacToken.value) // List<ProblemStatus>
