@@ -6,18 +6,24 @@ import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.model.CommentObject
+import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 
-class MyCommentViewModel(private var mRepository: BaseRepository) :ViewModel() {
+class MyCommentViewModel(
+    private var mRepository: BaseRepository,
+    mLifecycleOwner: LifecycleOwner
+) : ViewModel() {
 
     val myCommentList = ObservableArrayList<CommentInfo>()
-    var problemId = MutableLiveData<String>()
+    var problemId = MutableLiveData<Int>()
 
     init {
         setUserInfo()
-        getMyCommentList()
+        problemId.observe(mLifecycleOwner, { id ->
+            getMyCommentList(id)
+        })
     }
 
 
@@ -27,17 +33,23 @@ class MyCommentViewModel(private var mRepository: BaseRepository) :ViewModel() {
         }
     }
 
-    private fun getMyCommentList() {
+    private fun getMyCommentList(_problemId: Int) {
         viewModelScope.launch {
             try {
-                val commentObj = mRepository.getCommentObject(1111)
-                commentObj?.let {
-                    myCommentList.addAll(commentObj.commentList)
-                    Timber.e(commentObj.toString())
+                val commentObj = mRepository.getCommentObject(_problemId)
+                for (i in commentObj!!.commentList.indices) {
+                    if (commentObj.commentList[i].userId.equals(mRepository.getUserInfo())) {
+                        myCommentList.add(commentObj.commentList[i])
+                        Timber.e(commentObj.toString())
+                    }
                 }
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
         }
+    }
+
+    fun setProblemId(_problemId: Int?) {
+        problemId.value = _problemId
     }
 }

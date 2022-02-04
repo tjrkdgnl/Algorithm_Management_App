@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.Adapter.CommentListAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
@@ -12,9 +13,10 @@ import com.ama.algorithmmanagement.Base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentCommentBinding
+import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyCommentViewModel
 
-class PagerCommentFragment : KBaseFragment<FragmentCommentBinding>(R.layout.fragment_comment) {
+class PagerCommentFragment(val problemId: Int?) : KBaseFragment<FragmentCommentBinding>(R.layout.fragment_comment) {
 
     private lateinit var myCommentViewModel: MyCommentViewModel
 
@@ -30,8 +32,10 @@ class PagerCommentFragment : KBaseFragment<FragmentCommentBinding>(R.layout.frag
 
         myCommentViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[MyCommentViewModel::class.java]
+
+        myCommentViewModel.setProblemId(problemId)
 
         binding.viewModel = myCommentViewModel
         binding.rvMyComment.adapter = CommentListAdapter()

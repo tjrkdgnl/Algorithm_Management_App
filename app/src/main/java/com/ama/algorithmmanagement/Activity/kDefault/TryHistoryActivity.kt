@@ -22,13 +22,20 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val getIntentData = intent
+        var problemId: Int? = null
+        if ( getIntentData.extras != null ) {
+            problemId = getIntentData.getIntExtra("problemId", 0)
+        }
+
         tryHistoryViewModel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[TryHistoryViewModel::class.java]
 
         val tryHistoryAdapter = TryHistoryAdapter(this)
-        tryHistoryAdapter.addFragment(PagerCommentFragment())
+        tryHistoryAdapter.addFragment(PagerCommentFragment(problemId))
         tryHistoryAdapter.addFragment(PagerIdeaFragment())
 
         binding.viewModel = tryHistoryViewModel
@@ -44,7 +51,7 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
 
         TabLayoutMediator(binding.tryHistoryTabLayout, binding.vpTryHistory) { tab, position ->
             if (position == 0)
-                tab.text = "나의댓글"
+                tab.text = "내가 남긴 질문 리스트"
             else
                 tab.text = "아이디어"
         }.attach()

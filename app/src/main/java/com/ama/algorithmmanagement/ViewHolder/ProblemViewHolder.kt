@@ -1,7 +1,9 @@
 package com.ama.algorithmmanagement.ViewHolder
 
+import android.content.Intent
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.ama.algorithmmanagement.Activity.kDefault.TryHistoryActivity
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.R
@@ -40,6 +42,9 @@ class ProblemViewHolder(private val parent: ViewGroup) :
                     }
                     1-> {
                         // 문제 풀이 히스토리
+                        val intent = Intent(parent.context, TryHistoryActivity::class.java)
+                        intent.putExtra("problemId", data.problemId)
+                        parent.context.startActivity(intent)
                     }
                 }
             }
