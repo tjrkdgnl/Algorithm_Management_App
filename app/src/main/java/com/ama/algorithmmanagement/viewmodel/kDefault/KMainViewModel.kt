@@ -12,10 +12,7 @@ import com.ama.algorithmmanagement.fake.FakeFirebaseDataProvider
 import com.ama.algorithmmanagement.fake.FakeFirebaseReference
 import com.ama.algorithmmanagement.fake.FakeRepository
 import com.ama.algorithmmanagement.fake.FakeSharedPreference
-import com.ama.algorithmmanagement.model.DateInfoObject
-import com.ama.algorithmmanagement.model.Problems
-import com.ama.algorithmmanagement.model.Stats
-import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -28,56 +25,66 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
 
     private val fakeFirebaseDataProvider = FakeFirebaseDataProvider(AMAApplication.INSTANCE)
 
+    // 다시 풀어볼 문제 라이브데이터
     private val _retryProblems = MutableLiveData<MutableList<TipProblemInfo>>()
     val retryProblems: LiveData<MutableList<TipProblemInfo>>
         get() = _retryProblems
 
-
+    // 유저 통계 (티어별 통계) 라이브데이터
     private val _userStats = MutableLiveData<List<Stats>>()
     val userStats: LiveData<List<Stats>>
         get() = _userStats
 
+    // 해결한 문제 라이브데이터
     private val _userSolvedProblems = MutableLiveData<Problems>()
     val userSolvedProblem: LiveData<Problems>
         get() = _userSolvedProblems
 
-    private val _userDateInfo = MutableLiveData<DateInfoObject>()
-    val userDateInfo:LiveData<DateInfoObject>
+    // 월별 통계 라이브 데이터
+    private val _userDateInfo = MutableLiveData<DateObject>()
+    val userDateInfo:LiveData<DateObject>
         get() = _userDateInfo
 
+    // 월별 통계 현재 보여지는 날짜 라이브데이터
     private val _dateStatsCurrentDate = MutableLiveData<String>(DateUtils.getCalendarYearMonth())
     val dateStatsCurrentDate:LiveData<String>
         get() = _dateStatsCurrentDate
 
+    // navigation drawer 에대한 상태값
     private val _isOpenDrawer = MutableLiveData<Boolean>(false)
     val isOpenDrawer:LiveData<Boolean>
         get() = _isOpenDrawer
 
+    // 월별 통계데이터 불러오기
     private  fun loadUserDateInfo(){
         viewModelScope.launch {
             try{
-                _userDateInfo.value = mRepository.getDateInfoObject()
-                Timber.e("date info ${mRepository.getDateInfoObject()?.dateList}")
+                _userDateInfo.value = mRepository.getDateObject()
             }catch (e:Exception){
                 Timber.e(e.message.toString())
             }
         }
     }
-    fun toggleOpenDrawer(){
+    // navigation drawer 의 상태값 변경
+    fun toggleOpenDrawer(value:Boolean){
         this.isOpenDrawer.value?.let{
-            _isOpenDrawer.value = !it
+            _isOpenDrawer.value = value
         }
     }
+    // 유저가 해결한 문제 불러오기
     private  fun loadUserSolvedProblemList() {
         viewModelScope.launch {
             try {
                 _userSolvedProblems.value = mRepository.getSolvedProblems()
+                Timber.e("load user solved problem ${mRepository.getSolvedProblems()}")
+                Timber.e("solved api ${userSolvedProblem.value}")
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
         }
     }
 
+    // 유저가 푼 문제 통계(티어별로 몇개 풀었는지)
     private  fun loadUserStatsList() {
         viewModelScope.launch {
             try {
@@ -88,29 +95,34 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
         }
     }
 
+    // 다시 풀어볼 문제
     private fun loadRetryProblems() {
         viewModelScope.launch {
             try {
-                val list = mRepository.getTippingProblem()
-                Timber.e("lis ${list.toString()}")
+                val list = mRepository.getNotTippingProblem()
+                Timber.e("list : ${list.toString()}")
                 _retryProblems.value = list?.problemInfoList
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
         }
     }
+    // 월별통계에서 현재 표시되고 있는 날짜 다음달로 변경
     fun nextMonth(){
         DateUtils.nextMonth()
         _dateStatsCurrentDate.value = DateUtils.getCalendarYearMonth()
     }
+    // 월별통계에서 현재 표시되고 있는 날짜 이전달로 변경
     fun previousMonth(){
         DateUtils.prevMonth()
         _dateStatsCurrentDate.value = DateUtils.getCalendarYearMonth()
     }
 
+    // 유저 회원가입
     fun setUserId(){
         viewModelScope.launch {
-            mRepository.setUserInfo("seungho0510","1234","")
+            val result = mRepository.setUserInfo("seungho0510","1234","")
+            Timber.e("결과 $result")
         }
     }
 
