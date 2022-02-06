@@ -19,7 +19,7 @@ class MyCommentViewModel(
     var problemId = MutableLiveData<Int>()
 
     init {
-        setSampleCommentData()
+//        setSampleCommentData()
         problemId.observe(mLifecycleOwner!!, { id ->
             Timber.d(id.toString())
             getMyCommentList(id)
