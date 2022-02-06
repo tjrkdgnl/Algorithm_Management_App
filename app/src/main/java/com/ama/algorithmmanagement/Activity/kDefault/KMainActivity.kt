@@ -1,10 +1,7 @@
 package com.ama.algorithmmanagement.Activity.kDefault
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +13,6 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMainBinding
-import com.ama.algorithmmanagement.utils.TierColors
 import com.ama.algorithmmanagement.viewmodel.kDefault.KMainViewModel
 import com.google.android.material.tabs.TabLayout
 import timber.log.Timber
@@ -24,6 +20,7 @@ import timber.log.Timber
 class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var mainViewModel: KMainViewModel
     private lateinit var drawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(
@@ -36,10 +33,10 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             viewmodel = mainViewModel
             rvRetryProblem.adapter = KRetryProblemsAdapter()
             rvDateGrid.adapter = KUserDateInfoAdapter()
-            position = TierColors.BRONZE
+            position = 0 // 처음 보여줄 그래프는 브론즈
             tiersTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    binding.appBarMain.contentMain.position = tab?.position
+                    position = tab?.position
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -64,6 +61,7 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             }
 
             override fun onDrawerOpened(drawerView: View) {
+                mainViewModel.toggleOpenDrawer(true)
             }
 
             override fun onDrawerClosed(drawerView: View) {
@@ -71,7 +69,7 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 // 화면을 슬라이드 하거나 버튼을 클릭하는 두가지 방법이 있음
                 // 슬라이드를 통해 drawer navigation 을 작동시키면 뷰모델 상태값이 변하지 않기떄문에
                 // drawer 리스너에서 상태를 변경해줘야됨
-                mainViewModel.toggleOpenDrawer()
+                mainViewModel.toggleOpenDrawer(false)
             }
 
             override fun onDrawerStateChanged(newState: Int) {
