@@ -1,35 +1,38 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.*
-import com.ama.algorithmmanagement.Application.AMAApplication
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.CommentInfo
-import com.ama.algorithmmanagement.model.CommentObject
-import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 class MyCommentViewModel(
     private var mRepository: BaseRepository,
-    mLifecycleOwner: LifecycleOwner
+    mLifecycleOwner: LifecycleOwner?
 ) : ViewModel() {
 
     val myCommentList = ObservableArrayList<CommentInfo>()
     var problemId = MutableLiveData<Int>()
 
     init {
-        setUserInfo()
-        problemId.observe(mLifecycleOwner, { id ->
+        setSampleCommentData()
+        problemId.observe(mLifecycleOwner!!, { id ->
+            Timber.d(id.toString())
             getMyCommentList(id)
         })
     }
 
-
-    fun setUserInfo() {
+    private fun setSampleCommentData() {
         viewModelScope.launch {
-            mRepository.setUserInfo("hongdroid94", "1234")
+            try {
+                mRepository.setComment(12789, "hello write by hongchul comment")
+            } catch (e: Exception) {
+                Timber.e(e.message.toString())
+            }
         }
     }
 
@@ -38,7 +41,7 @@ class MyCommentViewModel(
             try {
                 val commentObj = mRepository.getCommentObject(_problemId)
                 for (i in commentObj!!.commentList.indices) {
-                    if (commentObj.commentList[i].userId.equals(mRepository.getUserInfo())) {
+                    if (commentObj.commentList[i].userId == mRepository.getUserInfo()?.userId) {
                         myCommentList.add(commentObj.commentList[i])
                         Timber.e(commentObj.toString())
                     }
@@ -50,6 +53,6 @@ class MyCommentViewModel(
     }
 
     fun setProblemId(_problemId: Int?) {
-        problemId.value = _problemId
+        problemId.value = _problemId!!
     }
 }

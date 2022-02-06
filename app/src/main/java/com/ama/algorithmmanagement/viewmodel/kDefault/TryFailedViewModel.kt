@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
@@ -18,22 +19,18 @@ class TryFailedViewModel(
     val tryFailedList = ObservableArrayList<TaggedProblem>()
     val solvedacToken = MutableLiveData<String>()
 
+    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+
     init {
-        setUserInfo()
+        sharedPref.setUserId("hongdroid94") // todo : 임시..
         solvedacToken.observe(mLifecycleOwner!!, { token ->
             getTryFailedProblem(token)
         })
 
     }
 
-    fun setUserInfo() {
-        viewModelScope.launch {
-            mRepository.setUserInfo("hongdroid94", "1234")
-        }
-    }
-
     fun setSolvedacToken(token: String?) {
-        solvedacToken.value = token
+        solvedacToken.value = token!!
     }
 
     private fun getTryFailedProblem(token: String?) {
