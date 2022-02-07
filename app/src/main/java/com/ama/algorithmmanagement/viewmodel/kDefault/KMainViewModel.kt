@@ -23,8 +23,6 @@ import kotlin.math.log
 
 class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
 
-    private val fakeFirebaseDataProvider = FakeFirebaseDataProvider(AMAApplication.INSTANCE)
-
     // 다시 풀어볼 문제 라이브데이터
     private val _retryProblems = MutableLiveData<MutableList<TipProblemInfo>>()
     val retryProblems: LiveData<MutableList<TipProblemInfo>>
@@ -66,10 +64,16 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
         }
     }
     // navigation drawer 의 상태값 변경
-    fun toggleOpenDrawer(value:Boolean){
+    fun toggleDrawer(){
         this.isOpenDrawer.value?.let{
-            _isOpenDrawer.value = value
+            _isOpenDrawer.value = !isOpenDrawer.value!!
         }
+    }
+    fun openDrawer(){
+        _isOpenDrawer.value = true
+    }
+    fun closeDrawer(){
+        _isOpenDrawer.value = false
     }
     // 유저가 해결한 문제 불러오기
     private  fun loadUserSolvedProblemList() {
@@ -122,7 +126,6 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
     fun setUserId(){
         viewModelScope.launch {
             val result = mRepository.setUserInfo("seungho0510","1234","")
-            Timber.e("결과 $result")
         }
     }
 

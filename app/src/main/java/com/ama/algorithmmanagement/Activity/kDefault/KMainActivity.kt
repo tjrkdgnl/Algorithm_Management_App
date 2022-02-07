@@ -61,7 +61,7 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                mainViewModel.toggleOpenDrawer(true)
+                mainViewModel.openDrawer()
             }
 
             override fun onDrawerClosed(drawerView: View) {
@@ -69,7 +69,7 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 // 화면을 슬라이드 하거나 버튼을 클릭하는 두가지 방법이 있음
                 // 슬라이드를 통해 drawer navigation 을 작동시키면 뷰모델 상태값이 변하지 않기떄문에
                 // drawer 리스너에서 상태를 변경해줘야됨
-                mainViewModel.toggleOpenDrawer(false)
+                mainViewModel.closeDrawer()
             }
 
             override fun onDrawerStateChanged(newState: Int) {
