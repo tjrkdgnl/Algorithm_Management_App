@@ -1,7 +1,11 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.flow.collect
@@ -12,25 +16,28 @@ import timber.log.Timber
  * author  : hongdroid94
  * summary : 나의 아이디어 작성 뷰 모델
  */
-class MyIdeaInfoViewModel(private val mRepository: BaseRepository) :ViewModel() {
+class MyIdeaInfoViewModel(
+    private val mRepository: BaseRepository,
+    mLifecycleOwner: LifecycleOwner?
+) : ViewModel() {
 
     var ideaList = ObservableArrayList<IdeaInfo>()
+    var problemId = MutableLiveData<Int>()
+    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
-        getMyIdeaList()
+        sharedPref.setUserId("testID") // todo : 임시..
+        problemId.observe(mLifecycleOwner!!, { id ->
+            getMyIdeaList(id)
+        })
     }
 
-    private fun getMyIdeaList() {
+    private fun getMyIdeaList(_problemId: Int) {
         viewModelScope.launch {
             try {
-                val lstTippingProblem = mRepository.getTippingProblem()?.problemInfoList
-                if (lstTippingProblem != null) {
-//                    for (i in lstTippingProblem.indices) {
-//                        // todo - 넘겨줘야하는 인자가 Flow 활용 문이 있는거같아서 강휘에게 질문 필요
-//                        mRepository.getIdeaInfos(lstTippingProblem[i].problem!!.problemId).collect {
-//                            emit(it)
-//                        }
-//                    }
+                mRepository.getIdeaInfos(1111).collect {
+                    Timber.d(it!!.ideaList.toString())
+                    ideaList.addAll(it!!.ideaList)
                 }
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
@@ -42,10 +49,14 @@ class MyIdeaInfoViewModel(private val mRepository: BaseRepository) :ViewModel() 
         viewModelScope.launch {
 //            check.value?.let {
 //                if (it) {
-                    mRepository.setIdeaInfo("test_url", "comment_test_value", 1111)
+            mRepository.setIdeaInfo("test_url", "comment_test_value", 1111)
 //                }
 //            }
         }
+    }
+
+    fun setProblemId(_problemId: Int?) {
+        problemId.value = _problemId!!
     }
 
 }

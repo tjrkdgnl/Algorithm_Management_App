@@ -99,9 +99,11 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("setMyIdeaList")
-    fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>) {
+    fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as TestIdeaAdpater
-        recyclerViewAdapter.updateList(ideaInfo)
+        ideaInfo?.let {
+            recyclerViewAdapter.updateList(ideaInfo)
+        }
     }
 
 }

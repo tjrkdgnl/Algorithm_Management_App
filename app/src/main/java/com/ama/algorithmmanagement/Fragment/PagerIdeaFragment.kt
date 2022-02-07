@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Adapter.test.TestIdeaAdpater
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import com.ama.algorithmmanagement.databinding.DefaultFragmentMainBinding
 import com.ama.algorithmmanagement.databinding.FragmentIdeaBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
 
-class PagerIdeaFragment : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_idea) {
+class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_idea) {
 
     private lateinit var myIdeaInfoViewModel: MyIdeaInfoViewModel
 
@@ -29,10 +29,14 @@ class PagerIdeaFragment : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         myIdeaInfoViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[MyIdeaInfoViewModel::class.java]
 
+        myIdeaInfoViewModel.setProblemId(problemId)
+
         binding.viewModel = myIdeaInfoViewModel
+        binding.rvMyIdea.adapter = TestIdeaAdpater()
+        binding.rvMyIdea.setHasFixedSize(false)
     }
 
 }

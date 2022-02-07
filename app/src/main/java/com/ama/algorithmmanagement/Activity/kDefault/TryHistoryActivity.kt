@@ -36,7 +36,7 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
 
         val tryHistoryAdapter = TryHistoryAdapter(this)
         tryHistoryAdapter.addFragment(PagerCommentFragment(problemId))
-        tryHistoryAdapter.addFragment(PagerIdeaFragment())
+        tryHistoryAdapter.addFragment(PagerIdeaFragment(problemId))
 
         binding.viewModel = tryHistoryViewModel
         binding.vpTryHistory.let {

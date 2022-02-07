@@ -21,7 +21,11 @@
         <activity
             android:name=".Activity.kDefault.TryFailedActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".Activity.test.TestDefaultActivity">
@@ -30,11 +34,7 @@
         <activity
             android:name=".Activity.kDefault.KNoTipActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
