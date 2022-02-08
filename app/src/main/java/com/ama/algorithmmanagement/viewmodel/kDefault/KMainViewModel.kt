@@ -66,7 +66,7 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
     // navigation drawer 의 상태값 변경
     fun toggleDrawer(){
         this.isOpenDrawer.value?.let{
-            _isOpenDrawer.value = !isOpenDrawer.value!!
+            _isOpenDrawer.value = !it
         }
     }
     fun openDrawer(){

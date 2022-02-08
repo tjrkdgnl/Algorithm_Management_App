@@ -75,7 +75,9 @@ object MpChartUtils {
                     if(displayName.language=="ko"){
                         if(hashMap.containsKey(displayName.name)){
                             // 해시맵에 키가 존재할경우 1씩 증가시키고 아닐경우 1로 세팅
-                            hashMap[displayName.name] = hashMap[displayName.name]!!.plus(1)
+                            hashMap[displayName.name]?.let {
+                                hashMap[displayName.name] = it + 1
+                            }
 
                         }else{
                             hashMap[displayName.name] = 1
