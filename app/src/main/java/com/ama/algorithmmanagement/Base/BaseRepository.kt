@@ -34,7 +34,7 @@ interface BaseRepository {
 
     suspend fun getCommentObject(problemId: Int): CommentObject?
 
-    suspend fun setChildComment(commentId: String, comment: String): Boolean
+    suspend fun setChildComment(problemId: Int,commentId: String, comment: String): Boolean
 
     suspend fun getChildCommentObject(commentId: String): ChildCommentObject?
 

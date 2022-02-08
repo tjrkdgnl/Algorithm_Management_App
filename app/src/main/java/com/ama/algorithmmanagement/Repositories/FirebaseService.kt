@@ -264,7 +264,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
         val commentId = RandomIdGenerator.generateRandDomId()
 
-        val commentInfo = CommentInfo(commentId, userId, tierType, comment, mDate, 0)
+        val commentInfo = CommentInfo(problemId, commentId, userId, tierType, comment, mDate, 0)
 
         val snapShot = mFirebaseRef.child(mCommentTable).get().await()
 
@@ -309,7 +309,59 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
+    private suspend fun getChildCountOfCommentInfo(
+        problemId: Int,
+        commentId: String
+    ): Triple<String, Int, Int>? {
+        val tableKey = mFirebaseRef.child(mCommentTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mCommentTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mCommentTable).get().await()
+
+        for (obj in snapshot.children) {
+            val commentObject = obj.getValue(CommentObject::class.java)
+
+            commentObject?.let {
+                if (it.problemId == problemId) {
+
+                    for (commentInfo in it.commentList.withIndex()) {
+                        if (commentInfo.value.commentId == commentId) {
+                            return Triple(
+                                mFirebaseRef.child(tableKey).child(obj.key!!).path.toString(),
+                                commentInfo.index,
+                                commentInfo.value.commentChildCount
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
+    private fun runTransaction(list: MutableList<Pair<String, Any>>) {
+        val updateMap = HashMap<String, Any>()
+
+        for (pair in list) {
+            updateMap[pair.first] = pair.second
+        }
+
+        mFirebaseRef.updateChildren(updateMap) { error, ref ->
+            if (error != null) {
+                Timber.e(error.toException())
+            } else{
+                list.clear()
+            }
+        }
+    }
+
     override suspend fun setChildComment(
+        problemId: Int,
         userId: String,
         tierType: Int,
         commentId: String,
@@ -322,27 +374,71 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             mFirebaseRef.child(mChildCommentTable).push()
         }
 
+        val updateList = mutableListOf<Pair<String, Any>>()
+
         val childCommentInfo = ChildCommentInfo(userId, tierType, comment, mDate)
 
         val snapShot = mFirebaseRef.child(mChildCommentTable).get().await()
 
+        val childCountInfo = getChildCountOfCommentInfo(problemId, commentId)
+
+        val key = childCountInfo?.first
+        val pos = childCountInfo?.second
+        val currentCount = childCountInfo?.third
+
         for (obj in snapShot.children) {
             val childCommentObject = obj.getValue(ChildCommentObject::class.java)
 
-            childCommentObject?.let {
-                if (it.commentId == commentId) {
-                    it.commentChildList.add(childCommentInfo)
-                    it.count = it.commentChildList.size
-                    mFirebaseRef.child(tableKey!!).child(obj.key!!).updateChildren(it.toMap())
+            childCommentObject?.let { childComment ->
+                if (childComment.commentId == commentId) {
+
+                    if (childCountInfo != null) {
+                        childComment.commentChildList.add(childCommentInfo)
+                        childComment.count = childComment.commentChildList.size
+
+                        updateList.add(
+                            Pair(
+                                mFirebaseRef.child(tableKey!!).child(obj.key!!).path.toString(),
+                                childComment
+                            )
+                        )
+                        updateList.add(
+                            Pair(
+                                "${key}/commentList/${pos}/commentChildCount",
+                                currentCount!! + 1
+                            )
+                        )
+
+                        runTransaction(updateList)
+                    }
                     return true
                 }
             }
         }
 
-        val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
-        mFirebaseRef.child(mChildCommentTable).push().setValue(childCommentObject)
-        return true
+        return if (childCountInfo != null) {
+            updateList.add(
+                Pair(
+                    mFirebaseRef.child(mChildCommentTable).push().path.toString(),
+                    ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
+                )
+            )
+
+            updateList.add(
+                Pair(
+                    "${key}/commentList/${pos}/commentChildCount",
+                    currentCount!! + 1
+                )
+            )
+
+            runTransaction(updateList)
+            true
+
+        } else {
+            false
+        }
     }
+
 
     override suspend fun getChildCommentObject(commentId: String?): ChildCommentObject? {
         val tableKey = mFirebaseRef.child(mChildCommentTable).key
