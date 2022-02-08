@@ -1,8 +1,12 @@
 package com.ama.algorithmmanagement.fake
 
-import com.ama.algorithmmanagement.Model.*
+import android.app.Application
+import com.ama.algorithmmanagement.model.*
+import com.ama.algorithmmanagement.R
 
-class FakeNetWorkDataProvider {
+class FakeNetWorkDataProvider(private val mApp: Application) {
+    private val mProblemId = mApp.getString(R.string.default_problemId).toInt()
+    private val mCount = mApp.getString(R.string.default_count).toInt()
 
     fun getProblem(problemId: Int): TaggedProblem {
         return TaggedProblem(
@@ -21,9 +25,9 @@ class FakeNetWorkDataProvider {
 
     fun getSolvedAlgorithms(userId: String): Problems {
         return Problems(
-            30, MutableList(30) {
+            mCount, MutableList(mCount) {
                 TaggedProblem(
-                    it + 1000, "A+B", true, false, 151801, it + 1, 17, true, it + 2.333,
+                    it + mProblemId, "A+B", true, false, 151801, it + 1, 17, true, it + 2.333,
                     mutableListOf(
                         Tag(
                             "arithmetic",
@@ -40,7 +44,7 @@ class FakeNetWorkDataProvider {
 
     fun getSearchProblemList(problemId: Int): Problems {
         return Problems(
-            30, MutableList(30) {
+            mCount, MutableList(mCount) {
                 TaggedProblem(
                     it + problemId, "A+B", true, false, 151801, it + 1, 17, true, it + 2.333,
                     mutableListOf(
@@ -58,14 +62,15 @@ class FakeNetWorkDataProvider {
     }
 
     fun getStatsList(): List<Stats> {
-        return MutableList<Stats>(20) {
+        return MutableList<Stats>(mCount + 1) {
             Stats(it, it + 116, it + 5, 0, it, it + 3360)
         }
     }
 
     fun getProblemStatsList(): List<ProblemStatus> {
-        return MutableList<ProblemStatus>(20) {
-            ProblemStatus(it + 1000, if (it > 10) "tried" else "solved")
+        return MutableList<ProblemStatus>(mCount) {
+            ProblemStatus(it + mProblemId, if (it > 10) "tried" else "solved")
         }
     }
+
 }

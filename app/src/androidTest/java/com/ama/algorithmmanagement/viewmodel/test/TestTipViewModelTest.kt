@@ -25,10 +25,10 @@ class TestTipViewModelTest {
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.getDate()
         )
 
-        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         testTipViewModel = TestTipViewModel(
             FakeRepository(
@@ -41,6 +41,19 @@ class TestTipViewModelTest {
     }
 
     @Test
+    fun getNotTippingProblem(){
+        //when
+        val obj = testTipViewModel.getNottipProblemObject()
+
+        assertEquals(obj!!.problemInfoList[0].tipComment, null)
+        assertEquals(obj.problemInfoList[0].isShow, false)
+        assertEquals(obj.problemInfoList[0].problem.problemId, 1010)
+        assertEquals(obj.problemInfoList[0].problem.titleKo, "A+B")
+        assertEquals(obj.problemInfoList[0].problem.level, 11)
+
+    }
+
+    @Test
     fun setTippingProblem() = runBlocking {
         //given
         val problem = mFakeNetworkService.getProblem(1111)
@@ -48,9 +61,9 @@ class TestTipViewModelTest {
 //        when
         testTipViewModel.setTippingProblem(problem, false, "재귀를 사용하면 좋다")
 
-        testTipViewModel.initTipProblemObject()
+        testTipViewModel.getTipProblemObject()
 
-        val lst = testTipViewModel.tipProbleObject?.problemList!!
+        val lst = testTipViewModel.tipProbleObject?.problemInfoList!!
 
         //then
         assertEquals(lst[0].tipComment, "재귀를 사용하면 좋다")

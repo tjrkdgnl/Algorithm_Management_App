@@ -1,8 +1,10 @@
 package com.ama.algorithmmanagement.Base
 
-import com.ama.algorithmmanagement.Model.*
+import com.ama.algorithmmanagement.model.*
+import kotlinx.coroutines.flow.Flow
 
 interface BaseRepository {
+    suspend fun getProblem(problemId: Int): TaggedProblem
 
     suspend fun getSolvedProblems(): Problems
 
@@ -10,43 +12,49 @@ interface BaseRepository {
 
     suspend fun getUserStats(): List<Stats>
 
-    suspend fun getBOJUserInfo(): List<ProblemStatus>
+    suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus>
 
-    fun setUserInfo(userId: String, password: String, fcmToken: String? = null)
+    suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 
-    fun checkUserInfo(userId: String, password: String): Boolean
+    suspend fun confirmUserInfo(userId: String) : Boolean
 
-    fun getuserInfo(): UserInfo?
+    suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
-    fun setDateInfo(): Boolean
+    suspend fun getUserInfo(): UserInfo?
 
-    fun getDateInfoObject(): DateInfoObject?
+    suspend fun setDateInfo(count:Int): Boolean
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int): IdeaInfo
+    suspend fun getDateObject(): DateObject?
 
-    fun getIdeaInfos(problemId: Int): IdeaInfos?
+    suspend fun setIdeaInfo(url: String?, comment: String?, problemId: Int): Boolean
 
-    fun setComment(problemId: Int, comment: String): CommentInfo
+    suspend fun getIdeaInfos(problemId: Int): Flow<IdeaInfos?>
 
-    fun getCommentObject(problemId: Int): CommentObject?
+    suspend fun setComment(problemId: Int, comment: String): Boolean
 
-    fun setChildComment(commentId: String, comment: String): ChildCommentInfo
+    suspend fun getCommentObject(problemId: Int): CommentObject?
 
-    fun getChildCommentObject(commentId: String): ChildCommentObject?
+    suspend fun setChildComment(commentId: String, comment: String): Boolean
 
-    fun setTippingProblem(
+    suspend fun getChildCommentObject(commentId: String): ChildCommentObject?
+
+    suspend fun setTippingProblem(
         problem: TaggedProblem,
         isShow: Boolean,
         tipComment: String?
-    ): TipProblem
-
-    fun getTippingProblem(): TippingProblemObject?
-
-    fun modifyTippingProblem(
-        problemId: Int,
-        isShow: Boolean?,
-        comment: String?
     ): Boolean
 
-    fun deleteTippingProblem( problemId: Int): Boolean
+    suspend fun initTipProblems(problems: List<TaggedProblem>): TippingProblemObject?
+
+    suspend fun getTippingProblem(): TippingProblemObject?
+
+    suspend fun getNotTippingProblem(): TippingProblemObject?
+
+    suspend fun modifyTippingProblem(
+        problemId: Int,
+        isShow: Boolean,
+        tipComment: String?
+    ): Boolean
+
+    suspend fun deleteTippingProblem(problemId: Int): Boolean
 }

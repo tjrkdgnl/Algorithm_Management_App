@@ -27,10 +27,10 @@ class CommentViewModelTest {
         fakeSharedPreference.setTierType(1)
 
         val fakeFirebaseReference = FakeFirebaseReference(
-            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate()
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.getDate()
         )
 
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         testCommentViewModel = TestCommentViewModel(
             FakeRepository(
@@ -56,12 +56,12 @@ class CommentViewModelTest {
 
     @Test
     fun saveComment() {
-        testCommentViewModel.mComment.value = "hello"
-        testCommentViewModel.mProblemId.value = 1111
+        testCommentViewModel.comment.value = "hello"
+        testCommentViewModel.problemId.value = 1111
 
         val checkData = combineWith(
-            testCommentViewModel.mProblemId,
-            testCommentViewModel.mComment
+            testCommentViewModel.problemId,
+            testCommentViewModel.comment
         ) { id, comment -> id != null && comment != null }
 
         val result = checkData.getOrAwaitValue()
@@ -80,14 +80,14 @@ class CommentViewModelTest {
 
     @Test
     fun saveComment_moreThanOne() {
-        testCommentViewModel.mProblemId.value = 1111
+        testCommentViewModel.problemId.value = 1111
 
         for (i in 0 until 10) {
-            testCommentViewModel.mComment.value = "hello$i"
+            testCommentViewModel.comment.value = "hello$i"
 
             val checkData = combineWith(
-                testCommentViewModel.mProblemId,
-                testCommentViewModel.mComment
+                testCommentViewModel.problemId,
+                testCommentViewModel.comment
             ) { id, comment -> id != null && comment != null }
 
             val result = checkData.getOrAwaitValue()

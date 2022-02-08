@@ -1,27 +1,47 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.TaggedProblem
-import com.ama.algorithmmanagement.Model.TipProblem
-import com.ama.algorithmmanagement.Model.TippingProblemObject
+import com.ama.algorithmmanagement.model.TipProblemInfo
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
-class TestTipViewModel(private var repository: BaseRepository) {
-    val tipProblems = ObservableArrayList<TipProblem>()
-    var tipProbleObject: TippingProblemObject? = null
+class TestTipViewModel(
+    private var mRepository: BaseRepository,
+) : ViewModel() {
+    val tipProblems = ObservableArrayList<TipProblemInfo>()
 
-    fun setTippingProblem(
-        problem: TaggedProblem,
-        isShow: Boolean,
-        tipComment: String?
-    ) {
-        val tip = repository.setTippingProblem(problem, isShow, tipComment)
-        tipProblems.add(tip)
+    init {
+        checkProblems()
     }
 
-    fun initTipProblemObject() {
-        tipProbleObject = repository.getTippingProblem()
-    }
+    fun checkProblems() {
+//        if (!tipProblems.isEmpty()) return
 
+        viewModelScope.launch {
+            try {
+                val tipProblemObject = mRepository.getNotTippingProblem()
+
+                Timber.e(tipProblemObject.toString())
+
+                if (tipProblemObject == null) {
+                    mRepository.getSolvedProblems().problemList?.let { solvedList ->
+                        val initProblems = mRepository.initTipProblems(solvedList)
+
+                        initProblems?.let {
+                            tipProblems.addAll(it.problemInfoList)
+                        }
+                    }
+                } else {
+                    tipProblems.addAll(tipProblemObject.problemInfoList)
+                    Timber.e(tipProblems.toString())
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
 }

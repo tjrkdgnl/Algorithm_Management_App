@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.fake
 
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
-import com.ama.algorithmmanagement.Model.Problems
+import com.ama.algorithmmanagement.model.Problems
 import com.google.gson.Gson
 
 class FakeSharedPreference : BaseSharedPreference {
@@ -22,6 +22,10 @@ class FakeSharedPreference : BaseSharedPreference {
     override fun getAutoLoginCheck(): Boolean {
         val check = fakeMap[SharedKey.AUTO_LOGIN] as? Boolean
         return check ?: false
+    }
+
+    override fun deleteAutoLoginCheck() {
+        fakeMap.remove(SharedKey.AUTO_LOGIN)
     }
 
     override fun deleteUserId() {
@@ -52,9 +56,9 @@ class FakeSharedPreference : BaseSharedPreference {
         fakeMap.remove(SharedKey.TOKEN)
     }
 
-    override fun setSolvedProblems(solvedProblem: Problems) {
+    override fun setSolvedProblems(solvedProblems: Problems) {
         val gson = Gson()
-        val jsonObj = gson.toJson(solvedProblem)
+        val jsonObj = gson.toJson(solvedProblems)
 
         fakeMap[SharedKey.SOLVED] = jsonObj
     }

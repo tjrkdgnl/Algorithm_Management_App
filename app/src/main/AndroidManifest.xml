@@ -14,7 +14,10 @@
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Activity.kDefault.KDefaultActivity">
+        <activity android:name=".Activity.test.TestDefaultActivity">
+        </activity>
+
+        <activity android:name=".Activity.kDefault.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,7 +28,18 @@
 
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
 
-        <activity android:name=".Activity.kDefault.KLoginActivity" />
+        <activity android:name=".Activity.test.TestLoginActivity" />
+
+        <activity android:name=".Activity.test.TestFirebaseTest"/>
+
+        <activity android:name=".Activity.test.TestSharedActivity"/>
+
+        <activity android:name=".Activity.test.TestIdeaActivity"/>
+        <activity android:name=".Activity.test.TestDateActivity"/>
+        <activity android:name=".Activity.test.TestCommentActivity"/>
+
+        <activity android:name=".Activity.test.TestChildCommentActivity"/>
+        <activity android:name=".Activity.test.TestTippingItemAct"/>
 
     </application>
 

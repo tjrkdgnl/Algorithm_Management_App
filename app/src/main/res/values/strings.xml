@@ -2,11 +2,30 @@
     <string name="app_name">AlgorithmManagement</string>
     <string name="FragmentDefaultText">this is MainFragment</string>
     <string name="solvedProblemUserId">solved_by:%s</string>
+    <string name="solvedacToken">solvedacToken=%s</string>
     <string name="callAPI">클래스번호 호출</string>
     <string name="callSolvedAPI">내가 푼 문제</string>
     <string name="login">로그인</string>
+    <string name="firbaseTest">firebase</string>
+    <string name="sharedTest">shared</string>
+    <string name="idea">idea</string>
+    <string name="date">date</string>
+    <string name="comment">comment</string>
     <string name="prefGetUserId">UserId</string>
     <string name="default_user">Default_User</string>
+    <string name="default_problemId">1110</string>
+    <string name="default_count">30</string>
     <string name="objectIsNull">%s가 존재하지 않습니다.</string>
+    <string name="generateTable">%s를 firebase의 새 table로 생성합니다.</string>
+    <string name="existDataOnFirebase">firebase %s에 이미 존재하는 데이터입니다.</string>
+
+
+    //firebase
+    <string name="userTable">UserTable</string>
+    <string name="ideaTable">IdeaTable</string>
+    <string name="dateTable">DateTable</string>
+    <string name="commentTable">CommentTable</string>
+    <string name="childCommentTable">ChildCommentTable</string>
+    <string name="tipTable">TipTable</string>
 
 </resources>

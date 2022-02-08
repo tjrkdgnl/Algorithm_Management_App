@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 
 open class KBaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRes: Int) : Fragment() {
 
-    private var bindingObj : T? = null
-    protected val binding : T by lazy{
+    private var bindingObj: T? = null
+    protected val binding: T by lazy {
         bindingObj!!
     }
 
@@ -21,7 +21,8 @@ open class KBaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRes: 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        bindingObj = DataBindingUtil.inflate(layoutInflater,layoutRes,container,false)
+        bindingObj = DataBindingUtil.inflate(layoutInflater, layoutRes, container, false)
+        binding.lifecycleOwner = this
 
         return binding.root
     }
@@ -29,6 +30,6 @@ open class KBaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRes: 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        bindingObj =null
+        bindingObj = null
     }
 }

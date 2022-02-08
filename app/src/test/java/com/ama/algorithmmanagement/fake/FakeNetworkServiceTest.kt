@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -20,7 +21,7 @@ class FakeNetworkServiceTest {
     @Before
     fun init() {
         mFakeSharedPreference = FakeSharedPreference()
-        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        mFakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         mFakeSharedPreference.setUserId("skjh0818")
 
@@ -82,7 +83,7 @@ class FakeNetworkServiceTest {
     fun getBOJUserInfo() = runBlockingTest {
         //when
         //solvedToken을 셋팅하는 작업이 필요함
-        val bojUser = mFakeNetworkService.getBOJUserInfo()
+        val bojUser = mFakeNetworkService.getUnSolvedProblems("asdasd")
 
         //then
         assertEquals(bojUser[0].id, 1000)

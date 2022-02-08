@@ -18,14 +18,14 @@ class NetworkServiceTest {
     fun init() {
         val context = ApplicationProvider.getApplicationContext<Application>()
         val fakeSharedPreference = FakeSharedPreference()
-        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider())
+        val fakeNetworkService = FakeNetworkService(FakeNetWorkDataProvider(ApplicationProvider.getApplicationContext()))
 
         fakeSharedPreference.setUserId("skjh0818")
 
         mUserId = fakeSharedPreference.getUserId()
 
         val fakeFirebaseReference =
-            FakeFirebaseReference(FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.createDate())
+            FakeFirebaseReference(FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()), DateUtils.getDate())
 
         fakeRepository =
             FakeRepository(context, fakeFirebaseReference, fakeNetworkService, fakeSharedPreference)
@@ -60,7 +60,8 @@ class NetworkServiceTest {
     @Test
     fun getBOJInfo() = runBlocking {
         //then
-        val lst = fakeRepository.getBOJUserInfo()
+
+        val lst = fakeRepository.getUnSolvedProblems("asdklajsd")
 
         assertEquals(lst[0].status, "solved")
         assertEquals(lst[0].id, 1000)

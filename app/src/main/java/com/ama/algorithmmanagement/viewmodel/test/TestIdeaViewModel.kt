@@ -1,26 +1,49 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Model.IdeaInfo
-import com.ama.algorithmmanagement.Model.IdeaInfos
+import com.ama.algorithmmanagement.model.IdeaInfo
+import com.ama.algorithmmanagement.model.IdeaInfos
+import com.ama.algorithmmanagement.utils.combineWith
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
-class TestIdeaViewModel(private var repository: BaseRepository) {
-    var ideaInfos: IdeaInfos? = null
-    var ideaLst = ObservableArrayList<IdeaInfo>()
+class TestIdeaViewModel(
+    private var mRepository: BaseRepository,
+    private val mLifeCycleOwner: LifecycleOwner?
+) :
+    ViewModel() {
+    var ideaList = ObservableArrayList<IdeaInfo>()
+    val comment = MutableLiveData<String>(null)
+    val problemId = MutableLiveData<String>(null)
+    var url: String? = null
+    private val check = combineWith(
+        comment,
+        problemId
+    ) { ment, id -> ment != null && id != null }
+    private val observe = Observer<Boolean>() {}
 
-    fun setIdeaInfo(url: String?, comment: String?, problemId: Int) {
-        val idea = repository.setIdeaInfo(url, comment, problemId)
-        ideaLst.add(idea)
-    }
-
-    fun getIdeaInfos(problemId: Int) {
-        ideaInfos = repository.getIdeaInfos(problemId)
-
-        ideaInfos?.let { infos ->
-            ideaLst.addAll(infos.ideaList)
+    val ideaInfos: LiveData<IdeaInfos?> = liveData {
+        mRepository.getIdeaInfos(1111).collect {
+            emit(it)
         }
     }
 
+    init {
+        mLifeCycleOwner?.let {
+            check.observe(it, observe)
+        }
+    }
+
+    fun saveIdeaInfo() {
+        viewModelScope.launch {
+            check.value?.let {
+                if (it) {
+                    mRepository.setIdeaInfo(url, comment.value, problemId.value!!.toInt())
+                }
+            }
+        }
+    }
 }

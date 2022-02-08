@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ama.algorithmmanagement.Model.DateInfo
 import com.ama.algorithmmanagement.utils.DateUtils
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -15,36 +15,33 @@ import org.junit.runner.RunWith
 class FakeFirebaseDateInfo {
 
     lateinit var fakeFirebaseReference: FakeFirebaseReference
-    lateinit var fakeSharedPreference: FakeSharedPreference
     lateinit var mUserId: String
 
     @Before
     fun init() {
-        fakeSharedPreference = FakeSharedPreference()
-        fakeSharedPreference.setUserId("Default_User")
+        mUserId = "skjh0818"
 
-        mUserId = fakeSharedPreference.getUserId()!!
-
-        fakeFirebaseReference =
-            FakeFirebaseReference(
-                FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext()),
-                DateUtils.createDate()
-            )
+        fakeFirebaseReference = FakeFirebaseReference(
+            FakeFirebaseDataProvider(ApplicationProvider.getApplicationContext())
+        )
     }
 
 
     @Test
-    fun getDateInfos() {
+    fun getDateInfos() = runBlockingTest {
         //given
-        fakeFirebaseReference.setDateInfo(mUserId)
+        fakeFirebaseReference.setDateInfo(mUserId, 0)
 
         //when
-        val dateInfos = fakeFirebaseReference.getDateInfos(mUserId)
-        val dateInfoList = mutableListOf(DateInfo(DateUtils.createDate()))
+        val dateObject = fakeFirebaseReference.getDateObject(mUserId)
+
 
         //then
-        assertEquals(dateInfos?.userId, "skjh0818")
-        assertEquals(dateInfos?.count, 1)
-        assertEquals(dateInfos?.dateList?.get(0), dateInfoList.get(0))
+        assertEquals(dateObject?.userId, "skjh0818")
+        assertEquals(dateObject?.yearInfo!![0].year, DateUtils.getYear())
+        assertEquals(dateObject.yearInfo[0].monthInfoList[0].month, DateUtils.getMonth())
+        assertEquals(dateObject.yearInfo[0].monthInfoList[0].count, 1)
+        assertEquals(dateObject.yearInfo[0].monthInfoList[0].dateList[0].count, 0)
+        assertEquals(dateObject.yearInfo[0].monthInfoList[0].dateList[0].date, DateUtils.getDate())
     }
 }
