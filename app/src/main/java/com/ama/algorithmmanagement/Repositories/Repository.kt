@@ -83,12 +83,8 @@ class Repository(
         return mFirebaseService.signUpUserInfo(userId, password)
     }
 
-    override suspend fun getUserInfo(): UserInfo? {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
-        return mFirebaseService.getUserInfo(mUserId!!)
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        return mFirebaseService.getUserInfo(userId)
     }
 
     override suspend fun setDateInfo(count: Int): Boolean {

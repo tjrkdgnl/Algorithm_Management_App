@@ -40,7 +40,9 @@ class TestRealViewModel(
     fun getUserInfo() {
         viewModelScope.launch {
             try {
-                val userInfo = mRepository.getUserInfo()
+                userId.value?.let {
+                    val userInfo = mRepository.getUserInfo(it)
+                }
 
             } catch (e: Exception) {
                 Timber.e(e)
@@ -100,7 +102,7 @@ class TestRealViewModel(
     }
 
     fun setSolvedacToken(token: String?) {
-        solvedacToken.value = token
+        solvedacToken.value = token!!
     }
 
     override fun onCleared() {
