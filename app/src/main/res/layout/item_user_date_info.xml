@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="2dp" />
+
+
+</layout>
