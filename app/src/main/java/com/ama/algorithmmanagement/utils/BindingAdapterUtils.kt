@@ -9,6 +9,8 @@ import androidx.core.graphics.toColor
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
+import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
@@ -42,6 +44,24 @@ object BindingAdapterUtils {
     ) {
         val recyclerViewAdapter = recyclerView.adapter as TestTipAdapter
         recyclerViewAdapter.updateList(solvedAlgorithms)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setCommentList")
+    fun setCommentList(recyclerView: RecyclerView, commentList: MutableList<CommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KCommentsAdapter
+        commentList?.let {
+            recyclerViewAdapter.updateList(commentList)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setChildCommentList")
+    fun setChildCommentList(recyclerView: RecyclerView, childCommentList: MutableList<ChildCommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KChildCommentsAdapter
+        childCommentList?.let {
+            recyclerViewAdapter.updateList(childCommentList)
+        }
     }
 
     @JvmStatic

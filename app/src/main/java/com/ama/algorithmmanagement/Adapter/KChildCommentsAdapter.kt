@@ -1,0 +1,46 @@
+package com.ama.algorithmmanagement.Adapter
+
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.ViewHolder.ChildCommentViewHolder
+import com.ama.algorithmmanagement.ViewHolder.CommentViewHolder
+import com.ama.algorithmmanagement.model.ChildCommentInfo
+import com.ama.algorithmmanagement.model.CommentInfo
+import timber.log.Timber
+<<<<<<< Updated upstream
+/**
+ * author : manyong Han
+ * summary : 대댓글 어댑터
+ */
+=======
+
+>>>>>>> Stashed changes
+class KChildCommentsAdapter() : RecyclerView.Adapter<ChildCommentViewHolder>() {
+    private val list = mutableListOf<ChildCommentInfo>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildCommentViewHolder {
+        return ChildCommentViewHolder(parent)
+    }
+
+    override fun onBindViewHolder(holder: ChildCommentViewHolder, position: Int) {
+        holder.setData(list[position])
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+
+    fun updateList(list: MutableList<ChildCommentInfo>?) {
+        this.list.clear()
+        list?.let {
+            this.list.addAll(it)
+<<<<<<< Updated upstream
+            notifyItemRangeChanged(0, this.list.size)
+=======
+            notifyDataSetChanged()
+>>>>>>> Stashed changes
+        }
+
+    }
+}
