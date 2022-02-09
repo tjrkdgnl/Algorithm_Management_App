@@ -71,12 +71,8 @@ class FakeRepository(
         return mFakeFirebaseReference.signUpUserInfo(userId, password)
     }
 
-    override suspend fun getUserInfo(): UserInfo? {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
-        return mFakeFirebaseReference.getUserInfo(mUserId!!)
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        return mFakeFirebaseReference.getUserInfo(userId)
     }
 
     override suspend fun setDateInfo(count:Int): Boolean {

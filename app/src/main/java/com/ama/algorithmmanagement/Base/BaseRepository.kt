@@ -20,7 +20,7 @@ interface BaseRepository {
 
     suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
-    suspend fun getUserInfo(): UserInfo?
+    suspend fun getUserInfo(userId:String): UserInfo?
 
     suspend fun setDateInfo(count:Int): Boolean
 
