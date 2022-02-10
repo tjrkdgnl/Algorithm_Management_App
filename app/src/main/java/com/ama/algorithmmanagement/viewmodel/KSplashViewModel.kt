@@ -28,13 +28,12 @@ class KSplashViewModel(
         getUserLoginInfoCheck()
     }
 
+    // 쉐어드에 유저 아이디 및 자동로그인 여부를 체크
     private fun getUserLoginInfoCheck() {
         viewModelScope.launch {
             try {
                 delay(2000) // 스플래시 화면이 안보이고 그냥 넘어가버리는 상황을 방지
                 isAutoLoginCheck = mSharedPrefUtils.getAutoLoginCheck()
-                delay(2000)
-                isAutoLoginCheck = mSharedPrefUtils.getAutoLoginCheck();
                 isUserIdCheck = !TextUtils.isEmpty(mSharedPrefUtils.getUserId())
 
                 isGoToMain.value = isAutoLoginCheck && isUserIdCheck

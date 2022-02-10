@@ -36,7 +36,5 @@ class KSplashActivity : KBaseActivity<ActivitySplashBinding>(R.layout.activity_s
                 finish()
             }
         }
-
     }
-
 }
