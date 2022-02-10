@@ -13,10 +13,9 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentIdeaBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
+import timber.log.Timber
 
 class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_idea) {
-
-    private lateinit var myIdeaInfoViewModel: MyIdeaInfoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,16 +26,22 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        myIdeaInfoViewModel = ViewModelProvider(
+        val viewModel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[MyIdeaInfoViewModel::class.java]
 
-        myIdeaInfoViewModel.setProblemId(problemId)
+        viewModel.setProblemId(problemId)
 
-        binding.viewModel = myIdeaInfoViewModel
+        binding.viewModel = viewModel
         binding.rvMyIdea.adapter = TestIdeaAdpater()
         binding.rvMyIdea.setHasFixedSize(false)
+
+        viewModel.ideaInfos.observe(viewLifecycleOwner,{ ideas ->
+            ideas?.let {
+                viewModel.ideaList.addAll(it.ideaList)
+            }
+        })
     }
 
 }

@@ -1,16 +1,12 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * author  : hongdroid94
@@ -25,24 +21,17 @@ class MyIdeaInfoViewModel(
     var problemId = MutableLiveData<Int>()
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
-    init {
-        sharedPref.setUserId("testID") // todo : 임시..
-        problemId.observe(mLifecycleOwner!!, { id ->
-            getMyIdeaList(id)
-        })
+    val ideaInfos: LiveData<IdeaInfos?> = liveData {
+        mRepository.getIdeaInfos(1111).collect {
+            emit(it)
+        }
     }
 
-    private fun getMyIdeaList(_problemId: Int) {
-        viewModelScope.launch {
-            try {
-                mRepository.getIdeaInfos(1111).collect {
-                    Timber.d(it!!.ideaList.toString())
-                    ideaList.addAll(it!!.ideaList)
-                }
-            } catch (e: Exception) {
-                Timber.e(e.message.toString())
-            }
-        }
+    init {
+        sharedPref.setUserId("testID") // todo : 임시..
+//        problemId.observe(mLifecycleOwner!!, { id ->
+//            getMyIdeaList(id)
+//        })
     }
 
     fun saveIdeaInfo() {
