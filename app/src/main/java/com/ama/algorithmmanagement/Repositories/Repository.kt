@@ -83,12 +83,8 @@ class Repository(
         return mFirebaseService.signUpUserInfo(userId, password)
     }
 
-    override suspend fun getUserInfo(): UserInfo? {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
-        return mFirebaseService.getUserInfo(mUserId!!)
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        return mFirebaseService.getUserInfo(userId)
     }
 
     override suspend fun setDateInfo(count: Int): Boolean {
@@ -139,7 +135,7 @@ class Repository(
         return mFirebaseService.getCommentObject(problemId)
     }
 
-    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
+    override suspend fun setChildComment(problemId: Int,commentId: String, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -147,7 +143,7 @@ class Repository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "tierType"))
         }
 
-        return mFirebaseService.setChildComment(mUserId!!, mTiertype, commentId, comment)
+        return mFirebaseService.setChildComment(problemId,mUserId!!, mTiertype, commentId, comment)
     }
 
     override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {

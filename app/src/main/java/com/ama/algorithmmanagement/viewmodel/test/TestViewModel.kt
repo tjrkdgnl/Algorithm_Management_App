@@ -34,7 +34,9 @@ class TestViewModel(private var repository: BaseRepository) : ViewModel() {
 
     fun getUserInfo() {
         viewModelScope.launch {
-            val userInfo = repository.getUserInfo()
+            _userId.value?.let {
+                val userInfo = repository.getUserInfo(it)
+            }
         }
     }
 

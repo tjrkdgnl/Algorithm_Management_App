@@ -12,6 +12,7 @@ import timber.log.Timber
 class TestChildCommentViewModel(private var mRepository: BaseRepository) : ViewModel() {
     val childCommentInfoList = ObservableArrayList<ChildCommentInfo>()
     private var mCommentId: String? = null
+    private var mProblemId: Int? =null
     val mComment = MutableLiveData<String>()
 
     fun initChildCommentObject(commentId: String) {
@@ -19,11 +20,22 @@ class TestChildCommentViewModel(private var mRepository: BaseRepository) : ViewM
         getChildCommentObj()
     }
 
+    fun setCommentId(id:String?){
+        mCommentId = id
+    }
+
+    fun setProblemId(id:Int?){
+        mProblemId = id
+    }
+
     fun saveChildComment() {
         viewModelScope.launch {
             try {
                 Timber.e("$mCommentId $mComment")
-                mRepository.setChildComment(mCommentId!!, mComment.value!!)
+
+                if(mProblemId !=null && mCommentId !=null){
+                    mRepository.setChildComment(mProblemId!!,mCommentId!!, mComment.value!!)
+                }
 
             } catch (e: Exception) {
                 Timber.e(e)

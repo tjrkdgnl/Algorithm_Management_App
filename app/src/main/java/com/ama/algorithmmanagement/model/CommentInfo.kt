@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.model
 
 data class CommentInfo(
+    val problemId: Int,
     val commentId: String,
     val userId: String,
     val tierType: Int,
@@ -8,7 +9,7 @@ data class CommentInfo(
     val date: String,
     val commentChildCount: Int
 ) {
-    constructor() : this("", "", 0, "", "", 0)
+    constructor() : this(-1,"", "", -1, "", "", -1)
 
 
 }

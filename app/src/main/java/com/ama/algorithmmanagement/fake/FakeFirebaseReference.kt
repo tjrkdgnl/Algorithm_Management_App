@@ -131,7 +131,7 @@ class FakeFirebaseReference(
         val commentId = "RandomNumber"
 
         val newCommentInfo =
-            CommentInfo(commentId, userId, tierType, comment, DateUtils.getDate(), 0)
+            CommentInfo(problemId,commentId, userId, tierType, comment, DateUtils.getDate(), 0)
 
         for (commentObject in mFakeFirebaseDataProvider.commentSnapShot) {
             if (commentObject.problemId == problemId) {
@@ -159,6 +159,7 @@ class FakeFirebaseReference(
     }
 
     override suspend fun setChildComment(
+        problemId: Int,
         userId: String,
         tierType: Int,
         commentId: String,
@@ -172,6 +173,7 @@ class FakeFirebaseReference(
                 return true
             }
         }
+        //todo problemId 추가하기
         val childCommentObject = ChildCommentObject(1, commentId, mutableListOf(childCommentInfo))
         mFakeFirebaseDataProvider.childCommentSnapShot.add(childCommentObject)
 

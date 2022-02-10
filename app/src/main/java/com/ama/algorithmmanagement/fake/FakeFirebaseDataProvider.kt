@@ -45,6 +45,7 @@ class FakeFirebaseDataProvider(private val mApp: Application) {
         MutableList(mCount) { it ->
             CommentObject(mCount, mProblemId + it, MutableList(mCount) {
                 CommentInfo(
+                    mProblemId + it,
                     "commentId${it}",
                     mDefaultUserId,
                     it,

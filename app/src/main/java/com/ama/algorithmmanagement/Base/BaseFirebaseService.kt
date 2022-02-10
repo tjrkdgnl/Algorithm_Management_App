@@ -24,6 +24,7 @@ interface BaseFirebaseService {
     suspend fun getCommentObject(problemId: Int): CommentObject?
 
     suspend fun setChildComment(
+        problemId:Int,
         userId: String,
         tierType: Int,
         commentId: String,
