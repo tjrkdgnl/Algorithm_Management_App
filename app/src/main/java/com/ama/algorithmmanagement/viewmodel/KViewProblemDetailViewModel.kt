@@ -8,36 +8,18 @@ import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 문제 상세 보기 뷰모델 (액티비티, 프래그먼트 공용)
  */
-=======
->>>>>>> Stashed changes
 class KViewProblemDetailViewModel(
     private val mRepository: BaseRepository
     ) : ViewModel() {
 
-<<<<<<< Updated upstream
     private val _commentList = MutableLiveData<CommentObject?>()
     val commentInfoList = ObservableArrayList<CommentInfo>()
 
     private val _childCommentList = MutableLiveData<ChildCommentObject?>()
-=======
-    private val mSharedPref = AMAApplication.INSTANCE.sharedPrefUtils
-
-    private val _commentList = MutableLiveData<CommentObject>()
-//    val commentList: LiveData<MutableList<CommentInfo>> = Transformations.map(_commentList) {
-//        it.commentList
-//    }
-    val commentInfoList = ObservableArrayList<CommentInfo>()
-
-    private val _childCommentList = MutableLiveData<ChildCommentObject?>()
-//    val childCommentList: LiveData<MutableList<ChildCommentInfo>> = Transformations.map(_childCommentList) {
-//        it?.commentChildList
-//    }
->>>>>>> Stashed changes
     val childCommentInfoList = ObservableArrayList<ChildCommentInfo>()
 
     private val _problemInfo = MutableLiveData<TaggedProblem>()
@@ -126,20 +108,13 @@ class KViewProblemDetailViewModel(
     fun getCommentListLoading() {
         viewModelScope.launch {
             try {
-<<<<<<< Updated upstream
                 _commentList.value = null
-=======
->>>>>>> Stashed changes
                 _commentList.value = mRepository.getCommentObject(problemId.value!!)
                 commentInfoList.clear()
                 _commentList.value?.let { obj ->
                     commentInfoList.addAll(obj.commentList)
                     Timber.e(obj.toString())
                 }
-<<<<<<< Updated upstream
-=======
-//                Timber.e(commentList.value.toString())
->>>>>>> Stashed changes
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
@@ -156,10 +131,6 @@ class KViewProblemDetailViewModel(
                     childCommentInfoList.addAll(obj.commentChildList)
                     Timber.e(obj.toString())
                 }
-<<<<<<< Updated upstream
-=======
-//                Timber.e(childCommentList.value.toString())
->>>>>>> Stashed changes
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }

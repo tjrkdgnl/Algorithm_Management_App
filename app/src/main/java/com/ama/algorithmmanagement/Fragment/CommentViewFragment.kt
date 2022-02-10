@@ -16,14 +16,11 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentCommentViewBinding
 import com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 댓글 프래그먼트
  */
-=======
-
->>>>>>> Stashed changes
 class CommentViewFragment(
     var listener: AdapterListener
 ) : KBaseFragment<FragmentCommentViewBinding>(R.layout.fragment_comment_view) {

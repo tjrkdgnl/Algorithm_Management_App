@@ -14,14 +14,12 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentConnectBojAccountBinding
 import com.ama.algorithmmanagement.viewmodel.KSignUpViewModel
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 백준 연동하는 화면 프래그먼트
  */
-=======
 
->>>>>>> Stashed changes
 class ConnectBOJAccountFragment() : KBaseFragment<FragmentConnectBojAccountBinding>(R.layout.fragment_connect_boj_account) {
 
     private lateinit var signUpViewModel: KSignUpViewModel
@@ -38,11 +36,7 @@ class ConnectBOJAccountFragment() : KBaseFragment<FragmentConnectBojAccountBindi
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-<<<<<<< Updated upstream
     // 뷰가 다 그려진 상태
-=======
-    // 뷰가 다 그려진 상태ㅇㅇ
->>>>>>> Stashed changes
     // 뷰모델을 부모꺼 사용하면서 값 변경해주는걸 알려주기만 하면 아래처럼 안해도됨
     // 때문에 뷰모델을 부모액티비티꺼를 사용한다? => 옵저빙이 액티비티에서 실행되면 된다.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

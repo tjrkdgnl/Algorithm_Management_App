@@ -19,14 +19,11 @@ import com.ama.algorithmmanagement.databinding.FragmentChildCommentViewBinding
 import com.ama.algorithmmanagement.databinding.FragmentCommentViewBinding
 import com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel
 import timber.log.Timber
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 대댓글 프래그먼트
  */
-=======
-
->>>>>>> Stashed changes
 class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(R.layout.fragment_child_comment_view) {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
@@ -40,32 +37,17 @@ class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(
             getViewModelStoreOwner(),
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[KViewProblemDetailViewModel::class.java]
-<<<<<<< Updated upstream
-=======
-        Timber.e("onCreateView")
->>>>>>> Stashed changes
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-<<<<<<< Updated upstream
-=======
-        Timber.e("onViewCreated")
->>>>>>> Stashed changes
+
         binding.viewModel = viewProblemDetailViewModel
         binding.recyclerviewChildCommentList.adapter = KChildCommentsAdapter()
         super.onViewCreated(view, savedInstanceState)
     }
 
-<<<<<<< Updated upstream
-=======
-    override fun onResume() {
-        Timber.e("onResume")
-
-        super.onResume()
-    }
-
->>>>>>> Stashed changes
     private fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
         requireActivity()
     } catch (e: Exception) {

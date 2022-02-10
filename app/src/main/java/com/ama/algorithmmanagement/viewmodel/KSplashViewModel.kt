@@ -10,18 +10,13 @@ import com.ama.algorithmmanagement.fake.FakeSharedPreference
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 스플래시 뷰모델
  */
-class KSplashViewModel() : ViewModel() {
-=======
-
 class KSplashViewModel(
     private val mRepository: BaseRepository
     ) : ViewModel() {
->>>>>>> Stashed changes
     private val mSharedPrefUtils = AMAApplication.INSTANCE.sharedPrefUtils
 
     var isUserIdCheck = false
@@ -36,13 +31,10 @@ class KSplashViewModel(
     private fun getUserLoginInfoCheck() {
         viewModelScope.launch {
             try {
-<<<<<<< Updated upstream
                 delay(2000) // 스플래시 화면이 안보이고 그냥 넘어가버리는 상황을 방지
                 isAutoLoginCheck = mSharedPrefUtils.getAutoLoginCheck()
-=======
                 delay(2000)
                 isAutoLoginCheck = mSharedPrefUtils.getAutoLoginCheck();
->>>>>>> Stashed changes
                 isUserIdCheck = !TextUtils.isEmpty(mSharedPrefUtils.getUserId())
 
                 isGoToMain.value = isAutoLoginCheck && isUserIdCheck

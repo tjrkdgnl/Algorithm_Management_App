@@ -20,13 +20,10 @@ import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel
 import timber.log.Timber
 
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 문제 상세 보기 액티비티
  */
-=======
->>>>>>> Stashed changes
 class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBinding>(R.layout.activity_view_problem_detail), AdapterListener {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel

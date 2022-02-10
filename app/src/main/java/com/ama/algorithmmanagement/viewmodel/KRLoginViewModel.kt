@@ -8,10 +8,10 @@ import com.ama.algorithmmanagement.Base.BaseSharedPreference
 import com.ama.algorithmmanagement.fake.FakeSharedPreference
 import com.ama.algorithmmanagement.utils.combineWith
 import com.ama.algorithmmanagement.utils.getOrAwaitValue
+import com.github.mikephil.charting.utils.Utils.init
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 로그인 화면 뷰모델
@@ -19,12 +19,6 @@ import timber.log.Timber
 class KRLoginViewModel(
     private val mRepository: BaseRepository,
     mLifecycleOwner: LifecycleOwner
-=======
-
-class KRLoginViewModel(
-    private val mRepository: BaseRepository,
-    private val mLifecycleOwner: LifecycleOwner
->>>>>>> Stashed changes
 ) : ViewModel() {
 
     private val mSharedPref = AMAApplication.INSTANCE.sharedPrefUtils
@@ -39,13 +33,7 @@ class KRLoginViewModel(
     val isInputDataEmpty = MutableLiveData<Boolean>()   // id,pw 입력 여부
     val isData = MutableLiveData<Boolean>()
 
-<<<<<<< Updated upstream
     private val checkLoginInfo = combineWith(userId, userPw) {
-=======
-//    private var isUserCheck = false                     // 회원 정보 존재 여부
-
-    val checkLoginInfo = combineWith(userId, userPw) {
->>>>>>> Stashed changes
             id, pwd -> id != null && pwd != null
     }
 
@@ -59,30 +47,16 @@ class KRLoginViewModel(
     fun getLoginBtnCheck() {
         viewModelScope.launch {
             try {
-<<<<<<< Updated upstream
                 checkLoginInfo.value?.let {
                     if (it) {
                         val userInfo = mRepository.getUserInfo(userId.value!!)
-                        isLoginSuccess.value = userInfo?.userId.equals(userId.value) && userInfo?.userPw.equals(userPw.value)
-=======
-                mSharedPref.setUserId(userId.value!!)
-                checkLoginInfo.value?.let {
-                    if (it) {
-                        delay(100)
-                        mSharedPref.setUserId(userId.value!!)
-                        val userInfo = mRepository.getUserInfo()
+                        isLoginSuccess.value =
+                            userInfo?.userId.equals(userId.value) && userInfo?.userPw.equals(userPw.value)
 
-                        userInfo?.let { userIt ->
-                            if (userIt.userId == userId.value) {
-                                isLoginSuccess.value = true
-                            }
-                        }
-
-                        if(isLoginSuccess.value == null) {
+                        if (isLoginSuccess.value == null) {
                             isLoginSuccess.value = false
                             mSharedPref.deleteUserId()
                         }
->>>>>>> Stashed changes
 
                         Timber.e("%s, %s", userId.value, userPw.value)
                         if (isAutoCheck.value == null) {

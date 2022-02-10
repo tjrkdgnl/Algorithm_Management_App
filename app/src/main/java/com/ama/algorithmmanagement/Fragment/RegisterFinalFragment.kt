@@ -14,14 +14,11 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentRegisterFinalBinding
 import com.ama.algorithmmanagement.viewmodel.KSignUpViewModel
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 회원가입 마지막 화면 프래그먼트 (아이디, 비밀번호 입력)
  */
-=======
 
->>>>>>> Stashed changes
 class RegisterFinalFragment : KBaseFragment<FragmentRegisterFinalBinding>(R.layout.fragment_register_final) {
 
     private lateinit var signUpViewModel: KSignUpViewModel

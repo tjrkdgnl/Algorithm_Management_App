@@ -18,7 +18,6 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.viewmodel.KSignUpViewModel
-<<<<<<< Updated upstream
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
@@ -26,17 +25,12 @@ import timber.log.Timber
  * author : manyong Han
  * summary : 회원가입 베이스 액티비티
  */
-=======
 
->>>>>>> Stashed changes
 class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private lateinit var signUpViewModel: KSignUpViewModel
     private lateinit var viewPagerAdapter: KViewPagerAdapter
     private lateinit var fragments: List<Fragment>
-<<<<<<< Updated upstream
     private lateinit var token: String
-=======
->>>>>>> Stashed changes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +41,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
 
         binding.viewModel = signUpViewModel
         setFragment()
-<<<<<<< Updated upstream
         getFcmToken()
-=======
->>>>>>> Stashed changes
 
         binding.connectWebView.apply {
             webChromeClient = WebChromeClient()
@@ -61,7 +52,6 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         binding.signUpViewPager.adapter = viewPagerAdapter
         binding.signUpViewPager.isUserInputEnabled = false
 
-<<<<<<< Updated upstream
         signUpViewModel.isGetFcmToken.observe(this) {
             if(it) {
                 signUpViewModel.fcmToken.value = token
@@ -69,8 +59,6 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
             }
         }
 
-=======
->>>>>>> Stashed changes
         signUpViewModel.isMoveToWebView.observe(this) {
             if(it) {
                 binding.connectWebView.loadUrl("https://www.acmicpc.net/login?next=%2Fsso%3Fsso%3Dbm9uY2U9OWQ4NDkwYjY5ZGRmZGUxOGExYzE5ZWUzODk2MTUzMzg%253D%26sig%3D13d257578bcf76ef46b1b6c98ef563c3130f0e3b475c161a2e0efc46a81872d6%26redirect%3Dhttps%253A%252F%252Fsolved.ac%252Fapi%252Fv3%252Fauth%252Fsso%253Fprev%253D%25252F")
@@ -122,7 +110,6 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         finish()
     }
 
-<<<<<<< Updated upstream
     private fun getFcmToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if(!task.isSuccessful) {
@@ -134,6 +121,4 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         }
     }
 
-=======
->>>>>>> Stashed changes
 }

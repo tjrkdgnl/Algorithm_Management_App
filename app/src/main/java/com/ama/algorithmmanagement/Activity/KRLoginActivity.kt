@@ -12,14 +12,11 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityLoginBinding
 import com.ama.algorithmmanagement.viewmodel.KRLoginViewModel
 import timber.log.Timber
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 로그인 화면 액티비티
  */
-=======
-
->>>>>>> Stashed changes
 class KRLoginActivity : KBaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private lateinit var loginViewModel: KRLoginViewModel
 

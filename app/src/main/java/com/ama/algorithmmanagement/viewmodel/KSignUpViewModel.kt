@@ -9,14 +9,12 @@ import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
 import timber.log.Timber
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 회원가입 화면 뷰모델 (액티비티, 프래그먼트 공용)
  */
-=======
 
->>>>>>> Stashed changes
 class KSignUpViewModel(
     private val mRepository: BaseRepository,
     mLifecycleOwner: LifecycleOwner
@@ -25,20 +23,14 @@ class KSignUpViewModel(
 
     val userId = MutableLiveData<String>()
     val userPw = MutableLiveData<String>()
-<<<<<<< Updated upstream
     val fcmToken = MutableLiveData<String>()
     val isGetFcmToken = MutableLiveData<Boolean>()
-=======
->>>>>>> Stashed changes
 
     val isMoveToWebView = MutableLiveData<Boolean>()
     val isConnectSuccess = MutableLiveData<Boolean>()
     val isRegisterSuccess = MutableLiveData<Boolean>()
     val isInputDataEmpty = MutableLiveData<Boolean>()
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     private val checkUserInfo = combineWith(userId, userPw) { id, pwd -> id != null && pwd != null }
     private val userInfoObserver = Observer<Boolean> { }
 
@@ -46,7 +38,6 @@ class KSignUpViewModel(
         checkUserInfo.observe(mLifecycleOwner, userInfoObserver)
     }
 
-<<<<<<< Updated upstream
     // 연동하기 버튼 눌렀을때
     fun moveToWebView() {
         isMoveToWebView.value = true
@@ -63,18 +54,6 @@ class KSignUpViewModel(
     fun moveToRegisterFrag() {
         isGoToRegisterFinal.value = true
         isGetFcmToken.value = true
-=======
-    fun moveToWebView() {
-        isMoveToWebView.value = true
-    }
-
-    fun connectBojSuccess() {
-        isConnectSuccess.value = true
-    }
-
-    fun moveToRegisterFrag() {
-        isGoToRegisterFinal.value = true
->>>>>>> Stashed changes
     }
 
     // 사용자가 입력한 id를 임시로 shared 에 저장한 후 api 호출로 존재여부 확인.
@@ -94,21 +73,13 @@ class KSignUpViewModel(
                                 val signUp = mRepository.setUserInfo(
                                     userId.value!!,
                                     userPw.value!!,
-<<<<<<< Updated upstream
                                     fcmToken.value!!
-=======
-                                    "fcm_token"
->>>>>>> Stashed changes
                                 )
                                 Timber.e("가입 성공 여부 : $signUp")
                                 isRegisterSuccess.value = signUp
                             }
                         }
-<<<<<<< Updated upstream
                         Timber.e(mRepository.getUserInfo(userId.value!!).toString())
-=======
-                        Timber.e(mRepository.getUserInfo().toString())
->>>>>>> Stashed changes
                         isInputDataEmpty.value = true
                     } else {
                         Timber.e("id 또는 pwd를 다시 확인해주세요.")

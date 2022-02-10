@@ -6,14 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import timber.log.Timber
 
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 뷰페이져 어댑터 (회원가입화면, 코멘트화면 사용)
  */
-=======
-
->>>>>>> Stashed changes
 class KViewPagerAdapter(
     fragmentManager: FragmentManager,
     private val fragments: List<Fragment>,

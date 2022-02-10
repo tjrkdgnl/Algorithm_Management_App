@@ -5,14 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Activity.AdapterListener
 import com.ama.algorithmmanagement.ViewHolder.CommentViewHolder
 import com.ama.algorithmmanagement.model.CommentInfo
-<<<<<<< Updated upstream
 /**
  * author : manyong Han
  * summary : 댓글 어댑터
  */
-=======
-
->>>>>>> Stashed changes
 class KCommentsAdapter(
     var listener: AdapterListener
 ) : RecyclerView.Adapter<CommentViewHolder>() {
@@ -35,11 +31,7 @@ class KCommentsAdapter(
         this.list.clear()
         list?.let {
             this.list.addAll(it)
-<<<<<<< Updated upstream
             notifyItemRangeChanged(0, this.list.size)
-=======
-            notifyDataSetChanged()
->>>>>>> Stashed changes
         }
 
     }

@@ -10,14 +10,11 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySplashBinding
 import com.ama.algorithmmanagement.viewmodel.KSplashViewModel
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 스플래시 액티비티
  */
-=======
-
->>>>>>> Stashed changes
 class KSplashActivity : KBaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
     private lateinit var splashViewModel: KSplashViewModel
 

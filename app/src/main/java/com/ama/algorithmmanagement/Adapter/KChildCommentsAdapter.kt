@@ -7,14 +7,11 @@ import com.ama.algorithmmanagement.ViewHolder.CommentViewHolder
 import com.ama.algorithmmanagement.model.ChildCommentInfo
 import com.ama.algorithmmanagement.model.CommentInfo
 import timber.log.Timber
-<<<<<<< Updated upstream
+
 /**
  * author : manyong Han
  * summary : 대댓글 어댑터
  */
-=======
-
->>>>>>> Stashed changes
 class KChildCommentsAdapter() : RecyclerView.Adapter<ChildCommentViewHolder>() {
     private val list = mutableListOf<ChildCommentInfo>()
 
@@ -35,11 +32,7 @@ class KChildCommentsAdapter() : RecyclerView.Adapter<ChildCommentViewHolder>() {
         this.list.clear()
         list?.let {
             this.list.addAll(it)
-<<<<<<< Updated upstream
             notifyItemRangeChanged(0, this.list.size)
-=======
-            notifyDataSetChanged()
->>>>>>> Stashed changes
         }
 
     }
