@@ -1,10 +1,9 @@
 package com.ama.algorithmmanagement.Adapter.test
 
-import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.model.IdeaInfo
 import com.ama.algorithmmanagement.ViewHolder.test.TestIdeaViewHolder
+import com.ama.algorithmmanagement.model.IdeaInfo
 import timber.log.Timber
 
 class TestIdeaAdpater : RecyclerView.Adapter<TestIdeaViewHolder>() {

@@ -102,7 +102,7 @@ object BindingAdapterUtils {
     fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as TestIdeaAdpater
         ideaInfo?.let {
-            recyclerViewAdapter.updateList(ideaInfo)
+            recyclerViewAdapter.updateList(it)
         }
     }
 

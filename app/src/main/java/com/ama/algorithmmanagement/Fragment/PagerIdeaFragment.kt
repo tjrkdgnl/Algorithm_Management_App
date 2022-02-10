@@ -13,7 +13,6 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentIdeaBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
-import timber.log.Timber
 
 class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_idea) {
 
@@ -31,7 +30,7 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[MyIdeaInfoViewModel::class.java]
 
-        viewModel.setProblemId(problemId)
+//        viewModel.setProblemId(problemId)
 
         binding.viewModel = viewModel
         binding.rvMyIdea.adapter = TestIdeaAdpater()

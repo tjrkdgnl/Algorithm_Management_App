@@ -41,7 +41,9 @@
         <activity android:name=".Activity.test.TestLoginActivity" />
         <activity android:name=".Activity.test.TestFirebaseTest" />
         <activity android:name=".Activity.test.TestSharedActivity" />
-        <activity android:name=".Activity.test.TestIdeaActivity" />
+        <activity android:name=".Activity.test.TestIdeaActivity">
+
+        </activity>
         <activity android:name=".Activity.test.TestDateActivity" />
         <activity android:name=".Activity.test.TestCommentActivity">
         </activity>

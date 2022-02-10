@@ -4,9 +4,9 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.model.*
+import com.ama.algorithmmanagement.model.IdeaInfo
+import com.ama.algorithmmanagement.model.IdeaInfos
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  * author  : hongdroid94
@@ -34,15 +34,15 @@ class MyIdeaInfoViewModel(
 //        })
     }
 
-    fun saveIdeaInfo() {
-        viewModelScope.launch {
-//            check.value?.let {
-//                if (it) {
-            mRepository.setIdeaInfo("test_url", "comment_test_value", 1111)
-//                }
-//            }
-        }
-    }
+//    fun saveIdeaInfo() {
+//        viewModelScope.launch {
+////            check.value?.let {
+////                if (it) {
+//            mRepository.setIdeaInfo("test_url", "comment_test_value", 1111)
+////                }
+////            }
+//        }
+//    }
 
     fun setProblemId(_problemId: Int?) {
         problemId.value = _problemId!!
