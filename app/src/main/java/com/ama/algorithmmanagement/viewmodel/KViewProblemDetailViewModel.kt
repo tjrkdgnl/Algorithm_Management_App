@@ -12,6 +12,7 @@ import timber.log.Timber
  * author : manyong Han
  * summary : 문제 상세 보기 뷰모델 (액티비티, 프래그먼트 공용)
  */
+
 class KViewProblemDetailViewModel(
     private val mRepository: BaseRepository
     ) : ViewModel() {
@@ -103,7 +104,6 @@ class KViewProblemDetailViewModel(
             }
         }
     }
-
 
     fun getCommentListLoading() {
         viewModelScope.launch {

@@ -24,6 +24,7 @@ import timber.log.Timber
  * author : manyong Han
  * summary : 문제 상세 보기 액티비티
  */
+
 class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBinding>(R.layout.activity_view_problem_detail), AdapterListener {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
@@ -85,7 +86,6 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 
         viewProblemDetailViewModel.isCommentIdGet.observe(this) {
             if(it) {
-                // 이거 메서드 어떻게 실행시킬지 고민..
                 viewProblemDetailViewModel.getChildCommentListLoading()
                 moveFragment(1)
                 viewProblemDetailViewModel.isCommentIdGet.value = false
@@ -117,6 +117,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
     }
 }
 
+// 댓글 클릭 콜백을 위한 인터페이스
 interface AdapterListener {
     fun adapterClickListener(commentInfo: CommentInfo)
 }
