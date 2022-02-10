@@ -81,5 +81,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/register_user_pw_edit" />
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
