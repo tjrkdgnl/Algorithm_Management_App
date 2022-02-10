@@ -55,7 +55,6 @@ class KRLoginViewModel(
 
                         if (isLoginSuccess.value == null) {
                             isLoginSuccess.value = false
-                            mSharedPref.deleteUserId()
                         }
 
                         Timber.e("%s, %s", userId.value, userPw.value)

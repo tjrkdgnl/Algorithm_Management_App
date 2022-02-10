@@ -11,7 +11,6 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityLoginBinding
 import com.ama.algorithmmanagement.viewmodel.KRLoginViewModel
-import timber.log.Timber
 
 /**
  * author : manyong Han
