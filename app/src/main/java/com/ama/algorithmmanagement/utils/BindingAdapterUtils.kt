@@ -1,31 +1,18 @@
 package com.ama.algorithmmanagement.utils
 
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.graphics.toColor
-import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
-import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
-import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.Adapter.*
 import com.ama.algorithmmanagement.Adapter.test.*
 import com.ama.algorithmmanagement.model.*
-import com.ama.algorithmmanagement.Adapter.KNoTipProblemsAdapter
-import com.ama.algorithmmanagement.Adapter.TryFailedAdapter
-import com.ama.algorithmmanagement.Adapter.CommentListAdapter
-import timber.log.Timber
-
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -117,13 +104,11 @@ object BindingAdapterUtils {
     @JvmStatic
     @BindingAdapter("setMyIdeaList")
     fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>?) {
-        val recyclerViewAdapter = recyclerView.adapter as TestIdeaAdpater
+        val recyclerViewAdapter = recyclerView.adapter as IdeaAdapter
         ideaInfo?.let {
             recyclerViewAdapter.updateList(it)
         }
     }
-
-
 
     @JvmStatic
     @BindingAdapter("setRetryProblemList")
@@ -297,6 +282,4 @@ object BindingAdapterUtils {
         }
         Timber.e(dates.toString())
     }
-}
-
 }

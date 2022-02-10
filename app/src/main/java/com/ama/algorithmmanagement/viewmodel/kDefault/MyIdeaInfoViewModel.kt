@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
+import android.app.AlertDialog
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Application.AMAApplication
@@ -7,6 +8,7 @@ import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.IdeaInfo
 import com.ama.algorithmmanagement.model.IdeaInfos
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * author  : hongdroid94
@@ -22,30 +24,29 @@ class MyIdeaInfoViewModel(
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     val ideaInfos: LiveData<IdeaInfos?> = liveData {
-        mRepository.getIdeaInfos(1111).collect {
+        mRepository.getIdeaInfos(problemId.value!!).collect {
             emit(it)
         }
     }
 
     init {
         sharedPref.setUserId("testID") // todo : 임시..
-//        problemId.observe(mLifecycleOwner!!, { id ->
-//            getMyIdeaList(id)
-//        })
     }
-
-//    fun saveIdeaInfo() {
-//        viewModelScope.launch {
-////            check.value?.let {
-////                if (it) {
-//            mRepository.setIdeaInfo("test_url", "comment_test_value", 1111)
-////                }
-////            }
-//        }
-//    }
 
     fun setProblemId(_problemId: Int?) {
         problemId.value = _problemId!!
     }
+
+
+    fun saveIdeaInfo(url: String?, ideaComment: String) {
+        viewModelScope.launch {
+//            check.value?.let {
+//                if (it) {
+            mRepository.setIdeaInfo(url, ideaComment, problemId.value!!)
+//                }
+//            }
+        }
+    }
+
 
 }

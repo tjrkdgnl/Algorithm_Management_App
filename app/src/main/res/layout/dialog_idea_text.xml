@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+<!--        <variable-->
+<!--            name=""-->
+<!--            type="" />-->
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/et_idea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:padding="8dp"
+            android:background="@drawable/shape_input_field"
+            tools:text="테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다테스트입니다"
+            android:textColor="@color/black"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:maxLines="5"
+            android:maxLength="120"
+            android:overScrollMode="always"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false"/>
+
+    </LinearLayout>
+</layout>
