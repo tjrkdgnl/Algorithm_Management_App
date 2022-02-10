@@ -21,6 +21,7 @@ import com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel
  * author : manyong Han
  * summary : 댓글 프래그먼트
  */
+
 class CommentViewFragment(
     var listener: AdapterListener
 ) : KBaseFragment<FragmentCommentViewBinding>(R.layout.fragment_comment_view) {
@@ -44,6 +45,7 @@ class CommentViewFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.viewModel = viewProblemDetailViewModel
         binding.recyclerviewCommentList.adapter = KCommentsAdapter(listener)
+
         super.onViewCreated(view, savedInstanceState)
     }
 

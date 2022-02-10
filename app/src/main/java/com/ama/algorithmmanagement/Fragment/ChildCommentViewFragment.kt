@@ -24,6 +24,7 @@ import timber.log.Timber
  * author : manyong Han
  * summary : 대댓글 프래그먼트
  */
+
 class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(R.layout.fragment_child_comment_view) {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
@@ -42,9 +43,9 @@ class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         binding.viewModel = viewProblemDetailViewModel
         binding.recyclerviewChildCommentList.adapter = KChildCommentsAdapter()
+
         super.onViewCreated(view, savedInstanceState)
     }
 

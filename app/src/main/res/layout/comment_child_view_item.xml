@@ -14,8 +14,7 @@
         android:background="#d3d3d3"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        >
+        android:layout_marginBottom="10dp" >
 
         <ImageView
             android:id="@+id/comment_input_tier_image"
@@ -68,8 +67,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

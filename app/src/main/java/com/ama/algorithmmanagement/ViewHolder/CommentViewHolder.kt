@@ -10,6 +10,7 @@ import com.ama.algorithmmanagement.databinding.CommentViewItemBinding
  * author : manyong Han
  * summary : 댓글 뷰홀더
  */
+
 class CommentViewHolder(private val parent: ViewGroup) :
     KBaseViewHolder<CommentViewItemBinding>(
         parent, R.layout.comment_view_item
@@ -27,5 +28,4 @@ class CommentViewHolder(private val parent: ViewGroup) :
             listener.adapterClickListener(data)
         }
     }
-
 }

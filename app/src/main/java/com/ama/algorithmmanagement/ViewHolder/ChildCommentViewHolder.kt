@@ -9,6 +9,7 @@ import com.ama.algorithmmanagement.databinding.CommentChildViewItemBinding
  * author : manyong Han
  * summary : 대댓글 뷰홀더
  */
+
 class ChildCommentViewHolder(private val parent: ViewGroup) :
     KBaseViewHolder<CommentChildViewItemBinding>(
         parent, R.layout.comment_child_view_item
