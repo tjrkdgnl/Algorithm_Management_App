@@ -35,7 +35,6 @@ object BindingAdapterUtils {
         defaultRecyclerViewAdapter.updateList(list)
     }
 
-
     @JvmStatic
     @BindingAdapter("setTipProblemList")
     fun setSolvedProblemsList(
@@ -46,6 +45,10 @@ object BindingAdapterUtils {
         recyclerViewAdapter.updateList(solvedAlgorithms)
     }
 
+    /**
+     * @param recyclerView 댓글에 대한 리사이클러뷰 - 리니어
+     * @param commentList 댓글 리스트
+     */
     @JvmStatic
     @BindingAdapter("setCommentList")
     fun setCommentList(recyclerView: RecyclerView, commentList: MutableList<CommentInfo>?) {
@@ -55,6 +58,10 @@ object BindingAdapterUtils {
         }
     }
 
+    /**
+     * @param recyclerView 대댓글에 대한 리사이클러뷰 - 리니어
+     * @param childCommentList 대댓글 리스트
+     */
     @JvmStatic
     @BindingAdapter("setChildCommentList")
     fun setChildCommentList(recyclerView: RecyclerView, childCommentList: MutableList<ChildCommentInfo>?) {
