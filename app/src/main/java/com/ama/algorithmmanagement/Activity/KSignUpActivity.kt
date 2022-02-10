@@ -101,6 +101,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         )
     }
 
+    // 백준 연동페이지로 다시 돌아갈수 있는 시나리오가 없으믈로 고정값 2 할당
     private fun moveFragment() {
         binding.signUpViewPager.currentItem = 2
     }

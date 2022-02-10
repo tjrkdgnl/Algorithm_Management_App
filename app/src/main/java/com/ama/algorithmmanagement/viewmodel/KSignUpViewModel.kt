@@ -56,7 +56,7 @@ class KSignUpViewModel(
         isGetFcmToken.value = true
     }
 
-    // 사용자가 입력한 id를 임시로 shared 에 저장한 후 api 호출로 존재여부 확인.
+    // 백준 등록여부 체크 -> AMA에 등록되어있는지 체크 -> true: 이미 가입, false: 가입되어있지 않음
     // api 리턴 결과로 계정 연동 여부 확인하여 회원가입 성공유무 판단.
     fun registerAMA() {
         viewModelScope.launch {

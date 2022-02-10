@@ -33,10 +33,10 @@ class ConnectBOJAccountFragment() : KBaseFragment<FragmentConnectBojAccountBindi
             getViewModelStoreOwner(),
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
         )[KSignUpViewModel::class.java]
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    // 뷰가 다 그려진 상태
     // 뷰모델을 부모꺼 사용하면서 값 변경해주는걸 알려주기만 하면 아래처럼 안해도됨
     // 때문에 뷰모델을 부모액티비티꺼를 사용한다? => 옵저빙이 액티비티에서 실행되면 된다.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

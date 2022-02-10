@@ -10,6 +10,7 @@ import timber.log.Timber
  * author : manyong Han
  * summary : 뷰페이져 어댑터 (회원가입화면, 코멘트화면 사용)
  */
+
 class KViewPagerAdapter(
     fragmentManager: FragmentManager,
     private val fragments: List<Fragment>,
