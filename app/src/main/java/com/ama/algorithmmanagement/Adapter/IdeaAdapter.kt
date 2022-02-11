@@ -13,7 +13,7 @@ class IdeaAdapter : RecyclerView.Adapter<IdeaViewHolder>() {
     }
 
     override fun onBindViewHolder(holderTest: IdeaViewHolder, position: Int) {
-        holderTest.setData(lst[position]?.comment, lst[position]?.date)
+        holderTest.setData(lst[position]?.comment, lst[position]?.date, lst[position]?.url)
     }
 
     override fun getItemCount(): Int {

@@ -91,6 +91,9 @@ dependencies {
     // Mp Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // Ted Permission
+    implementation 'gun0912.ted:tedpermission:2.2.3'
+
     //test code
     testImplementation "androidx.test.ext:junit-ktx:1.1.4-alpha03"
     testImplementation "androidx.test:core-ktx:1.4.1-alpha03"

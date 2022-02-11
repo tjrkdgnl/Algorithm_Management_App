@@ -38,7 +38,7 @@ class MyIdeaInfoViewModel(
     }
 
 
-    fun saveIdeaInfo(url: String?, ideaComment: String) {
+    fun saveIdeaInfo(url: String?, ideaComment: String?) {
         viewModelScope.launch {
 //            check.value?.let {
 //                if (it) {
