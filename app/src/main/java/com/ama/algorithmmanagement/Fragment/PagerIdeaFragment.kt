@@ -1,7 +1,9 @@
 package com.ama.algorithmmanagement.Fragment
 
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -9,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.marginLeft
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.Adapter.IdeaAdapter
@@ -23,8 +27,19 @@ import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
 
 class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding>(R.layout.fragment_idea), View.OnClickListener {
 
-    lateinit var mIdeaInfoViewModel: MyIdeaInfoViewModel
+    private lateinit var mGetResultText: ActivityResultLauncher<Intent>
+    private lateinit var mIdeaInfoViewModel: MyIdeaInfoViewModel
     var isVisibleFAB = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mGetResultText = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+//                val data = result.data?.getStringExtra("key")
+            }
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,6 +92,8 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
 
     private fun setPhotoIdea() {
         // todo 카메라 인텐트 처리
+
+//        val intent = Intent()
     }
 
     private fun showWriteIdeaDialog() {
