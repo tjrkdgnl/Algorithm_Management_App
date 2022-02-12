@@ -12,7 +12,8 @@ import com.ama.algorithmmanagement.databinding.ActivityTryFailedBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.TryFailedViewModel
 
 /**
- * author
+ * 시도했으나 실패한 문제
+ * author hongdroid94
  */
 class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activity_try_failed) {
 

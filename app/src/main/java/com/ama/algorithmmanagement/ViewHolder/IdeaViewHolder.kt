@@ -21,6 +21,5 @@ class IdeaViewHolder(parent: ViewGroup) :
         } else {
             binding.ivIdea.visibility = View.GONE
         }
-
     }
 }

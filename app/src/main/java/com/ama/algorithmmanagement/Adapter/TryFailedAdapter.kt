@@ -10,7 +10,7 @@ class TryFailedAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
-        return ProblemViewHolder(parent)
+        return ProblemViewHolder(parent, 1)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {

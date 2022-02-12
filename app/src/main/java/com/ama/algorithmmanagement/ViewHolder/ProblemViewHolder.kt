@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.ama.algorithmmanagement.Activity.kDefault.TryHistoryActivity
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
-import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSolvedProblemsItemBinding
-import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.model.TaggedProblem
 import com.google.android.material.chip.Chip
 
 class ProblemViewHolder(private val parent: ViewGroup, private val clickType: Int) :
@@ -17,10 +16,10 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
         R.layout.default_solved_problems_item
     ) {
 
-    // todo - 동일 뷰홀더를 공유하는 화면들이 있기에 클릭 방식을 분기하기 위해 임시로 상수 구현
-    private val CLICK_TYPE_NOT_TIPPING = 0;
-    private val CLICK_TYPE_TRY_FAILED  = 1;
-    private val CLICK_TYPE_MY_TIPPING  = 2;
+    // 동일 뷰홀더를 공유하는 화면들이 있기에 클릭 방식을 분기하기 위해 임시로 상수 구현
+    private val CLICK_TYPE_NOT_TIPPING = 0
+    private val CLICK_TYPE_TRY_FAILED  = 1
+    private val CLICK_TYPE_MY_TIPPING  = 2
 
     fun setData(data: TaggedProblem) {
         binding.title.text = data.titleKo

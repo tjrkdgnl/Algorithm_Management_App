@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.NoTipViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.MyTipViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".Activity.kDefault.NoTipActivity">
+        tools:context=".Activity.kDefault.MyTipActivity">
 
         <!-- TITLE -->
         <LinearLayout
@@ -29,7 +29,7 @@
                 android:textSize="32sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="NO TIP PROBLEM"/>
+                android:text="MY TIP PROBLEM"/>
         </LinearLayout>
 
 
@@ -40,8 +40,8 @@
             android:layout_marginHorizontal="24dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_no_tip_problem"
-                app:setNoTipProblemsList="@{viewModel.noTipList}"
+                android:id="@+id/rv_my_tip_problem"
+                app:setMyTipProblemsList="@{viewModel.myTipList}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

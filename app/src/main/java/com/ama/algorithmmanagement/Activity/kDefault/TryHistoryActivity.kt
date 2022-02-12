@@ -16,6 +16,10 @@ import com.ama.algorithmmanagement.viewmodel.kDefault.TryHistoryViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import timber.log.Timber
 
+/**
+ * 문제 히스토리 보기
+ * author hongdroid94
+ */
 class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.activity_try_history) {
 
     private lateinit var tryHistoryViewModel: TryHistoryViewModel

@@ -7,7 +7,7 @@ import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.model.TipProblemInfo
 
-class KNoTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
+class NoTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {

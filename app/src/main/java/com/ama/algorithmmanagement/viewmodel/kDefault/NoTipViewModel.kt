@@ -9,7 +9,7 @@ import com.ama.algorithmmanagement.model.TipProblemInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class KNoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
+class NoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val noTipList = ObservableArrayList<TipProblemInfo>()
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
