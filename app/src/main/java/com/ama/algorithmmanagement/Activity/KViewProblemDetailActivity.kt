@@ -118,6 +118,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 }
 
 // 댓글 클릭 콜백을 위한 인터페이스
+// 추후에 수정 필요할듯
 interface AdapterListener {
     fun adapterClickListener(commentInfo: CommentInfo)
 }
