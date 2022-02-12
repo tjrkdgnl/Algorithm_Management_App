@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.ViewHolder
 
 import android.content.Intent
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.ama.algorithmmanagement.Activity.kDefault.TryHistoryActivity
@@ -21,9 +22,18 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
     private val CLICK_TYPE_TRY_FAILED  = 1
     private val CLICK_TYPE_MY_TIPPING  = 2
 
-    fun setData(data: TaggedProblem) {
+    fun setData(data: TaggedProblem, isShow: Boolean) {
         binding.title.text = data.titleKo
         binding.problemId.text = data.problemId.toString()
+
+        if (clickType == CLICK_TYPE_MY_TIPPING) {
+            if (isShow)
+                binding.check.visibility = View.VISIBLE
+            else
+                binding.check.visibility = View.GONE
+        } else {
+            binding.check.visibility = View.GONE
+        }
 
         val tagList = data.tags
         // Observing 될 때 마다 구성 완료된 칩 그룹에 add view 할 필요가 없어서 분기 하였다.

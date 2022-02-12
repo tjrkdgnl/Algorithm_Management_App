@@ -14,7 +14,7 @@ class KSolvedProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        holder.setData(list[position])
+        holder.setData(list[position], false)
     }
 
     override fun getItemCount(): Int {

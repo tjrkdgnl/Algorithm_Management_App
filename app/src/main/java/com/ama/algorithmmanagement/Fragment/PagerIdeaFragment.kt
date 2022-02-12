@@ -2,8 +2,10 @@ package com.ama.algorithmmanagement.Fragment
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -33,8 +35,11 @@ import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DialogIdeaTextBinding
 import com.ama.algorithmmanagement.databinding.FragmentIdeaBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
+import com.google.firebase.storage.FirebaseStorage
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -54,7 +59,59 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
             if (result.resultCode == RESULT_OK) {
 //                val data = result.data?.getStringExtra("key")
 //                val file = File(currentPhotoPath)
-                mIdeaInfoViewModel.saveIdeaInfo(mPhotoUri.toString(), null)
+//                val selectedUri = Uri.fromFile(file)
+//                try {
+//                    selectedUri?.let {
+//                        if (Build.VERSION.SDK_INT < 28) {
+//                            val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, selectedUri)
+//
+//                        } else {
+//                            val decode = ImageDecoder.createSource(context.contentResolver, selectedUri)
+//                            val bitmap = ImageDecoder.decodeBitmap(decode)
+//
+//                            val storageRef = FirebaseStorage.getInstance().getReference().child("aaa")
+//                            val baos = ByteArrayOutputStream()
+//                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                            val data = baos.toByteArray()
+//
+//                            val uploadTask = storageRef.putBytes(data)
+//                            uploadTask.addOnFailureListener {
+//                                // Handle unsuccessful uploads
+//                            }.addOnSuccessListener { taskSnapshot ->
+//
+//                            }
+//                        }
+//                    }
+//                } catch (e: Exception) {
+//                    Timber.e(e.toString())
+//                }
+
+
+                // set progress dialog
+                val progressDialog = ProgressDialog(context)
+                progressDialog.setTitle("업로드 중..")
+                progressDialog.show()
+
+                val currentDate = SimpleDateFormat("yyyyMMdd HHmmss").format(Date())
+                val fileName = "$currentDate.png"
+                val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://algorithmmanagementapp.appspot.com").child("images" + File.separator + fileName)
+                storageRef.putFile(mPhotoUri).addOnSuccessListener {
+                    if (it.task.isSuccessful) {
+                        progressDialog.dismiss()
+                        mIdeaInfoViewModel.saveIdeaInfo(fileName, null)
+                    }
+
+                }.addOnFailureListener {
+                    progressDialog.dismiss()
+                    Toast.makeText(context, "업로드에 실패하였습니다..!", Toast.LENGTH_SHORT)
+                        .show()
+                }.addOnProgressListener {
+                    val progressValue: Double = (100 * it.bytesTransferred / it.totalByteCount).toDouble()
+                    // display current progress value
+                    // display current progress value
+                    progressDialog.setMessage("업로드 중 " + (progressValue.toInt()) + "% ...")
+                }
+
             }
         }
 
