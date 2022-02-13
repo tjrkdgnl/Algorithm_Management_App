@@ -15,9 +15,6 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".Activity.test.TestDefaultActivity">
-        </activity>
-
-        <activity android:name=".Activity.kDefault.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,6 +22,11 @@
         </activity>
 
         <activity android:name=".Activity.kDefault.SearchActivity"/>
+        <activity android:name=".Activity.kDefault.KMainActivity">
+
+        </activity>
+
+        <activity android:name=".Activity.test.TestSearchActivity"/>
 
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 

@@ -5,6 +5,7 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,10 @@ class Repository(
         }
 
         return mNetworkService.getUserStats(mUserId!!)
+    }
+
+    override suspend fun getAutoSearchedData(keyword: String): AutoKeywordObject {
+        return KAPIGenerator.getInstance().getAutoKeyword(keyword)
     }
 
     override suspend fun getSearchProblemList(problemId: Int): Problems {

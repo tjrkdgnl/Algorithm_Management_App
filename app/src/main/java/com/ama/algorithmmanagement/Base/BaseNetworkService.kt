@@ -16,4 +16,6 @@ interface BaseNetworkService {
 
     suspend fun getUserInfo(userId:String) : User
 
+    suspend fun getAutoSearchObject(keyword:String) : AutoKeywordObject
+
 }
