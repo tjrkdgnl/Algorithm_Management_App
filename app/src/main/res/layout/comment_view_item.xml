@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +9,8 @@
         android:background="#d3d3d3"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp" >
+        android:layout_marginBottom="10dp"
+        >
 
         <ImageView
             android:id="@+id/comment_input_tier_image"
@@ -86,4 +81,5 @@
             android:focusable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

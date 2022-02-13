@@ -2,7 +2,6 @@ package com.ama.algorithmmanagement.Adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Activity.AdapterListener
 import com.ama.algorithmmanagement.ViewHolder.CommentViewHolder
 import com.ama.algorithmmanagement.model.CommentInfo
 /**
@@ -10,16 +9,16 @@ import com.ama.algorithmmanagement.model.CommentInfo
  * summary : 댓글 어댑터
  */
 class KCommentsAdapter(
-    var listener: AdapterListener
+    var childClickListener: (CommentInfo) -> Unit
 ) : RecyclerView.Adapter<CommentViewHolder>() {
     private val list = mutableListOf<CommentInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        return CommentViewHolder(parent)
+        return CommentViewHolder(parent, childClickListener)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.setData(list[position], listener)
+        holder.setData(list[position])
     }
 
     override fun getItemCount(): Int {

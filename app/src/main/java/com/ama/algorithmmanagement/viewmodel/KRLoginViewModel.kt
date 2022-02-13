@@ -31,7 +31,6 @@ class KRLoginViewModel(
     val isMoveToSignUp = MutableLiveData<Boolean>()     // 회원가입 이동 여부
 
     val isInputDataEmpty = MutableLiveData<Boolean>()   // id,pw 입력 여부
-    val isData = MutableLiveData<Boolean>()
 
     private val checkLoginInfo = combineWith(userId, userPw) {
             id, pwd -> id != null && pwd != null
@@ -84,12 +83,6 @@ class KRLoginViewModel(
     // 로그인 성공시 유저 정보 저장 및 메인으로 이동
     fun moveToSignUpPage() {
         isMoveToSignUp.value = true
-    }
-
-    fun returnCombine(): LiveData<Boolean> {
-        return combineWith(userId, userPw) {
-                id, pw -> id != null && pw != null
-        }
     }
 
     override fun onCleared() {

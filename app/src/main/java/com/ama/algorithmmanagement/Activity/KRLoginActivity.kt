@@ -29,10 +29,6 @@ class KRLoginActivity : KBaseActivity<ActivityLoginBinding>(R.layout.activity_lo
 
         binding.viewModel = loginViewModel
 
-        loginViewModel.returnCombine().observe(this) {
-            loginViewModel.isData.value = it
-        }
-
         loginViewModel.isLoginSuccess.observe(this) {
             if (it) {
                 startActivity(Intent(this, KViewProblemDetailActivity::class.java))

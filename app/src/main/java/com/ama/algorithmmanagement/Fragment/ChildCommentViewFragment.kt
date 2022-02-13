@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.ama.algorithmmanagement.Activity.AdapterListener
 import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
@@ -43,10 +42,10 @@ class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewProblemDetailViewModel
         binding.recyclerviewChildCommentList.adapter = KChildCommentsAdapter()
-
-        super.onViewCreated(view, savedInstanceState)
+        binding.recyclerviewChildCommentList.setHasFixedSize(false)
     }
 
     private fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {

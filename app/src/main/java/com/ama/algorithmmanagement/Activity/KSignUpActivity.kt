@@ -18,7 +18,6 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.viewmodel.KSignUpViewModel
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 /**
@@ -73,7 +72,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
 
         signUpViewModel.isGoToRegisterFinal.observe(this) {
             if(it) {
-                moveFragment()
+                moveToRegisterFinal()
                 signUpViewModel.isGoToRegisterFinal.value = false
             }
         }
@@ -101,8 +100,9 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         )
     }
 
-    // 백준 연동페이지로 다시 돌아갈수 있는 시나리오가 없으믈로 고정값 2 할당
-    private fun moveFragment() {
+    // 백준 연동페이지로 다시 돌아갈수 있는 시나리오가 없으므로 고정값 2 할당
+    // 메소드명 수정
+    private fun moveToRegisterFinal() {
         binding.signUpViewPager.currentItem = 2
     }
 

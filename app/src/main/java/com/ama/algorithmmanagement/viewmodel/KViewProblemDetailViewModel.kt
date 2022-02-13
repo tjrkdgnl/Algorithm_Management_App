@@ -59,12 +59,13 @@ class KViewProblemDetailViewModel(
             try {
                 Timber.e("problemId : ${problemId.value}")
                 _problemInfo.value = mRepository.getProblem(problemId.value!!)
-                problemTitle.value = _problemInfo.value!!.titleKo
-                problemCategory.value = _problemInfo.value!!.tags[0].key
-                problemTryCount.value = _problemInfo.value!!.averageTries.toString()
-                problemLevel.value = _problemInfo.value!!.level.toString()
-                problemSuccessCount.value = _problemInfo.value!!.acceptedUserCount.toString()
-
+                _problemInfo.value?.let{
+                    problemTitle.value = it.titleKo
+                    problemCategory.value = it.tags[0].key
+                    problemTryCount.value = it.averageTries.toString()
+                    problemLevel.value = it.level.toString()
+                    problemSuccessCount.value = it.acceptedUserCount.toString()
+                }
                 Timber.e(_problemInfo.value.toString())
 
             } catch (e : Exception) {

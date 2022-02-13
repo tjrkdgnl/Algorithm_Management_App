@@ -30,11 +30,10 @@ class KSplashActivity : KBaseActivity<ActivitySplashBinding>(R.layout.activity_s
         splashViewModel.isGoToMain.observe(this) {
             if(it) {
                 startActivity(Intent(this, KViewProblemDetailActivity::class.java))
-                finish()
             } else {
                 startActivity(Intent(this, KRLoginActivity::class.java))
-                finish()
             }
+            finish()
         }
     }
 }

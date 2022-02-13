@@ -25,7 +25,7 @@ import timber.log.Timber
  * summary : 문제 상세 보기 액티비티
  */
 
-class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBinding>(R.layout.activity_view_problem_detail), AdapterListener {
+class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBinding>(R.layout.activity_view_problem_detail) {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
     private lateinit var viewPagerAdapter: KViewPagerAdapter
@@ -95,7 +95,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 
     private fun setFragment(){
         fragments = arrayListOf(
-            CommentViewFragment(this),
+            CommentViewFragment(childClickListener),
             ChildCommentViewFragment()
         )
     }
@@ -105,7 +105,8 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
         binding.viewProblemCommentViewPager.currentItem = position
     }
 
-    override fun adapterClickListener(commentInfo: CommentInfo) {
+    // 댓글 클릭 콜백
+    private val childClickListener :(CommentInfo) -> Unit = { commentInfo ->
         Timber.e("commentId : ${commentInfo.commentId}")
 
         viewProblemDetailViewModel.selectCommentId.value = commentInfo.commentId
@@ -115,10 +116,4 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 
         viewProblemDetailViewModel.isCommentIdGet.value = true
     }
-}
-
-// 댓글 클릭 콜백을 위한 인터페이스
-// 추후에 수정 필요할듯
-interface AdapterListener {
-    fun adapterClickListener(commentInfo: CommentInfo)
 }

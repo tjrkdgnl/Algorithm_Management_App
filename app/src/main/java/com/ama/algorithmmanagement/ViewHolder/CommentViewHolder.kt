@@ -1,7 +1,6 @@
 package com.ama.algorithmmanagement.ViewHolder
 
 import android.view.ViewGroup
-import com.ama.algorithmmanagement.Activity.AdapterListener
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.R
@@ -11,12 +10,21 @@ import com.ama.algorithmmanagement.databinding.CommentViewItemBinding
  * summary : 댓글 뷰홀더
  */
 
-class CommentViewHolder(private val parent: ViewGroup) :
+class CommentViewHolder(private val parent: ViewGroup, childClickListener: (CommentInfo) -> Unit) :
     KBaseViewHolder<CommentViewItemBinding>(
         parent, R.layout.comment_view_item
     ) {
+    private lateinit var commentInfo: CommentInfo
 
-    fun setData(data: CommentInfo, listener: AdapterListener) {
+    init {
+        binding.commentChildCommentCount.setOnClickListener {
+            childClickListener(commentInfo)
+        }
+    }
+
+    fun setData(data: CommentInfo) {
+        commentInfo = data
+
         binding.commentTitle.text = data.userId
         binding.commentContent.text = data.comment
         binding.commentDate.text = data.date
@@ -24,8 +32,6 @@ class CommentViewHolder(private val parent: ViewGroup) :
 
         binding.executePendingBindings()
 
-        binding.commentChildCommentCount.setOnClickListener {
-            listener.adapterClickListener(data)
-        }
+
     }
 }
