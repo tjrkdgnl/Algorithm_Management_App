@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Activity.kDefault.SearchActivity"/>
+
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
