@@ -52,4 +52,8 @@ class NetworkService : BaseNetworkService {
         return KAPIGenerator.getInstance().getUserInfo(userId)
     }
 
+    override suspend fun getAutoSearchObject(keyword: String): AutoKeywordObject {
+        return KAPIGenerator.getInstance().getAutoKeyword(keyword)
+    }
+
 }

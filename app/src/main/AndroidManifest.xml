@@ -15,14 +15,17 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".Activity.test.TestDefaultActivity">
-        </activity>
-
-        <activity android:name=".Activity.kDefault.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Activity.kDefault.KMainActivity">
+
+        </activity>
+
+        <activity android:name=".Activity.test.TestSearchActivity"/>
 
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
