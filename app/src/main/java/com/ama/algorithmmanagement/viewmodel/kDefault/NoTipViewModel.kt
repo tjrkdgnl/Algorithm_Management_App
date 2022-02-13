@@ -12,7 +12,7 @@ import timber.log.Timber
 class NoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val noTipList = ObservableArrayList<TipProblemInfo>()
-    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
         sharedPref.setUserId("skjh0818") // todo : 임시..
