@@ -94,6 +94,10 @@ dependencies {
     // Ted Permission
     implementation 'gun0912.ted:tedpermission:2.2.3'
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
     //test code
     testImplementation "androidx.test.ext:junit-ktx:1.1.4-alpha03"
     testImplementation "androidx.test:core-ktx:1.4.1-alpha03"
