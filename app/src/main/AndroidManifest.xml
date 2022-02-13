@@ -47,6 +47,10 @@
 
         </activity>
 
+        <activity android:name=".Activity.kDefault.SettingActivity">
+
+        </activity>
+
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />

@@ -22,7 +22,7 @@ class TryFailedViewModel(
     val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
-        sharedPref.setUserId("testID") // todo : 임시..
+        sharedPref.setUserId("seungho0510") // todo : 임시..
         solvedacToken.observe(mLifecycleOwner!!, { token ->
             getTryFailedProblem(token)
         })

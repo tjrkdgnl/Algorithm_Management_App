@@ -22,8 +22,20 @@ class MyCommentViewModel(
 
     init {
         problemId.observe(mLifecycleOwner!!, { id ->
+//            setMyCommentList()
             getMyCommentList(id)
         })
+    }
+
+    private fun setMyCommentList() {
+        // todo - sample insert
+        viewModelScope.launch {
+            try {
+                mRepository.setComment(problemId.value!!.toInt(), "구슬꿰기 문제 어렵네요")
+            } catch (e: Exception) {
+                Timber.e(e.message.toString())
+            }
+        }
     }
 
     private fun getMyCommentList(_problemId: Int) {

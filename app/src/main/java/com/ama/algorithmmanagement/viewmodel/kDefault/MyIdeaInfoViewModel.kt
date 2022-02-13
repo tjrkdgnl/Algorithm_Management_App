@@ -30,7 +30,7 @@ class MyIdeaInfoViewModel(
     }
 
     init {
-        sharedPref.setUserId("testID") // todo : 임시..
+        sharedPref.setUserId("seungho0510") // todo : 임시..
     }
 
     fun setProblemId(_problemId: Int?) {

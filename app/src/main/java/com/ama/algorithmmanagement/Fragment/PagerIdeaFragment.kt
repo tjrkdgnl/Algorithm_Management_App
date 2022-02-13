@@ -57,36 +57,6 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
         super.onCreate(savedInstanceState)
         mGetResultText = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-//                val data = result.data?.getStringExtra("key")
-//                val file = File(currentPhotoPath)
-//                val selectedUri = Uri.fromFile(file)
-//                try {
-//                    selectedUri?.let {
-//                        if (Build.VERSION.SDK_INT < 28) {
-//                            val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, selectedUri)
-//
-//                        } else {
-//                            val decode = ImageDecoder.createSource(context.contentResolver, selectedUri)
-//                            val bitmap = ImageDecoder.decodeBitmap(decode)
-//
-//                            val storageRef = FirebaseStorage.getInstance().getReference().child("aaa")
-//                            val baos = ByteArrayOutputStream()
-//                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-//                            val data = baos.toByteArray()
-//
-//                            val uploadTask = storageRef.putBytes(data)
-//                            uploadTask.addOnFailureListener {
-//                                // Handle unsuccessful uploads
-//                            }.addOnSuccessListener { taskSnapshot ->
-//
-//                            }
-//                        }
-//                    }
-//                } catch (e: Exception) {
-//                    Timber.e(e.toString())
-//                }
-
-
                 // set progress dialog
                 val progressDialog = ProgressDialog(context)
                 progressDialog.setTitle("업로드 중..")
@@ -107,7 +77,6 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
                         .show()
                 }.addOnProgressListener {
                     val progressValue: Double = (100 * it.bytesTransferred / it.totalByteCount).toDouble()
-                    // display current progress value
                     // display current progress value
                     progressDialog.setMessage("업로드 중 " + (progressValue.toInt()) + "% ...")
                 }
@@ -169,7 +138,6 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
             .setDeniedMessage("카메라 권한 요청 거부")
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                android.Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA
             )
             .check()

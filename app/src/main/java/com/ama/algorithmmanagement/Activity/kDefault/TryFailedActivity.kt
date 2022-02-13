@@ -33,7 +33,6 @@ class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activ
             )
         )
 
-//        tryFailedViewModel.getTryFailedProblem()
         binding.viewModel = tryFailedViewModel
         binding.rvTryFailed.adapter = TryFailedAdapter()
 
