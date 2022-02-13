@@ -44,6 +44,10 @@ class FakeRepository(
         return mBaseNetworkService.getUserStats(mUserId!!)
     }
 
+    override suspend fun getAutoSearchedData(keyword: String): AutoKeywordObject {
+        return mBaseNetworkService.getAutoSearchObject(keyword)
+    }
+
 
     override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
         if (solvedacToken == null) {
