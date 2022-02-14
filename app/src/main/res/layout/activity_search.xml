@@ -53,12 +53,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="문제 검색"
+                android:maxLines="1"
                 android:focusable="true"
                 android:text="@={viewmodel.inputSearch}" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/rv_search_problem"
+            android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            loadSearchProblems="@{viewmodel.searchProblems.keywords}"
+            android:layout_height="0dp"/>
 
 
     </LinearLayout>
