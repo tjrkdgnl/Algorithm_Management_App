@@ -63,7 +63,7 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
                 progressDialog.show()
 
                 val currentDate = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-                val fileName = "${mIdeaInfoViewModel.sharedPref.getUserId()}'_'$currentDate.png"
+                val fileName = "${mIdeaInfoViewModel.sharedPref.getUserId()}_$currentDate.png"
                 val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://algorithmmanagementapp.appspot.com").child("images" + File.separator + fileName)
                 storageRef.putFile(mPhotoUri).addOnSuccessListener {
                     if (it.task.isSuccessful) {
