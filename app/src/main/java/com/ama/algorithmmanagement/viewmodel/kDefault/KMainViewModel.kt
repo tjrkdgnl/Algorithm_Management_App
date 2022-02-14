@@ -22,6 +22,7 @@ import java.lang.Exception
 import kotlin.math.log
 
 class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
+    private val mSharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     // 다시 풀어볼 문제 라이브데이터
     private val _retryProblems = MutableLiveData<MutableList<TipProblemInfo>>()
@@ -124,9 +125,14 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
 
     // 유저 회원가입
     fun setUserId(){
-        viewModelScope.launch {
-            val result = mRepository.setUserInfo("seungho0510","1234","")
-        }
+        /* 랭커 계정*/
+//        viewModelScope.launch {
+//            val result = mRepository.setUserInfo("cki86201","1234","")
+//            Timber.e("result: $result")
+//            Timber.e("result ${mRepository.getUserInfo("cki86201")}")
+//        }
+//        mSharedPref.setUserId("cki86201")
+        mSharedPref.setUserId("seungho0510")
     }
 
     init {
