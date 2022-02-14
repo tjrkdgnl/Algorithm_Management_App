@@ -9,6 +9,8 @@ import androidx.core.graphics.toColor
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
+import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
@@ -33,6 +35,7 @@ object BindingAdapterUtils {
         defaultRecyclerViewAdapter.updateList(list)
     }
 
+
     @JvmStatic
     @BindingAdapter("setKeywords")
     fun setKeywordList(recyclerView: RecyclerView, list: MutableList<Keyword>?) {
@@ -49,6 +52,32 @@ object BindingAdapterUtils {
     ) {
         val recyclerViewAdapter = recyclerView.adapter as TestTipAdapter
         recyclerViewAdapter.updateList(solvedAlgorithms)
+    }
+
+    /**
+     * @param recyclerView 댓글에 대한 리사이클러뷰 - 리니어
+     * @param commentList 댓글 리스트
+     */
+    @JvmStatic
+    @BindingAdapter("setCommentList")
+    fun setCommentList(recyclerView: RecyclerView, commentList: MutableList<CommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KCommentsAdapter
+        commentList?.let {
+            recyclerViewAdapter.updateList(commentList)
+        }
+    }
+
+    /**
+     * @param recyclerView 대댓글에 대한 리사이클러뷰 - 리니어
+     * @param childCommentList 대댓글 리스트
+     */
+    @JvmStatic
+    @BindingAdapter("setChildCommentList")
+    fun setChildCommentList(recyclerView: RecyclerView, childCommentList: MutableList<ChildCommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KChildCommentsAdapter
+        childCommentList?.let {
+            recyclerViewAdapter.updateList(childCommentList)
+        }
     }
 
     @JvmStatic
