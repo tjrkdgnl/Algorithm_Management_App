@@ -58,8 +58,8 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             }
 
         })
-        mainViewModel.isClickSearchInput.observe(this,{
-            if(it==true){
+        mainViewModel.isClickSearchInput.observe(this,{ isShow->
+            if(isShow){
                 Toast.makeText(this,"검색화면으로 전환",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@KMainActivity,SearchActivity::class.java)
                 mainViewModel.initIsClickSearchInput() // 화면 전환후 isClickSearchInput 에대한 값은 초기화
