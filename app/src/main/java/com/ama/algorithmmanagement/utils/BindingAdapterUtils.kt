@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.Adapter.SearchProblemAdapter
 import com.ama.algorithmmanagement.Adapter.test.*
 import com.ama.algorithmmanagement.model.*
 import com.github.mikephil.charting.charts.HorizontalBarChart
@@ -267,5 +268,15 @@ object BindingAdapterUtils {
             adapter?.setList(date = DateUtils.getStatDate(), hashMap)
         }
         Timber.e(dates.toString())
+    }
+
+    @JvmStatic
+    @BindingAdapter("loadSearchProblems")
+    fun loadSearchProblems(recyclerView: RecyclerView,data:MutableList<Keyword>?){
+        Timber.e("data: $data")
+        val adapter = recyclerView.adapter as? SearchProblemAdapter
+        adapter?.cleanData()
+        adapter?.setData(data)
+
     }
 }
