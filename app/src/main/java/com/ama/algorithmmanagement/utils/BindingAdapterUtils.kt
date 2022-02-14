@@ -35,6 +35,15 @@ object BindingAdapterUtils {
         defaultRecyclerViewAdapter.updateList(list)
     }
 
+
+    @JvmStatic
+    @BindingAdapter("setKeywords")
+    fun setKeywordList(recyclerView: RecyclerView, list: MutableList<Keyword>?) {
+        val keywordAdapter = recyclerView.adapter as TestSearchAdapter
+
+        keywordAdapter.updateKeywords(list)
+    }
+
     @JvmStatic
     @BindingAdapter("setTipProblemList")
     fun setSolvedProblemsList(
@@ -94,7 +103,10 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("testChildCommentList")
-    fun setTestChildCommentList(recyclerView: RecyclerView, problems: MutableList<ChildCommentInfo>?) {
+    fun setTestChildCommentList(
+        recyclerView: RecyclerView,
+        problems: MutableList<ChildCommentInfo>?
+    ) {
         val adapter = recyclerView.adapter as TestChildCommentAdapter
 
         problems?.let {

@@ -11,6 +11,7 @@
     <string name="idea">idea</string>
     <string name="date">date</string>
     <string name="comment">comment</string>
+    <string name="seach">search</string>
     <string name="prefGetUserId">UserId</string>
     <string name="default_user">Default_User</string>
     <string name="default_problemId">1110</string>
