@@ -9,6 +9,8 @@ import androidx.core.graphics.toColor
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
+import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
@@ -35,6 +37,14 @@ object BindingAdapterUtils {
 
 
     @JvmStatic
+    @BindingAdapter("setKeywords")
+    fun setKeywordList(recyclerView: RecyclerView, list: MutableList<Keyword>?) {
+        val keywordAdapter = recyclerView.adapter as TestSearchAdapter
+
+        keywordAdapter.updateKeywords(list)
+    }
+
+    @JvmStatic
     @BindingAdapter("setTipProblemList")
     fun setSolvedProblemsList(
         recyclerView: RecyclerView,
@@ -42,6 +52,32 @@ object BindingAdapterUtils {
     ) {
         val recyclerViewAdapter = recyclerView.adapter as TestTipAdapter
         recyclerViewAdapter.updateList(solvedAlgorithms)
+    }
+
+    /**
+     * @param recyclerView 댓글에 대한 리사이클러뷰 - 리니어
+     * @param commentList 댓글 리스트
+     */
+    @JvmStatic
+    @BindingAdapter("setCommentList")
+    fun setCommentList(recyclerView: RecyclerView, commentList: MutableList<CommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KCommentsAdapter
+        commentList?.let {
+            recyclerViewAdapter.updateList(commentList)
+        }
+    }
+
+    /**
+     * @param recyclerView 대댓글에 대한 리사이클러뷰 - 리니어
+     * @param childCommentList 대댓글 리스트
+     */
+    @JvmStatic
+    @BindingAdapter("setChildCommentList")
+    fun setChildCommentList(recyclerView: RecyclerView, childCommentList: MutableList<ChildCommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as KChildCommentsAdapter
+        childCommentList?.let {
+            recyclerViewAdapter.updateList(childCommentList)
+        }
     }
 
     @JvmStatic
@@ -67,7 +103,10 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("testChildCommentList")
-    fun setTestChildCommentList(recyclerView: RecyclerView, problems: MutableList<ChildCommentInfo>?) {
+    fun setTestChildCommentList(
+        recyclerView: RecyclerView,
+        problems: MutableList<ChildCommentInfo>?
+    ) {
         val adapter = recyclerView.adapter as TestChildCommentAdapter
 
         problems?.let {
