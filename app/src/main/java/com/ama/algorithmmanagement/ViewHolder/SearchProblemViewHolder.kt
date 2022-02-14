@@ -19,5 +19,6 @@ class SearchProblemViewHolder(parent:ViewGroup) :KBaseViewHolder<ItemSearchProbl
     // TODO : 파이어베이스에서 해당 문제를 풀었다면 체크표시
     fun setData(data:Keyword){
         binding.keyword = data
+        binding.executePendingBindings()
     }
 }
