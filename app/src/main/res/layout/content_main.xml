@@ -70,6 +70,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:onClick="@{()->viewmodel.moveToSearchAct()}"
                         android:hint="문제 검색" />
                 </com.google.android.material.textfield.TextInputLayout>
 
