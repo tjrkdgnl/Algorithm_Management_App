@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.ViewHolder.TipProblemViewHolder
 import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel
 import timber.log.Timber
 
 /**
@@ -12,16 +13,16 @@ import timber.log.Timber
  * class : TipProblemViewPagerAdpater.java
  * github : devaspirant0510
  * email : seungho020510@gmail.com
- * description :
+ * description  뷰페이져2 리사이클려뷰 어댑터
  */
-class TipProblemViewPagerAdapter(private val skipPage:()-> Unit) : RecyclerView.Adapter<TipProblemViewHolder>(){
+class TipProblemViewPagerAdapter(private val viewModel:NewSolvedProblemViewModel) : RecyclerView.Adapter<TipProblemViewHolder>(){
     private val mList = mutableListOf<TipProblemInfo>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ):TipProblemViewHolder {
-        return TipProblemViewHolder(parent,skipPage)
+        return TipProblemViewHolder(parent,viewModel)
     }
 
     override fun onBindViewHolder(holder: TipProblemViewHolder, position: Int) {
@@ -34,9 +35,5 @@ class TipProblemViewPagerAdapter(private val skipPage:()-> Unit) : RecyclerView.
     fun setData(data:MutableList<TipProblemInfo>){
         mList.addAll(data)
         notifyDataSetChanged()
-    }
-    fun addData(data:TipProblemInfo){
-        Timber.e("add data")
-        mList.add(data)
     }
 }

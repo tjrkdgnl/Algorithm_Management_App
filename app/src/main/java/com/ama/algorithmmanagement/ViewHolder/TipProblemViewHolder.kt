@@ -6,6 +6,7 @@ import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.FragmentNewSolvedProblemBinding
 import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel
 
 /**
  * @author : seungHo
@@ -13,16 +14,14 @@ import com.ama.algorithmmanagement.model.TipProblemInfo
  * class : TipProblemViewHolder.java
  * github : devaspirant0510
  * email : seungho020510@gmail.com
- * description :
+ * description : 팁 작성화면 뷰홀더
  */
-class TipProblemViewHolder(private val view: ViewGroup, private val skipPage:()-> Unit):KBaseViewHolder<FragmentNewSolvedProblemBinding>(
+class TipProblemViewHolder(private val view: ViewGroup, private val viewModel:NewSolvedProblemViewModel):KBaseViewHolder<FragmentNewSolvedProblemBinding>(
     view,R.layout.fragment_new_solved_problem
 ) {
     fun setData(data:TipProblemInfo){
         binding.data = data
-        binding.skipPage.setOnClickListener{
-            skipPage()
-        }
+        binding.viewmodel = viewModel
 
     }
 }
