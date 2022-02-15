@@ -9,11 +9,13 @@ import androidx.core.graphics.toColor
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
 import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.Adapter.TipProblemViewPagerAdapter
 import com.ama.algorithmmanagement.Adapter.SearchProblemAdapter
 import com.ama.algorithmmanagement.Adapter.test.*
 import com.ama.algorithmmanagement.model.*
@@ -298,6 +300,18 @@ object BindingAdapterUtils {
         }
         Timber.e(dates.toString())
     }
+
+    // 팁을 작성하지 않은 문제들 리사이클러뷰와 연동
+    @JvmStatic
+    @BindingAdapter("setNoTipProblemViewPager")
+    fun setNoTipProblemViewPager(viewpager: ViewPager2,data:MutableList<TipProblemInfo>?){
+        val adapter = viewpager.adapter as? TipProblemViewPagerAdapter
+        data?.let{
+            Timber.e("${it[0]}")
+            adapter?.setData(it)
+        }
+    }
+
 
     @JvmStatic
     @BindingAdapter("loadSearchProblems")
