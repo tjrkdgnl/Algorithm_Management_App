@@ -15,10 +15,11 @@ import timber.log.Timber
 class MyTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val myTipList = ObservableArrayList<TipProblemInfo>()
-    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
         sharedPref.setUserId("seungho0510") // todo : 임시..
+//        setMyTippingProblem()
         getMyTippingProblem()
     }
 
@@ -55,10 +56,6 @@ class MyTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
                     )
 
                 mRepository.setTippingProblem(taggedProblem, false, "hong chul good")
-
-//                val problem = mRepository.getProblem(1111)
-//                mRepository.setTippingProblem(problem, false, "재귀를 사용하면 좋다")
-
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }

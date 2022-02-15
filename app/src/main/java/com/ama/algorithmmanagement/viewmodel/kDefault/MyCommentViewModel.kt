@@ -18,7 +18,7 @@ class MyCommentViewModel(
 
     val myCommentList = ObservableArrayList<CommentInfo>()
     var problemId = MutableLiveData<Int>()
-    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
         problemId.observe(mLifecycleOwner!!, { id ->

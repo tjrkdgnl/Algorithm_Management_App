@@ -32,6 +32,7 @@ class KChildCommentsAdapter() : RecyclerView.Adapter<ChildCommentViewHolder>() {
         list?.let {
             this.list.addAll(it)
             notifyItemRangeChanged(0, this.list.size)
+//            notifyDataSetChanged()
         }
     }
 }

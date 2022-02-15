@@ -4,12 +4,15 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.ama.algorithmmanagement.Activity.KViewProblemDetailActivity
+import com.ama.algorithmmanagement.Activity.kDefault.NoTipActivity
 import com.ama.algorithmmanagement.Activity.kDefault.TryHistoryActivity
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSolvedProblemsItemBinding
 import com.ama.algorithmmanagement.model.TaggedProblem
 import com.google.android.material.chip.Chip
+import timber.log.Timber
 
 class ProblemViewHolder(private val parent: ViewGroup, private val clickType: Int) :
     KBaseViewHolder<DefaultSolvedProblemsItemBinding>(
@@ -48,18 +51,17 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
         itemView.setOnClickListener {
 
             when (clickType) {
+                // 팁을 작성하지 않은 문제
                 CLICK_TYPE_NOT_TIPPING -> {
-                    // 팁을 작성하지 않은 문제
+
 
                     // todo - 팁 작성 화면으로 이동
 //                    val intent = Intent(parent.context, ::class.java)
-//                    intent.putExtra("problemId", data.problemId)
 //                    parent.context.startActivity(intent)
                 }
 
+                // 시도했으나 실패한 문제
                 CLICK_TYPE_TRY_FAILED  -> {
-                    // 시도했으나 실패한 문제
-
                     val strOptionArry = arrayOf("문제보기 (코멘트 작성화면)", "문제 풀이 히스토리")
                     val builder = AlertDialog.Builder(parent.context)
                     builder.setItems(strOptionArry) { _, position ->
@@ -79,8 +81,12 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
                     builder.show()
                 }
 
+                // 내가 작성한 팁
                 CLICK_TYPE_MY_TIPPING  -> {
-                    // 내가 작성한 팁
+                    Timber.d("내가 작성한 팁")
+                    val intent = Intent(parent.context, KViewProblemDetailActivity::class.java)
+                    intent.putExtra("problemId", data.problemId.toString())
+                    parent.context.startActivity(intent)
                 }
             }
 

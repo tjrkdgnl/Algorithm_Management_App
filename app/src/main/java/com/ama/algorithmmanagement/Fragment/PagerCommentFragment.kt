@@ -1,22 +1,25 @@
 package com.ama.algorithmmanagement.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.Adapter.CommentListAdapter
+import com.ama.algorithmmanagement.Activity.kDefault.MyChildCommentActivity
+import com.ama.algorithmmanagement.Adapter.MyCommentAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import com.ama.algorithmmanagement.databinding.FragmentCommentBinding
-import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.databinding.FragmentMyCommentBinding
+import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyCommentViewModel
+import timber.log.Timber
 
-class PagerCommentFragment(val problemId: Int?) : KBaseFragment<FragmentCommentBinding>(R.layout.fragment_comment) {
+class PagerCommentFragment(
+    val problemId: Int?) : KBaseFragment<FragmentMyCommentBinding>(R.layout.fragment_my_comment) {
 
     private lateinit var myCommentViewModel: MyCommentViewModel
 
@@ -38,7 +41,16 @@ class PagerCommentFragment(val problemId: Int?) : KBaseFragment<FragmentCommentB
         myCommentViewModel.setProblemId(problemId)
 
         binding.viewModel = myCommentViewModel
-        binding.rvMyComment.adapter = CommentListAdapter()
+        binding.rvMyComment.adapter = MyCommentAdapter(childClickListener)
         binding.rvMyComment.setHasFixedSize(false)
     }
+
+    private val childClickListener :(CommentInfo) -> Unit = { commentInfo ->
+        Timber.e("commentId : ${commentInfo.commentId}")
+
+        val intent = Intent(context, MyChildCommentActivity::class.java)
+        intent.putExtra("commentId", commentInfo.commentId)
+        startActivity(intent)
+    }
+
 }

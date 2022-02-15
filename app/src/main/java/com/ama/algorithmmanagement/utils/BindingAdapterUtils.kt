@@ -139,7 +139,7 @@ object BindingAdapterUtils {
     @JvmStatic
     @BindingAdapter("setMyCommentList")
     fun setMyCommentList(recyclerView: RecyclerView, commentInfo: MutableList<CommentInfo>?) {
-        val recyclerViewAdapter = recyclerView.adapter as CommentListAdapter
+        val recyclerViewAdapter = recyclerView.adapter as MyCommentAdapter
         commentInfo?.let {
             recyclerViewAdapter.updateList(it)
         }

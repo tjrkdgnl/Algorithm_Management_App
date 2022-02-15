@@ -30,7 +30,7 @@
                 android:textSize="32sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="MY TIP PROBLEM"/>
+                android:text="내가 작성한 TIP"/>
         </LinearLayout>
 
 
