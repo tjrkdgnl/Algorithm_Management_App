@@ -30,11 +30,14 @@
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/fragment_main.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/jsoup_activity.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/webview.xml" value="0.25364583333333335" />
-<<<<<<< Updated upstream
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/activity_main.xml" value="0.1453125" />
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/activity_search.xml" value="0.33" />
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/content_main.xml" value="0.22" />
+
         <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/content_main.xml" value="0.1" />
+
         <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/item_user_date_info.xml" value="0.19166666666666668" />
-=======
->>>>>>> Stashed changes
+
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.13958333333333334" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_view_problem_detail.xml" value="0.125" />

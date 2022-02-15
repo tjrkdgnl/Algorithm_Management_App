@@ -54,6 +54,11 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
     val isOpenDrawer:LiveData<Boolean>
         get() = _isOpenDrawer
 
+    // 검색 editText 클릭했는지 여부 선택값 (검색 editText 클릭시 검색 activity 등장)
+    private val _isClickSearchInput = MutableLiveData<Boolean>(false)
+    val isClickSearchInput:LiveData<Boolean>
+        get() = _isClickSearchInput
+
     // 월별 통계데이터 불러오기
     private  fun loadUserDateInfo(){
         viewModelScope.launch {
@@ -121,6 +126,14 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
     fun previousMonth(){
         DateUtils.prevMonth()
         _dateStatsCurrentDate.value = DateUtils.getCalendarYearMonth()
+    }
+    // isClickSearchInput 를 true 바꿈 즉 액티비티에서 searchInput observing 하여 true 가 될경우 검색화면으로 바뀜
+    fun moveToSearchAct(){
+        _isClickSearchInput.value = true
+    }
+    // moveToSearchAct() 함수를 통해 화면이 전환될시 상태값은 원래 상태로 돌려놓기위한 함수
+    fun initIsClickSearchInput(){
+        _isClickSearchInput.value = false
     }
 
     // 유저 회원가입

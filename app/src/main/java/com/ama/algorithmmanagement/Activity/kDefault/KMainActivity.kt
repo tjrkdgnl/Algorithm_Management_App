@@ -1,7 +1,9 @@
 package com.ama.algorithmmanagement.Activity.kDefault
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -55,6 +57,14 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
 
+        })
+        mainViewModel.isClickSearchInput.observe(this,{ isShow->
+            if(isShow){
+                Toast.makeText(this,"검색화면으로 전환",Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@KMainActivity,SearchActivity::class.java)
+                mainViewModel.initIsClickSearchInput() // 화면 전환후 isClickSearchInput 에대한 값은 초기화
+                startActivity(intent)
+            }
         })
         drawerLayout.addDrawerListener(object:DrawerLayout.DrawerListener{
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
