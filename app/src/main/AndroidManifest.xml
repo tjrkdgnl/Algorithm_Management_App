@@ -17,25 +17,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".Activity.kDefault.TryHistoryActivity"
             android:exported="true">
 
         </activity>
+
         <activity
             android:name=".Activity.kDefault.TryFailedActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".Activity.test.TestDefaultActivity">
-        </activity>
-
-        <activity android:name=".Activity.kDefault.KMainActivity" />
+        <activity android:name=".Activity.KViewProblemDetailActivity" />
+        <activity android:name=".Activity.KSignUpActivity" />
+        <activity android:name=".Activity.KRLoginActivity" />
+        <activity
+            android:name=".Activity.KSplashActivity"
+            android:exported="true"/>
 
         <activity
             android:name=".Activity.kDefault.NoTipActivity"
@@ -43,17 +41,25 @@
 
         <activity
             android:name=".Activity.kDefault.MyTipActivity"
-            android:exported="true">
+            android:exported="true"/>
 
-        </activity>
+        <activity android:name=".Activity.kDefault.SettingActivity" />
 
-        <activity android:name=".Activity.kDefault.SettingActivity">
 
+        <activity android:name=".Activity.kDefault.KMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
+
+        <activity android:name=".Activity.test.TestDefaultActivity" />
+
+        <activity android:name=".Activity.test.TestSearchActivity"/>
 
         <activity android:name=".Activity.test.TestLoginActivity" />
 

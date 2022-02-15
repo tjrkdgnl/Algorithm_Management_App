@@ -33,4 +33,7 @@ interface KAPIService {
     @GET("problem/show")
     suspend fun getProblem(@Query("problemId") problemId: Int): TaggedProblem
 
+    @GET("search/suggestion")
+    suspend fun getAutoKeyword(@Query("query") keyword:String) : AutoKeywordObject
+
 }

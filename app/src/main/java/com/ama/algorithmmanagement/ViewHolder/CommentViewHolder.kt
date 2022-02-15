@@ -2,18 +2,36 @@ package com.ama.algorithmmanagement.ViewHolder
 
 import android.view.ViewGroup
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
-import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.databinding.CommentListItemBinding
 import com.ama.algorithmmanagement.model.CommentInfo
-import timber.log.Timber
+import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.databinding.CommentViewItemBinding
+/**
+ * author : manyong Han
+ * summary : 댓글 뷰홀더
+ */
 
-class CommentViewHolder(parent: ViewGroup) : KBaseViewHolder<CommentListItemBinding>(parent, R.layout.comment_list_item) {
+class CommentViewHolder(private val parent: ViewGroup, childClickListener: (CommentInfo) -> Unit) :
+    KBaseViewHolder<CommentViewItemBinding>(
+        parent, R.layout.comment_view_item
+    ) {
+    private lateinit var commentInfo: CommentInfo
+
+    init {
+        binding.commentChildCommentCount.setOnClickListener {
+            childClickListener(commentInfo)
+        }
+    }
 
     fun setData(data: CommentInfo) {
-        Timber.d(data.toString())
-        binding.title.text = data.comment
-        binding.date.text = data.date
-        binding.childCommentCount.text = data.commentChildCount.toString()
+        commentInfo = data
+
+        binding.commentTitle.text = data.userId
+        binding.commentContent.text = data.comment
+        binding.commentDate.text = data.date
+        binding.commentChildCommentCount.text = String.format("답글 %s", data.commentChildCount)
+
         binding.executePendingBindings()
+
+
     }
 }

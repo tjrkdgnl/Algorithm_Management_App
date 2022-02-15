@@ -12,6 +12,8 @@ interface BaseRepository {
 
     suspend fun getUserStats(): List<Stats>
 
+    suspend fun getAutoSearchedData(keyword:String) : AutoKeywordObject
+
     suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus>
 
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean

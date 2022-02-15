@@ -11,7 +11,8 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultActivityMainBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KDefaultMainViewModel
 
-class TestDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.default_activity_main) {
+class TestDefaultActivity :
+    KBaseActivity<DefaultActivityMainBinding>(R.layout.default_activity_main) {
     private lateinit var mainViewModel: KDefaultMainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +76,13 @@ class TestDefaultActivity : KBaseActivity<DefaultActivityMainBinding>(R.layout.d
             if (it) {
                 startActivity(Intent(this, TestCommentActivity::class.java))
                 mainViewModel.moveToCommentTestAct.value = false
+            }
+        })
+
+        mainViewModel.moveToSearchTestAct.observe(this, {
+            if (it) {
+                startActivity(Intent(applicationContext, TestSearchActivity::class.java))
+                mainViewModel.moveToSearchTestAct.value = false
             }
         })
 

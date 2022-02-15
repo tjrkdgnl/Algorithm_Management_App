@@ -27,6 +27,10 @@ class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataPr
         TODO("Not yet implemented")
     }
 
+    override suspend fun getAutoSearchObject(keyword: String): AutoKeywordObject {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getUserStats(userId: String): List<Stats> {
         delay(300)
         return mFakeNetWorkDataProvider.getStatsList()
