@@ -7,6 +7,7 @@
             type="com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel" />
     </data>
     <LinearLayout
+        android:id="@+id/root_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
