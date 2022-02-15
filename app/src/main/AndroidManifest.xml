@@ -28,7 +28,6 @@
         <activity android:name=".Activity.kDefault.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,6 +57,9 @@
 
         <activity android:name=".Activity.test.TestChildCommentActivity"/>
         <activity android:name=".Activity.test.TestTippingItemAct"/>
+        <activity android:name=".Activity.kDefault.NewSolvedProblemActivity">
+        </activity>
+        <activity android:name=".Activity.kDefault.WebViewActivity"/>
 
     </application>
 
