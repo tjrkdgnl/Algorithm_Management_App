@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.AutoKeywordObject
 import com.ama.algorithmmanagement.model.Problems
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -27,16 +29,22 @@ class SearchViewModel(private val mRepository: BaseRepository):ViewModel() {
     val searchProblems:LiveData<AutoKeywordObject>
         get() = _searchProblems
 
+    private var debounceJob: Job? = null
+
     // 검색 자동완성 API 호출
-    fun callSearchQueryProblem(query:String){
-        viewModelScope.launch {
-            try{
+    fun callSearchQueryProblem(query: String) {
+        // debounce job 이 널이 아닐때 즉 실행되고 있다면 cancel
+        // delay 600 이 끝나기도전에 callSearchQueryProblem 이 또 실행되면
+        // debounceJob 에 의해 취소되고 600 이 끝나고 데이터에 세팅됨
+        debounceJob?.cancel()
+        debounceJob = viewModelScope.launch {
+            try {
+                delay(600)
                 _searchProblems.value = mRepository.getAutoSearchedData(query)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 Timber.e("error : $e")
             }
         }
 
     }
-
 }
