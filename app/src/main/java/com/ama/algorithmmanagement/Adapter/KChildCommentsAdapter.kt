@@ -31,8 +31,8 @@ class KChildCommentsAdapter() : RecyclerView.Adapter<ChildCommentViewHolder>() {
         this.list.clear() // 리스트 중복으로 쌓이는 현상 발생 방지
         list?.let {
             this.list.addAll(it)
-            notifyItemRangeChanged(0, this.list.size)
-//            notifyDataSetChanged()
+//            notifyItemRangeChanged(0, this.list.size)
+            notifyDataSetChanged()
         }
     }
 }
