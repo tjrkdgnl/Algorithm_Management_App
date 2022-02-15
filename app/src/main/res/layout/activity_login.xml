@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ama.algorithmmanagement.viewmodel.KRLoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.KRLoginActivity">
+
+        <TextView
+            android:id="@+id/login_act_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/splash_string"
+            android:gravity="center"
+            android:textSize="52sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:letterSpacing="0.2"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/login_act_user_id_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="user id"
+            android:text="@={viewModel.userId}"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/login_act_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/login_act_user_pw_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="user pw"
+            android:text="@={viewModel.userPw}"
+            android:inputType="textPassword"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/login_act_user_id_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <RelativeLayout
+            android:id="@+id/login_act_auto_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/login_act_user_pw_edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자동 로그인 여부"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <CheckBox
+                android:id="@+id/login_act_auto_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.isAutoCheck}"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_act_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="로그인"
+            android:textSize="20sp"
+            android:backgroundTint="@color/black"
+            android:onClick="@{() -> viewModel.getLoginBtnCheck()}"
+            app:layout_constraintTop_toBottomOf="@id/login_act_auto_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/login_act_user_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="가입하기"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="@{() -> viewModel.moveToSignUpPage()}"
+            app:layout_constraintTop_toBottomOf="@id/login_act_login_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
