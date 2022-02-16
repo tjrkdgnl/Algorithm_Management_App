@@ -37,10 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#d3d3d3"
-                    android:orientation="horizontal"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/view_problem_title"
@@ -69,11 +66,7 @@
                     android:id="@+id/view_problem_info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@id/view_problem_comment_view_pager"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_problem_top_layout">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/view_problem_category"
@@ -118,11 +111,7 @@
                     android:id="@+id/view_problem_comment_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view_problem_info_layout" />
+                    android:layout_marginTop="20dp" />
 
             </LinearLayout>
 
@@ -132,6 +121,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
