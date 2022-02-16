@@ -28,6 +28,11 @@
         <activity
             android:name=".Activity.kDefault.TryFailedActivity"
             android:exported="true">
+
+
+        <activity android:name=".Activity.kDefault.SearchActivity"/>
+        <activity android:name=".Activity.kDefault.KMainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,6 +40,13 @@
         </activity>
 
         <activity android:name=".Activity.KViewProblemDetailActivity">
+
+        <activity android:name=".Activity.test.TestDefaultActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+
         </activity>
 
         <activity android:name=".Activity.KSignUpActivity" />
@@ -42,6 +54,7 @@
         <activity
             android:name=".Activity.KSplashActivity"
             android:exported="true"/>
+
 
         <activity
             android:name=".Activity.kDefault.NoTipActivity"
@@ -59,6 +72,9 @@
         <activity android:name=".Activity.kDefault.KMainActivity">
 
         </activity>
+
+        <activity android:name=".Activity.test.TestSearchActivity"/>
+
 
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 

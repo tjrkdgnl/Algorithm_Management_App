@@ -28,9 +28,31 @@
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/fragment_main.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/jsoup_activity.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/skjh0/AppData/Local/Android/AlgorithmManagement/app/src/main/res/layout/webview.xml" value="0.25364583333333335" />
+
         <entry key="app/src/main/res/layout/activity_no_tip.xml" value="0.1361111111111111" />
         <entry key="app/src/main/res/layout/activity_try_failed.xml" value="0.13703703703703704" />
         <entry key="app/src/main/res/layout/default_solved_problems_item.xml" value="0.18072916666666666" />
+
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/activity_main.xml" value="0.1453125" />
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/activity_search.xml" value="0.33" />
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/content_main.xml" value="0.22" />
+
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/content_main.xml" value="0.1" />
+
+        <entry key="..\:/seungho/Android/Algorithm_Management_App/app/src/main/res/layout/item_user_date_info.xml" value="0.19166666666666668" />
+
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_view_problem_detail.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/comment_child_view_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/comment_view_item.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/layout/default_comment_test.xml" value="0.10572916666666667" />
+        <entry key="app/src/main/res/layout/fragment_child_comment_view.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_comment_view.xml" value="0.17962962962962964" />
+        <entry key="app/src/main/res/layout/fragment_connect_boj_account.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_register_final.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/layout/webview_layout.xml" value="0.10572916666666667" />
+
       </map>
     </option>
   </component>

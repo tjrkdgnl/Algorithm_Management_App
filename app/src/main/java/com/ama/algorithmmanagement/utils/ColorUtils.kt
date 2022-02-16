@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.core.content.ContextCompat
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.R
+import timber.log.Timber
 
 /**
  * @author : seungHo
@@ -149,5 +150,27 @@ object ColorUtils {
             else -> dateInfoColors[7]
         }
 
+    }
+
+    fun intConvertToTier(data:Int):String{
+        // 각 티어는 브론즈 5,4,3,2,1 다음티어가 실버5 이런식으로 5부터 까지 가고 1 다음티어 로 가게됨
+        // 티어 0은 unranked 1에서 30까지 브론즈에서 루비까지 0부터 계산하기위해  data 에 1을 뺴서 -1 은 unranked = -1
+        // 0~29 는 브론즈~ 루비티어가됨 나누기 5를 하면 0~4(브론즈)/5 는 0 5~9(실버)/5 는 1 이런식으로 나눠지게됨
+        // data -=1
+        // data 0, data 1, data 2, data 3, data 4  =>(0~4)/5=0 (0+1)*5  브론즈 5-0 브론즈 5-1 브론즈 5-2 브론즈 5-3 브론즈 5-4
+        // data 5, data 6, data 7, data 8, data 9 = >(5~9)/5=1 (1+1)*5 실버 10-5 실버 10-6 실버 10-7 실버 10-8 실버 10-9
+        // ...
+        val tierData = (((data-1)/5+1)*5-(data-1))
+
+        return when(data){
+            0->"Unranked"
+            1,2,3,4,5->"브론즈 $tierData"
+            6,7,8,9,10->"실버 $tierData"
+            11,12,13,14,15->"골드 $tierData"
+            16,17,18,19,20->"플레티넘 $tierData"
+            21,22,23,24,25->"다이아 $tierData"
+            26,27,28,29,30->"루비 $tierData"
+            else->"알수없음"
+        }
     }
 }
