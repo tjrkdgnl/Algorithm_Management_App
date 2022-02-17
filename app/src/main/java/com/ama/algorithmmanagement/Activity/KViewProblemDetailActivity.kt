@@ -35,10 +35,8 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        problemId = if(intent != null && intent.hasExtra("problemId")) {
-            intent.getStringExtra("problemId").toString()
-        } else {
-            "1010"
+        if(intent != null && intent.hasExtra("problemId")) {
+           problemId = intent.getStringExtra("problemId").toString()
         }
 
         viewProblemDetailViewModel = ViewModelProvider(
