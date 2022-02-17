@@ -4,19 +4,20 @@ import android.view.ViewGroup
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultCommentItemBinding
+import com.ama.algorithmmanagement.model.CommentInfo
 
-class TestCommentViewHolder(parent: ViewGroup, private val moveToChild: (String) -> Unit) :
+class TestCommentViewHolder(parent: ViewGroup, private val moveToChild: (CommentInfo) -> Unit) :
     KBaseViewHolder<DefaultCommentItemBinding>(parent, R.layout.default_comment_item) {
-    private var commentId: String? = null
+    private lateinit var commentInfo: CommentInfo
 
     init {
         binding.root.setOnClickListener {
-            commentId?.let(moveToChild)
+            moveToChild(commentInfo)
         }
     }
 
-    fun setCommentId(commentId: String) {
-        this.commentId = commentId
+    fun setCommentInfo(info: CommentInfo) {
+        commentInfo = info
     }
 
     fun bind(comment: String) {

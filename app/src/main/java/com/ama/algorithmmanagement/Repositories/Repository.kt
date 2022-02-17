@@ -5,6 +5,7 @@ import com.ama.algorithmmanagement.Base.BaseFirebaseService
 import com.ama.algorithmmanagement.Base.BaseNetworkService
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.Network.KAPIGenerator
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,10 @@ class Repository(
         }
 
         return mNetworkService.getUserStats(mUserId!!)
+    }
+
+    override suspend fun getAutoSearchedData(keyword: String): AutoKeywordObject {
+        return KAPIGenerator.getInstance().getAutoKeyword(keyword)
     }
 
     override suspend fun getSearchProblemList(problemId: Int): Problems {
@@ -83,12 +88,8 @@ class Repository(
         return mFirebaseService.signUpUserInfo(userId, password)
     }
 
-    override suspend fun getUserInfo(): UserInfo? {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
-        return mFirebaseService.getUserInfo(mUserId!!)
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        return mFirebaseService.getUserInfo(userId)
     }
 
     override suspend fun setDateInfo(count: Int): Boolean {
@@ -139,7 +140,7 @@ class Repository(
         return mFirebaseService.getCommentObject(problemId)
     }
 
-    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
+    override suspend fun setChildComment(problemId: Int,commentId: String, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -147,7 +148,7 @@ class Repository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "tierType"))
         }
 
-        return mFirebaseService.setChildComment(mUserId!!, mTiertype, commentId, comment)
+        return mFirebaseService.setChildComment(problemId,mUserId!!, mTiertype, commentId, comment)
     }
 
     override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {

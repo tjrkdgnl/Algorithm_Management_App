@@ -12,6 +12,8 @@ interface BaseRepository {
 
     suspend fun getUserStats(): List<Stats>
 
+    suspend fun getAutoSearchedData(keyword:String) : AutoKeywordObject
+
     suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus>
 
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
@@ -20,7 +22,7 @@ interface BaseRepository {
 
     suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
-    suspend fun getUserInfo(): UserInfo?
+    suspend fun getUserInfo(userId:String): UserInfo?
 
     suspend fun setDateInfo(count:Int): Boolean
 
@@ -34,7 +36,7 @@ interface BaseRepository {
 
     suspend fun getCommentObject(problemId: Int): CommentObject?
 
-    suspend fun setChildComment(commentId: String, comment: String): Boolean
+    suspend fun setChildComment(problemId: Int,commentId: String, comment: String): Boolean
 
     suspend fun getChildCommentObject(commentId: String): ChildCommentObject?
 

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.ViewHolder.test.TestCommentViewHolder
 
-class TestCommentAdapter(private val moveToChild: (String) -> Unit) :
+class TestCommentAdapter(private val moveToChild: (CommentInfo) -> Unit) :
     RecyclerView.Adapter<TestCommentViewHolder>() {
     private val lst = mutableListOf<CommentInfo>()
 
@@ -15,7 +15,7 @@ class TestCommentAdapter(private val moveToChild: (String) -> Unit) :
 
     override fun onBindViewHolder(holderTest: TestCommentViewHolder, position: Int) {
         holderTest.bind(lst[position].comment)
-        holderTest.setCommentId(lst[position].commentId)
+        holderTest.setCommentInfo(lst[position])
     }
 
     override fun getItemCount(): Int {

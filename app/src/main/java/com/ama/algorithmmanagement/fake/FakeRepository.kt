@@ -44,6 +44,10 @@ class FakeRepository(
         return mBaseNetworkService.getUserStats(mUserId!!)
     }
 
+    override suspend fun getAutoSearchedData(keyword: String): AutoKeywordObject {
+        return mBaseNetworkService.getAutoSearchObject(keyword)
+    }
+
 
     override suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus> {
         if (solvedacToken == null) {
@@ -71,12 +75,8 @@ class FakeRepository(
         return mFakeFirebaseReference.signUpUserInfo(userId, password)
     }
 
-    override suspend fun getUserInfo(): UserInfo? {
-        if (mUserId == null) {
-            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
-        }
-
-        return mFakeFirebaseReference.getUserInfo(mUserId!!)
+    override suspend fun getUserInfo(userId: String): UserInfo? {
+        return mFakeFirebaseReference.getUserInfo(userId)
     }
 
     override suspend fun setDateInfo(count:Int): Boolean {
@@ -122,7 +122,7 @@ class FakeRepository(
         return mFakeFirebaseReference.getCommentObject(problemId)
     }
 
-    override suspend fun setChildComment(commentId: String, comment: String): Boolean {
+    override suspend fun setChildComment(problemId: Int,commentId: String, comment: String): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -130,7 +130,7 @@ class FakeRepository(
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "mTierType"))
         }
 
-        return mFakeFirebaseReference.setChildComment(mUserId!!, mTierType, commentId, comment)
+        return mFakeFirebaseReference.setChildComment(problemId,mUserId!!, mTierType, commentId, comment)
     }
 
     override suspend fun getChildCommentObject(commentId: String): ChildCommentObject? {

@@ -18,11 +18,15 @@ class TestChildCommentActivity :
         super.onCreate(savedInstanceState)
 
         val commentId = intent.getBundleExtra("commentBundle")?.getString("commentId")
+        val problemId = intent.getBundleExtra("commentBundle")?.getInt("problemId")
 
         val viewmodel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
-        )[TestChildCommentViewModel::class.java]
+        )[TestChildCommentViewModel::class.java].apply {
+            setCommentId(commentId)
+            setProblemId(problemId)
+        }
 
         binding.viewModel = viewmodel
         binding.ideaRecyclerView.adapter = TestChildCommentAdapter()
