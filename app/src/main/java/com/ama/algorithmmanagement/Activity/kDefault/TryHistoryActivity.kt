@@ -43,9 +43,9 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
         tryHistoryAdapter.addFragment(PagerIdeaFragment(problemId))
 
         binding.viewModel = tryHistoryViewModel
-        binding.vpTryHistory.let {
-            it.adapter = tryHistoryAdapter
-            it.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.vpTryHistory.apply {
+            this.adapter = tryHistoryAdapter
+            this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     Timber.d("current page is $position")
@@ -59,6 +59,5 @@ class TryHistoryActivity : KBaseActivity<ActivityTryHistoryBinding>(R.layout.act
             else
                 tab.text = "아이디어"
         }.attach()
-
     }
 }

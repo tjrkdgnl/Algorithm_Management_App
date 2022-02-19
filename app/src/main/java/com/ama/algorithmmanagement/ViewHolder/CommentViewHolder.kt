@@ -31,7 +31,5 @@ class CommentViewHolder(private val parent: ViewGroup, childClickListener: (Comm
         binding.commentChildCommentCount.text = String.format("답글 %s", data.commentChildCount)
 
         binding.executePendingBindings()
-
-
     }
 }

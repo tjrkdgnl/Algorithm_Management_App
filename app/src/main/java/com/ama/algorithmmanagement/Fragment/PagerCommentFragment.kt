@@ -32,7 +32,6 @@ class PagerCommentFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         myCommentViewModel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))

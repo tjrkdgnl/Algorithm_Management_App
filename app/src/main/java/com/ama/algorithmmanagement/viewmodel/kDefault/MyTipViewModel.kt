@@ -15,11 +15,8 @@ import timber.log.Timber
 class MyTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val myTipList = ObservableArrayList<TipProblemInfo>()
-    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
-        sharedPref.setUserId("seungho0510") // todo : 임시..
-//        setMyTippingProblem()
         getMyTippingProblem()
     }
 
@@ -34,32 +31,5 @@ class MyTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
                 Timber.e(e.message.toString())
             }
         }
-    }
-
-
-    private fun setMyTippingProblem() {
-        // todo - for test (추후 제거)
-        viewModelScope.launch {
-            try {
-                val taggedProblem =
-                    TaggedProblem(
-                        1000, "A+B", true, false, 151801,  1, 17, true,  2.333,
-                        mutableListOf(
-                            Tag(
-                                "arithmetic",
-                                false,
-                                121,
-                                494,
-                                mutableListOf(DisplayName("en", "arithmetic", "arithmetic"))
-                            )
-                        )
-                    )
-
-                mRepository.setTippingProblem(taggedProblem, false, "hong chul good")
-            } catch (e: Exception) {
-                Timber.e(e.message.toString())
-            }
-        }
-
     }
 }

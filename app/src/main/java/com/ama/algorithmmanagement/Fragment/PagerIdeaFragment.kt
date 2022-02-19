@@ -97,7 +97,7 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mIdeaInfoViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyIdeaInfoViewModel::class.java]
 
         mIdeaInfoViewModel.setProblemId(problemId)
