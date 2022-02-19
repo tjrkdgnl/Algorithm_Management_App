@@ -38,5 +38,4 @@ class SettingViewModel(private val mRepository: BaseRepository) :ViewModel() {
         sharedPref.setAutoLoginCheck(isChecked)
         _isAutoLogin.value = isChecked
     }
-
 }

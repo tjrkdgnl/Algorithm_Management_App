@@ -12,18 +12,11 @@ import com.ama.algorithmmanagement.model.ChildCommentObject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class MyChildCommentViewModel(private var mRepository: BaseRepository, mLifecycleOwner: LifecycleOwner?) : ViewModel() {
+class MyChildCommentViewModel(private var mRepository: BaseRepository) : ViewModel() {
 
     private val _childCommentList = MutableLiveData<ChildCommentObject?>()
     val childCommentInfoList = ObservableArrayList<ChildCommentInfo>()
-    var selectCommentId = MutableLiveData<String>()
     private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
-
-    init {
-        selectCommentId.observe(mLifecycleOwner!!,{
-            getChildCommentListLoading(it)
-        })
-    }
 
     private fun getChildCommentListLoading(commentId : String) {
         viewModelScope.launch {
@@ -31,9 +24,12 @@ class MyChildCommentViewModel(private var mRepository: BaseRepository, mLifecycl
                 _childCommentList.value = null
                 _childCommentList.value = mRepository.getChildCommentObject(commentId)
                 childCommentInfoList.clear()
+
+                val curUserId = sharedPref.getUserId()
+                val curUserInfo = mRepository.getUserInfo(curUserId.toString())
                 _childCommentList.value?.let { obj ->
                     for (i in obj.commentChildList.indices) {
-                        if (obj.commentChildList[i].userId == mRepository.getUserInfo(sharedPref.getUserId().toString())!!.userId) {
+                        if (obj.commentChildList[i].userId == curUserInfo?.userId ?: "") {
                             childCommentInfoList.add(obj.commentChildList[i])
                         }
                     }
@@ -43,6 +39,10 @@ class MyChildCommentViewModel(private var mRepository: BaseRepository, mLifecycl
                 Timber.e(e.message.toString())
             }
         }
+    }
+
+    fun setCommentId(_commentId: String?) {
+        _commentId?.let { getChildCommentListLoading(it) }
     }
 
 }

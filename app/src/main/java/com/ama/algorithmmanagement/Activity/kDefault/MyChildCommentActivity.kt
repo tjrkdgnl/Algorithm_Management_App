@@ -29,16 +29,12 @@ class MyChildCommentActivity : KBaseActivity<ActivityMyChildCommentBinding>(R.la
 
         myChildCommentViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyChildCommentViewModel::class.java]
-
         binding.viewModel = myChildCommentViewModel
-        myChildCommentViewModel.selectCommentId.value = commentId
+        myChildCommentViewModel.setCommentId(commentId)
 
         binding.rvMyChildComment.setHasFixedSize(true)
         binding.rvMyChildComment.adapter = KChildCommentsAdapter()
-
-
-
     }
 }

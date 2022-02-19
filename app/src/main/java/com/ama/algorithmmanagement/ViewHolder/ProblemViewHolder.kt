@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.ama.algorithmmanagement.Activity.KViewProblemDetailActivity
-import com.ama.algorithmmanagement.Activity.kDefault.NoTipActivity
 import com.ama.algorithmmanagement.Activity.kDefault.TryHistoryActivity
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
@@ -20,14 +19,34 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
         R.layout.default_solved_problems_item
     ) {
 
+    private lateinit var mClickProblem: TaggedProblem
+
     // 동일 뷰홀더를 공유하는 화면들이 있기에 클릭 방식을 분기하기 위해 임시로 상수 구현
     private val CLICK_TYPE_NOT_TIPPING = 0
     private val CLICK_TYPE_TRY_FAILED  = 1
     private val CLICK_TYPE_MY_TIPPING  = 2
 
+    init {
+        itemView.setOnClickListener {
+            when (clickType) {
+                // 팁을 작성하지 않은 문제
+                CLICK_TYPE_NOT_TIPPING -> { moveToWriteTipActivity() }
+
+                // 시도했으나 실패한 문제
+                CLICK_TYPE_TRY_FAILED  -> { showClickOptionDialog() }
+
+                // 내가 작성한 팁
+                CLICK_TYPE_MY_TIPPING  -> { moveToProblemDetailActivity() }
+            }
+        }
+    }
+
     fun setData(data: TaggedProblem, isShow: Boolean) {
         binding.title.text = data.titleKo
         binding.problemId.text = data.problemId.toString()
+
+        // set member variable
+        mClickProblem = data
 
         if (clickType == CLICK_TYPE_MY_TIPPING) {
             if (isShow)
@@ -47,49 +66,40 @@ class ProblemViewHolder(private val parent: ViewGroup, private val clickType: In
                 binding.chipGroupTags.addView(chip)
             }
         }
+    }
 
-        itemView.setOnClickListener {
+    private fun moveToProblemDetailActivity() {
+        // 내가 작성한 팁으로 이동
+        val intent = Intent(parent.context, KViewProblemDetailActivity::class.java)
+        intent.putExtra("problemId", mClickProblem.problemId.toString())
+        parent.context.startActivity(intent)
+    }
 
-            when (clickType) {
-                // 팁을 작성하지 않은 문제
-                CLICK_TYPE_NOT_TIPPING -> {
+    private fun moveToWriteTipActivity() {
+        // 팁 작성 화면으로 이동
+        // todo - 승호님 액티비티 작업 완료 시 활성화
+//        val intent = Intent(parent.context, ::class.java)
+//        parent.context.startActivity(intent)
+    }
 
+    private fun showClickOptionDialog() {
+        // 옵션 다이얼로그 선택
+        val strOptionArry = arrayOf("문제보기 (코멘트 작성화면)", "문제 풀이 히스토리")
+        val builder = AlertDialog.Builder(parent.context)
+        builder.setItems(strOptionArry) { _, position ->
+            when (position) {
+                0-> {
+                    // 문제보기 (코멘트 작성화면)
 
-                    // todo - 팁 작성 화면으로 이동
-//                    val intent = Intent(parent.context, ::class.java)
-//                    parent.context.startActivity(intent)
                 }
-
-                // 시도했으나 실패한 문제
-                CLICK_TYPE_TRY_FAILED  -> {
-                    val strOptionArry = arrayOf("문제보기 (코멘트 작성화면)", "문제 풀이 히스토리")
-                    val builder = AlertDialog.Builder(parent.context)
-                    builder.setItems(strOptionArry) { _, position ->
-                        when (position) {
-                            0-> {
-                                // 문제보기 (코멘트 작성화면)
-
-                            }
-                            1-> {
-                                // 문제 풀이 히스토리
-                                val intent = Intent(parent.context, TryHistoryActivity::class.java)
-                                intent.putExtra("problemId", data.problemId)
-                                parent.context.startActivity(intent)
-                            }
-                        }
-                    }
-                    builder.show()
-                }
-
-                // 내가 작성한 팁
-                CLICK_TYPE_MY_TIPPING  -> {
-                    Timber.d("내가 작성한 팁")
-                    val intent = Intent(parent.context, KViewProblemDetailActivity::class.java)
-                    intent.putExtra("problemId", data.problemId.toString())
+                1-> {
+                    // 문제 풀이 히스토리
+                    val intent = Intent(parent.context, TryHistoryActivity::class.java)
+                    intent.putExtra("problemId", mClickProblem.problemId)
                     parent.context.startActivity(intent)
                 }
             }
-
         }
+        builder.show()
     }
 }

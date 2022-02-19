@@ -34,7 +34,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:visibility="gone"
-            android:background="@drawable/ic_check"
+            android:src="@drawable/ic_check"
             android:backgroundTint="#388E3C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

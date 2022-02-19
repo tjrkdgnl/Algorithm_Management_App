@@ -35,7 +35,7 @@ class PagerCommentFragment(
 
         myCommentViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[MyCommentViewModel::class.java]
 
         myCommentViewModel.setProblemId(problemId)
