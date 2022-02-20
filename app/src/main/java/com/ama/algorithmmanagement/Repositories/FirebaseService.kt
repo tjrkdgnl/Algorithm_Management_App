@@ -569,6 +569,8 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
                         filteredProblems.problemInfoList.add(tipProblemInfo)
                     }
 
+                    filteredProblems.count = filteredProblems.problemInfoList.size
+
                     return filteredProblems
                 }
             }
@@ -599,6 +601,8 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
                         filteredProblems.problemInfoList.add(tipProblemInfo)
                     }
+
+                    filteredProblems.count = filteredProblems.problemInfoList.size
 
                     return filteredProblems
                 }
