@@ -22,7 +22,7 @@ interface KAPIService {
     ): Problems
 
     @GET("account/verify_credentials")
-    suspend fun getBOJUserInfo(): BOJUser
+    suspend fun getUserCredentials(): BOJUser
 
     @GET("user/problem_stats")
     fun getUserStatsInfo(@Query("handle") userId: String): Call<List<Stats>>

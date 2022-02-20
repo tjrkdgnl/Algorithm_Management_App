@@ -39,7 +39,7 @@ class NetworkService : BaseNetworkService {
     override suspend fun getUnSolvedProblems(solvedacToken: String): List<ProblemStatus> {
         KAPIGenerator.initRetrofit(solvedacToken)
 
-        val response = KAPIGenerator.getInstance().getBOJUserInfo()
+        val response = KAPIGenerator.getInstance().getUserCredentials()
 
         return response.solved.filter { it.status == "tried" }.toMutableList()
     }
