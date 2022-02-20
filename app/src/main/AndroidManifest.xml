@@ -21,23 +21,23 @@
         <activity
             android:name=".Activity.KSplashActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
         <activity android:name=".Activity.kDefault.SearchActivity"/>
         <activity android:name=".Activity.kDefault.KMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+            </intent-filter>
         </activity>
+        
         <activity android:name=".Activity.test.TestDefaultActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
         </activity>
 
 

@@ -84,3 +84,5 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+# Project exclude paths
+/.gradle/
