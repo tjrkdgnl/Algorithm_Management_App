@@ -30,10 +30,15 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
     private lateinit var viewPagerAdapter: KViewPagerAdapter
     private lateinit var fragments: List<Fragment>
-    private var problemId = "1010"
+    private lateinit var problemId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(intent != null && intent.hasExtra("problemId")) {
+           problemId = intent.getStringExtra("problemId").toString()
+        }
+
         viewProblemDetailViewModel = ViewModelProvider(
             this,
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
@@ -41,10 +46,6 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 
         binding.viewModel = viewProblemDetailViewModel
         setFragment()
-
-//        if(intent != null && intent.hasExtra("problemId")) {
-//            problemId = intent.getStringExtra("problemId").toString()
-//        }
 
         viewPagerAdapter = KViewPagerAdapter(supportFragmentManager, fragments ,lifecycle)
         binding.viewProblemCommentViewPager.adapter = viewPagerAdapter
@@ -79,6 +80,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
 
         viewProblemDetailViewModel.isBackCommentFrag.observe(this) {
             if(it) {
+                viewProblemDetailViewModel.getCommentListLoading()
                 moveFragment(0)
                 viewProblemDetailViewModel.isBackCommentFrag.value = false
             }
