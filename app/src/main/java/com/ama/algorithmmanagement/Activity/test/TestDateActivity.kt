@@ -25,8 +25,8 @@ class TestDateActivity : KBaseActivity<DefaultDateTestBinding>(R.layout.default_
         binding.viewModel = viewModel
 
         binding.dateRecyclerView.adapter = TestDateAdpater()
-//        binding.dateRecyclerView.setHasFixedSize(false)
-        Timber.e("pr 삭제")
+        binding.dateRecyclerView.setHasFixedSize(false)
+
 
     }
 }
