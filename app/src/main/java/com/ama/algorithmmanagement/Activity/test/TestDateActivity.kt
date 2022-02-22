@@ -10,6 +10,7 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultDateTestBinding
 import com.ama.algorithmmanagement.viewmodel.test.TestDateViewModel
+import timber.log.Timber
 
 class TestDateActivity : KBaseActivity<DefaultDateTestBinding>(R.layout.default_date_test) {
 
@@ -24,8 +25,8 @@ class TestDateActivity : KBaseActivity<DefaultDateTestBinding>(R.layout.default_
         binding.viewModel = viewModel
 
         binding.dateRecyclerView.adapter = TestDateAdpater()
-        binding.dateRecyclerView.setHasFixedSize(false)
-
+//        binding.dateRecyclerView.setHasFixedSize(false)
+        Timber.e("pr 삭제")
 
     }
 }
