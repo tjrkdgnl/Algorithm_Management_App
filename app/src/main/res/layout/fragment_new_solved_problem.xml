@@ -7,9 +7,6 @@
         <variable
             name="viewmodel"
             type="com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel" />
-        <variable
-            name="data"
-            type="com.ama.algorithmmanagement.model.TipProblemInfo" />
         <import type="com.ama.algorithmmanagement.utils.TipUtils"/>
         <import type="com.ama.algorithmmanagement.utils.ColorUtils"/>
         <import type="android.view.View"/>
@@ -21,14 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{`#`+data.problem.problemId +` `+ data.problem.titleKo}"
             android:textStyle="bold"
             android:textSize="30sp"
             android:maxEms="8"
+            android:text="@{viewmodel.currentPageData.problem.titleKo}"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="건너뛰기"
-            android:visibility="@{viewmodel._isLastTipPage? View.GONE: View.VISIBLE }"
-            android:onClick="@{()->viewmodel.skipTipPage()}"
+            android:visibility="@{viewmodel.hasMoreData?View.VISIBLE:View.GONE}"
+            android:onClick="@{()->viewmodel.skipPage()}"
             android:textColor="#303F9F"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -53,9 +51,9 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{TipUtils.INSTANCE.tagsConvertToString(data.problem.tags)}"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:text="@{TipUtils.INSTANCE.tagsConvertToString(viewmodel.currentPageData.problem.tags)}"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -140,10 +138,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButton"
-            android:onClick="@{()->viewmodel.submitTip()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="작성 완료"
+            android:onClick="@{()->viewmodel.submitForm()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
