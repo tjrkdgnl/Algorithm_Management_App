@@ -57,6 +57,10 @@ class FakeRepository(
         return mBaseNetworkService.getUnSolvedProblems(solvedacToken)
     }
 
+    override suspend fun getBOJUserInfo(): User {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?): Boolean {
         if (mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)) {
             mSharedPrefUtils.setUserId(userId)

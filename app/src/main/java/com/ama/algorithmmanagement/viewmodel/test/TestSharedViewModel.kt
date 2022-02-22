@@ -114,7 +114,7 @@ class TestSharedViewModel(private val mRepository: BaseRepository) : ViewModel()
 
     fun unSolvedProblems() {
         viewModelScope.launch {
-            Timber.e(KAPIGenerator.getInstance().getBOJUserInfo().toString())
+            Timber.e(KAPIGenerator.getInstance().getUserCredentials().toString())
         }
     }
 
