@@ -3,21 +3,15 @@ package com.ama.algorithmmanagement.Activity.kDefault;
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
-import com.ama.algorithmmanagement.Adapter.TipProblemViewPagerAdapter
 import com.ama.algorithmmanagement.Adapter.TipProblemViewPagerFragmentAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
-import com.ama.algorithmmanagement.Fragment.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityNewSolvedProblemViewPagerBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel
-import kotlinx.coroutines.*
 import timber.log.Timber
 
 /**
@@ -50,9 +44,9 @@ class NewSolvedProblemActivity :
 
 
         // 작성하지 않은 팁을 모두 작성할경우 메인액티비티로 이동
-        viewModel.moveToMain.observe(this@NewSolvedProblemActivity, {
+        viewModel.moveToMain.observe(this, {
             if (it) {
-                val intent = Intent(this@NewSolvedProblemActivity, KMainActivity::class.java)
+                val intent = Intent(applicationContext, KMainActivity::class.java)
                 startActivity(intent)
             }
         })
