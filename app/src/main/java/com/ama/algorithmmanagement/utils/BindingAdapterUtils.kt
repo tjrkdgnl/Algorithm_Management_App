@@ -134,7 +134,9 @@ object BindingAdapterUtils {
     @BindingAdapter("setTryFailedProblemsList")
     fun setTryFailedProblemsList(recyclerView: RecyclerView, tryFailedList: MutableList<TaggedProblem>?) {
         val recyclerViewAdapter = recyclerView.adapter as TryFailedAdapter
-        recyclerViewAdapter.updateList(tryFailedList)
+        tryFailedList?.let {
+            recyclerViewAdapter.updateList(tryFailedList)
+        }
     }
 
     @JvmStatic

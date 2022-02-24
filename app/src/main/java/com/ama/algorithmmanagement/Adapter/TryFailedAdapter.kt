@@ -21,10 +21,7 @@ class TryFailedAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
         return list.size
     }
 
-    fun updateList(list: MutableList<TaggedProblem>?) {
-        if (list.isNullOrEmpty())
-            return
-
+    fun updateList(list: MutableList<TaggedProblem>) {
         for (i in list.indices) {
             // check contains list item object
             if ( list[i] in this.list )
