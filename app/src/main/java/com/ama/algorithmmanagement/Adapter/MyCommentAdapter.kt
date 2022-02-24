@@ -27,10 +27,8 @@ class MyCommentAdapter(
         return list.size
     }
 
-    fun updateList(commentList: MutableList<CommentInfo>?) {
-        commentList?.let {
-            list.addAll(it)
-        }
+    fun updateList(commentList: MutableList<CommentInfo>) {
+        list.addAll(commentList)
         notifyDataSetChanged()
     }
 }
