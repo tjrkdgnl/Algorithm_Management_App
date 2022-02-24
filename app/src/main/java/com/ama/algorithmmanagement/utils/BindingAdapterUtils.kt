@@ -120,14 +120,18 @@ object BindingAdapterUtils {
     @BindingAdapter("setNoTipProblemsList")
     fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblemInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as NoTipProblemsAdapter
-        recyclerViewAdapter.updateList(noTipProblems)
+        noTipProblems?.let {
+            recyclerViewAdapter.updateList(it)
+        }
     }
 
     @JvmStatic
     @BindingAdapter("setMyTipProblemsList")
     fun setMyTipProblemsList(recyclerView: RecyclerView, myTipProblems: MutableList<TipProblemInfo>?) {
         val recyclerViewAdapter = recyclerView.adapter as MyTipProblemsAdapter
-        recyclerViewAdapter.updateList(myTipProblems)
+        myTipProblems?.let {
+            recyclerViewAdapter.updateList(it)
+        }
     }
 
     @JvmStatic

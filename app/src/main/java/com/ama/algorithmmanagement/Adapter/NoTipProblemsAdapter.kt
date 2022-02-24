@@ -8,27 +8,25 @@ import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.model.TipProblemInfo
 
 class NoTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
-    private val list = mutableListOf<TaggedProblem>()
+    private val noTipList = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
         return ProblemViewHolder(parent, 0)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        holder.setData(list[position], false)
+        holder.setData(noTipList[position], false)
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return noTipList.size
     }
 
-    fun updateList(list: MutableList<TipProblemInfo>?) {
-        for (i in list?.indices!!) {
-            this.list.add(list[i].problem!!)
+    fun updateList(list: MutableList<TipProblemInfo>) {
+        for (i in list.indices) {
+            list[i].problem?.let { this.noTipList.add(it) }
         }
         notifyDataSetChanged()
 
     }
-
-
 }

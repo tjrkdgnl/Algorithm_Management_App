@@ -6,23 +6,22 @@ import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.model.TipProblemInfo
 
 class MyTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
-    private val list = mutableListOf<TipProblemInfo>()
+    private val myTipList = mutableListOf<TipProblemInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
         return ProblemViewHolder(parent, 2)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        list[position].problem?.let { holder.setData(it, list[position].isShow) }
+        myTipList[position].problem?.let { holder.setData(it, myTipList[position].isShow) }
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return myTipList.size
     }
 
-    fun updateList(list: MutableList<TipProblemInfo>?) {
-        list?.let { this.list.addAll(it) }
+    fun updateList(list: MutableList<TipProblemInfo>) {
+        myTipList.addAll(list)
         notifyDataSetChanged()
     }
-
 }
