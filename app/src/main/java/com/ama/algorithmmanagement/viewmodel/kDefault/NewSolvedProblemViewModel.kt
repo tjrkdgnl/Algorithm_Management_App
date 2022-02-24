@@ -70,25 +70,18 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
         Timber.e("옵 로딩 팁")
         viewModelScope.launch {
             try {
-//                val solvedProblem = mRepository.getSolvedProblems()
-//                solvedProblem.problemList?.toList()?.let {
-//                    // 우선 파베에 내가 푼 문제 업데이트 시킴
-//                    mRepository.initTipProblems(it)
-//                }
                 val getFullNoTipProblemInfo = mRepository.getNotTippingProblem()
                 // 깊은복사를 제공하는 Object 에 copy 는 기본자료형만 깊은복사되기때문에 빈리스트 만들어 참조되지 않게함
                 val tempNoTip = mutableListOf<TipProblemInfo>()
                 Timber.e("data : ${noTipProblem.value!!.problemInfoList}")
-                tempNoTip.addAll(getFullNoTipProblemInfo!!.problemInfoList)
                 // 데이터 다 지운후 오늘 푼문제만 추가
-                _noTipProblem.value!!.problemInfoList.clear()
-                tempNoTip.map {
+                getFullNoTipProblemInfo?.problemInfoList?.map {
                     // tip 에 저장된 날짜와 오늘날짜가 일치하면 추가
                     if(it.date==DateUtils.getDate()){
-                        noTipProblem.value!!.problemInfoList.add(it) // problemList 를 참조한상태에서 add 만 하여 observing 되지 않게함
+                        tempNoTip.add(it) // problemList 를 참조한상태에서 add 만 하여 observing 되지 않게함
                     }
                 }
-                Timber.e("data : ${noTipProblem.value!!.problemInfoList}")
+                _noTipProblem.value!!.problemInfoList.addAll(tempNoTip)
                 _noTipProblem.value!!.count = _noTipProblem.value!!.problemInfoList.size
                 if(noTipProblem.value!!.problemInfoList.size==0){
                     moveToMain.value = true
