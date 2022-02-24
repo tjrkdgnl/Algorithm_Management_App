@@ -23,18 +23,10 @@ class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activ
         super.onCreate(savedInstanceState)
         tryFailedViewModel = ViewModelProvider(
             this,
-            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE), this)
+            BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[TryFailedViewModel::class.java]
-
-        tryFailedViewModel.setSolvedacToken(
-            getString(
-                R.string.solvedacToken,
-                "s:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYW5kbGUiOiJza2poMDgxOCIsImlhdCI6MTY0MDMyMjMyN30.McETfhdB0ifUV5DCAxPxv1lEKOWmrE2f1Lz1k5AQMKc.oSZuHUp7e6llQUYp2KHZx4utH1XSS8Ile8R4rrfuO6U"
-            )
-        )
 
         binding.viewModel = tryFailedViewModel
         binding.rvTryFailed.adapter = TryFailedAdapter()
-
     }
 }

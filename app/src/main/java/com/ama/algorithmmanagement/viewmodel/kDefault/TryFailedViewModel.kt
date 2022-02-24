@@ -1,8 +1,6 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Application.AMAApplication
@@ -11,26 +9,15 @@ import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class TryFailedViewModel(
-    private val mRepository: BaseRepository,
-    mLifecycleOwner: LifecycleOwner?
-    ) :ViewModel() {
+class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val tryFailedList = ObservableArrayList<TaggedProblem>()
-    val solvedacToken = MutableLiveData<String>()
-
-    val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
         sharedPref.setUserId("seungho0510") // todo : 임시..
-        solvedacToken.observe(mLifecycleOwner!!, { token ->
-            getTryFailedProblem(token)
-        })
-
-    }
-
-    fun setSolvedacToken(token: String?) {
-        solvedacToken.value = token!!
+        val solvedacToken = sharedPref.getSolvedacToken() // todo : 임시.. 차후 SharedPref가 Repository에서 관리 될 때 수정해야 함.
+        getTryFailedProblem(solvedacToken)
     }
 
     private fun getTryFailedProblem(token: String?) {
