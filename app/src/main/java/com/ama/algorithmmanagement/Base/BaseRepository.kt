@@ -16,6 +16,8 @@ interface BaseRepository {
 
     suspend fun getUnSolvedProblems(solvedacToken: String?): List<ProblemStatus>
 
+    suspend fun getBOJUserInfo() : User
+
     suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
 
     suspend fun confirmUserInfo(userId: String) : Boolean
