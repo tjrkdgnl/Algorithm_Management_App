@@ -22,7 +22,9 @@ class WebViewViewModel(repository: BaseRepository) : ViewModel() {
         get() = _isFinishActivity
 
     fun finishActivity(){
-        _isFinishActivity.value = !isFinishActivity.value!!
+        _isFinishActivity.value?.let{
+            _isFinishActivity.value = !it
+        }
     }
 
     fun setProblemId(id:Int){
