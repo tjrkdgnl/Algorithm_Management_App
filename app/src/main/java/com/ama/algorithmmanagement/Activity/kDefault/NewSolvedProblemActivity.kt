@@ -51,7 +51,7 @@ class NewSolvedProblemActivity :
             }
         })
         // Form 에 모든 데이터를 입력했을시
-        viewModel.onValidForm.observe(this,{ isValid->
+        viewModel.onSubmitValidForm.observe(this,{ isValid->
             if(!isValid){
                 Toast.makeText(this,"모두 입력해주세요",Toast.LENGTH_SHORT).show()
             }
@@ -73,6 +73,8 @@ class NewSolvedProblemActivity :
                 }
             }
         })
+        // mediator livedata addSource 콜백이 트리거되기위해 observe
+        viewModel.inputFormLiveData.observe(this,{})
     }
 
 }

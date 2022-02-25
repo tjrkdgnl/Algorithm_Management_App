@@ -1,9 +1,6 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault;
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ama.algorithmmanagement.Base.BaseRepository
 import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.ama.algorithmmanagement.model.TippingProblemObject
@@ -50,10 +47,19 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
     val onValidForm: LiveData<Boolean>
         get() = _onValidForm
 
+    // Mediator Live Data 에서 addSource 한 라이브데이터가 변경될때마다 _inputFormData() 함수를 호출해서 isValidForm(입력폼이 모두 입력됬는지 여부)
+    // 값을 업데이트하게됨, activity 에서 onValidForm 을 observing 하면 inputForm 에서 상태가 변할때마다 감지되기떄문에 submit 버튼을 눌렀을때만
+    // observing 되는 라이브데이터
+    private val _onSubmitValidForm = MutableLiveData<Boolean>(true)
+    val onSubmitValidForm:LiveData<Boolean>
+        get() = _onSubmitValidForm
+
     // 문제 보기 눌렀는지 여부 확인할 라이브데이터 ( 문제 보기 누를시 웹뷰 띄워줌)
     private val _isOpenProblemLink = MutableLiveData<Boolean>()
     val isOpenProblemLink: LiveData<Boolean>
         get() = _isOpenProblemLink
+
+    val inputFormLiveData: MediatorLiveData<Any> = MediatorLiveData()
 
     // 팁작성하기 editText 양방향 바인딩
     val inputTip = MutableLiveData<String>("")
@@ -73,21 +79,27 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
                 val getFullNoTipProblemInfo = mRepository.getNotTippingProblem()
                 // 깊은복사를 제공하는 Object 에 copy 는 기본자료형만 깊은복사되기때문에 빈리스트 만들어 참조되지 않게함
                 val tempNoTip = mutableListOf<TipProblemInfo>()
-                Timber.e("data : ${noTipProblem.value!!.problemInfoList}")
-                // 데이터 다 지운후 오늘 푼문제만 추가
-                getFullNoTipProblemInfo?.problemInfoList?.map {
-                    // tip 에 저장된 날짜와 오늘날짜가 일치하면 추가
-                    if(it.date==DateUtils.getDate()){
-                        tempNoTip.add(it) // problemList 를 참조한상태에서 add 만 하여 observing 되지 않게함
+                _noTipProblem.value?.let { noTip ->
+                    Timber.e("data : ${noTip.problemInfoList}")
+                    // 데이터 다 지운후 오늘 푼문제만 추가
+                    getFullNoTipProblemInfo?.problemInfoList?.map {
+                        // tip 에 저장된 날짜와 오늘날짜가 일치하면 추가
+                        if (it.date == DateUtils.getDate()) {
+                            tempNoTip.add(it) // problemList 를 참조한상태에서 add 만 하여 observing 되지 않게함
+                        }
                     }
-                }
-                _noTipProblem.value!!.problemInfoList.addAll(tempNoTip)
-                _noTipProblem.value!!.count = _noTipProblem.value!!.problemInfoList.size
-                if(noTipProblem.value!!.problemInfoList.size==0){
-                    moveToMain.value = true
-                }else{
-                    _currentPageData.value = noTipProblem.value!!.problemInfoList[0]
-                    _currentPageNumber.value = 0
+                    noTip.problemInfoList.addAll(tempNoTip)
+                    noTip.count = noTip.problemInfoList.size
+                    if (noTip.problemInfoList.size == 0) {
+                        moveToMain.value = true
+                    } else {
+                        _currentPageData.value = noTip.problemInfoList[0]
+                        _currentPageNumber.value = 0
+                        // 오늘 푼 문제가 한개일경우 건너뛰기 버튼이 보이는 상황 예외 처리
+                        if (noTip.problemInfoList.size == 1) {
+                            _hasMoreData.value = false
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -98,16 +110,18 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
     // 다음페이지 이동
     fun skipPage() {
         try {
-            if (currentPageNumber.value!! + 1 < noTipProblem.value?.problemInfoList!!.size) {
-                Timber.e("next page")
-                _currentPageNumber.value = _currentPageNumber.value!! + 1
-                // 다음페이지가 없다면 hasMoreData 는 false
-                if (currentPageNumber.value!! + 1 == noTipProblem.value?.problemInfoList!!.size) {
+            currentPageNumber.value?.let { pageNum ->
+                if (pageNum + 1 < noTipProblem.value?.problemInfoList!!.size) {
+                    Timber.e("next page")
+                    _currentPageNumber.value = pageNum + 1
+                    // 다음페이지가 없다면 hasMoreData 는 false
+                    if (pageNum + 1 == noTipProblem.value?.problemInfoList!!.size) {
+                        _hasMoreData.value = false
+                    }
+                } else {
+                    Timber.e("no page")
                     _hasMoreData.value = false
                 }
-            } else {
-                Timber.e("no page")
-                _hasMoreData.value = false
             }
             initForm()
         } catch (e: Exception) {
@@ -155,28 +169,28 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
             // job 이 cancel 됬을때 suspend 함수를 호출하면 발생하는 예외
             tipSubmitJob?.join() // job 이 끝날때까지 대기
             try {
-                if (validSubmitForm(
-                        tipComment = inputTip.value!!,
-                        isShow = isShow.value!!,
-                        isNotShow = isNotShow.value!!
-                    )
-                ) {
-                    Timber.e("작성")
-                    mRepository.modifyTippingProblem(
-                        problemId = currentPageData.value?.problem!!.problemId,
-                        isShow = isShow.value!!,
-                        tipComment = inputTip.value
-                    )
-                    _onValidForm.value = true
-                    skipPage()
-                    if (hasMoreData.value == false) {
-                        moveToMain.value = true
+                //Mediator 라이브데이터로 입력값(팁,정답본여부)을 addSource 하고
+                onValidForm.value?.let{ isValidForm->
+                    if (isValidForm) {
+                        Timber.e("작성")
+                        mRepository.modifyTippingProblem(
+                            problemId = currentPageData.value?.problem!!.problemId,
+                            isShow = isShow.value!!,
+                            tipComment = inputTip.value
+                        )
+                        _onValidForm.value = true
+                        skipPage()
+                        if (hasMoreData.value == false) {
+                            moveToMain.value = true
+                        }
+                        _onSubmitValidForm.value = true
+                    } else {
+                        Timber.e("실패")
+                        _onValidForm.value = false
+                        _onSubmitValidForm.value = false
                     }
-                } else {
-                    Timber.e("실패")
-                    _onValidForm.value = false
+                    initForm()
                 }
-                initForm()
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -184,8 +198,39 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
 
     }
 
+    private fun _inputFormLiveData(): Boolean {
+        Timber.e("함수호출")
+        try {
+            inputTip.value?.let { inputTip ->
+                val result = inputTip.isNotEmpty() && inputTip.isNotBlank() && (isNotShow.value!! || isShow.value!!)
+                Timber.e("tip : $inputTip 정답봄 : ${isShow.value!!} 정답 안봄 : ${isNotShow.value!!}" )
+                Timber.e("팁 작성 가능 ? :$result")
+                return result
+            }
+            return false
+        } catch (e: Exception) {
+            Timber.e(e)
+            return false
+        }
+
+    }
+
     init {
         // 팁을 작성하지 않은문제 로딩
         loadNoTippingProblem()
+        inputFormLiveData.addSource(inputTip) {
+            Timber.e("inputTip 라이브데이터 추가 값 : $it")
+            _onValidForm.value = _inputFormLiveData()
+        }
+        inputFormLiveData.addSource(isShow) {
+            Timber.e("isShow 라이브데이터 추가 값 :$it")
+            _onValidForm.value = _inputFormLiveData()
+
+        }
+        inputFormLiveData.addSource(isNotShow) {
+            Timber.e("isNotShow 라이브데이터 추가 값 :$it")
+            _onValidForm.value = _inputFormLiveData()
+        }
+
     }
 }
