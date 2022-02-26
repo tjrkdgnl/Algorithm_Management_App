@@ -3,6 +3,7 @@ package com.ama.algorithmmanagement.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Activity.kDefault.KMainActivity
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
@@ -29,7 +30,7 @@ class KSplashActivity : KBaseActivity<ActivitySplashBinding>(R.layout.activity_s
 
         splashViewModel.isGoToMain.observe(this) {
             if(it) {
-                startActivity(Intent(this, KViewProblemDetailActivity::class.java))
+                startActivity(Intent(this, KMainActivity::class.java))
             } else {
                 startActivity(Intent(this, KRLoginActivity::class.java))
             }

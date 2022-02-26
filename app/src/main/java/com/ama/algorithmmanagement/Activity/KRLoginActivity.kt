@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Activity.kDefault.KMainActivity
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
 import com.ama.algorithmmanagement.Base.KBaseActivity
@@ -31,7 +32,7 @@ class KRLoginActivity : KBaseActivity<ActivityLoginBinding>(R.layout.activity_lo
 
         loginViewModel.isLoginSuccess.observe(this) {
             if (it) {
-                startActivity(Intent(this, KViewProblemDetailActivity::class.java))
+                startActivity(Intent(this, KMainActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "로그인에 실패 하였습니다.", Toast.LENGTH_SHORT).show()
