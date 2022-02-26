@@ -3,17 +3,20 @@ package com.ama.algorithmmanagement.Adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
+import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.model.TipProblemInfo
 
-class MyTipProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
+class MyTipProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val myTipList = mutableListOf<TipProblemInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
-        return ProblemViewHolder(parent, 2)
+        return ProblemViewHolder(parent, listClickListener)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        myTipList[position].problem?.let { holder.setData(it, myTipList[position].isShow) }
+        myTipList[position].problem?.let {
+            holder.setData(it, myTipList[position])
+        }
     }
 
     override fun getItemCount(): Int {

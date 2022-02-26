@@ -6,15 +6,15 @@ import com.ama.algorithmmanagement.model.TipProblemInfo
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 
-class KSolvedProblemsAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
+class KSolvedProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
-        return ProblemViewHolder(parent, 0)
+        return ProblemViewHolder(parent, listClickListener)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        holder.setData(list[position], false)
+        holder.setData(list[position], null)
     }
 
     override fun getItemCount(): Int {

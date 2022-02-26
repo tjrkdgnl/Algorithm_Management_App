@@ -1,7 +1,9 @@
 package com.ama.algorithmmanagement.Activity.kDefault
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.ama.algorithmmanagement.Activity.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.Adapter.MyTipProblemsAdapter
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseViewModelFactory
@@ -9,7 +11,9 @@ import com.ama.algorithmmanagement.Base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.Repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMyTipBinding
+import com.ama.algorithmmanagement.model.TaggedProblem
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyTipViewModel
+import timber.log.Timber
 
 /**
  * 내가 작성한 팁
@@ -27,6 +31,14 @@ class MyTipActivity : KBaseActivity<ActivityMyTipBinding>(R.layout.activity_my_t
         )[MyTipViewModel::class.java]
 
         binding.viewModel = myTipViewModel
-        binding.rvMyTipProblem.adapter = MyTipProblemsAdapter()
+        binding.rvMyTipProblem.adapter = MyTipProblemsAdapter(listClickListener)
+    }
+
+    private val listClickListener : (TaggedProblem) -> Unit = { clickProblem ->
+        Timber.d("problemId : ${clickProblem.problemId}")
+
+        val intent = Intent(this, KViewProblemDetailActivity::class.java)
+        intent.putExtra("problemId", clickProblem.problemId.toString())
+        startActivity(intent)
     }
 }

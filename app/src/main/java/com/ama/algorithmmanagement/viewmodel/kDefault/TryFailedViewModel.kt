@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.Application.AMAApplication
 import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -16,6 +17,7 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     init {
         sharedPref.setUserId("seungho0510") // todo : 임시..
+
         val solvedacToken = sharedPref.getSolvedacToken() // todo : 임시.. 차후 SharedPref가 Repository에서 관리 될 때 수정해야 함.
         getTryFailedProblem(solvedacToken)
     }
@@ -31,5 +33,9 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
                 Timber.e(e.message.toString())
             }
         }
+    }
+
+    fun setSolvedacToken(token: String) {
+        sharedPref.setSolvedacToken(token)
     }
 }

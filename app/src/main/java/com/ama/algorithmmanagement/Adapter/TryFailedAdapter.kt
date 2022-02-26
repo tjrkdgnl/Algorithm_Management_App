@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 
-class TryFailedAdapter : RecyclerView.Adapter<ProblemViewHolder>() {
+class TryFailedAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
-        return ProblemViewHolder(parent, 1)
+        return ProblemViewHolder(parent, listClickListener)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        holder.setData(list[position], false)
+        holder.setData(list[position], null)
     }
 
     override fun getItemCount(): Int {
