@@ -135,15 +135,7 @@ class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
         _isClickSearchInput.value = false
     }
 
-    // 유저 회원가입
-    fun setUserId(){
-        viewModelScope.launch {
-            val result = mRepository.setUserInfo("seungho0510","1234","")
-        }
-    }
-
     init {
-        setUserId()
         loadUserStatsList()
         loadRetryProblems()
         loadUserSolvedProblemList()
