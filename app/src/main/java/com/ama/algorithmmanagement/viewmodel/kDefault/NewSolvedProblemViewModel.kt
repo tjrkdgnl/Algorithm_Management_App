@@ -198,7 +198,7 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
 
     }
 
-    private fun _inputFormLiveData(): Boolean {
+    private fun checkInputFormLiveData(): Boolean {
         Timber.e("함수호출")
         try {
             inputTip.value?.let { inputTip ->
@@ -220,16 +220,16 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
         loadNoTippingProblem()
         inputFormLiveData.addSource(inputTip) {
             Timber.e("inputTip 라이브데이터 추가 값 : $it")
-            _onValidForm.value = _inputFormLiveData()
+            _onValidForm.value = checkInputFormLiveData()
         }
         inputFormLiveData.addSource(isShow) {
             Timber.e("isShow 라이브데이터 추가 값 :$it")
-            _onValidForm.value = _inputFormLiveData()
+            _onValidForm.value = checkInputFormLiveData()
 
         }
         inputFormLiveData.addSource(isNotShow) {
             Timber.e("isNotShow 라이브데이터 추가 값 :$it")
-            _onValidForm.value = _inputFormLiveData()
+            _onValidForm.value = checkInputFormLiveData()
         }
 
     }
