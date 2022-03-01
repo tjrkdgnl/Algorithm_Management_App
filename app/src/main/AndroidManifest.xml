@@ -3,6 +3,10 @@
     package="com.ama.algorithmmanagement">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
         android:name=".Application.AMAApplication"
@@ -14,39 +18,51 @@
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".Activity.kDefault.MyChildCommentActivity"/>
 
-        <activity android:name=".Activity.KViewProblemDetailActivity" />
-        <activity android:name=".Activity.KSignUpActivity" />
-        <activity android:name=".Activity.KRLoginActivity" />
         <activity
-            android:name=".Activity.KSplashActivity"
+            android:name=".Activity.kDefault.TryHistoryActivity"
             android:exported="true">
 
         </activity>
 
-
-        <activity android:name=".Activity.kDefault.SearchActivity"/>
-        <activity android:name=".Activity.kDefault.KMainActivity">
+        <activity
+            android:name=".Activity.kDefault.TryFailedActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.test.TestDefaultActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+        <activity android:name=".Activity.KViewProblemDetailActivity"/>
+
+        <activity android:name=".Activity.KSignUpActivity" />
+        <activity android:name=".Activity.KRLoginActivity" />
+        <activity
+            android:name=".Activity.KSplashActivity"
+            android:exported="true"/>
+
+
+        <activity
+            android:name=".Activity.kDefault.NoTipActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activity.kDefault.MyTipActivity"
+            android:exported="true">
         </activity>
 
+        <activity android:name=".Activity.kDefault.SettingActivity" />
 
-        <activity android:name=".Activity.test.TestSearchActivity"/>
 
         <activity android:name=".Activity.kDefault.KCallAPIActivity" />
 
         <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
+
+        <activity android:name=".Activity.test.TestDefaultActivity" />
+
+        <activity android:name=".Activity.test.TestSearchActivity"/>
 
         <activity android:name=".Activity.test.TestLoginActivity" />
 
@@ -63,6 +79,18 @@
         <activity android:name=".Activity.kDefault.NewSolvedProblemActivity">
         </activity>
         <activity android:name=".Activity.kDefault.WebViewActivity"/>
+
+        <!-- PROVIDER -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ama.algorithmmanagement.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
 
     </application>
 

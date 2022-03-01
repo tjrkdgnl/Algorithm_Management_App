@@ -2,11 +2,11 @@ package com.ama.algorithmmanagement.Adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.model.TipProblemInfo
+
 import com.ama.algorithmmanagement.ViewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.model.TaggedProblem
 
-class KSolvedProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
+class TryFailedAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
@@ -21,13 +21,14 @@ class KSolvedProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : R
         return list.size
     }
 
-
-    fun updateList(list: MutableList<TaggedProblem>?) {
-        list?.let {
-            this.list.addAll(it)
-            notifyDataSetChanged()
+    fun updateList(list: MutableList<TaggedProblem>) {
+        for (i in list.indices) {
+            // check contains list item object
+            if ( list[i] in this.list )
+                continue
+            this.list.add(list[i])
         }
 
+        notifyDataSetChanged()
     }
-
 }

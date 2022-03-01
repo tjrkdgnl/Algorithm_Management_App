@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Idea"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_idea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                setMyIdeaList="@{viewModel.ideaList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_sub_camera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="170dp"
+            android:visibility="gone"
+            app:backgroundTint="#D0D0D0"
+            android:foregroundTint="@color/black"
+            android:foreground="@drawable/ic_camera"
+            android:layout_gravity="bottom|end"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_sub_text"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="110dp"
+            android:visibility="gone"
+            app:backgroundTint="#D0D0D0"
+            android:foregroundTint="@color/black"
+            android:foreground="@drawable/ic_text"
+            android:layout_gravity="bottom|end"/>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_idea"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            app:backgroundTint="#D0D0D0"
+            android:foregroundTint="@color/black"
+            android:foreground="@drawable/ic_add"
+            android:layout_gravity="bottom|end"/>
+
+
+    </FrameLayout>
+
+</layout>

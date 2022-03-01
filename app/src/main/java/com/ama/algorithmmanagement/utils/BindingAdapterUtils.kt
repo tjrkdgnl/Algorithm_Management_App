@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.utils
 
-import android.graphics.Bitmap
 import android.graphics.Color
+
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ama.algorithmmanagement.Adapter.*
+
 import com.ama.algorithmmanagement.Adapter.test.*
 import com.ama.algorithmmanagement.Fragment.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.model.*
@@ -121,6 +122,51 @@ object BindingAdapterUtils {
 
         problems?.let {
             adapter.updateList(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoTipProblemsList")
+    fun setNoTipProblemsList(recyclerView: RecyclerView, noTipProblems: MutableList<TipProblemInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as NoTipProblemsAdapter
+        noTipProblems?.let {
+            recyclerViewAdapter.updateList(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setMyTipProblemsList")
+    fun setMyTipProblemsList(recyclerView: RecyclerView, myTipProblems: MutableList<TipProblemInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as MyTipProblemsAdapter
+        myTipProblems?.let {
+            recyclerViewAdapter.updateList(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setTryFailedProblemsList")
+    fun setTryFailedProblemsList(recyclerView: RecyclerView, tryFailedList: MutableList<TaggedProblem>?) {
+        val recyclerViewAdapter = recyclerView.adapter as TryFailedAdapter
+        tryFailedList?.let {
+            recyclerViewAdapter.updateList(tryFailedList)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setMyCommentList")
+    fun setMyCommentList(recyclerView: RecyclerView, commentInfo: MutableList<CommentInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as MyCommentAdapter
+        commentInfo?.let {
+            recyclerViewAdapter.updateList(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setMyIdeaList")
+    fun setMyIdeaList(recyclerView: RecyclerView, ideaInfo: MutableList<IdeaInfo>?) {
+        val recyclerViewAdapter = recyclerView.adapter as IdeaAdapter
+        ideaInfo?.let {
+            recyclerViewAdapter.updateList(it)
         }
     }
 

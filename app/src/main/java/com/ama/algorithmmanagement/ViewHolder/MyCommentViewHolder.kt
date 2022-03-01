@@ -2,23 +2,26 @@ package com.ama.algorithmmanagement.ViewHolder
 
 import android.view.ViewGroup
 import com.ama.algorithmmanagement.Base.KBaseViewHolder
-import com.ama.algorithmmanagement.model.CommentInfo
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.CommentViewItemBinding
+import com.ama.algorithmmanagement.model.CommentInfo
+
 /**
- * author : manyong Han
- * summary : 댓글 뷰홀더
+ * author : hongdroid94
+ * summary : 내가 작성한 댓글 뷰홀더
  */
 
-class CommentViewHolder(private val parent: ViewGroup, childClickListener: (CommentInfo) -> Unit) :
+class MyCommentViewHolder(parent: ViewGroup, childClickListener: (CommentInfo) -> Unit) :
     KBaseViewHolder<CommentViewItemBinding>(
         parent, R.layout.comment_view_item
     ) {
     private lateinit var commentInfo: CommentInfo
 
     init {
+
         binding.commentChildCommentCount.setOnClickListener {
-            childClickListener(commentInfo)
+            if (commentInfo.commentChildCount != 0)
+                childClickListener(commentInfo)
         }
     }
 
