@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ama.algorithmmanagement.viewmodel.WebViewViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_back"
+            android:onClick="@{()->viewmodel.finishActivity()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="뒤로가기"/>
+    </LinearLayout>
+</layout>

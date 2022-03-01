@@ -4,18 +4,16 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
+import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.toColor
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
-import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
-import com.ama.algorithmmanagement.Adapter.KDefaultRecyclerViewAdapter
-import com.ama.algorithmmanagement.Adapter.KRetryProblemsAdapter
-import com.ama.algorithmmanagement.Adapter.KUserDateInfoAdapter
-import com.ama.algorithmmanagement.Adapter.SearchProblemAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.ama.algorithmmanagement.Adapter.*
 import com.ama.algorithmmanagement.Adapter.test.*
+import com.ama.algorithmmanagement.Fragment.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.model.*
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -297,6 +295,27 @@ object BindingAdapterUtils {
             adapter?.setList(date = DateUtils.getStatDate(), hashMap)
         }
         Timber.e(dates.toString())
+    }
+
+    /**
+     * @param viewpager viewpager2
+     * @param data 오늘 팁을 작성하지 않은 문제 데이터
+     * 팁을 작성하지 않은 문제들 리사이클러뷰와 연동
+     */
+    @JvmStatic
+    @BindingAdapter("setNoTipProblemViewPager")
+    fun setNoTipProblemViewPager(viewpager: ViewPager2,data:MutableList<TipProblemInfo>?){
+        // 파베에서 notip 데이터를 요청완료해야 @param data 가 null 이 아니게되서
+        // @param data 에 값이 있을때만 adapter 를 세팅해줌
+        Timber.e("data : $data")
+        data?.let{
+            Timber.e("render : $data")
+            val adapter = viewpager.adapter as? TipProblemViewPagerFragmentAdapter
+            // 첫번째 문제 프레그먼트만 추가하고 나머지 문제는 건너뛰기 또는 작성완료를 했을때마다 프레그먼트 생성
+            val fragment = SolvedProblemViewPagerFragment()
+            adapter?.addFragment(fragment)
+
+        }
     }
 
     @JvmStatic
