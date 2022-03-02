@@ -1,12 +1,11 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.ChildCommentInfo
 import com.ama.algorithmmanagement.model.ChildCommentObject
 import kotlinx.coroutines.launch

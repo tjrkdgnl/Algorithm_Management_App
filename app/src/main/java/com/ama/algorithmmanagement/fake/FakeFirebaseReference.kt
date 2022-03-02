@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
-import com.ama.algorithmmanagement.Base.BaseFirebaseService
+import com.ama.algorithmmanagement.base.BaseFirebaseService
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.flow.flow

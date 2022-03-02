@@ -1,25 +1,15 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Repositories.RepositoryLocator
-import com.ama.algorithmmanagement.fake.FakeFirebaseDataProvider
-import com.ama.algorithmmanagement.fake.FakeFirebaseReference
-import com.ama.algorithmmanagement.fake.FakeRepository
-import com.ama.algorithmmanagement.fake.FakeSharedPreference
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.utils.DateUtils
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
-import kotlin.math.log
 
 class KMainViewModel(private val mRepository:BaseRepository) : ViewModel() {
 

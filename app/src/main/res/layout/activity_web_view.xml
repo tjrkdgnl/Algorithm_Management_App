@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.ama.algorithmmanagement.viewmodel.WebViewViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.WebViewViewModel" />
     </data>
 
     <LinearLayout

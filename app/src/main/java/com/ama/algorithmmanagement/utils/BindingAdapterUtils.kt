@@ -2,18 +2,12 @@ package com.ama.algorithmmanagement.utils
 
 import android.graphics.Color
 
-import android.graphics.drawable.BitmapDrawable
-import android.os.Build
-import android.os.Bundle
-import androidx.annotation.RequiresApi
-import androidx.core.graphics.toColor
-import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.ama.algorithmmanagement.Adapter.*
+import com.ama.algorithmmanagement.adapter.*
 
-import com.ama.algorithmmanagement.Adapter.test.*
+import com.ama.algorithmmanagement.adapter.test.*
 import com.ama.algorithmmanagement.Fragment.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.model.*
 import com.github.mikephil.charting.charts.HorizontalBarChart

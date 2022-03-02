@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.fake
 
-import com.ama.algorithmmanagement.Base.BaseNetworkService
+import com.ama.algorithmmanagement.base.BaseNetworkService
 import com.ama.algorithmmanagement.model.*
 import kotlinx.coroutines.delay
 

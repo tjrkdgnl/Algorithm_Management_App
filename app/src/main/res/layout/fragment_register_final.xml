@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KSignUpViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.KSignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

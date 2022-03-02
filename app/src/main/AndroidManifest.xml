@@ -9,7 +9,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
-        android:name=".Application.AMAApplication"
+        android:name=".application.AMAApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,67 +18,61 @@
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Activity.kDefault.MyChildCommentActivity"/>
-
-        <activity
-            android:name=".Activity.kDefault.TryHistoryActivity"
-            android:exported="true">
-
-        </activity>
-
-        <activity
-            android:name=".Activity.kDefault.TryFailedActivity"
-            android:exported="true">
+        <activity android:name=".activity.kDefault.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.KViewProblemDetailActivity"/>
-
-        <activity android:name=".Activity.KSignUpActivity" />
-        <activity android:name=".Activity.KRLoginActivity" />
-        <activity
-            android:name=".Activity.KSplashActivity"
-            android:exported="true"/>
-
+        <activity android:name=".activity.kDefault.MyChildCommentActivity"/>
 
         <activity
-            android:name=".Activity.kDefault.NoTipActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".Activity.kDefault.MyTipActivity"
+            android:name=".activity.kDefault.TryHistoryActivity"
             android:exported="true">
         </activity>
 
-        <activity android:name=".Activity.kDefault.SettingActivity" />
-
-
-        <activity android:name=".Activity.kDefault.KCallAPIActivity" />
-
-        <activity android:name=".Activity.kDefault.KCallSolvedAlgorithmAct" />
-
-        <activity android:name=".Activity.test.TestDefaultActivity" />
-
-        <activity android:name=".Activity.test.TestSearchActivity"/>
-
-        <activity android:name=".Activity.test.TestLoginActivity" />
-
-        <activity android:name=".Activity.test.TestFirebaseTest"/>
-
-        <activity android:name=".Activity.test.TestSharedActivity"/>
-
-        <activity android:name=".Activity.test.TestIdeaActivity"/>
-        <activity android:name=".Activity.test.TestDateActivity"/>
-        <activity android:name=".Activity.test.TestCommentActivity"/>
-
-        <activity android:name=".Activity.test.TestChildCommentActivity"/>
-        <activity android:name=".Activity.test.TestTippingItemAct"/>
-        <activity android:name=".Activity.kDefault.NewSolvedProblemActivity">
+        <activity
+            android:name=".activity.kDefault.TryFailedActivity"
+            android:exported="true">
         </activity>
-        <activity android:name=".Activity.kDefault.WebViewActivity"/>
+
+        <activity android:name=".activity.kDefault.KViewProblemDetailActivity"/>
+
+        <activity android:name=".activity.kDefault.KSignUpActivity" />
+        <activity android:name=".activity.kDefault.KRLoginActivity" />
+        <activity
+            android:name=".activity.kDefault.KSplashActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".activity.kDefault.NoTipActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.kDefault.MyTipActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".activity.kDefault.SettingActivity" />
+        <activity android:name=".activity.kDefault.KCallAPIActivity" />
+        <activity android:name=".activity.kDefault.KCallSolvedAlgorithmAct" />
+        <activity android:name=".activity.kDefault.NewSolvedProblemActivity"/>
+        <activity android:name=".activity.kDefault.WebViewActivity"/>
+        <activity android:name=".activity.kDefault.SearchActivity"/>
+
+
+
+        <activity android:name=".activity.test.TestDefaultActivity" />
+        <activity android:name=".activity.test.TestSearchActivity"/>
+        <activity android:name=".activity.test.TestLoginActivity" />
+        <activity android:name=".activity.test.TestFirebaseTest"/>
+        <activity android:name=".activity.test.TestSharedActivity"/>
+        <activity android:name=".activity.test.TestIdeaActivity"/>
+        <activity android:name=".activity.test.TestDateActivity"/>
+        <activity android:name=".activity.test.TestCommentActivity"/>
+        <activity android:name=".activity.test.TestChildCommentActivity"/>
+        <activity android:name=".activity.test.TestTippingItemAct"/>
 
         <!-- PROVIDER -->
         <provider
@@ -91,7 +85,5 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
     </application>
-
 </manifest>

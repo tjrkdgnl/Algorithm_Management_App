@@ -1,11 +1,11 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.KProblemsOfClass
 import com.ama.algorithmmanagement.model.Problems
 import com.ama.algorithmmanagement.model.TaggedProblem
-import com.ama.algorithmmanagement.Network.KAPIGenerator
+import com.ama.algorithmmanagement.network.KAPIGenerator
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

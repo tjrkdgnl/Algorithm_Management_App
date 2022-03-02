@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.Base.BaseFirebaseService
-import com.ama.algorithmmanagement.Base.BaseNetworkService
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.base.BaseFirebaseService
+import com.ama.algorithmmanagement.base.BaseNetworkService
+import com.ama.algorithmmanagement.base.BaseRepository
+import com.ama.algorithmmanagement.base.BaseSharedPreference
 import com.ama.algorithmmanagement.model.*
 import com.ama.algorithmmanagement.R
 import kotlinx.coroutines.flow.Flow

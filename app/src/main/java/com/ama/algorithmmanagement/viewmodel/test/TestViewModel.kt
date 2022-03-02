@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.DateObject
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.utils
 
 import android.content.Context
-import com.ama.algorithmmanagement.Base.BaseSharedPreference
+import com.ama.algorithmmanagement.base.BaseSharedPreference
 import com.ama.algorithmmanagement.model.Problems
 import com.google.gson.Gson
 

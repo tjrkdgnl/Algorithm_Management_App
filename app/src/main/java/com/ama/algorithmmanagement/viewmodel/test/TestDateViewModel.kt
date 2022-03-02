@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.viewmodel.test
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.DateInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber

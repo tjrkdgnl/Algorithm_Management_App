@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KSplashViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.KSplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.KSplashActivity">
+        tools:context=".activity.kDefault.KSplashActivity">
 
         <TextView
             android:layout_width="match_parent"

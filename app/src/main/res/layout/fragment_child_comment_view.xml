@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

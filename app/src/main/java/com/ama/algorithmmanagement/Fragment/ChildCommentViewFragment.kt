@@ -7,17 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.ama.algorithmmanagement.Adapter.KChildCommentsAdapter
-import com.ama.algorithmmanagement.Adapter.KCommentsAdapter
-import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Base.BaseViewModelFactory
-import com.ama.algorithmmanagement.Base.KBaseFragment
+import com.ama.algorithmmanagement.adapter.KChildCommentsAdapter
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.base.KBaseFragment
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.Repositories.RepositoryLocator
+import com.ama.algorithmmanagement.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentChildCommentViewBinding
-import com.ama.algorithmmanagement.databinding.FragmentCommentViewBinding
-import com.ama.algorithmmanagement.viewmodel.KViewProblemDetailViewModel
-import timber.log.Timber
+import com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel
 
 /**
  * author : manyong Han

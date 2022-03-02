@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.base.BaseRepository
 import com.ama.algorithmmanagement.model.AutoKeywordObject
 import com.ama.algorithmmanagement.model.Keyword
 import kotlinx.coroutines.delay
