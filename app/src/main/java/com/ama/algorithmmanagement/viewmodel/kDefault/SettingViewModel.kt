@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.viewmodel.kDefault
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Base.BaseRepository
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.domain.base.BaseRepository
 import timber.log.Timber
 
 class SettingViewModel(private val mRepository: BaseRepository) :ViewModel() {

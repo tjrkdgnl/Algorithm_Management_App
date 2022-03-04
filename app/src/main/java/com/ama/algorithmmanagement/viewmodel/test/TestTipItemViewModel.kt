@@ -4,8 +4,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.TipProblemInfo
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
 import timber.log.Timber

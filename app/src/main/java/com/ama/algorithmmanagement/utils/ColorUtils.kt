@@ -1,11 +1,8 @@
 package com.ama.algorithmmanagement.utils;
 
-import android.app.Application
-import android.graphics.Color
 import androidx.core.content.ContextCompat
-import com.ama.algorithmmanagement.Application.AMAApplication
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.R
-import timber.log.Timber
 
 /**
  * @author : seungHo

@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.CommentInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception

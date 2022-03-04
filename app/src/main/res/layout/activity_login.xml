@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.KRLoginViewModel" />
+            type="com.ama.algorithmmanagement.viewmodel.kDefault.KRLoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.KRLoginActivity">
+        tools:context=".activity.kDefault.KRLoginActivity">
 
         <TextView
             android:id="@+id/login_act_logo"

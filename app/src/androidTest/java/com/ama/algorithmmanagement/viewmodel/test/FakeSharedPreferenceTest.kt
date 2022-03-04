@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.test.core.app.ApplicationProvider
-import com.ama.algorithmmanagement.fake.FakeNetWorkDataProvider
-import com.ama.algorithmmanagement.fake.FakeNetworkService
-import com.ama.algorithmmanagement.fake.FakeSharedPreference
+import com.ama.algorithmmanagement.data.fake.FakeNetWorkDataProvider
+import com.ama.algorithmmanagement.data.fake.FakeNetworkService
+import com.ama.algorithmmanagement.data.fake.FakeSharedPreference
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before

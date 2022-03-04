@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context=".Activity.DefaultActivity">
+        tools:context=".activity.DefaultActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout_default"

@@ -4,8 +4,8 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.model.ChildCommentInfo
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.ChildCommentInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

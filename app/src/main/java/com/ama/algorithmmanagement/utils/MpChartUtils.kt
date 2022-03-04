@@ -1,12 +1,8 @@
 package com.ama.algorithmmanagement.utils;
 
-import com.ama.algorithmmanagement.model.Problems
-import com.ama.algorithmmanagement.model.TaggedProblem
-import com.github.mikephil.charting.components.AxisBase
+import com.ama.algorithmmanagement.data.model.TaggedProblem
 import com.github.mikephil.charting.data.BarEntry
 
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.StackedValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import timber.log.Timber
 

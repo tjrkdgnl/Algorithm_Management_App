@@ -3,10 +3,9 @@ package com.ama.algorithmmanagement.viewmodel.kDefault
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.Application.AMAApplication
-import com.ama.algorithmmanagement.Base.BaseRepository
-import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.TaggedProblem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
