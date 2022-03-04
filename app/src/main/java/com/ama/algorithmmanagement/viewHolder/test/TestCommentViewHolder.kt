@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.viewHolder.test
 
 import android.view.ViewGroup
-import com.ama.algorithmmanagement.base.KBaseViewHolder
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultCommentItemBinding
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.data.model.CommentInfo
 
 class TestCommentViewHolder(parent: ViewGroup, private val moveToChild: (CommentInfo) -> Unit) :
     KBaseViewHolder<DefaultCommentItemBinding>(parent, R.layout.default_comment_item) {

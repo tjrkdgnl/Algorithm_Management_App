@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.viewmodel.kDefault;
 
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.base.BaseRepository
-import com.ama.algorithmmanagement.model.TipProblemInfo
-import com.ama.algorithmmanagement.model.TippingProblemObject
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.TipProblemInfo
+import com.ama.algorithmmanagement.data.model.TippingProblemObject
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

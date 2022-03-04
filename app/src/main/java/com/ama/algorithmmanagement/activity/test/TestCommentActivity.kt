@@ -5,12 +5,12 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.adapter.test.TestCommentAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.repositories.RepositoryLocator
+import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.DefaultCommentTestBinding
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.data.model.CommentInfo
 import com.ama.algorithmmanagement.viewmodel.test.TestCommentViewModel
 
 class TestCommentActivity :

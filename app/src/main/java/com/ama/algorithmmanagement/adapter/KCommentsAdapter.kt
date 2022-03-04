@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.CommentViewHolder
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.data.model.CommentInfo
 /**
  * author : manyong Han
  * summary : 댓글 어댑터

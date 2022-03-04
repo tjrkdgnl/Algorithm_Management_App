@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseRepository
-import com.ama.algorithmmanagement.model.ChildCommentInfo
-import com.ama.algorithmmanagement.model.ChildCommentObject
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.ChildCommentInfo
+import com.ama.algorithmmanagement.data.model.ChildCommentObject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.ProblemViewHolder
-import com.ama.algorithmmanagement.model.TaggedProblem
-import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.data.model.TipProblemInfo
 
 class MyTipProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val myTipList = mutableListOf<TipProblemInfo>()

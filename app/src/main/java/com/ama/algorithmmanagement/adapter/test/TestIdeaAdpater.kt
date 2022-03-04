@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.test.TestIdeaViewHolder
-import com.ama.algorithmmanagement.model.IdeaInfo
+import com.ama.algorithmmanagement.data.model.IdeaInfo
 import timber.log.Timber
 
 class TestIdeaAdpater : RecyclerView.Adapter<TestIdeaViewHolder>() {

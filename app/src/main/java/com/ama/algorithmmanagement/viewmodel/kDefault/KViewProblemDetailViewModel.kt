@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.base.BaseRepository
-import com.ama.algorithmmanagement.model.*
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

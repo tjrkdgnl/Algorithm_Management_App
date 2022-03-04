@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.adapter.KViewPagerAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.Fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.Fragment.RegisterFinalFragment
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.repositories.RepositoryLocator
+import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KSignUpViewModel
 import com.google.firebase.messaging.FirebaseMessaging

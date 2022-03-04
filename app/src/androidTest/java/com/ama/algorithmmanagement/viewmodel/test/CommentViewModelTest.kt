@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
-import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.data.fake.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.combineWith
 import com.ama.algorithmmanagement.utils.getOrAwaitValue

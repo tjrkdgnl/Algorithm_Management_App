@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.viewmodel.test
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
-import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.data.fake.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

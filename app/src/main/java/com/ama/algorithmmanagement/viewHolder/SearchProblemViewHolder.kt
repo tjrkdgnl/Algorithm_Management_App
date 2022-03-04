@@ -2,10 +2,10 @@ package com.ama.algorithmmanagement.viewHolder;
 
 import android.view.ViewGroup
 import android.widget.Toast
-import com.ama.algorithmmanagement.base.KBaseViewHolder
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.ItemSearchProblemBinding
-import com.ama.algorithmmanagement.model.Keyword
+import com.ama.algorithmmanagement.data.model.Keyword
 
 /**
  * @author : seungHo

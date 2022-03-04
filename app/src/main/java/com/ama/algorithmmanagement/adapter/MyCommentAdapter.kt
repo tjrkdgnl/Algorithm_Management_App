@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.MyCommentViewHolder
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.data.model.CommentInfo
 
 /**
  * author : hongdroid94

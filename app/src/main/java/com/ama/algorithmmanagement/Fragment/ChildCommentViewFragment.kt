@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.ama.algorithmmanagement.adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.base.KBaseFragment
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.repositories.RepositoryLocator
+import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentChildCommentViewBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel
 

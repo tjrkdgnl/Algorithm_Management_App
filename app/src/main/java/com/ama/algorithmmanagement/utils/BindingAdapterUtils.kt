@@ -9,7 +9,9 @@ import com.ama.algorithmmanagement.adapter.*
 
 import com.ama.algorithmmanagement.adapter.test.*
 import com.ama.algorithmmanagement.Fragment.SolvedProblemViewPagerFragment
-import com.ama.algorithmmanagement.model.*
+import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
+import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis

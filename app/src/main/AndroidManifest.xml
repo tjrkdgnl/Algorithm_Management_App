@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AlgorithmManagement"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".activity.kDefault.KMainActivity">
+        <activity android:name=".presentation.main.KMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

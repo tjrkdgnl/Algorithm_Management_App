@@ -2,11 +2,11 @@ package com.ama.algorithmmanagement.viewHolder
 
 import android.view.View
 import android.view.ViewGroup
-import com.ama.algorithmmanagement.base.KBaseViewHolder
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultSolvedProblemsItemBinding
-import com.ama.algorithmmanagement.model.TaggedProblem
-import com.ama.algorithmmanagement.model.TipProblemInfo
+import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.data.model.TipProblemInfo
 import com.google.android.material.chip.Chip
 
 class ProblemViewHolder(private val parent: ViewGroup, listClickListener: (TaggedProblem) -> Unit) :

@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.viewmodel.kDefault
 
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseRepository
+import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
 import timber.log.Timber

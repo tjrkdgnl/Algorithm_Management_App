@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.ProblemViewHolder
-import com.ama.algorithmmanagement.model.TaggedProblem
+import com.ama.algorithmmanagement.data.model.TaggedProblem
 
 class KSolvedProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()

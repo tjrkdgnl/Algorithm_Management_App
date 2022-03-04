@@ -20,10 +20,10 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.adapter.IdeaAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.base.KBaseFragment
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.repositories.RepositoryLocator
+import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentIdeaBinding
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyIdeaInfoViewModel
 import com.google.firebase.storage.FirebaseStorage

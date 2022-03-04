@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.ChildCommentViewHolder
-import com.ama.algorithmmanagement.model.ChildCommentInfo
+import com.ama.algorithmmanagement.data.model.ChildCommentInfo
 
 /**
  * author : manyong Han

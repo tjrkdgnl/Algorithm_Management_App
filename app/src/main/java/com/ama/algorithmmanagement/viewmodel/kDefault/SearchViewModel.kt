@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.base.BaseRepository
-import com.ama.algorithmmanagement.model.AutoKeywordObject
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.AutoKeywordObject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

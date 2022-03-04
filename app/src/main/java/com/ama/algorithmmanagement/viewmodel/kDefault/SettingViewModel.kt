@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.base.BaseRepository
+import com.ama.algorithmmanagement.domain.base.BaseRepository
 import timber.log.Timber
 
 class SettingViewModel(private val mRepository: BaseRepository) :ViewModel() {

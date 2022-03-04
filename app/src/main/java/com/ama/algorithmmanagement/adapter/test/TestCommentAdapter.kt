@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.adapter.test
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.model.CommentInfo
+import com.ama.algorithmmanagement.data.model.CommentInfo
 import com.ama.algorithmmanagement.viewHolder.test.TestCommentViewHolder
 
 class TestCommentAdapter(private val moveToChild: (CommentInfo) -> Unit) :

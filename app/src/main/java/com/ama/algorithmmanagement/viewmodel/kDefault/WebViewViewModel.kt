@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.viewmodel.kDefault;
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ama.algorithmmanagement.base.BaseRepository
+import com.ama.algorithmmanagement.domain.base.BaseRepository
 
 /**
  * @author SeungHo Lee

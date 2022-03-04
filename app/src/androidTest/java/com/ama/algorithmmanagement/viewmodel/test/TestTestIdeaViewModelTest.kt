@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.test.core.app.ApplicationProvider
-import com.ama.algorithmmanagement.fake.*
+import com.ama.algorithmmanagement.data.fake.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import org.junit.Assert.assertEquals
 import org.junit.Before

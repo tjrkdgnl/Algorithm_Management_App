@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.viewmodel.test
 
 import androidx.lifecycle.*
-import com.ama.algorithmmanagement.base.BaseRepository
-import com.ama.algorithmmanagement.model.AutoKeywordObject
-import com.ama.algorithmmanagement.model.Keyword
+import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.data.model.AutoKeywordObject
+import com.ama.algorithmmanagement.data.model.Keyword
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber

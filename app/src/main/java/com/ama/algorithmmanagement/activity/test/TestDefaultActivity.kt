@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.activity.kDefault.KCallAPIActivity
 import com.ama.algorithmmanagement.activity.kDefault.KCallSolvedAlgorithmAct
-import com.ama.algorithmmanagement.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.Fragment.MainFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.DefaultActivityMainBinding

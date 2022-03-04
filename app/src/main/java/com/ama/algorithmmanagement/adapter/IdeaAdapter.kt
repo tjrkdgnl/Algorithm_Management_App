@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.IdeaViewHolder
-import com.ama.algorithmmanagement.model.IdeaInfo
+import com.ama.algorithmmanagement.data.model.IdeaInfo
 
 class IdeaAdapter : RecyclerView.Adapter<IdeaViewHolder>() {
     private val lst = mutableListOf<IdeaInfo?>()

@@ -3,7 +3,7 @@ package com.ama.algorithmmanagement.adapter.test
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.viewHolder.test.TestSearchViewHolder
-import com.ama.algorithmmanagement.model.Keyword
+import com.ama.algorithmmanagement.data.model.Keyword
 import timber.log.Timber
 
 class TestSearchAdapter : RecyclerView.Adapter<TestSearchViewHolder>() {
