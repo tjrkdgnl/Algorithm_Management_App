@@ -15,8 +15,6 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
     private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
-        sharedPref.setUserId("seungho0510") // todo : 임시..
-
         val solvedacToken = sharedPref.getSolvedacToken() // todo : 임시.. 차후 SharedPref가 Repository에서 관리 될 때 수정해야 함.
         getTryFailedProblem(solvedacToken)
     }
@@ -32,9 +30,5 @@ class TryFailedViewModel(private val mRepository: BaseRepository) :ViewModel() {
                 Timber.e(e.message.toString())
             }
         }
-    }
-
-    fun setSolvedacToken(token: String) {
-        sharedPref.setSolvedacToken(token)
     }
 }

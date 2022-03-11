@@ -36,7 +36,7 @@ class MyTipActivity : KBaseActivity<ActivityMyTipBinding>(R.layout.activity_my_t
     private val listClickListener : (TaggedProblem) -> Unit = { clickProblem ->
         Timber.d("problemId : ${clickProblem.problemId}")
 
-        val intent = Intent(this, KViewProblemDetailActivity::class.java)
+        val intent = Intent(this, NewSolvedProblemActivity::class.java)
         intent.putExtra("problemId", clickProblem.problemId.toString())
         startActivity(intent)
     }

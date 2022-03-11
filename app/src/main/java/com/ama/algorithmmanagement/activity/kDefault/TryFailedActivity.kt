@@ -43,7 +43,9 @@ class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activ
             when (position) {
                 0-> {
                     // 문제보기 (코멘트 작성화면)
-
+                    val intent = Intent(this, KViewProblemDetailActivity::class.java)
+                    intent.putExtra("problemId", clickProblem.problemId)
+                    startActivity(intent)
                 }
                 1-> {
                     // 문제 풀이 히스토리

@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.activity.kDefault
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.adapter.NoTipProblemsAdapter
@@ -36,9 +37,7 @@ class NoTipActivity : KBaseActivity<ActivityNoTipBinding>(R.layout.activity_no_t
         Timber.d("problemId : ${clickProblem.problemId}")
 
         // 팁 작성 화면으로 이동
-        // todo - 승호님 액티비티 작업 완료 시 활성화
-//        val intent = Intent(this, ::class.java)
-//        startActivity(intent)
-
+        val intent = Intent(this, NewSolvedProblemActivity::class.java)
+        startActivity(intent)
     }
 }
