@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault;
+package com.ama.algorithmmanagement.presentation.search;
 
 import android.os.Bundle
 import android.text.Editable
@@ -36,6 +36,7 @@ class SearchActivity : KBaseActivity<ActivitySearchBinding>(R.layout.activity_se
         binding.rvSearchProblem.adapter = searchAdapter
 
         binding.etInputSearch.onChangeDebounceOption()
+        binding.etInputSearch.requestFocus()
     }
 
     private fun EditText.onChangeDebounceOption() {
