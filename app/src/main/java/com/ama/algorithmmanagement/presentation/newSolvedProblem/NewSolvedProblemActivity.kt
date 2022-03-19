@@ -12,7 +12,8 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityNewSolvedProblemViewPagerBinding
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
-import com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel
+import com.ama.algorithmmanagement.presentation.newSolvedProblem.NewSolvedProblemViewModel
+import com.ama.algorithmmanagement.presentation.webview.WebViewActivity
 import timber.log.Timber
 
 /**
@@ -67,7 +68,7 @@ class NewSolvedProblemActivity :
             if(it){
                 viewModel.currentPageData.value?.let{problem->
                     // 인텐트로 WebViewActivity 키고 problemId 넘겨줌
-                    val intent = Intent(this,WebViewActivity::class.java)
+                    val intent = Intent(this, WebViewActivity::class.java)
                     intent.putExtra("problemId",problem.problem?.problemId)
                     startActivity(intent)
                     viewModel.initIsOpenProblemLink() // viewModel openProblemLink 에대한 상태값은 초기화
