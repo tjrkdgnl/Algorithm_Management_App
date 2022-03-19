@@ -6,7 +6,7 @@
     <data>
         <variable
             name="keyword"
-            type="com.ama.algorithmmanagement.model.Keyword" />
+            type="com.ama.algorithmmanagement.data.model.Keyword" />
         <import type="com.ama.algorithmmanagement.utils.ColorUtils"/>
 
     </data>

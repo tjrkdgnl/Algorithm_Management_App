@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel" />
+            type="com.ama.algorithmmanagement.presentation.newSolvedProblem.NewSolvedProblemViewModel" />
         <import type="com.ama.algorithmmanagement.utils.TipUtils"/>
         <import type="com.ama.algorithmmanagement.utils.ColorUtils"/>
         <import type="android.view.View"/>
