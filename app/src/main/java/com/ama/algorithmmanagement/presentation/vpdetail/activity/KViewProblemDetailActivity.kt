@@ -35,7 +35,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(intent != null && intent.hasExtra("problemId")) {
+        if(intent.hasExtra("problemId")) {
            problemId = intent.getStringExtra("problemId").toString()
         }
 
