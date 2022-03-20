@@ -1,30 +1,32 @@
-package com.ama.algorithmmanagement.adapter
+package com.ama.algorithmmanagement.presentation.notip.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+
 import com.ama.algorithmmanagement.viewHolder.ProblemViewHolder
 import com.ama.algorithmmanagement.data.model.TaggedProblem
 import com.ama.algorithmmanagement.data.model.TipProblemInfo
 
-class MyTipProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
-    private val myTipList = mutableListOf<TipProblemInfo>()
+class NoTipProblemsAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
+    private val noTipList = mutableListOf<TaggedProblem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder {
         return ProblemViewHolder(parent, listClickListener)
     }
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        myTipList[position].problem?.let {
-            holder.setData(it, myTipList[position])
-        }
+        holder.setData(noTipList[position], null)
     }
 
     override fun getItemCount(): Int {
-        return myTipList.size
+        return noTipList.size
     }
 
     fun updateList(list: MutableList<TipProblemInfo>) {
-        myTipList.addAll(list)
+        for (i in list.indices) {
+            list[i].problem?.let { this.noTipList.add(it) }
+        }
         notifyDataSetChanged()
+
     }
 }

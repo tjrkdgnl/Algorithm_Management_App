@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.MyCommentViewModel" />
+            type="com.ama.algorithmmanagement.presentation.tryhistory.MyCommentViewModel" />
     </data>
 
     <LinearLayout

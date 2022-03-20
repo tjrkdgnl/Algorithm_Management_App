@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Fragment
+package com.ama.algorithmmanagement.presentation.tryhistory
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.activity.kDefault.MyChildCommentActivity
-import com.ama.algorithmmanagement.adapter.MyCommentAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseFragment
@@ -15,7 +13,7 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentMyCommentBinding
 import com.ama.algorithmmanagement.data.model.CommentInfo
-import com.ama.algorithmmanagement.viewmodel.kDefault.MyCommentViewModel
+import com.ama.algorithmmanagement.presentation.tryhistory.adapter.MyCommentAdapter
 import timber.log.Timber
 
 class PagerCommentFragment(

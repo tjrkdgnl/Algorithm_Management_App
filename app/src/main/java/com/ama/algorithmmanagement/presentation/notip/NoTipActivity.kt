@@ -1,16 +1,17 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.notip
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.adapter.NoTipProblemsAdapter
+import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.activity.kDefault.NewSolvedProblemActivity
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityNoTipBinding
 import com.ama.algorithmmanagement.data.model.TaggedProblem
-import com.ama.algorithmmanagement.viewmodel.kDefault.NoTipViewModel
 import timber.log.Timber
 
 /**
@@ -36,9 +37,8 @@ class NoTipActivity : KBaseActivity<ActivityNoTipBinding>(R.layout.activity_no_t
         Timber.d("problemId : ${clickProblem.problemId}")
 
         // 팁 작성 화면으로 이동
-        // todo - 승호님 액티비티 작업 완료 시 활성화
-//        val intent = Intent(this, ::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, NewSolvedProblemActivity::class.java)
+        startActivity(intent)
 
     }
 }

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault
+package com.ama.algorithmmanagement.presentation.mytip
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel

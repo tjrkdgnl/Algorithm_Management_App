@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.adapter
+package com.ama.algorithmmanagement.presentation.tryhistory.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

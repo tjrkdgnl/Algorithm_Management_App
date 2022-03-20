@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.adapter
+package com.ama.algorithmmanagement.presentation.tryfailed.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

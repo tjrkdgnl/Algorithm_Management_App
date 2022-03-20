@@ -1,18 +1,19 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.tryfailed
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.adapter.TryFailedAdapter
+import com.ama.algorithmmanagement.presentation.tryfailed.adapter.TryFailedAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.activity.kDefault.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityTryFailedBinding
 import com.ama.algorithmmanagement.data.model.TaggedProblem
-import com.ama.algorithmmanagement.viewmodel.kDefault.TryFailedViewModel
+import com.ama.algorithmmanagement.presentation.tryhistory.TryHistoryActivity
 import timber.log.Timber
 
 /**
@@ -43,7 +44,9 @@ class TryFailedActivity : KBaseActivity<ActivityTryFailedBinding>(R.layout.activ
             when (position) {
                 0-> {
                     // 문제보기 (코멘트 작성화면)
-
+                    val intent = Intent(this, KViewProblemDetailActivity::class.java)
+                    intent.putExtra("problemId", clickProblem.problemId)
+                    startActivity(intent)
                 }
                 1-> {
                     // 문제 풀이 히스토리

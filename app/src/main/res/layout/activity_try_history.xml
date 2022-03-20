@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.kDefault.TryHistoryActivity">
+    tools:context=".presentation.tryhistory.TryHistoryActivity">
 
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.TryHistoryViewModel" />
+            type="com.ama.algorithmmanagement.presentation.tryhistory.TryHistoryViewModel" />
     </data>
 
     <LinearLayout

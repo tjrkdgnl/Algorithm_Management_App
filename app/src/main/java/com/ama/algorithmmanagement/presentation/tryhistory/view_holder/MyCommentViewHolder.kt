@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewHolder
+package com.ama.algorithmmanagement.presentation.tryhistory.view_holder
 
 import android.view.ViewGroup
 import com.ama.algorithmmanagement.domain.base.KBaseViewHolder

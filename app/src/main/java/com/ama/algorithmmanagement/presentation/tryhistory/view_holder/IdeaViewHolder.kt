@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewHolder
+package com.ama.algorithmmanagement.presentation.tryhistory.view_holder
 
 import android.text.TextUtils
 import android.view.View

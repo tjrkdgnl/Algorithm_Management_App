@@ -1,18 +1,15 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.tryhistory
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.ama.algorithmmanagement.adapter.TryHistoryAdapter
+import com.ama.algorithmmanagement.presentation.tryhistory.adapter.TryHistoryAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
-import com.ama.algorithmmanagement.Fragment.PagerCommentFragment
-import com.ama.algorithmmanagement.Fragment.PagerIdeaFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityTryHistoryBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.TryHistoryViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault
+package com.ama.algorithmmanagement.presentation.notip
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
@@ -12,10 +12,8 @@ import timber.log.Timber
 class NoTipViewModel(private val mRepository: BaseRepository) :ViewModel() {
 
     val noTipList = ObservableArrayList<TipProblemInfo>()
-    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
 
     init {
-        sharedPref.setUserId("skjh0818") // todo : 임시..
         getNotTippingProblem()
     }
 

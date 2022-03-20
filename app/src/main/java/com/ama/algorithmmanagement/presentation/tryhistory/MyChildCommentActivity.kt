@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.tryhistory
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,6 @@ import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMyChildCommentBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.MyChildCommentViewModel
 
 /**
  * author  : hongdroid94
