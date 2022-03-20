@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.splash.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,9 @@ import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySplashBinding
+import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
-import com.ama.algorithmmanagement.viewmodel.kDefault.KSplashViewModel
+import com.ama.algorithmmanagement.presentation.splash.view_model.KSplashViewModel
 
 /**
  * author : manyong Han

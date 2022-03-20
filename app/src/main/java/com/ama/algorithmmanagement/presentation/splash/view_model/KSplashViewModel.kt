@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault
+package com.ama.algorithmmanagement.presentation.splash.view_model
 
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData

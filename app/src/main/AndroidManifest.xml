@@ -37,12 +37,12 @@
             android:exported="true">
         </activity>
 
-        <activity android:name=".activity.kDefault.KViewProblemDetailActivity"/>
+        <activity android:name=".presentation.vpdetail.activity.KViewProblemDetailActivity"/>
 
-        <activity android:name=".activity.kDefault.KSignUpActivity" />
-        <activity android:name=".activity.kDefault.KRLoginActivity" />
+        <activity android:name=".presentation.signup.activity.KSignUpActivity" />
+        <activity android:name=".presentation.login.activity.KRLoginActivity" />
         <activity
-            android:name=".activity.kDefault.KSplashActivity"
+            android:name=".presentation.splash.activity.KSplashActivity"
             android:exported="true"/>
 
         <activity

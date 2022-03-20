@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.KSignUpViewModel" />
+            type="com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragment.RegisterFinalFragment">
+        tools:context=".presentation.signup.fragment.RegisterFinalFragment">
 
         <TextView
             android:id="@+id/register_title"

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.vpdetail.activity
 
 import android.os.Bundle
 import android.view.View
@@ -11,13 +11,13 @@ import com.ama.algorithmmanagement.adapter.KViewPagerAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
-import com.ama.algorithmmanagement.Fragment.ChildCommentViewFragment
-import com.ama.algorithmmanagement.Fragment.CommentViewFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityViewProblemDetailBinding
 import com.ama.algorithmmanagement.data.model.CommentInfo
-import com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel
+import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
+import com.ama.algorithmmanagement.presentation.vpdetail.fragment.ChildCommentViewFragment
+import com.ama.algorithmmanagement.presentation.vpdetail.fragment.CommentViewFragment
 import timber.log.Timber
 
 /**

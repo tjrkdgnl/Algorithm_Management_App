@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault
+package com.ama.algorithmmanagement.presentation.signup.view_model
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

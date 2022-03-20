@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel" />
+            type="com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragment.ChildCommentViewFragment">
+        tools:context=".presentation.vpdetail.fragment.ChildCommentViewFragment">
 
         <TextView
             android:id="@+id/child_comment_view_title"

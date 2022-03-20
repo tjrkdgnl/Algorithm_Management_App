@@ -1,29 +1,33 @@
-package com.ama.algorithmmanagement.Fragment
+package com.ama.algorithmmanagement.presentation.vpdetail.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.ama.algorithmmanagement.adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
-import com.ama.algorithmmanagement.databinding.FragmentChildCommentViewBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel
+import com.ama.algorithmmanagement.databinding.FragmentCommentViewBinding
+import com.ama.algorithmmanagement.data.model.CommentInfo
+import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KCommentsAdapter
+import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
 
 /**
  * author : manyong Han
- * summary : 대댓글 프래그먼트
+ * summary : 댓글 프래그먼트
  */
 
-class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(R.layout.fragment_child_comment_view) {
+class CommentViewFragment(
+    var childClickListener: (CommentInfo) -> Unit
+) : KBaseFragment<FragmentCommentViewBinding>(R.layout.fragment_comment_view) {
 
     private lateinit var viewProblemDetailViewModel: KViewProblemDetailViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +45,8 @@ class ChildCommentViewFragment : KBaseFragment<FragmentChildCommentViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewProblemDetailViewModel
-        binding.recyclerviewChildCommentList.adapter = KChildCommentsAdapter()
-        binding.recyclerviewChildCommentList.setHasFixedSize(false)
+        binding.recyclerviewCommentList.adapter = KCommentsAdapter(childClickListener)
+        binding.recyclerviewCommentList.setHasFixedSize(false)
     }
 
     private fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
