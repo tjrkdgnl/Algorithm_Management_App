@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault;
+package com.ama.algorithmmanagement.presentation.webview;
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.webview
 
 import android.os.Bundle
 import android.webkit.WebChromeClient
@@ -9,7 +9,7 @@ import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityWebViewBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.WebViewViewModel
+import com.ama.algorithmmanagement.presentation.webview.WebViewViewModel
 
 /**
  * @author : seungHo

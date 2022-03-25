@@ -58,8 +58,9 @@
         <activity android:name=".activity.kDefault.KCallAPIActivity" />
         <activity android:name=".activity.kDefault.KCallSolvedAlgorithmAct" />
         <activity android:name=".activity.kDefault.NewSolvedProblemActivity"/>
-        <activity android:name=".activity.kDefault.WebViewActivity"/>
-        <activity android:name=".activity.kDefault.SearchActivity"/>
+        <activity android:name=".presentation.webview.WebViewActivity"/>
+        <activity android:name=".presentation.status.CategoryStatusActivity"/>
+        <activity android:name=".presentation.search.SearchActivity"/>
 
 
 

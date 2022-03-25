@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.Fragment;
+package com.ama.algorithmmanagement.presentation.newSolvedProblem;
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentNewSolvedProblemBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.NewSolvedProblemViewModel
 
 /**
  * @author SeungHo Lee

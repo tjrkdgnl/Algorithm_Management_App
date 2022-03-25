@@ -37,14 +37,20 @@
     <color name="ruby_3">#f5005a</color>
     <color name="ruby_2">#ff0062</color>
     <color name="ruby_1">#ff3071</color>
-    <color name="date_blank">#00000000</color>
-    <color name="date_0">#ccc</color>
-    <color name="date_1">#BBDEFB</color>
-    <color name="date_2">#90CAF9</color>
-    <color name="date_3">#64B5F6</color>
-    <color name="date_4">#42A5F5</color>
+    <color name="date_base">#ededed</color>
+    <color name="date_font_base">#191919</color>
+    <color name="date_font_blank">#aaaaaa</color>
+    <color name="date_0">#ededed</color>
+    <color name="date_1">#d9f0ee</color>
+    <color name="date_2">#a2dad5</color>
+    <color name="date_3">#68c9c0</color>
+    <color name="date_4">#169b8c</color>
+    <color name="date_current">#191919</color>
+    <color name="date_next_previous">#aaaaaa</color>
     <color name="date_5">#2196F3</color>
     <color name="date_6">#1976D2</color>
     <color name="date_7">#1565C0</color>
     <color name="date_8">#0D47A1</color>
+    <color name="barchart_color">#25b7aa</color>
+    <color name="barchart_background">#2725b7aa</color>
 </resources>

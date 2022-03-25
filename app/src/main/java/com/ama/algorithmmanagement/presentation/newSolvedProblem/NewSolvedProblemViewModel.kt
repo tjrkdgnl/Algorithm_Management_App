@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault;
+package com.ama.algorithmmanagement.presentation.newSolvedProblem;
 
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.domain.base.BaseRepository

@@ -18,7 +18,8 @@ class KRetryProblemsAdapter :RecyclerView.Adapter<KRetryProblemViewHolder>(){
 
     override fun getItemCount(): Int =mList.size
 
-    fun setRetryProblemItem(list:MutableList<TipProblemInfo>?){
+    fun setRetryProblemItem(list:List<TipProblemInfo>?){
+        mList.clear()
         list?.let {
             mList.addAll(it)
         }
