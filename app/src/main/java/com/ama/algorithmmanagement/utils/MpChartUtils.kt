@@ -41,6 +41,7 @@ object MpChartUtils {
 
     // 유형별로 저장된 해시맵에서 몇개씩 뿌려줄건지 지정
     fun getTypeStatsSize(problemList:MutableList<TaggedProblem>,size:Int=10,isAll:Boolean=true):HashMap<String,Int>{
+        Timber.e("prombel ${problemList.size}")
         val getHashMap = getTypeStats(problemList)
         Timber.e("get hashmap $getHashMap")
         if(isAll){
@@ -49,8 +50,13 @@ object MpChartUtils {
         }
         val sizeHashMap = HashMap<String,Int>()
         val typeList = getHashMap.keys.toList()
+        Timber.e("typeList : $typeList")
+        val range = if(typeList.size>=size)size else typeList.size
+
         if(getHashMap.isNotEmpty()){
-            for(i in 0..size){
+            Timber.e("$size")
+            for(i in 0..range-1){
+                Timber.e("$i : ${getHashMap[typeList[i]]}")
                 getHashMap[typeList[i]]?.let {
                     sizeHashMap.put(typeList[i], it)
                 }
@@ -76,6 +82,7 @@ object MpChartUtils {
                             }
 
                         }else{
+                            Timber.e("name :${displayName.name}")
                             hashMap[displayName.name] = 1
                         }
                     }

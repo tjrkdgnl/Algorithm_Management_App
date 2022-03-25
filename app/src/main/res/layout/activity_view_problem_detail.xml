@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.KViewProblemDetailViewModel" />
+            type="com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        tools:context=".activity.kDefault.KViewProblemDetailActivity">
+        tools:context=".presentation.vpdetail.activity.KViewProblemDetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

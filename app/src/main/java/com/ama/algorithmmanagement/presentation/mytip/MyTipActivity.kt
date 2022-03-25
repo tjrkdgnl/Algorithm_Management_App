@@ -8,7 +8,6 @@ import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.activity.kDefault.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.activity.kDefault.NewSolvedProblemActivity
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMyTipBinding

@@ -54,6 +54,14 @@ object DateUtils {
     // 현재 월의 최대 일(n월의 끝일 ex) 3월의 경우 31일이 끝일이기때문에 31 리턴)
     fun getStatDateMaxDay():Int = statsDate.getActualMaximum(Calendar.DAY_OF_MONTH)
 
+    //
+    fun getDateMaxDay(cal:Calendar):Int{
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR))
+        calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH))
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+    }
+
 
 
     fun getYear(): Int {

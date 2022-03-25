@@ -9,11 +9,11 @@ import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.activity.kDefault.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityTryFailedBinding
 import com.ama.algorithmmanagement.data.model.TaggedProblem
 import com.ama.algorithmmanagement.presentation.tryhistory.TryHistoryActivity
+import com.ama.algorithmmanagement.presentation.vpdetail.activity.KViewProblemDetailActivity
 import timber.log.Timber
 
 /**
