@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.viewmodel.kDefault
+package com.ama.algorithmmanagement.presentation.login.view_model
 
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.application.AMAApplication

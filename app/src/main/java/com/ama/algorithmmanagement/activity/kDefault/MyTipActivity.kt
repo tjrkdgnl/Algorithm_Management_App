@@ -11,6 +11,7 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMyTipBinding
 import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.presentation.vpdetail.activity.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.viewmodel.kDefault.MyTipViewModel
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.signup.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,13 @@ import com.ama.algorithmmanagement.adapter.KViewPagerAdapter
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
-import com.ama.algorithmmanagement.Fragment.ConnectBOJAccountFragment
-import com.ama.algorithmmanagement.Fragment.RegisterFinalFragment
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
-import com.ama.algorithmmanagement.viewmodel.kDefault.KSignUpViewModel
+import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
+import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
+import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
+import com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 /**

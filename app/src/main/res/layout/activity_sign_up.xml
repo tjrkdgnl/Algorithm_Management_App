@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.KSignUpViewModel" />
+            type="com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.kDefault.KSignUpActivity">
+        tools:context=".presentation.signup.activity.KSignUpActivity">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/sign_up_view_pager"

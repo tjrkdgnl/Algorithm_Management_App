@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.activity.kDefault
+package com.ama.algorithmmanagement.presentation.login.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,11 @@ import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.presentation.signup.activity.KSignUpActivity
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityLoginBinding
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
-import com.ama.algorithmmanagement.viewmodel.kDefault.KRLoginViewModel
+import com.ama.algorithmmanagement.presentation.login.view_model.KRLoginViewModel
 
 /**
  * author : manyong Han
