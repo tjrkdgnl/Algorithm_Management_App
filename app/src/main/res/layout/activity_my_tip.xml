@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.MyTipViewModel" />
+            type="com.ama.algorithmmanagement.presentation.mytip.MyTipViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.kDefault.MyTipActivity">
+        tools:context=".presentation.mytip.MyTipActivity">
 
         <!-- TITLE -->
         <LinearLayout

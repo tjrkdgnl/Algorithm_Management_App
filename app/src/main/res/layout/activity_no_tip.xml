@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.kDefault.NoTipActivity">
+    tools:context=".presentation.notip.NoTipActivity">
     
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.NoTipViewModel" />
+            type="com.ama.algorithmmanagement.presentation.notip.NoTipViewModel" />
     </data>
 
 

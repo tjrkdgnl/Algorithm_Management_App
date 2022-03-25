@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.TryFailedViewModel" />
+            type="com.ama.algorithmmanagement.presentation.tryfailed.TryFailedViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.kDefault.TryFailedActivity">
+        tools:context=".presentation.tryfailed.TryFailedActivity">
 
         <!-- TITLE -->
         <LinearLayout

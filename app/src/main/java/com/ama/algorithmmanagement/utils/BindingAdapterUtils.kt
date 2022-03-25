@@ -13,6 +13,11 @@ import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.data.model.*
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
+import com.ama.algorithmmanagement.presentation.mytip.adapter.MyTipProblemsAdapter
+import com.ama.algorithmmanagement.presentation.tryfailed.adapter.TryFailedAdapter
+import com.ama.algorithmmanagement.presentation.tryhistory.adapter.IdeaAdapter
+import com.ama.algorithmmanagement.presentation.tryhistory.adapter.MyCommentAdapter
 import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KCommentsAdapter
 import com.github.mikephil.charting.charts.HorizontalBarChart

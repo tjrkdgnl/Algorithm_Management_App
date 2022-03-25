@@ -25,15 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.kDefault.MyChildCommentActivity"/>
+        <activity android:name=".presentation.tryhistory.MyChildCommentActivity"/>
 
         <activity
-            android:name=".activity.kDefault.TryHistoryActivity"
+            android:name=".presentation.tryhistory.TryHistoryActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".activity.kDefault.TryFailedActivity"
+            android:name=".presentation.tryfailed.TryFailedActivity"
             android:exported="true">
         </activity>
 
@@ -46,11 +46,11 @@
             android:exported="true"/>
 
         <activity
-            android:name=".activity.kDefault.NoTipActivity"
+            android:name=".presentation.notip.NoTipActivity"
             android:exported="true" />
 
         <activity
-            android:name=".activity.kDefault.MyTipActivity"
+            android:name=".presentation.mytip.MyTipActivity"
             android:exported="true">
         </activity>
 
