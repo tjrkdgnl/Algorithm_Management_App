@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.utils
 
 import android.content.Context
 import com.ama.algorithmmanagement.domain.base.BaseSharedPreference
-import com.ama.algorithmmanagement.data.model.Problems
+import com.ama.algorithmmanagement.domain.entity.Problems
 import com.google.gson.Gson
 
 class SharedPrefUtils(private val mContext: Context) : BaseSharedPreference {

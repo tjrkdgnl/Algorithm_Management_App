@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentCommentViewBinding
-import com.ama.algorithmmanagement.data.model.CommentInfo
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseFragment
+import com.ama.algorithmmanagement.domain.entity.CommentInfo
 import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KCommentsAdapter
 import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
 

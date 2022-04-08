@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.data.network
 
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

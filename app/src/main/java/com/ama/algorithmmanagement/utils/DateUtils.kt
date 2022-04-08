@@ -1,10 +1,8 @@
 package com.ama.algorithmmanagement.utils
 
 import android.annotation.SuppressLint
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.min
 
 @SuppressLint("SimpleDateFormat")
 object DateUtils {

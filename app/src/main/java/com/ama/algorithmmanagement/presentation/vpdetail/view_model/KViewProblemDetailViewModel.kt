@@ -1,9 +1,11 @@
 package com.ama.algorithmmanagement.presentation.vpdetail.view_model
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.domain.base.BaseRepository
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

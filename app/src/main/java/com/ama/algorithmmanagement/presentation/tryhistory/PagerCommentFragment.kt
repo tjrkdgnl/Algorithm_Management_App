@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentMyCommentBinding
-import com.ama.algorithmmanagement.data.model.CommentInfo
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseFragment
+import com.ama.algorithmmanagement.domain.entity.CommentInfo
 import com.ama.algorithmmanagement.presentation.tryhistory.adapter.MyCommentAdapter
 import timber.log.Timber
 

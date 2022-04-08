@@ -1,8 +1,8 @@
 package com.ama.algorithmmanagement.utils;
 
 import androidx.core.content.ContextCompat
-import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
 import timber.log.Timber
 
 /**

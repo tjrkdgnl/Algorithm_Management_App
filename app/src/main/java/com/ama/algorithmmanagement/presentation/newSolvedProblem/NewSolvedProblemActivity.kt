@@ -4,15 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.adapter.TipProblemViewPagerFragmentAdapter
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityNewSolvedProblemViewPagerBinding
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
 import com.ama.algorithmmanagement.presentation.newSolvedProblem.NewSolvedProblemViewModel
+import com.ama.algorithmmanagement.presentation.newSolvedProblem.TipProblemViewPagerFragmentAdapter
 import com.ama.algorithmmanagement.presentation.webview.WebViewActivity
 import timber.log.Timber
 

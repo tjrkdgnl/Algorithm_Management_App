@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.data.fake
 
 import com.ama.algorithmmanagement.domain.base.BaseNetworkService
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import kotlinx.coroutines.delay
 
 class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataProvider) :

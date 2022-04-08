@@ -1,18 +1,18 @@
 package com.ama.algorithmmanagement.presentation.vpdetail.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.FragmentChildCommentViewBinding
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseFragment
 import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KChildCommentsAdapter
 import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
 

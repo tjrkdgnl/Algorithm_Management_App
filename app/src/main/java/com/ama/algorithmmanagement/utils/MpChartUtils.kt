@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.utils;
 
-import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.domain.entity.TaggedProblem
 import com.github.mikephil.charting.data.BarEntry
 
 import com.github.mikephil.charting.formatter.ValueFormatter

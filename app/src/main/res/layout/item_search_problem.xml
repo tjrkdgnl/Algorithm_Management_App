@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="keyword"
-            type="com.ama.algorithmmanagement.data.model.Keyword" />
+            type="com.ama.algorithmmanagement.domain.entity.Keyword" />
         <import type="com.ama.algorithmmanagement.utils.ColorUtils"/>
 
     </data>

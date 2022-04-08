@@ -2,7 +2,7 @@ package com.ama.algorithmmanagement.presentation.vpdetail.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ama.algorithmmanagement.data.model.ChildCommentInfo
+import com.ama.algorithmmanagement.domain.entity.ChildCommentInfo
 import com.ama.algorithmmanagement.presentation.vpdetail.view_holder.ChildCommentViewHolder
 
 /**

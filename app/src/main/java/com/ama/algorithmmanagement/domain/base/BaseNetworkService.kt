@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.domain.base
 
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 
 interface BaseNetworkService {
 

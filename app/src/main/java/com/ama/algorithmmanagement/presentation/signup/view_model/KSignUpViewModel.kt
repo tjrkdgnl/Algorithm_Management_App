@@ -1,10 +1,6 @@
 package com.ama.algorithmmanagement.presentation.signup.view_model
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch

@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.presentation.newSolvedProblem;
 
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.domain.base.BaseRepository
-import com.ama.algorithmmanagement.data.model.TipProblemInfo
-import com.ama.algorithmmanagement.data.model.TippingProblemObject
+import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
+import com.ama.algorithmmanagement.domain.entity.TippingProblemObject
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

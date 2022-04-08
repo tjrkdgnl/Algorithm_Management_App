@@ -2,11 +2,10 @@ package com.ama.algorithmmanagement.presentation.main.adapter;
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.domain.entity.DateInfo
 import com.ama.algorithmmanagement.presentation.main.view_holder.KUserDateInfoViewHolder
-import com.ama.algorithmmanagement.data.model.DateInfo
 import com.ama.algorithmmanagement.utils.DateUtils
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * @author  seungHo

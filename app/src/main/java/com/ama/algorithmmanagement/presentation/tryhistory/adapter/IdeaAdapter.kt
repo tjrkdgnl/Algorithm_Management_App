@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.presentation.tryhistory.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.domain.entity.IdeaInfo
 import com.ama.algorithmmanagement.presentation.tryhistory.view_holder.IdeaViewHolder
-import com.ama.algorithmmanagement.data.model.IdeaInfo
 
 class IdeaAdapter : RecyclerView.Adapter<IdeaViewHolder>() {
     private val lst = mutableListOf<IdeaInfo?>()

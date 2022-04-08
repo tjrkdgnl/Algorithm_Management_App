@@ -1,7 +1,7 @@
 package com.ama.algorithmmanagement.data.network
 
 import com.ama.algorithmmanagement.domain.base.BaseNetworkService
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import retrofit2.await
 
 class NetworkService : BaseNetworkService {

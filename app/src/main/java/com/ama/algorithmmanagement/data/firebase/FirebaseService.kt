@@ -1,9 +1,9 @@
 package com.ama.algorithmmanagement.data.firebase
 
 import android.app.Application
-import com.ama.algorithmmanagement.domain.base.BaseFirebaseService
-import com.ama.algorithmmanagement.data.model.*
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.domain.base.BaseFirebaseService
+import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import com.ama.algorithmmanagement.utils.RandomIdGenerator
 import com.google.firebase.database.DataSnapshot

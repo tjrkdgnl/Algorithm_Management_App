@@ -7,17 +7,17 @@ import android.webkit.WebViewClient
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.adapter.KViewPagerAdapter
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.common.adapter.KViewPagerAdapter
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityViewProblemDetailBinding
-import com.ama.algorithmmanagement.data.model.CommentInfo
-import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.entity.CommentInfo
 import com.ama.algorithmmanagement.presentation.vpdetail.fragment.ChildCommentViewFragment
 import com.ama.algorithmmanagement.presentation.vpdetail.fragment.CommentViewFragment
+import com.ama.algorithmmanagement.presentation.vpdetail.view_model.KViewProblemDetailViewModel
 import timber.log.Timber
 
 /**

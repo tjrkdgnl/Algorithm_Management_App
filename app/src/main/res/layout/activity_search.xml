@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.SearchViewModel" />
+            type="com.ama.algorithmmanagement.presentation.search.SearchViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

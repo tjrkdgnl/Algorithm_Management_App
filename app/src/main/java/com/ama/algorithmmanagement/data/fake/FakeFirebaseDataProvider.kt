@@ -1,8 +1,8 @@
 package com.ama.algorithmmanagement.data.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.data.model.*
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.utils.DateUtils
 
 class FakeFirebaseDataProvider(private val mApp: Application) {

@@ -1,11 +1,10 @@
 package com.ama.algorithmmanagement.data.fake
 
 import com.ama.algorithmmanagement.domain.base.BaseFirebaseService
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
-import java.lang.NullPointerException
 
 class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider

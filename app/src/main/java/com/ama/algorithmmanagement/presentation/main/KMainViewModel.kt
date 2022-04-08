@@ -1,12 +1,14 @@
 package com.ama.algorithmmanagement.presentation.main
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.domain.base.BaseRepository
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import kotlin.Exception
 
 class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     // 파이어베이스에 저장된 데이터

@@ -3,15 +3,15 @@ package com.ama.algorithmmanagement.presentation.notip
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.activity.kDefault.NewSolvedProblemActivity
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityNoTipBinding
-import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.entity.TaggedProblem
+import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
 import timber.log.Timber
 
 /**

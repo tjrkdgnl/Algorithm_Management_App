@@ -3,9 +3,9 @@ package com.ama.algorithmmanagement.presentation.tryhistory.view_holder
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.IdeaListItemBinding
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import timber.log.Timber

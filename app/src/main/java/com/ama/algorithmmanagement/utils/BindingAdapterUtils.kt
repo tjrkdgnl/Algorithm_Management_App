@@ -1,20 +1,18 @@
 package com.ama.algorithmmanagement.utils
 
 import android.graphics.Color
-
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.ama.algorithmmanagement.adapter.*
-
-import com.ama.algorithmmanagement.adapter.test.*
-import com.ama.algorithmmanagement.presentation.newSolvedProblem.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.data.model.*
+import com.ama.algorithmmanagement.common.adapter.SearchProblemAdapter
+import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
-import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
 import com.ama.algorithmmanagement.presentation.mytip.adapter.MyTipProblemsAdapter
+import com.ama.algorithmmanagement.presentation.newSolvedProblem.SolvedProblemViewPagerFragment
+import com.ama.algorithmmanagement.presentation.newSolvedProblem.TipProblemViewPagerFragmentAdapter
+import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
 import com.ama.algorithmmanagement.presentation.tryfailed.adapter.TryFailedAdapter
 import com.ama.algorithmmanagement.presentation.tryhistory.adapter.IdeaAdapter
 import com.ama.algorithmmanagement.presentation.tryhistory.adapter.MyCommentAdapter
@@ -27,35 +25,8 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import timber.log.Timber
 import java.util.*
-import kotlin.collections.HashMap
 
 object BindingAdapterUtils {
-
-    @JvmStatic
-    @BindingAdapter("setItemList")
-    fun setItemList(recyclerView: RecyclerView, list: MutableList<KProblemsOfClass>?) {
-        val defaultRecyclerViewAdapter = recyclerView.adapter as KDefaultRecyclerViewAdapter
-        defaultRecyclerViewAdapter.updateList(list)
-    }
-
-
-    @JvmStatic
-    @BindingAdapter("setKeywords")
-    fun setKeywordList(recyclerView: RecyclerView, list: MutableList<Keyword>?) {
-        val keywordAdapter = recyclerView.adapter as TestSearchAdapter
-
-        keywordAdapter.updateKeywords(list)
-    }
-
-    @JvmStatic
-    @BindingAdapter("setTipProblemList")
-    fun setSolvedProblemsList(
-        recyclerView: RecyclerView,
-        solvedAlgorithms: MutableList<TipProblemInfo>?
-    ) {
-        val recyclerViewAdapter = recyclerView.adapter as TestTipAdapter
-        recyclerViewAdapter.updateList(solvedAlgorithms)
-    }
 
     /**
      * @param recyclerView 댓글에 대한 리사이클러뷰 - 리니어
@@ -83,51 +54,6 @@ object BindingAdapterUtils {
         val recyclerViewAdapter = recyclerView.adapter as KChildCommentsAdapter
         childCommentList?.let {
             recyclerViewAdapter.updateList(childCommentList)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("testIdeaProblems")
-    fun setTestIdeaProblems(recyclerView: RecyclerView, problems: MutableList<IdeaInfo>?) {
-        val adapter = recyclerView.adapter as TestIdeaAdpater
-
-        problems?.let {
-            adapter.updateList(it)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("testCommentList")
-    fun setTestCommentList(recyclerView: RecyclerView, problems: MutableList<CommentInfo>?) {
-        val adapter = recyclerView.adapter as TestCommentAdapter
-
-        problems?.let {
-            adapter.updateList(it)
-        }
-    }
-
-
-    @JvmStatic
-    @BindingAdapter("testChildCommentList")
-    fun setTestChildCommentList(
-        recyclerView: RecyclerView,
-        problems: MutableList<ChildCommentInfo>?
-    ) {
-        val adapter = recyclerView.adapter as TestChildCommentAdapter
-
-        problems?.let {
-            adapter.updateList(it)
-        }
-    }
-
-
-    @JvmStatic
-    @BindingAdapter("testDateList")
-    fun setTestDateList(recyclerView: RecyclerView, problems: MutableList<DateInfo>?) {
-        val adapter = recyclerView.adapter as TestDateAdpater
-
-        problems?.let {
-            adapter.updateList(it)
         }
     }
 

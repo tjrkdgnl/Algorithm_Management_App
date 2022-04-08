@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ama.algorithmmanagement.viewmodel.kDefault.SettingViewModel" />
+            type="com.ama.algorithmmanagement.presentation.setting.SettingViewModel" />
     </data>
 
     <LinearLayout

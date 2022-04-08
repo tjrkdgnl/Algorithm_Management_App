@@ -2,8 +2,8 @@ package com.ama.algorithmmanagement.presentation.tryhistory.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ama.algorithmmanagement.domain.entity.CommentInfo
 import com.ama.algorithmmanagement.presentation.tryhistory.view_holder.MyCommentViewHolder
-import com.ama.algorithmmanagement.data.model.CommentInfo
 
 /**
  * author : hongdroid94

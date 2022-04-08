@@ -19,10 +19,7 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".presentation.main.KMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".presentation.tryhistory.MyChildCommentActivity"/>
@@ -43,7 +40,12 @@
         <activity android:name=".presentation.login.activity.KRLoginActivity" />
         <activity
             android:name=".presentation.splash.activity.KSplashActivity"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".presentation.notip.NoTipActivity"
@@ -54,9 +56,7 @@
             android:exported="true">
         </activity>
 
-        <activity android:name=".activity.kDefault.SettingActivity" />
-        <activity android:name=".activity.kDefault.KCallAPIActivity" />
-        <activity android:name=".activity.kDefault.KCallSolvedAlgorithmAct" />
+        <activity android:name=".presentation.setting.SettingActivity" />
         <activity android:name=".activity.kDefault.NewSolvedProblemActivity"/>
         <activity android:name=".presentation.webview.WebViewActivity"/>
         <activity android:name=".presentation.status.CategoryStatusActivity"/>
@@ -64,16 +64,6 @@
 
 
 
-        <activity android:name=".activity.test.TestDefaultActivity" />
-        <activity android:name=".activity.test.TestSearchActivity"/>
-        <activity android:name=".activity.test.TestLoginActivity" />
-        <activity android:name=".activity.test.TestFirebaseTest"/>
-        <activity android:name=".activity.test.TestSharedActivity"/>
-        <activity android:name=".activity.test.TestIdeaActivity"/>
-        <activity android:name=".activity.test.TestDateActivity"/>
-        <activity android:name=".activity.test.TestCommentActivity"/>
-        <activity android:name=".activity.test.TestChildCommentActivity"/>
-        <activity android:name=".activity.test.TestTippingItemAct"/>
 
         <!-- PROVIDER -->
         <provider

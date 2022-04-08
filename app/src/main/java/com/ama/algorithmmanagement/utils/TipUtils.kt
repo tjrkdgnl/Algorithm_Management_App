@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.utils
 
-import com.ama.algorithmmanagement.data.model.Tag
+import com.ama.algorithmmanagement.domain.entity.Tag
 
 object TipUtils {
     /**

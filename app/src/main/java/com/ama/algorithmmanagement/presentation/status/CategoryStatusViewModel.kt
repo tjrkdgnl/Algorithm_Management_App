@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.data.model.Problems
-import com.ama.algorithmmanagement.data.model.Stats
 import com.ama.algorithmmanagement.domain.base.BaseRepository
+import com.ama.algorithmmanagement.domain.entity.Problems
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

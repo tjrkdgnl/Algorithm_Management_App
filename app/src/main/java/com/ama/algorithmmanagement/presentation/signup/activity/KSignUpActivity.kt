@@ -8,19 +8,20 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.ama.algorithmmanagement.adapter.KViewPagerAdapter
-import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
-import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.application.AMAApplication
+import com.ama.algorithmmanagement.common.adapter.KViewPagerAdapter
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
+import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
+import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
 import com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
+
 /**
  * author : manyong Han
  * summary : 회원가입 베이스 액티비티

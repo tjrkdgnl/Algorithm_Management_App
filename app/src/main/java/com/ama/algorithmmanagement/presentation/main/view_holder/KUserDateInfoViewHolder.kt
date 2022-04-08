@@ -2,11 +2,10 @@ package com.ama.algorithmmanagement.presentation.main.view_holder;
 
 import android.content.res.ColorStateList
 import android.view.ViewGroup
-import androidx.core.content.res.ColorStateListInflaterCompat
-import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.ItemUserDateInfoBinding
-import com.ama.algorithmmanagement.data.model.DateInfo
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
+import com.ama.algorithmmanagement.domain.entity.DateInfo
 import com.ama.algorithmmanagement.utils.ColorUtils
 import timber.log.Timber
 

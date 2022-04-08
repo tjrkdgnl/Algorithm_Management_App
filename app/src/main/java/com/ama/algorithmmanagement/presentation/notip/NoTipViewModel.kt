@@ -3,9 +3,8 @@ package com.ama.algorithmmanagement.presentation.notip
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseRepository
-import com.ama.algorithmmanagement.data.model.TipProblemInfo
+import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

@@ -4,8 +4,8 @@ import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseRepository
-import com.ama.algorithmmanagement.data.model.IdeaInfo
-import com.ama.algorithmmanagement.data.model.IdeaInfos
+import com.ama.algorithmmanagement.domain.entity.IdeaInfo
+import com.ama.algorithmmanagement.domain.entity.IdeaInfos
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

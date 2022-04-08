@@ -3,8 +3,8 @@ package com.ama.algorithmmanagement.presentation.tryfailed.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-import com.ama.algorithmmanagement.viewHolder.ProblemViewHolder
-import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.common.viewholder.ProblemViewHolder
+import com.ama.algorithmmanagement.domain.entity.TaggedProblem
 
 class TryFailedAdapter(var listClickListener: (TaggedProblem) -> Unit) : RecyclerView.Adapter<ProblemViewHolder>() {
     private val list = mutableListOf<TaggedProblem>()

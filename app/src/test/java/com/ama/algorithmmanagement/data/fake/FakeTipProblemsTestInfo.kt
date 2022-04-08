@@ -2,9 +2,9 @@ package com.ama.algorithmmanagement.data.fake
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ama.algorithmmanagement.data.model.DisplayName
-import com.ama.algorithmmanagement.data.model.Tag
-import com.ama.algorithmmanagement.data.model.TaggedProblem
+import com.ama.algorithmmanagement.domain.entity.DisplayName
+import com.ama.algorithmmanagement.domain.entity.Tag
+import com.ama.algorithmmanagement.domain.entity.TaggedProblem
 import com.ama.algorithmmanagement.utils.DateUtils
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals

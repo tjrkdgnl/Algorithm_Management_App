@@ -1,12 +1,12 @@
 package com.ama.algorithmmanagement.data.fake
 
 import android.app.Application
+import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.domain.base.BaseFirebaseService
 import com.ama.algorithmmanagement.domain.base.BaseNetworkService
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.domain.base.BaseSharedPreference
-import com.ama.algorithmmanagement.data.model.*
-import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
 class FakeRepository(

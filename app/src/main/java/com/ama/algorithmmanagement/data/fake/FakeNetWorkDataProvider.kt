@@ -1,8 +1,8 @@
 package com.ama.algorithmmanagement.data.fake
 
 import android.app.Application
-import com.ama.algorithmmanagement.data.model.*
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.domain.entity.*
 
 class FakeNetWorkDataProvider(private val mApp: Application) {
     private val mProblemId = mApp.getString(R.string.default_problemId).toInt()

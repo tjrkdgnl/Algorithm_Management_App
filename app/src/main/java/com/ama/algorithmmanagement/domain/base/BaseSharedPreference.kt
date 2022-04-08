@@ -1,6 +1,6 @@
 package com.ama.algorithmmanagement.domain.base
 
-import com.ama.algorithmmanagement.data.model.Problems
+import com.ama.algorithmmanagement.domain.entity.Problems
 
 
 interface BaseSharedPreference {

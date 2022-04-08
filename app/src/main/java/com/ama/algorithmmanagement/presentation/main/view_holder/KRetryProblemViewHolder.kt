@@ -1,10 +1,10 @@
 package com.ama.algorithmmanagement.presentation.main.view_holder
 
 import android.view.ViewGroup
-import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.ItemRetryProblemBinding
-import com.ama.algorithmmanagement.data.model.TipProblemInfo
+import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
+import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
 
 class KRetryProblemViewHolder(parent: ViewGroup) :
     KBaseViewHolder<ItemRetryProblemBinding>(
