@@ -47,6 +47,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         binding.connectWebView.apply {
             webChromeClient = WebChromeClient()
             webViewClient = WebViewClient()
+            settings.javaScriptEnabled = true
         }
 
         viewPagerAdapter = KViewPagerAdapter(supportFragmentManager, fragments ,lifecycle)
