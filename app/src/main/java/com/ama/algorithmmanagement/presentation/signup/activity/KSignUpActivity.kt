@@ -84,7 +84,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         signUpViewModel.isRegisterSuccess.observe(this) {
             if(it) {
                 Toast.makeText(this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                successMovePage(false)
+                successMovePage(MovePage.MAIN)
             } else {
                 Toast.makeText(this, "계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -99,7 +99,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         signUpViewModel.isAlreadySignUp.observe(this) {
             if(!it) {
                 Toast.makeText(this, "이미 가입된 계정입니다.\n로그인 페이지로 이동합니다.", Toast.LENGTH_SHORT).show()
-                successMovePage(true)
+                successMovePage(MovePage.LOGIN)
             }
         }
     }
@@ -117,11 +117,10 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         binding.signUpViewPager.currentItem = 2
     }
 
-    private fun successMovePage(flag: Boolean) {
-        if(flag) {
-            startActivity(Intent(this, KRLoginActivity::class.java))
-        } else {
-            startActivity(Intent(this, KMainActivity::class.java))
+    private fun successMovePage(page: MovePage) {
+        when(page) {
+            MovePage.LOGIN -> startActivity(Intent(this, KRLoginActivity::class.java))
+            MovePage.MAIN -> startActivity(Intent(this, KMainActivity::class.java))
         }
         finish()
     }
@@ -137,4 +136,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         }
     }
 
+    enum class MovePage {
+        MAIN, LOGIN
+    }
 }

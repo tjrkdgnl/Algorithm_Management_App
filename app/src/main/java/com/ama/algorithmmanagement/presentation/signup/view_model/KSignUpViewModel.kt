@@ -63,25 +63,30 @@ class KSignUpViewModel(
             try {
                 checkUserInfo.value?.let {
                     if (it) {
-                        val confirm = mRepository.confirmUserInfo(userId.value!!)
-                        Timber.e("백준 등록 여부 : $confirm")
-                        if (confirm) {
-                            isAlreadySignUp.value = mRepository.signUpUserInfo(
-                                userId.value!!, userPw.value!!)
-                            Timber.e("AMA 등록 여부 : ${!isAlreadySignUp.value!!}")
-                            if(isAlreadySignUp.value!!) {
-                                val signUp = mRepository.setUserInfo(
-                                    userId.value!!,
-                                    userPw.value!!,
-                                    fcmToken.value!!
+                        userId.value?.let { userId ->
+                            val confirm = mRepository.confirmUserInfo(userId)
+                            Timber.e("백준 등록 여부 : $confirm")
+                            if (confirm) {
+                                isAlreadySignUp.value = mRepository.signUpUserInfo(
+                                    userId, userPw.value!!
                                 )
-                                Timber.e("가입 성공 여부 : $signUp")
-                                isRegisterSuccess.value = signUp
-                                mSharedPref.setUserId(userId.value!!)
+                                isAlreadySignUp.value?.let { isAlreadySignUp ->
+                                    Timber.e("AMA 등록 여부 : $isAlreadySignUp")
+                                    if (isAlreadySignUp) {
+                                        val signUp = mRepository.setUserInfo(
+                                            userId,
+                                            userPw.value!!,
+                                            fcmToken.value.toString()
+                                        )
+                                        Timber.e("가입 성공 여부 : $signUp")
+                                        isRegisterSuccess.value = signUp
+                                        mSharedPref.setUserId(userId)
+                                    }
+                                }
                             }
+                            Timber.e(mRepository.getUserInfo(userId).toString())
+                            isInputDataEmpty.value = true
                         }
-                        Timber.e(mRepository.getUserInfo(userId.value!!).toString())
-                        isInputDataEmpty.value = true
                     } else {
                         Timber.e("id 또는 pwd를 다시 확인해주세요.")
                         isInputDataEmpty.value = false
