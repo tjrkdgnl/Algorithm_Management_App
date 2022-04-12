@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.presentation.signup.view_model
 
 import androidx.lifecycle.*
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
@@ -15,6 +16,8 @@ class KSignUpViewModel(
     private val mRepository: BaseRepository,
     mLifecycleOwner: LifecycleOwner
     ) : ViewModel() {
+    private val mSharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+
     val isGoToRegisterFinal = MutableLiveData<Boolean>()
 
     val userId = MutableLiveData<String>()
@@ -26,6 +29,7 @@ class KSignUpViewModel(
     val isConnectSuccess = MutableLiveData<Boolean>()
     val isRegisterSuccess = MutableLiveData<Boolean>()
     val isInputDataEmpty = MutableLiveData<Boolean>()
+    val isAlreadySignUp = MutableLiveData<Boolean>() // ama 파베에 회원가입 되어있는지 여부
 
     private val checkUserInfo = combineWith(userId, userPw) { id, pwd -> id != null && pwd != null }
     private val userInfoObserver = Observer<Boolean> { }
@@ -62,10 +66,10 @@ class KSignUpViewModel(
                         val confirm = mRepository.confirmUserInfo(userId.value!!)
                         Timber.e("백준 등록 여부 : $confirm")
                         if (confirm) {
-                            val isUserCheck = mRepository.signUpUserInfo(
+                            isAlreadySignUp.value = mRepository.signUpUserInfo(
                                 userId.value!!, userPw.value!!)
-                            Timber.e("AMA 등록 여부 : $confirm")
-                            if(isUserCheck) {
+                            Timber.e("AMA 등록 여부 : ${!isAlreadySignUp.value!!}")
+                            if(isAlreadySignUp.value!!) {
                                 val signUp = mRepository.setUserInfo(
                                     userId.value!!,
                                     userPw.value!!,
@@ -73,6 +77,7 @@ class KSignUpViewModel(
                                 )
                                 Timber.e("가입 성공 여부 : $signUp")
                                 isRegisterSuccess.value = signUp
+                                mSharedPref.setUserId(userId.value!!)
                             }
                         }
                         Timber.e(mRepository.getUserInfo(userId.value!!).toString())

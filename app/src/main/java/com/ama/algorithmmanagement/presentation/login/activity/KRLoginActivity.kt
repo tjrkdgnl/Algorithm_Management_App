@@ -44,6 +44,7 @@ class KRLoginActivity : KBaseActivity<ActivityLoginBinding>(R.layout.activity_lo
             if (it) {
                 startActivity(Intent(this, KSignUpActivity::class.java))
                 loginViewModel.isMoveToSignUp.value = false
+                finish()
             }
         }
 

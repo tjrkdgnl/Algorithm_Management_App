@@ -16,6 +16,7 @@ import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
+import com.ama.algorithmmanagement.presentation.main.KMainActivity
 import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
 import com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel
@@ -83,7 +84,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         signUpViewModel.isRegisterSuccess.observe(this) {
             if(it) {
                 Toast.makeText(this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                successMoveLoginPage()
+                successMovePage(false)
             } else {
                 Toast.makeText(this, "계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -92,6 +93,13 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         signUpViewModel.isInputDataEmpty.observe(this) {
             if(!it) {
                 Toast.makeText(this, "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        signUpViewModel.isAlreadySignUp.observe(this) {
+            if(!it) {
+                Toast.makeText(this, "이미 가입된 계정입니다.\n로그인 페이지로 이동합니다.", Toast.LENGTH_SHORT).show()
+                successMovePage(true)
             }
         }
     }
@@ -109,8 +117,12 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         binding.signUpViewPager.currentItem = 2
     }
 
-    private fun successMoveLoginPage() {
-        startActivity(Intent(this, KRLoginActivity::class.java))
+    private fun successMovePage(flag: Boolean) {
+        if(flag) {
+            startActivity(Intent(this, KRLoginActivity::class.java))
+        } else {
+            startActivity(Intent(this, KMainActivity::class.java))
+        }
         finish()
     }
 
