@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.utils.DateUtils
@@ -11,6 +12,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
+
+    private val sharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+
     // 파이어베이스에 저장된 데이터
     private val _firebaseAllProblems = MutableLiveData<MutableList<TipProblemInfo>>()
     val firebaseAllProblems: LiveData<MutableList<TipProblemInfo>>
@@ -259,6 +263,10 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
         loadUserStatsList()
         loadUserSolvedProblemList()
         loadUserDateInfo()
+    }
+
+    fun isLogin(): Boolean {
+        return sharedPref.getUserId() != null
     }
 
     init {
