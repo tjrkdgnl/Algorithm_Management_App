@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.presentation.setting
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.application.AMAApplication
@@ -40,12 +41,8 @@ class SettingActivity : KBaseActivity<ActivitySettingBinding>(R.layout.activity_
         // set selected logout button
         settingViewModel.isSelectedLogout.observe(this@SettingActivity) {
             Timber.d(it.toString())
-            if (it) {
-                // todo - 로그인 액티비티로 이동 되는 ux 시나리오를 논의 후 구현 해야할 듯 함..
-//                Intent(this@SettingActivity, LoginActivit)
-            } else {
-
-            }
+            if (it)
+                finish()
         }
     }
 }

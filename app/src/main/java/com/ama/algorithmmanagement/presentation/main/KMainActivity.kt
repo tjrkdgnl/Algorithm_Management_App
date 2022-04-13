@@ -14,6 +14,7 @@ import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMainBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
 import com.ama.algorithmmanagement.presentation.notip.NoTipActivity
@@ -105,6 +106,16 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
         })
         setObserver()
     }
+
+    override fun onStart() {
+        super.onStart()
+        // check login status
+        if (!mainViewModel.isLogin()) {
+            startActivity(Intent(this, KRLoginActivity::class.java))
+            finish()
+        }
+    }
+
     private fun setObserver(){
         // 네비게이션 버튼 누를시
         mainViewModel.isOpenDrawer.observe(this) {
