@@ -1,6 +1,8 @@
 package com.ama.algorithmmanagement.presentation.signup.view_model
 
+import android.widget.Toast
 import androidx.lifecycle.*
+import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.utils.combineWith
 import kotlinx.coroutines.launch
@@ -14,7 +16,9 @@ import timber.log.Timber
 class KSignUpViewModel(
     private val mRepository: BaseRepository,
     mLifecycleOwner: LifecycleOwner
-    ) : ViewModel() {
+) : ViewModel() {
+    private val mSharedPref = AMAApplication.INSTANCE.sharedPrefUtils
+
     val isGoToRegisterFinal = MutableLiveData<Boolean>()
 
     val userId = MutableLiveData<String>()
@@ -25,7 +29,6 @@ class KSignUpViewModel(
     val isMoveToWebView = MutableLiveData<Boolean>()
     val isConnectSuccess = MutableLiveData<Boolean>()
     val isRegisterSuccess = MutableLiveData<Boolean>()
-    val isInputDataEmpty = MutableLiveData<Boolean>()
 
     private val checkUserInfo = combineWith(userId, userPw) { id, pwd -> id != null && pwd != null }
     private val userInfoObserver = Observer<Boolean> { }
@@ -56,35 +59,45 @@ class KSignUpViewModel(
     // api 리턴 결과로 계정 연동 여부 확인하여 회원가입 성공유무 판단.
     fun registerAMA() {
         viewModelScope.launch {
-            try {
-                checkUserInfo.value?.let {
-                    if (it) {
-                        val confirm = mRepository.confirmUserInfo(userId.value!!)
-                        Timber.e("백준 등록 여부 : $confirm")
-                        if (confirm) {
-                            val isUserCheck = mRepository.signUpUserInfo(
-                                userId.value!!, userPw.value!!)
-                            Timber.e("AMA 등록 여부 : $confirm")
-                            if(isUserCheck) {
-                                val signUp = mRepository.setUserInfo(
-                                    userId.value!!,
-                                    userPw.value!!,
-                                    fcmToken.value!!
-                                )
-                                Timber.e("가입 성공 여부 : $signUp")
-                                isRegisterSuccess.value = signUp
-                            }
+            checkUserInfo.value?.let { checkIdAndPw ->
+                if (checkIdAndPw) {
+                    val confirm = mRepository.confirmUserInfo(userId.value!!)
+                    Timber.e("백준 등록 여부 : $confirm")
+                    if (confirm) {
+                        val isAlreadySignUp = mRepository.signUpUserInfo(
+                            userId.value!!, userPw.value!!
+                        )
+                        Timber.e("AMA 등록 여부 : $isAlreadySignUp")
+                        if (isAlreadySignUp) {
+                            val signUp = mRepository.setUserInfo(
+                                userId.value!!, userPw.value!!,
+                                fcmToken.value.toString()
+                            )
+                            Timber.e("가입 성공 여부 : $signUp")
+                            isRegisterSuccess.value = signUp
+                            mSharedPref.setUserId(userId.value!!)
+                        } else {
+                            Toast.makeText(
+                                AMAApplication.INSTANCE.applicationContext,
+                                "이미 가입된 계정입니다.", Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        Timber.e(mRepository.getUserInfo(userId.value!!).toString())
-                        isInputDataEmpty.value = true
                     } else {
-                        Timber.e("id 또는 pwd를 다시 확인해주세요.")
-                        isInputDataEmpty.value = false
+                        Toast.makeText(
+                            AMAApplication.INSTANCE.applicationContext,
+                            "백준 등록 여부를 확인해주세요.", Toast.LENGTH_SHORT
+                        ).show()
                     }
+                    Timber.e(mRepository.getUserInfo(userId.value!!).toString())
+                } else {
+                    Timber.e("id 또는 pwd를 다시 확인해주세요.")
+                    Toast.makeText(AMAApplication.INSTANCE.applicationContext,
+                        "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show()
                 }
-            } catch (e: Exception) {
-                Timber.e(e.message.toString())
-            }
+            } ?: Toast.makeText(
+                AMAApplication.INSTANCE.applicationContext,
+                "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT
+            ).show() // 엘비스 연산자.
         }
     }
 
