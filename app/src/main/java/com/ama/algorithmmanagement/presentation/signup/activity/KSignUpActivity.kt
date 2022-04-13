@@ -1,6 +1,7 @@
 package com.ama.algorithmmanagement.presentation.signup.activity
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
@@ -15,13 +16,13 @@ import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
-import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
 import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
 import com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
+
 
 /**
  * author : manyong Han
@@ -84,22 +85,9 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         signUpViewModel.isRegisterSuccess.observe(this) {
             if(it) {
                 Toast.makeText(this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                successMovePage(MovePage.MAIN)
+                successMovePage()
             } else {
                 Toast.makeText(this, "계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        signUpViewModel.isInputDataEmpty.observe(this) {
-            if(!it) {
-                Toast.makeText(this, "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        signUpViewModel.isAlreadySignUp.observe(this) {
-            if(!it) {
-                Toast.makeText(this, "이미 가입된 계정입니다.\n로그인 페이지로 이동합니다.", Toast.LENGTH_SHORT).show()
-                successMovePage(MovePage.LOGIN)
             }
         }
     }
@@ -117,11 +105,10 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         binding.signUpViewPager.currentItem = 2
     }
 
-    private fun successMovePage(page: MovePage) {
-        when(page) {
-            MovePage.LOGIN -> startActivity(Intent(this, KRLoginActivity::class.java))
-            MovePage.MAIN -> startActivity(Intent(this, KMainActivity::class.java))
-        }
+    private fun successMovePage() {
+        val intent = Intent(this, KMainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
         finish()
     }
 
@@ -134,9 +121,5 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
             token = task.result.toString()
             Timber.e(token)
         }
-    }
-
-    enum class MovePage {
-        MAIN, LOGIN
     }
 }

@@ -49,7 +49,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
-            android:hint="백준 아이디 및 이메일"
+            android:hint="백준 아이디"
             android:inputType="text"
             android:text="@={viewModel.userId}"
             app:layout_constraintLeft_toLeftOf="parent"
