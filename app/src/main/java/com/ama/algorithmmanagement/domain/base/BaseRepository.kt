@@ -50,6 +50,8 @@ interface BaseRepository {
 
     suspend fun initTipProblems(problems: List<TaggedProblem>): TippingProblemObject?
 
+    suspend fun getAllTipProblems() : TippingProblemObject?
+
     suspend fun getTippingProblem(): TippingProblemObject?
 
     suspend fun getNotTippingProblem(): TippingProblemObject?

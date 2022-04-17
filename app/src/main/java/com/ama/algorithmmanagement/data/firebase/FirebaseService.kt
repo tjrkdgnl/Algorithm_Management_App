@@ -117,7 +117,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
                                             mDateTable
                                         )
                                     )
-                                    return false;
+                                    return false
                                 }
 
                                 if (DateUtils.getMonth() == monthInfo.month) {
@@ -309,6 +309,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         return null
     }
 
+
     private suspend fun getChildCountOfCommentInfo(
         problemId: Int,
         commentId: String
@@ -351,10 +352,10 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
             updateMap[pair.first] = pair.second
         }
 
-        mFirebaseRef.updateChildren(updateMap) { error, ref ->
+        mFirebaseRef.updateChildren(updateMap) { error, _ ->
             if (error != null) {
                 Timber.e(error.toException())
-            } else{
+            } else {
                 list.clear()
             }
         }
@@ -544,6 +545,33 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         val tippingProblemObject = TippingProblemObject(tipProblems.size, userId, tipProblems)
         mFirebaseRef.child(mTipTable).push().setValue(tippingProblemObject)
         return tippingProblemObject
+    }
+
+    override suspend fun getAllTipProblems(userId: String): TippingProblemObject? {
+        val tableKey = mFirebaseRef.child(mTipTable).key
+
+        if (tableKey == null) {
+            Timber.e(mApp.getString(R.string.objectIsNull, mTipTable))
+            return null
+        }
+
+        val snapshot = mFirebaseRef.child(mTipTable).get().await()
+
+        val tippingProblemObject = TippingProblemObject(0, userId, mutableListOf())
+
+        for (obj in snapshot.children) {
+            val userTipObj = obj.getValue(TippingProblemObject::class.java)
+
+            userTipObj?.let { userTip ->
+                if (userTip.userId == userId) {
+                    tippingProblemObject.count = userTip.count
+                    tippingProblemObject.problemInfoList.addAll(userTip.problemInfoList)
+                    return tippingProblemObject
+                }
+            }
+        }
+
+        return null
     }
 
     override suspend fun getTippingProblemObject(userId: String): TippingProblemObject? {

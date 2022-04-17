@@ -193,6 +193,10 @@ class FakeFirebaseReference(
         return null
     }
 
+    override suspend fun getAllTipProblems(userId: String): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setTippingProblem(
         userId: String,
         problem: TaggedProblem,

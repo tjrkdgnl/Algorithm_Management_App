@@ -161,6 +161,10 @@ class FakeRepository(
         return mFakeFirebaseReference.initTipProblems(mUserId!!,problems)
     }
 
+    override suspend fun getAllTipProblems(): TippingProblemObject? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getTippingProblem(): TippingProblemObject? {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
