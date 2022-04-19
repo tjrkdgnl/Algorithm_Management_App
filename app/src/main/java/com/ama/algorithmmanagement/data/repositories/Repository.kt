@@ -11,10 +11,10 @@ import com.ama.algorithmmanagement.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
 class Repository(
-        private val mApp: Application,
-        private val mFirebaseService: BaseFirebaseService,
-        private val mNetworkService: BaseNetworkService,
-        private val mSharedPrefUtils: BaseSharedPreference,
+    private val mApp: Application,
+    private val mFirebaseService: BaseFirebaseService,
+    private val mNetworkService: BaseNetworkService,
+    private val mSharedPrefUtils: BaseSharedPreference,
 ) : BaseRepository {
 
     private var mUserId = mSharedPrefUtils.getUserId()
@@ -60,7 +60,7 @@ class Repository(
     }
 
     override suspend fun getBOJUserInfo(): User {
-        if (mUserId ==null) {
+        if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "mUserId"))
         }
 
@@ -69,9 +69,9 @@ class Repository(
 
     //Firebase Service
     override suspend fun setUserInfo(
-            userId: String,
-            password: String,
-            fcmToken: String?
+        userId: String,
+        password: String,
+        fcmToken: String?
     ): Boolean {
         return if (mFirebaseService.setUserInfo(userId, password, fcmToken)) {
             mSharedPrefUtils.setUserId(userId)
@@ -148,7 +148,11 @@ class Repository(
         return mFirebaseService.getCommentObject(problemId)
     }
 
-    override suspend fun setChildComment(problemId: Int, commentId: String, comment: String): Boolean {
+    override suspend fun setChildComment(
+        problemId: Int,
+        commentId: String,
+        comment: String
+    ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
         }
@@ -164,9 +168,9 @@ class Repository(
     }
 
     override suspend fun setTippingProblem(
-            problem: TaggedProblem,
-            isShow: Boolean,
-            tipComment: String?
+        problem: TaggedProblem,
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
@@ -181,6 +185,14 @@ class Repository(
         }
 
         return mFirebaseService.initTipProblems(mUserId!!, problems)
+    }
+
+    override suspend fun getAllTipProblems(): TippingProblemObject? {
+        if (mUserId == null) {
+            throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))
+        }
+
+        return mFirebaseService.getAllTipProblems(mUserId!!)
     }
 
     override suspend fun getTippingProblem(): TippingProblemObject? {
@@ -200,9 +212,9 @@ class Repository(
     }
 
     override suspend fun modifyTippingProblem(
-            problemId: Int,
-            isShow: Boolean,
-            tipComment: String?
+        problemId: Int,
+        isShow: Boolean,
+        tipComment: String?
     ): Boolean {
         if (mUserId == null) {
             throw NullPointerException(mApp.getString(R.string.objectIsNull, "userId"))

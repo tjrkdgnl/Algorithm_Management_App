@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.domain.base
 
+import com.ama.algorithmmanagement.data.firebase.SortEnum
 import com.ama.algorithmmanagement.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
@@ -11,7 +12,7 @@ interface BaseFirebaseService {
 
     suspend fun signUpUserInfo(userId: String, password: String): Boolean
 
-    suspend fun setDateInfo(userId: String,count:Int): Boolean
+    suspend fun setDateInfo(userId: String, count: Int): Boolean
 
     suspend fun getDateObject(userId: String?): DateObject?
 
@@ -24,7 +25,7 @@ interface BaseFirebaseService {
     suspend fun getCommentObject(problemId: Int): CommentObject?
 
     suspend fun setChildComment(
-        problemId:Int,
+        problemId: Int,
         userId: String,
         tierType: Int,
         commentId: String,
@@ -40,7 +41,12 @@ interface BaseFirebaseService {
         tipComment: String?
     ): Boolean
 
-    suspend fun initTipProblems(userId:String,problems:List<TaggedProblem>): TippingProblemObject?
+    suspend fun initTipProblems(
+        userId: String,
+        problems: List<TaggedProblem>
+    ): TippingProblemObject?
+
+    suspend fun getAllTipProblems(userId: String): TippingProblemObject?
 
     suspend fun getTippingProblemObject(userId: String): TippingProblemObject?
 
