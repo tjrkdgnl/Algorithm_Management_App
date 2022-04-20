@@ -124,10 +124,9 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                 // 파이어베이스 문제 세팅
                 val firebaseProblems = mutableListOf<TipProblemInfo>()
                 // 팁작성문제,팁을 작성하지 않은문제 두개를 합쳐서 파베에 저장된 문제 저장
-                val noTipProblem = mRepository.getNotTippingProblem()
-                val tipProblem = mRepository.getTippingProblem()
-                firebaseProblems.addAll(noTipProblem?.problemInfoList!!)
-                firebaseProblems.addAll(tipProblem?.problemInfoList!!)
+                mRepository.getAllTipProblems()?.problemInfoList?.let{
+                    firebaseProblems.addAll(it)
+                }
                 val baekjoonSolvedProblems = mRepository.getSolvedProblems().problemList!!
                 // 새로푼 문제가 있을시
                 if (firebaseProblems.size != baekjoonSolvedProblems.size) {
@@ -162,12 +161,12 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
             try {
                 val noTipProblems = mRepository.getNotTippingProblem()
                 val saveProblems = mutableListOf<TaggedProblem>()
-                noTipProblems?.problemInfoList?.map { problem ->
-                    Timber.e("$problem")
-                    Timber.e("${problem.date} == ${DateUtils.getDate()}")
-                    if (problem.date == DateUtils.getDate()) {
+                noTipProblems?.problemInfoList?.map { noTip ->
+                    if (noTip.date == DateUtils.getDate()) {
                         Timber.e("today add")
-                        saveProblems.add(problem.problem!!)
+                        noTip.problem?.let{
+                            saveProblems.add(it)
+                        }
                         Timber.e("${todaySolvedProblem.value}")
                     }
                 }
