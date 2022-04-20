@@ -5,14 +5,15 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ama.algorithmmanagement.R
-import com.ama.algorithmmanagement.common.adapter.SearchProblemAdapter
+import com.ama.algorithmmanagement.presentation.search.adapter.SearchProblemAdapter
 import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
 import com.ama.algorithmmanagement.presentation.mytip.adapter.MyTipProblemsAdapter
 import com.ama.algorithmmanagement.presentation.newSolvedProblem.SolvedProblemViewPagerFragment
-import com.ama.algorithmmanagement.presentation.newSolvedProblem.TipProblemViewPagerFragmentAdapter
+import com.ama.algorithmmanagement.presentation.newSolvedProblem.adapter.TipProblemViewPagerFragmentAdapter
 import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
+import com.ama.algorithmmanagement.presentation.retryProblems.adapter.RetryProblemsInfoAdapter
 import com.ama.algorithmmanagement.presentation.tryfailed.adapter.TryFailedAdapter
 import com.ama.algorithmmanagement.presentation.tryhistory.adapter.IdeaAdapter
 import com.ama.algorithmmanagement.presentation.tryhistory.adapter.MyCommentAdapter
@@ -22,7 +23,10 @@ import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.utils.ViewPortHandler
 import timber.log.Timber
 import java.util.*
 
@@ -117,11 +121,14 @@ object BindingAdapterUtils {
         recyclerView: RecyclerView,
         retryProblem: MutableList<TipProblemInfo>?
     ) {
-        val adapter = recyclerView.adapter as? KRetryProblemsAdapter
+        Timber.e("!!!!!!!로딩 뷰")
+        val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
         Timber.e("solved $retryProblem")
+        retryProblem?.slice(IntRange(0,3))?.let{
+            adapter?.setData(it.toMutableList())
+        }
+        Timber.e("!!!!!!!로딩완료 뷰")
 
-        adapter?.setRetryProblemItem(retryProblem?.slice(IntRange(0,3)))
-        Timber.e("rep ${retryProblem.toString()}")
     }
 
 
@@ -139,7 +146,6 @@ object BindingAdapterUtils {
         position: Int?
     ) {
         val entries = mutableListOf<PieEntry>()
-        pieChart.isRotationEnabled = false // 차트 돌아가게 할지 여부
         position?.let { pos ->
             // 티어가 0~31 까지 있고 5단위로 티어가 바뀌기떄문에 start 와 end 값 세팅
             // 0 은 언랭 티어기떄문에 브론즈 티어는 1부터 시작
@@ -147,20 +153,31 @@ object BindingAdapterUtils {
             val end = start + 5 - 1
             setSolvedProblemTierPieChart?.let {
                 for (i in start..end) {
-                    entries.add(PieEntry(it[i].solved.toFloat()))
+                    // 해당 티어에 해결한 문제가 있을때만 그림
+                    if(it[i].solved!=0){
+                        entries.add(PieEntry(it[i].solved.toFloat(),ColorUtils.intConvertToTier(i)))
+                    }
                 }
             }
             // 티어에 맞는 색상 지정
             val dataset =
                 PieDataSet(entries, ColorUtils.getTierName(ColorUtils.tierConvertInt(pos)))
-            dataset.colors = ColorUtils.getTierList(ColorUtils.tierConvertInt(pos))
+            dataset.valueFormatter = MpChartUtils.PieChartValueFormatter() // value Formatter 13.0 과 같은 소수를 "n 문제 해결" 포맷으로 변경
+            dataset.colors = ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
             val data = PieData(dataset)
+            data.setValueTextSize(11f)
             pieChart.data = data
         }
+        // 파이차트 애니메이션
         pieChart.animateX(1000)
         pieChart.animateY(1000)
 
-        // 차트 다시 그림
+        pieChart.setEntryLabelTextSize(10f) // 레이블 (브론즈1,브론즈2...) 텍스트 크기
+        pieChart.setEntryLabelColor(R.color.black) // 레이블 (브론즈1,브론즈2,브론즈3 ...) 텍스트 색상
+        pieChart.setTouchEnabled(false) // 터치막기
+        pieChart.isRotationEnabled = false // 차트 돌아가게 할지 여부
+
+        // 차트 다시 그림 (데이터가 바뀌었을때 보려는 티어변경 파이차트를 다시 그려 최신데이터로 적용)
         pieChart.notifyDataSetChanged()
         pieChart.invalidate()
     }
@@ -310,6 +327,16 @@ object BindingAdapterUtils {
             // 첫번째 문제 프레그먼트만 추가하고 나머지 문제는 건너뛰기 또는 작성완료를 했을때마다 프레그먼트 생성
             val fragment = SolvedProblemViewPagerFragment()
             adapter?.addFragment(fragment)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("loadRetryProblemInfo")
+    fun loadRetryProblemInfo(recyclerView: RecyclerView,data:MutableList<TipProblemInfo>?){
+        val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
+        Timber.e("data $data")
+        data?.let{
+            adapter?.setData(it)
         }
     }
 
