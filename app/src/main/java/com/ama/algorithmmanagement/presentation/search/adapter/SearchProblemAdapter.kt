@@ -1,14 +1,14 @@
-package com.ama.algorithmmanagement.common.adapter;
+package com.ama.algorithmmanagement.presentation.search.adapter;
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ama.algorithmmanagement.domain.entity.Keyword
-import com.ama.algorithmmanagement.presentation.search.SearchProblemViewHolder
+import com.ama.algorithmmanagement.presentation.search.viewholder.SearchProblemViewHolder
 
 /**
  * @author : seungHo
  * @since : 2022-02-14
- * class : SearchPorblemAdapter.java
+ * class : SearchProblemAdapter.java
  * github : devaspirant0510
  * email : seungho020510@gmail.com
  * description : 백준 문제 검색 결과 API 보여줄 리사이클러뷰 어댑터
