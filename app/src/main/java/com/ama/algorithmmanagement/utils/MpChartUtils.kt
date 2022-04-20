@@ -35,7 +35,7 @@ object MpChartUtils {
         override fun getFormattedValue(value: Float): String {
             // float 형태이기 떄문에 소수점 짜르고 정수부분만 출력
             val score = value.toString().split(".")
-            return "${score[0]} 점"
+            return "${score[0]} 개"
         }
     }
     // 파이차트 레이블 formatter
@@ -43,7 +43,7 @@ object MpChartUtils {
         override fun getFormattedValue(value: Float): String {
             // float 형태이기 떄문에 소수점 짜르고 정수부분만 출력
             val score = value.toString().split(".")
-            return "${score[0]} 문제 해결"
+            return "${score[0]} 개"
         }
     }
     // 유형별로 저장된 해시맵에서 몇개씩 뿌려줄건지 지정

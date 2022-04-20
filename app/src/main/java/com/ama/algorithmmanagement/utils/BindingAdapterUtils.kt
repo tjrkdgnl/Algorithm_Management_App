@@ -22,6 +22,7 @@ import com.ama.algorithmmanagement.presentation.vpdetail.adapter.KCommentsAdapte
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
@@ -121,13 +122,11 @@ object BindingAdapterUtils {
         recyclerView: RecyclerView,
         retryProblem: MutableList<TipProblemInfo>?
     ) {
-        Timber.e("!!!!!!!로딩 뷰")
         val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
         Timber.e("solved $retryProblem")
-        retryProblem?.slice(IntRange(0,3))?.let{
+        retryProblem?.slice(IntRange(0, 3))?.let {
             adapter?.setData(it.toMutableList())
         }
-        Timber.e("!!!!!!!로딩완료 뷰")
 
     }
 
@@ -154,16 +153,23 @@ object BindingAdapterUtils {
             setSolvedProblemTierPieChart?.let {
                 for (i in start..end) {
                     // 해당 티어에 해결한 문제가 있을때만 그림
-                    if(it[i].solved!=0){
-                        entries.add(PieEntry(it[i].solved.toFloat(),ColorUtils.intConvertToTier(i)))
+                    if (it[i].solved != 0) {
+                        entries.add(
+                            PieEntry(
+                                it[i].solved.toFloat(),
+                                ColorUtils.intConvertToTier(i)
+                            )
+                        )
                     }
                 }
             }
             // 티어에 맞는 색상 지정
             val dataset =
-                PieDataSet(entries, ColorUtils.getTierName(ColorUtils.tierConvertInt(pos)))
-            dataset.valueFormatter = MpChartUtils.PieChartValueFormatter() // value Formatter 13.0 과 같은 소수를 "n 문제 해결" 포맷으로 변경
-            dataset.colors = ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
+                PieDataSet(entries, "") // legend label 표시 안함
+            dataset.valueFormatter =
+                MpChartUtils.PieChartValueFormatter() // value Formatter 13.0 과 같은 소수를 "n 문제 해결" 포맷으로 변경
+            dataset.colors =
+                ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
             val data = PieData(dataset)
             data.setValueTextSize(11f)
             pieChart.data = data
@@ -172,6 +178,7 @@ object BindingAdapterUtils {
         pieChart.animateX(1000)
         pieChart.animateY(1000)
 
+        pieChart.description.isEnabled = false // description 지우기
         pieChart.setEntryLabelTextSize(10f) // 레이블 (브론즈1,브론즈2...) 텍스트 크기
         pieChart.setEntryLabelColor(R.color.black) // 레이블 (브론즈1,브론즈2,브론즈3 ...) 텍스트 색상
         pieChart.setTouchEnabled(false) // 터치막기
@@ -268,6 +275,7 @@ object BindingAdapterUtils {
                 animateX(1000) // x축 애니메이션
             }
 
+            barChart.moveViewToX(0f)
             barChart.invalidate()
             barChart.data = datas
         }
@@ -332,10 +340,10 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("loadRetryProblemInfo")
-    fun loadRetryProblemInfo(recyclerView: RecyclerView,data:MutableList<TipProblemInfo>?){
+    fun loadRetryProblemInfo(recyclerView: RecyclerView, data: MutableList<TipProblemInfo>?) {
         val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
         Timber.e("data $data")
-        data?.let{
+        data?.let {
             adapter?.setData(it)
         }
     }
@@ -368,8 +376,10 @@ object BindingAdapterUtils {
                 .apply {
                     setDrawIcons(false)
                     setDrawValues(true)
+                    valueTextSize = 9f
                     valueFormatter = MpChartUtils.ScoreCustomFormatter()
                     valueTextColor = Color.RED
+
                     colors = mutableListOf(
                         barChart.context.resources.getColor(
                             R.color.barchart_color
@@ -390,9 +400,10 @@ object BindingAdapterUtils {
             barChart.run {
                 invalidate()
                 data = datas
+                enableScroll()
+
                 setVisibleXRangeMaximum(10f) // 한페이지에 10개만 보이게하기
                 setDrawBarShadow(true) // 그래프 그림자
-                enableScroll()
                 setDrawValueAboveBar(true) // 입력?값이 차트 위or아래에 그려질 건지 (true=위, false=아래)
                 setPinchZoom(false) // 두손가락으로 줌 설정
                 setDrawGridBackground(false) // 격자구조
@@ -406,7 +417,7 @@ object BindingAdapterUtils {
                         MpChartUtils.LabelCustomFormatter(solvedType.keys.toList()) // 라벨 값 포멧 설정
                     position = XAxis.XAxisPosition.BOTTOM // 라벨 위치 설정
                     setDrawGridLines(false) // 격자구조
-                    setDrawLimitLinesBehindData(true)
+                    setDrawLimitLinesBehindData(false)
                     setDrawAxisLine(false)
                     setLabelCount(
                         10,
@@ -419,9 +430,11 @@ object BindingAdapterUtils {
                 axisLeft.run { // 왼쪽 y축
                     isEnabled = false
                     axisMinimum = 0f // 최소값
-                    axisMaximum = 100f // 최대값
-                    granularity = 10f // 값 만큼 라인선 설정
-                    setDrawLabels(false) // 값 셋팅 설정
+                    axisMaximum = 1000f // 최대값
+                    granularity = 100f // 값 만큼 라인선 설정
+
+
+                    setDrawLabels(true) // 값 셋팅 설정
                     textColor = Color.RED // 색상 설정
                     axisLineColor = Color.BLACK // 축 색상 설정
                     gridColor = Color.BLUE // 격자 색상 설정
