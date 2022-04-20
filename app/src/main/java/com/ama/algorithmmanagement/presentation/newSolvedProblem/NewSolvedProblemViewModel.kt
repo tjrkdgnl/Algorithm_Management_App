@@ -49,7 +49,7 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
     // 값을 업데이트하게됨, activity 에서 onValidForm 을 observing 하면 inputForm 에서 상태가 변할때마다 감지되기떄문에 submit 버튼을 눌렀을때만
     // observing 되는 라이브데이터
     private val _onSubmitValidForm = MutableLiveData<Boolean>(true)
-    val onSubmitValidForm:LiveData<Boolean>
+    val onSubmitValidForm: LiveData<Boolean>
         get() = _onSubmitValidForm
 
     // 문제 보기 눌렀는지 여부 확인할 라이브데이터 ( 문제 보기 누를시 웹뷰 띄워줌)
@@ -70,11 +70,31 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
     val moveToMain = MutableLiveData<Boolean>(false)
 
     // 오늘 푼 문제 가져오기
-    private fun loadNoTippingProblem() {
+    fun loadNoTippingProblem(intentProblemsList: ArrayList<Int>) {
         Timber.e("옵 로딩 팁")
         viewModelScope.launch {
             try {
                 val getFullNoTipProblemInfo = mRepository.getNotTippingProblem()
+                val tempList = mutableListOf<TipProblemInfo>()
+                getFullNoTipProblemInfo?.problemInfoList?.map {
+                    Timber.e("$it")
+                    Timber.e("$intentProblemsList ${it.problem?.problemId}")
+                    if (intentProblemsList.contains(it.problem?.problemId)) {
+                        Timber.e("=============probelm ${it.problem?.problemId} ${it.problem?.titleKo}")
+                        tempList.add(it)
+                    }
+                }
+                _noTipProblem.value?.let{
+                    it.problemInfoList.addAll(tempList)
+                    it.count = it.problemInfoList.size
+                    _currentPageData.value = it.problemInfoList[0]
+                    _currentPageNumber.value = 0
+                    // 오늘 푼 문제가 한개일경우 건너뛰기 버튼이 보이는 상황 예외 처리
+                    if (it.problemInfoList.size == 1) {
+                        _hasMoreData.value = false
+                    }
+                }
+/*
                 // 깊은복사를 제공하는 Object 에 copy 는 기본자료형만 깊은복사되기때문에 빈리스트 만들어 참조되지 않게함
                 val tempNoTip = mutableListOf<TipProblemInfo>()
                 _noTipProblem.value?.let { noTip ->
@@ -99,6 +119,7 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
                         }
                     }
                 }
+*/
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -168,7 +189,7 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
             tipSubmitJob?.join() // job 이 끝날때까지 대기
             try {
                 //Mediator 라이브데이터로 입력값(팁,정답본여부)을 addSource 하고
-                onValidForm.value?.let{ isValidForm->
+                onValidForm.value?.let { isValidForm ->
                     if (isValidForm) {
                         Timber.e("작성")
                         mRepository.modifyTippingProblem(
@@ -200,8 +221,9 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
         Timber.e("함수호출")
         try {
             inputTip.value?.let { inputTip ->
-                val result = inputTip.isNotEmpty() && inputTip.isNotBlank() && (isNotShow.value!! || isShow.value!!)
-                Timber.e("tip : $inputTip 정답봄 : ${isShow.value!!} 정답 안봄 : ${isNotShow.value!!}" )
+                val result =
+                    inputTip.isNotEmpty() && inputTip.isNotBlank() && (isNotShow.value!! || isShow.value!!)
+                Timber.e("tip : $inputTip 정답봄 : ${isShow.value!!} 정답 안봄 : ${isNotShow.value!!}")
                 Timber.e("팁 작성 가능 ? :$result")
                 return result
             }
@@ -214,8 +236,6 @@ class NewSolvedProblemViewModel(private val mRepository: BaseRepository) : ViewM
     }
 
     init {
-        // 팁을 작성하지 않은문제 로딩
-        loadNoTippingProblem()
         inputFormLiveData.addSource(inputTip) {
             Timber.e("inputTip 라이브데이터 추가 값 : $it")
             _onValidForm.value = checkInputFormLiveData()
