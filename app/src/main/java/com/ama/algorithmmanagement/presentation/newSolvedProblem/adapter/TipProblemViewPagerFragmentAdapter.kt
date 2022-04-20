@@ -1,4 +1,4 @@
-package com.ama.algorithmmanagement.presentation.newSolvedProblem;
+package com.ama.algorithmmanagement.presentation.newSolvedProblem.adapter;
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

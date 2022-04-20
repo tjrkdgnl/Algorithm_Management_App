@@ -38,7 +38,14 @@ object MpChartUtils {
             return "${score[0]} 점"
         }
     }
-
+    // 파이차트 레이블 formatter
+    class PieChartValueFormatter() : ValueFormatter() {
+        override fun getFormattedValue(value: Float): String {
+            // float 형태이기 떄문에 소수점 짜르고 정수부분만 출력
+            val score = value.toString().split(".")
+            return "${score[0]} 문제 해결"
+        }
+    }
     // 유형별로 저장된 해시맵에서 몇개씩 뿌려줄건지 지정
     fun getTypeStatsSize(problemList:MutableList<TaggedProblem>,size:Int=10,isAll:Boolean=true):HashMap<String,Int>{
         Timber.e("prombel ${problemList.size}")

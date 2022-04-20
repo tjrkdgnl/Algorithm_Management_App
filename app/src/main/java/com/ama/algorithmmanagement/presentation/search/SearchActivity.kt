@@ -7,7 +7,7 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.application.AMAApplication
-import com.ama.algorithmmanagement.common.adapter.SearchProblemAdapter
+import com.ama.algorithmmanagement.presentation.search.adapter.SearchProblemAdapter
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySearchBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory

@@ -75,6 +75,11 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     val isCategoryOpen: LiveData<Boolean>
         get() = _isCategoryOpen
 
+    // 다시풀어볼 문제 자세히 보기 눌렀는지 여부
+    private val _isRetryProblemsInfo = MutableLiveData<Boolean>(false)
+    val isRetryProblemsInfo:LiveData<Boolean>
+        get() =_isRetryProblemsInfo
+
 
     // 월별 통계데이터 불러오기
     private fun loadUserDateInfo() {
@@ -93,13 +98,22 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
             _isOpenDrawer.value = !it
         }
     }
+
     // navigation drawer 열림
     fun openDrawer() {
         _isOpenDrawer.value = true
     }
+
     // navigation drawer 닫힘
     fun closeDrawer() {
         _isOpenDrawer.value = false
+    }
+
+    fun openRetryProblemsInfo(){
+        _isRetryProblemsInfo.value = true
+    }
+    fun initRetryProblemsInfo(){
+        _isRetryProblemsInfo.value = false
     }
 
     // 파베에 저장된 문제와 백준 API 에서 해결된 문제랑 비교하여 새로 푼 문제가 있을시 파이어베이스에 저장
@@ -108,29 +122,32 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 // 파이어베이스 문제 세팅
-                val problemList = mutableListOf<TipProblemInfo>()
+                val firebaseProblems = mutableListOf<TipProblemInfo>()
                 // 팁작성문제,팁을 작성하지 않은문제 두개를 합쳐서 파베에 저장된 문제 저장
-                val noTipProblem = mRepository.getNotTippingProblem()
-                val tipProblem = mRepository.getTippingProblem()
-                problemList.addAll(noTipProblem?.problemInfoList!!)
-                problemList.addAll(tipProblem?.problemInfoList!!)
-                _firebaseAllProblems.value = problemList
-                // solved ac 해결한 문제 가져옴
-                _solvedAPIAllProblems.value = mRepository.getSolvedProblems().problemList!!
+                mRepository.getAllTipProblems()?.problemInfoList?.let{
+                    firebaseProblems.addAll(it)
+                }
+                val baekjoonSolvedProblems = mRepository.getSolvedProblems().problemList!!
                 // 새로푼 문제가 있을시
-                if (firebaseAllProblems.value?.size != solvedAPIALLProblems.value?.size) {
+                if (firebaseProblems.size != baekjoonSolvedProblems.size) {
                     val noTipProblemId = mutableListOf<TaggedProblem>()
-                    solvedAPIALLProblems.value?.map { solvedApiProblem ->
-                        val findProblem = problemList.find { problem ->
-                            problem.problem?.problemId == solvedApiProblem.problemId
+                    loop@ for (baekjoonProblem in baekjoonSolvedProblems) {
+                        var isSolved = false
+                        for (firebaseProblem in firebaseProblems) {
+                            firebaseProblem.problem?.let { fbProblem ->
+                                // 파베 팁 문제 아이디랑 백준 API 에서 푼문제랑 비교해서 같지 않으면
+                                if (fbProblem.problemId == baekjoonProblem.problemId) {
+                                    isSolved = true
+                                    return@let
+                                }
+                            }
+                            if (isSolved) {
+                                continue@loop
+                            }
                         }
-                        if (findProblem == null) {
-                            noTipProblemId.add(solvedApiProblem)
-                            // 파베에 없는 문제일경우 팁 추가(tipComment 가 없기때문에 자동으로 noTip 에 저장
-                            mRepository.setTippingProblem(solvedApiProblem, false, null)
-                        }
+                        // 푼문제가 아닐경우 리스트에 추가
+                        mRepository.setTippingProblem(baekjoonProblem,false,null)
                     }
-                    _todaySolvedProblem.value = noTipProblemId
                 }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -142,22 +159,18 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     private fun notifySnackBarTodaySolvedProblem() {
         viewModelScope.launch {
             try {
-                // 오늘 푼 문제가 없는데 반복문으로 검사하는건 불필요한 연산이기떄문에 오늘 푼 문제가 있을때만 작동
-                // 파베에 저장된 문제 리스트의 사이즈와  백준 API 에 저장된 문제의 리스트 사이즈 비교
-                if (firebaseAllProblems.value?.size != solvedAPIALLProblems.value?.size) {
-                    val noTipProblems = mRepository.getNotTippingProblem()
-                    val saveProblems = mutableListOf<TaggedProblem>()
-                    noTipProblems?.problemInfoList?.map { problem ->
-                        Timber.e("$problem")
-                        Timber.e("${problem.date} == ${DateUtils.getDate()}")
-                        if (problem.date == DateUtils.getDate()) {
-                            Timber.e("today add")
-                            saveProblems.add(problem.problem!!)
-                            Timber.e("${todaySolvedProblem.value}")
+                val noTipProblems = mRepository.getNotTippingProblem()
+                val saveProblems = mutableListOf<TaggedProblem>()
+                noTipProblems?.problemInfoList?.map { noTip ->
+                    if (noTip.date == DateUtils.getDate()) {
+                        Timber.e("today add")
+                        noTip.problem?.let{
+                            saveProblems.add(it)
                         }
+                        Timber.e("${todaySolvedProblem.value}")
                     }
-                    _todaySolvedProblem.value = saveProblems
                 }
+                _todaySolvedProblem.value = saveProblems
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -195,17 +208,21 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     private fun loadRetryProblems() {
         viewModelScope.launch {
             try {
-                val tipProblems = mRepository.getTippingProblem()
+                val tipProblems = mutableListOf<TipProblemInfo>()
+                mRepository.getAllTipProblems()?.let{
+                    tipProblems.addAll(it.problemInfoList)
+                }
                 // 0 부터 tipProblem 의 사이즈만큼 rangeList 만든후 shuffle  ex) [0,1,2,3,4,5,6,7] => [5,1,2,0,6,7,3,4] 셔플후
                 //  앞에서 4개만 보여줌
-                val rangeList = (0 until tipProblems?.count!!).toList().toIntArray();
+                val rangeList = (0 until tipProblems.size).toList().toIntArray();
                 rangeList.shuffle()
+                Timber.e("!!!!!!!로딩완료")
 //                Timber.e("list : ${list.toString()}")
                 _retryProblems.value = mutableListOf<TipProblemInfo>(
-                    tipProblems.problemInfoList[rangeList[0]],
-                    tipProblems.problemInfoList[rangeList[1]],
-                    tipProblems.problemInfoList[rangeList[2]],
-                    tipProblems.problemInfoList[rangeList[3]],
+                    tipProblems[rangeList[0]],
+                    tipProblems[rangeList[1]],
+                    tipProblems[rangeList[2]],
+                    tipProblems[rangeList[3]],
                 )
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
@@ -271,7 +288,6 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     init {
         loadSolvedApiUser()
-        //getUserInfo()
         fetchData()
     }
 }

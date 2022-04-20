@@ -66,10 +66,13 @@
         </activity>
 
         <activity android:name=".presentation.setting.SettingActivity" />
-        <activity android:name=".activity.kDefault.NewSolvedProblemActivity"/>
+        <activity android:name=".activity.kDefault.NewSolvedProblemActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".presentation.retryProblems.RetryProblemsInfoActivity"/>
         <activity android:name=".presentation.webview.WebViewActivity"/>
         <activity android:name=".presentation.status.CategoryStatusActivity"/>
-        <activity android:name=".presentation.search.SearchActivity"/>
+        <activity android:name=".presentation.search.SearchActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
 
 

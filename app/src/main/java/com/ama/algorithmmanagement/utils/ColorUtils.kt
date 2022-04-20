@@ -166,7 +166,7 @@ object ColorUtils {
             1, 2, 3, 4, 5 -> "브론즈 $tierData"
             6, 7, 8, 9, 10 -> "실버 $tierData"
             11, 12, 13, 14, 15 -> "골드 $tierData"
-            16, 17, 18, 19, 20 -> "플레티넘 $tierData"
+            16, 17, 18, 19, 20 -> "플래티넘 $tierData"
             21, 22, 23, 24, 25 -> "다이아 $tierData"
             26, 27, 28, 29, 30 -> "루비 $tierData"
             else -> "알수없음"

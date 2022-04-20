@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.presentation.main
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,19 +10,25 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.R
+import com.ama.algorithmmanagement.activity.kDefault.NewSolvedProblemActivity
 import com.ama.algorithmmanagement.application.AMAApplication
 import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityMainBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
 import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
 import com.ama.algorithmmanagement.presentation.notip.NoTipActivity
+import com.ama.algorithmmanagement.presentation.retryProblems.RetryProblemsInfoActivity
+import com.ama.algorithmmanagement.presentation.retryProblems.adapter.RetryProblemsInfoAdapter
 import com.ama.algorithmmanagement.presentation.search.SearchActivity
 import com.ama.algorithmmanagement.presentation.setting.SettingActivity
 import com.ama.algorithmmanagement.presentation.status.CategoryStatusActivity
 import com.ama.algorithmmanagement.presentation.tryfailed.TryFailedActivity
+import com.ama.algorithmmanagement.presentation.tryhistory.TryHistoryActivity
+import com.ama.algorithmmanagement.presentation.vpdetail.activity.KViewProblemDetailActivity
 import com.ama.algorithmmanagement.utils.ColorUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -67,7 +74,29 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
         binding.appBarMain.contentMain.apply {
             viewmodel = mainViewModel
             // 다시풀어볼 문제 어댑터 세팅
-            rvRetryProblem.adapter = KRetryProblemsAdapter()
+            val adapter = RetryProblemsInfoAdapter()
+            rvRetryProblem.adapter = adapter
+            adapter.setOnItemClickListener(object :RetryProblemsInfoAdapter.OnRetryProblemClickListener{
+                override fun onClick(v: View, data: TipProblemInfo) {
+                    val builder = AlertDialog.Builder(this@KMainActivity)
+                    builder.setItems(arrayOf("문제보기 (코멘트 작성화면)","문제풀이 히스토리")
+                    ) { _, p1 ->
+                        when(p1){
+                            0->{
+                                val intent = Intent(applicationContext, KViewProblemDetailActivity::class.java)
+                                intent.putExtra("problemId",data.problem?.problemId.toString())
+                                startActivity(intent)
+                            }
+                            1->{
+                                val intent = Intent(applicationContext, TryHistoryActivity::class.java)
+                                intent.putExtra("problemId",data.problem?.problemId)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                    builder.show()
+                }
+            })
             // 월별 통계 어댑터 세팅
             rvDateGrid.adapter = KUserDateInfoAdapter()
             position = 0 // 처음 보여줄 티어별 그래프는 브론즈
@@ -137,19 +166,27 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             }
         }
         // 오늘 푼 문제가 있을시
-        mainViewModel.todaySolvedProblem.observe(this) {
-            Timber.e(it.toString())
-            if (it.size > 0) {
+        mainViewModel.todaySolvedProblem.observe(this) { todaySolvedProblems->
+            Timber.e(todaySolvedProblems.toString())
+            if (todaySolvedProblems.size > 0) {
                 val snackbar = Snackbar.make(
                     binding.appBarMain.contentMain.root,
-                    "새로 푼 문제가 감지됬습니다. ${it[0].titleKo} 외 ${it.size - 1} 문제",
+                    "새로 푼 문제가 감지됬습니다. ${todaySolvedProblems[0].titleKo} 외 ${todaySolvedProblems.size - 1} 문제",
                     Snackbar.LENGTH_INDEFINITE
                 )
                 snackbar.setAction("팁 작성하러가기") {
                     snackbar.dismiss()
+                    val intent = Intent(applicationContext,NewSolvedProblemActivity::class.java)
+
+                    val todaySolvedProblemsId = ArrayList<Int>()
+                    todaySolvedProblems?.map {
+                        todaySolvedProblemsId.add(it.problemId)
+                    }
+                    Timber.e("today solved intent $todaySolvedProblems")
+                    intent.putIntegerArrayListExtra("problems",todaySolvedProblemsId)
+
+                    startActivity(intent)
                 }
-//                val intent = Intent(applicationContext,NewSolvedProblemActivity::class.java)
-//                startActivity(intent)
                 snackbar.show()
             }
 
@@ -169,6 +206,13 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 val tierName = ColorUtils.intConvertToTier(it.tier)
                 // TODO 티어에 맞는 이미지 보여주기
                 tvUserName.text = "$tierName   ${it.bio}"
+            }
+        }
+        mainViewModel.isRetryProblemsInfo.observe(this){
+            if(it){
+                val intent = Intent(applicationContext, RetryProblemsInfoActivity::class.java)
+                mainViewModel.initRetryProblemsInfo()
+                startActivity(intent)
             }
         }
 

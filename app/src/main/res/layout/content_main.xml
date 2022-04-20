@@ -126,6 +126,7 @@
                             android:background="@drawable/add"
                             app:layout_constraintBottom_toBottomOf="@+id/textView3"
                             app:layout_constraintEnd_toEndOf="parent"
+                            android:onClick="@{()->viewmodel.openRetryProblemsInfo()}"
                             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -204,7 +205,7 @@
                             <com.google.android.material.tabs.TabItem
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="플레티넘" />
+                                android:text="플래티넘" />
 
                             <com.google.android.material.tabs.TabItem
                                 android:layout_width="wrap_content"

@@ -16,16 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/nav_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/ic_menu"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:hint="문제 검색"
                 android:maxLines="1"
+                android:inputType="text"
                 android:focusable="true"
                 android:text="@={viewmodel.inputSearch}" />
         </com.google.android.material.textfield.TextInputLayout>

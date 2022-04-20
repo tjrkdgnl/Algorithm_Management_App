@@ -1,11 +1,12 @@
-package com.ama.algorithmmanagement.presentation.search;
+package com.ama.algorithmmanagement.presentation.search.viewholder;
 
+import android.content.Intent
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.databinding.ItemSearchProblemBinding
 import com.ama.algorithmmanagement.domain.base.KBaseViewHolder
 import com.ama.algorithmmanagement.domain.entity.Keyword
+import com.ama.algorithmmanagement.presentation.vpdetail.activity.KViewProblemDetailActivity
 
 /**
  * @author : seungHo
@@ -21,11 +22,11 @@ class SearchProblemViewHolder(private val parent:ViewGroup) :KBaseViewHolder<Ite
     fun setData(data:Keyword){
         binding.root.setOnClickListener {
             parent.context.apply{
-                Toast.makeText(this,"${data.id} 화면으로 이동",Toast.LENGTH_SHORT).show()
 //                Timber.e("problem ID : ${data.id}")
-//                val intent = Intent(this,액티비티)
-//                intent.putExtra("problemId",data.id)
-//                startActivity(intent)
+                val intent = Intent(this,KViewProblemDetailActivity::class.java)
+
+                intent.putExtra("problemId",data.id.toString())
+                startActivity(intent)
             }
         }
         binding.keyword = data
