@@ -50,6 +50,9 @@ class SearchActivity : KBaseActivity<ActivitySearchBinding>(R.layout.activity_se
 
             override fun afterTextChanged(p0: Editable?) {
                 // 공백이 들어간상태에선 요청 막음
+                if (p0.toString() == "") {
+                    viewModel.clearSearchProblems()
+                }
                 if (p0.toString().isNotEmpty() && p0.toString().isNotBlank()) {
                     viewModel.callSearchQueryProblem(p0.toString())
                 }

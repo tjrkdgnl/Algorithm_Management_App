@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.domain.entity.AutoKeywordObject
+import com.ama.algorithmmanagement.domain.entity.Keyword
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,13 +20,13 @@ import timber.log.Timber
  * email : seungho020510@gmail.com
  * description : SearchActivity.kt 뷰모델
  */
-class SearchViewModel(private val mRepository: BaseRepository):ViewModel() {
+class SearchViewModel(private val mRepository: BaseRepository) : ViewModel() {
     // editText 양방향 바인딩
     val inputSearch = MutableLiveData<String>()
 
     // 검색결과 라이브데이터
     private val _searchProblems = MutableLiveData<AutoKeywordObject>()
-    val searchProblems:LiveData<AutoKeywordObject>
+    val searchProblems: LiveData<AutoKeywordObject>
         get() = _searchProblems
 
     private var debounceJob: Job? = null
@@ -44,6 +45,17 @@ class SearchViewModel(private val mRepository: BaseRepository):ViewModel() {
                 Timber.e("error : $e")
             }
         }
+    }
 
+    fun clearSearchProblems() {
+        _searchProblems.value = AutoKeywordObject(
+            keywords = listOf(),
+            autocomplete = listOf(),
+            problemCount = 0,
+            searchedTags = listOf(),
+            tagCount = 0,
+            userCount = 0,
+            users = listOf()
+        )
     }
 }
