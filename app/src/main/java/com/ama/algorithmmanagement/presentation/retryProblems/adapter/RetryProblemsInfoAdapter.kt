@@ -39,4 +39,7 @@ class RetryProblemsInfoAdapter: RecyclerView.Adapter<RetryProblemInfoViewHolder>
         mList.addAll(data)
         notifyDataSetChanged()
     }
+    fun clearData(){
+        mList.clear()
+    }
 }

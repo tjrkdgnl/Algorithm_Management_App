@@ -14,6 +14,7 @@ import com.ama.algorithmmanagement.utils.TipUtils
 class RetryProblemInfoViewHolder(parent: ViewGroup) :
     KBaseViewHolder<ItemRetryProblemBinding>(parent, R.layout.item_retry_problem) {
         fun setData(data:TipProblemInfo){
+            binding.isSolved = data.tipComment != null
             binding.tvTitle.text = data.problem?.titleKo
             binding.tvLevel.text = data.problem?.level.toString()
             binding.tvDescription.text = TipUtils.tagsConvertToString(data.problem?.tags)
