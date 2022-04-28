@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.ama.algorithmmanagement.R
@@ -17,6 +19,8 @@ import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
 import com.ama.algorithmmanagement.presentation.retryProblems.adapter.RetryProblemsInfoAdapter
 import com.ama.algorithmmanagement.presentation.tryhistory.TryHistoryActivity
 import com.ama.algorithmmanagement.presentation.vpdetail.activity.KViewProblemDetailActivity
+import com.ama.algorithmmanagement.utils.ProblemUtils
+import timber.log.Timber
 
 /**
  * @author SeungHo Lee
@@ -32,8 +36,32 @@ class RetryProblemsInfoActivity :
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[RetryProblemsInfoViewModel::class.java]
         binding.viewmodel = viewModel
-        val adapter =  RetryProblemsInfoAdapter()
+        settingRetryProblems()
+        settingSpinner()
 
+    }
+    private fun settingSpinner(){
+        val spinnerAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            ProblemUtils.sortEnumArray
+        )
+        binding.sortSpinner.adapter = spinnerAdapter
+        binding.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                Timber.e("?????? $position")
+                ProblemUtils.convertIntToSortEnum(position)?.let{
+                    viewModel.loadRetryProblems(it)
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    }
+    private fun settingRetryProblems(){
+        val adapter =  RetryProblemsInfoAdapter()
         binding.rvRetryProblemInfo.adapter = adapter
         adapter.setOnItemClickListener(object:RetryProblemsInfoAdapter.OnRetryProblemClickListener{
             override fun onClick(v: View, data: TipProblemInfo) {
