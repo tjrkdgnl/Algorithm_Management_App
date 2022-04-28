@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ama.algorithmmanagement.data.firebase.SortEnum
 import com.ama.algorithmmanagement.domain.base.BaseRepository
 import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
+import com.ama.algorithmmanagement.utils.sort
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -19,20 +21,28 @@ class RetryProblemsInfoViewModel(private val repository: BaseRepository) : ViewM
     val retryProblems: LiveData<MutableList<TipProblemInfo>>
         get() = _retryProblems
 
-    // 다시풀어볼 문제 불러오기(파베에서 노팁, 팁 문제를 합쳐서 세팅)
-    private fun loadRetryProblems() {
+    // 정렬상태
+    private val _problemSortState = MutableLiveData<SortEnum>(SortEnum.PAST)
+    val problemSortState: LiveData<SortEnum>
+        get() = _problemSortState
+
+    // 정렬상태에 맞게 문제 세팅
+    private fun initRetryProblems() {
+        problemSortState.value?.let{
+            loadRetryProblems(it)
+        }
+    }
+
+    // enum 타입에 맞게 문제리스트 재정렬
+    fun loadRetryProblems(sortEnum: SortEnum) {
         viewModelScope.launch {
-            val tipProblems = mutableListOf<TipProblemInfo>()
-            Timber.e("e1234")
-            repository.getTippingProblem()?.let { tipPb ->
-                Timber.e("e1234")
-                tipProblems.addAll(tipPb.problemInfoList)
-                _retryProblems.value = tipProblems
-            }
+            val problems = repository.getAllTipProblems()
+            problems?.sort(sortEnum)
+            _retryProblems.value = problems?.problemInfoList
         }
     }
 
     init {
-        loadRetryProblems()
+        initRetryProblems()
     }
 }
