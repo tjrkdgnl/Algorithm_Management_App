@@ -344,6 +344,7 @@ object BindingAdapterUtils {
         val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
         Timber.e("data $data")
         data?.let {
+            adapter?.clearData()
             adapter?.setData(it)
         }
     }
