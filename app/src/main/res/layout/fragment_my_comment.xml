@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:layout_margin="16dp"
             app:setMyCommentList="@{viewModel.myCommentList}"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>

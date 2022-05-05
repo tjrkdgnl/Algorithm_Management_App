@@ -142,7 +142,8 @@
                             app:layout_constraintTop_toBottomOf="@+id/textView3"
                             app:setRetryProblemList="@{viewmodel.retryProblems}"
                             tools:itemCount="4"
-                            tools:listitem="@layout/item_retry_problem" />
+                            tools:listitem="@layout/item_retry_problem"
+                            android:overScrollMode="never"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -447,7 +448,8 @@
                             app:setDateInfoGridList="@{viewmodel.userDateInfo}"
                             app:spanCount="7"
                             tools:itemCount="30"
-                            tools:listitem="@layout/item_user_date_info" />
+                            tools:listitem="@layout/item_user_date_info"
+                            android:overScrollMode="never"/>
 
                         <LinearLayout
                             android:id="@+id/imageView3"
