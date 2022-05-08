@@ -20,6 +20,7 @@ import com.ama.algorithmmanagement.domain.entity.TipProblemInfo
 import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.presentation.main.adapter.SolvedProblemStatsAdapter
 import com.ama.algorithmmanagement.presentation.notip.NoTipActivity
 import com.ama.algorithmmanagement.presentation.retryProblems.RetryProblemsInfoActivity
 import com.ama.algorithmmanagement.presentation.retryProblems.adapter.RetryProblemsInfoAdapter
@@ -73,10 +74,13 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
 
         binding.appBarMain.contentMain.apply {
             viewmodel = mainViewModel
+            // 유형별 통계 프로그래스바 그래프 세팅
+            val statsProblemAdapter = SolvedProblemStatsAdapter()
+            rvTypeStatics.adapter = statsProblemAdapter
             // 다시풀어볼 문제 어댑터 세팅
-            val adapter = RetryProblemsInfoAdapter()
-            rvRetryProblem.adapter = adapter
-            adapter.setOnItemClickListener(object :RetryProblemsInfoAdapter.OnRetryProblemClickListener{
+            val retryProblemAdapter = RetryProblemsInfoAdapter()
+            rvRetryProblem.adapter = retryProblemAdapter
+            retryProblemAdapter.setOnItemClickListener(object :RetryProblemsInfoAdapter.OnRetryProblemClickListener{
                 override fun onClick(v: View, data: TipProblemInfo) {
                     val builder = AlertDialog.Builder(this@KMainActivity)
                     builder.setItems(arrayOf("문제보기 (코멘트 작성화면)","문제풀이 히스토리")
@@ -159,7 +163,6 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
         // 검색화면 누를시
         mainViewModel.isClickSearchInput.observe(this) { isShow ->
             if (isShow) {
-                Toast.makeText(this, "검색화면으로 전환", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, SearchActivity::class.java)
                 mainViewModel.initIsClickSearchInput() // 화면 전환후 isClickSearchInput 에대한 값은 초기화
                 startActivity(intent)
