@@ -42,6 +42,5 @@ class RetryProblemsInfoAdapter: RecyclerView.Adapter<RetryProblemInfoViewHolder>
     }
     fun clearData(){
         mList.clear()
-        notifyDataSetChanged()
     }
 }
