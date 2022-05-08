@@ -36,10 +36,12 @@ class RetryProblemsInfoAdapter: RecyclerView.Adapter<RetryProblemInfoViewHolder>
     }
 
     fun setData(data:MutableList<TipProblemInfo>){
+        clearData()
         mList.addAll(data)
         notifyDataSetChanged()
     }
     fun clearData(){
         mList.clear()
+        notifyDataSetChanged()
     }
 }
