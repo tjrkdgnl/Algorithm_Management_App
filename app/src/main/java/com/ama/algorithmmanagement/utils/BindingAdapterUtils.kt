@@ -153,7 +153,7 @@ object BindingAdapterUtils {
             // 티어가 0~31 까지 있고 5단위로 티어가 바뀌기떄문에 start 와 end 값 세팅
             // 0 은 언랭 티어기떄문에 브론즈 티어는 1부터 시작
             val start = (0 + pos) * 5 + 1
-            val end = start + 5 - 1
+            val end = start + 4
             var solvedCount = 0
             setSolvedProblemTierPieChart?.let {
                 for (i in start..end) {
@@ -210,7 +210,7 @@ object BindingAdapterUtils {
             // 티어가 0~31 까지 있고 5단위로 티어가 바뀌기떄문에 start 와 end 값 세팅
             // 0 은 언랭 티어기떄문에 브론즈 티어는 1부터 시작
             val start = (0 + pos) * 5 + 1
-            val end = start + 5 - 1
+            val end = start + 4
             var solvedCount = 0
             handleNotSolvedProblem?.let {
                 for (i in start..end) {
