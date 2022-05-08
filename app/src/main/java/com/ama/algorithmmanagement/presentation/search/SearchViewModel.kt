@@ -48,6 +48,8 @@ class SearchViewModel(private val mRepository: BaseRepository) : ViewModel() {
     }
 
     fun clearSearchProblems() {
+        // 검색결과가 0.6 초 뒤에 호출되기떄문에 입력창을 0.6 초 이내에 지울경우 코루틴 스코프가 실행되어 검색결과가 나옴
+        debounceJob?.cancel()
         _searchProblems.value = AutoKeywordObject(
             keywords = listOf(),
             autocomplete = listOf(),
