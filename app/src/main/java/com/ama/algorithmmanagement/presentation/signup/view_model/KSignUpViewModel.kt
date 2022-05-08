@@ -71,8 +71,8 @@ class KSignUpViewModel(
                         if (isAlreadySignUp) {
                             val signUp = mRepository.setUserInfo(
                                 userId.value!!, userPw.value!!,
-                                fcmToken.value.toString()
-                            )
+                                fcmToken.value.toString(),
+                            "")
                             Timber.e("가입 성공 여부 : $signUp")
                             isRegisterSuccess.value = signUp
                             mSharedPref.setUserId(userId.value!!)

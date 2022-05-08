@@ -10,9 +10,9 @@ class FakeFirebaseReference(
     private val mFakeFirebaseDataProvider: FakeFirebaseDataProvider
 ) : BaseFirebaseService {
 
-    override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
+    override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?,solvedToken:String): Boolean {
         val userList = mFakeFirebaseDataProvider.userSnapShot
-        return userList.add(UserInfo(userId, userPw, fcmToken))
+        return userList.add(UserInfo(userId, userPw, fcmToken,solvedToken))
     }
 
     override suspend fun signUpUserInfo(userId: String, password: String): Boolean {
