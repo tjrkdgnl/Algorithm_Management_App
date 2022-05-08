@@ -8,6 +8,7 @@ import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivityCategorySolvedProblemBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.presentation.main.adapter.SolvedProblemStatsAdapter
 
 /**
  * @author SeungHo Lee
@@ -23,6 +24,7 @@ class CategoryStatusActivity :
             BaseViewModelFactory(RepositoryLocator().getRepository(AMAApplication.INSTANCE))
         )[CategoryStatusViewModel::class.java]
         binding.viewmodel = viewModel
+        binding.rvSolvedProblemType.adapter = SolvedProblemStatsAdapter()
     }
 
 }
