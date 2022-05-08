@@ -81,9 +81,9 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
         get() = _isRetryProblemsInfo
 
     // 다시풀어볼 문제 프로그래스바 보여줄지 여부
-    private val _isShowRetryProblemProgressBar = MutableLiveData<Boolean>(false)
-    val isShowRetryProblemProgressBar: LiveData<Boolean>
-        get() = _isShowRetryProblemProgressBar
+    private val _isLoadingProgress = MutableLiveData<Boolean>(true)
+    val isLoadingProgress: LiveData<Boolean>
+        get() = _isLoadingProgress
 
 
     // 월별 통계데이터 불러오기
@@ -214,7 +214,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     private fun loadRetryProblems() {
         viewModelScope.launch {
             try {
-                _isShowRetryProblemProgressBar.value = false
+                _isLoadingProgress.value = true
                 _retryProblems.value = mutableListOf()
                 val tipProblems = mutableListOf<TipProblemInfo>()
                 mRepository.getAllTipProblems()?.let {
@@ -232,7 +232,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                     tipProblems[rangeList[2]],
                     tipProblems[rangeList[3]],
                 )
-                _isShowRetryProblemProgressBar.value = true
+                _isLoadingProgress.value = false
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }
