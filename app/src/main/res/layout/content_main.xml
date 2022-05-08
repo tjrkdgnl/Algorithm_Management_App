@@ -13,6 +13,8 @@
             name="viewmodel"
             type="com.ama.algorithmmanagement.presentation.main.KMainViewModel" />
 
+        <import type="android.view.View"/>
+
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -99,6 +101,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_retry_problem_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="41dp"
@@ -143,6 +146,16 @@
                             app:setRetryProblemList="@{viewmodel.retryProblems}"
                             tools:itemCount="4"
                             tools:listitem="@layout/item_retry_problem" />
+
+                        <ProgressBar
+                            android:id="@+id/pg_retry_problem"
+                            android:visibility="@{viewmodel.isShowRetryProblemProgressBar()?View.GONE:View.VISIBLE}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/cl_retry_problem_layout"
+                            app:layout_constraintEnd_toEndOf="@+id/rv_retry_problem"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -228,8 +241,18 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tiers_tab">
-
                         </com.github.mikephil.charting.charts.PieChart>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:text="해당 티어에는 해결한 문제가 없습니다."
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:gravity="center"
+                            handleNotSolvedProblem="@{viewmodel.userStats}"
+                            tierPosition="@{position}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tiers_tab" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -279,12 +302,17 @@
 
                         </LinearLayout>
 
-                        <com.github.mikephil.charting.charts.HorizontalBarChart
-                            android:id="@+id/mp_lc_type_statics"
-                            setSolvedProblemTypeBarChart="@{viewmodel.userSolvedProblem}"
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_type_statics"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
                             android:layout_marginTop="12dp"
+                            tools:itemCount="3"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            setSolvedProblemTypeBarChart="@{viewmodel.userSolvedProblem}"
+                            tools:listitem="@layout/item_problem_stats_progress_bar"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -309,6 +337,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="@{()->viewmodel.previousMonth()}"
+                            android:background="@drawable/ic_arrow_left"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                            app:layout_constraintEnd_toStartOf="@+id/textView6"
+                            app:layout_constraintTop_toTopOf="@+id/textView6" />
+
                         <TextView
                             android:id="@+id/textView6"
                             android:layout_width="wrap_content"
@@ -324,6 +362,16 @@
                             app:layout_constraintEnd_toEndOf="@+id/date_weeekday"
                             app:layout_constraintStart_toStartOf="@+id/date_weeekday"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_arrow_right"
+                            android:onClick="@{()->viewmodel.nextMonth()}"
+                            app:layout_constraintBottom_toBottomOf="@id/textView6"
+                            app:layout_constraintStart_toEndOf="@+id/textView6"
+                            app:layout_constraintTop_toTopOf="@id/textView6" />
 
                         <LinearLayout
                             android:id="@+id/date_weeekday"
@@ -414,25 +462,6 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
-
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:onClick="@{()->viewmodel.previousMonth()}"
-                            app:layout_constraintBottom_toBottomOf="@+id/rv_date_grid"
-                            app:layout_constraintEnd_toStartOf="@+id/rv_date_grid"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/rv_date_grid" >
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/ic_arrow_left"/>
-                        </LinearLayout>
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_date_grid"
                             android:layout_width="wrap_content"
@@ -441,37 +470,15 @@
                             app:currentDate="@{viewmodel.dateStatsCurrentDate}"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/date_weeekday"
                             app:setDateInfoGridList="@{viewmodel.userDateInfo}"
                             app:spanCount="7"
                             tools:itemCount="30"
                             tools:listitem="@layout/item_user_date_info" />
-
-                        <LinearLayout
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:onClick="@{()->viewmodel.nextMonth()}"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="@+id/rv_date_grid"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/rv_date_grid" >
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_arrow_right"/>
-
-                        </LinearLayout>
-
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </LinearLayout>
-
-
             </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
