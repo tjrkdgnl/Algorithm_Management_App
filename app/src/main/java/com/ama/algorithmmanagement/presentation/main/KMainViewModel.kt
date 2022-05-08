@@ -77,8 +77,13 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
 
     // 다시풀어볼 문제 자세히 보기 눌렀는지 여부
     private val _isRetryProblemsInfo = MutableLiveData<Boolean>(false)
-    val isRetryProblemsInfo:LiveData<Boolean>
-        get() =_isRetryProblemsInfo
+    val isRetryProblemsInfo: LiveData<Boolean>
+        get() = _isRetryProblemsInfo
+
+    // 다시풀어볼 문제 프로그래스바 보여줄지 여부
+    private val _isLoadingProgress = MutableLiveData<Boolean>(true)
+    val isLoadingProgress: LiveData<Boolean>
+        get() = _isLoadingProgress
 
 
     // 월별 통계데이터 불러오기
@@ -109,10 +114,11 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
         _isOpenDrawer.value = false
     }
 
-    fun openRetryProblemsInfo(){
+    fun openRetryProblemsInfo() {
         _isRetryProblemsInfo.value = true
     }
-    fun initRetryProblemsInfo(){
+
+    fun initRetryProblemsInfo() {
         _isRetryProblemsInfo.value = false
     }
 
@@ -124,7 +130,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                 // 파이어베이스 문제 세팅
                 val firebaseProblems = mutableListOf<TipProblemInfo>()
                 // 팁작성문제,팁을 작성하지 않은문제 두개를 합쳐서 파베에 저장된 문제 저장
-                mRepository.getAllTipProblems()?.problemInfoList?.let{
+                mRepository.getAllTipProblems()?.problemInfoList?.let {
                     firebaseProblems.addAll(it)
                 }
                 val baekjoonSolvedProblems = mRepository.getSolvedProblems().problemList!!
@@ -146,7 +152,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                             }
                         }
                         // 푼문제가 아닐경우 리스트에 추가
-                        mRepository.setTippingProblem(baekjoonProblem,false,null)
+                        mRepository.setTippingProblem(baekjoonProblem, false, null)
                     }
                 }
             } catch (e: Exception) {
@@ -164,7 +170,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                 noTipProblems?.problemInfoList?.map { noTip ->
                     if (noTip.date == DateUtils.getDate()) {
                         Timber.e("today add")
-                        noTip.problem?.let{
+                        noTip.problem?.let {
                             saveProblems.add(it)
                         }
                         Timber.e("${todaySolvedProblem.value}")
@@ -208,8 +214,10 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     private fun loadRetryProblems() {
         viewModelScope.launch {
             try {
+                _isLoadingProgress.value = true
+                _retryProblems.value = mutableListOf()
                 val tipProblems = mutableListOf<TipProblemInfo>()
-                mRepository.getAllTipProblems()?.let{
+                mRepository.getAllTipProblems()?.let {
                     tipProblems.addAll(it.problemInfoList)
                 }
                 // 0 부터 tipProblem 의 사이즈만큼 rangeList 만든후 shuffle  ex) [0,1,2,3,4,5,6,7] => [5,1,2,0,6,7,3,4] 셔플후
@@ -224,6 +232,7 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
                     tipProblems[rangeList[2]],
                     tipProblems[rangeList[3]],
                 )
+                _isLoadingProgress.value = false
             } catch (e: Exception) {
                 Timber.e(e.message.toString())
             }

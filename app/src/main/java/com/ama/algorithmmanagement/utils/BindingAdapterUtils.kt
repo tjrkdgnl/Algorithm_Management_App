@@ -1,6 +1,8 @@
 package com.ama.algorithmmanagement.utils
 
 import android.graphics.Color
+import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -9,6 +11,7 @@ import com.ama.algorithmmanagement.presentation.search.adapter.SearchProblemAdap
 import com.ama.algorithmmanagement.domain.entity.*
 import com.ama.algorithmmanagement.presentation.main.adapter.KRetryProblemsAdapter
 import com.ama.algorithmmanagement.presentation.main.adapter.KUserDateInfoAdapter
+import com.ama.algorithmmanagement.presentation.main.adapter.SolvedProblemStatsAdapter
 import com.ama.algorithmmanagement.presentation.mytip.adapter.MyTipProblemsAdapter
 import com.ama.algorithmmanagement.presentation.newSolvedProblem.SolvedProblemViewPagerFragment
 import com.ama.algorithmmanagement.presentation.newSolvedProblem.adapter.TipProblemViewPagerFragmentAdapter
@@ -124,8 +127,8 @@ object BindingAdapterUtils {
     ) {
         val adapter = recyclerView.adapter as? RetryProblemsInfoAdapter
         Timber.e("solved $retryProblem")
-        retryProblem?.slice(IntRange(0, 3))?.let {
-            adapter?.setData(it.toMutableList())
+        retryProblem?.let { list ->
+            adapter?.setData(list.toMutableList())
         }
 
     }
@@ -145,11 +148,13 @@ object BindingAdapterUtils {
         position: Int?
     ) {
         val entries = mutableListOf<PieEntry>()
+        pieChart.visibility = View.VISIBLE
         position?.let { pos ->
             // 티어가 0~31 까지 있고 5단위로 티어가 바뀌기떄문에 start 와 end 값 세팅
             // 0 은 언랭 티어기떄문에 브론즈 티어는 1부터 시작
             val start = (0 + pos) * 5 + 1
-            val end = start + 5 - 1
+            val end = start + 4
+            var solvedCount = 0
             setSolvedProblemTierPieChart?.let {
                 for (i in start..end) {
                     // 해당 티어에 해결한 문제가 있을때만 그림
@@ -160,7 +165,11 @@ object BindingAdapterUtils {
                                 ColorUtils.intConvertToTier(i)
                             )
                         )
+                        solvedCount++
                     }
+                }
+                if (solvedCount == 0) {
+                    pieChart.visibility = View.GONE
                 }
             }
             // 티어에 맞는 색상 지정
@@ -189,6 +198,34 @@ object BindingAdapterUtils {
         pieChart.invalidate()
     }
 
+    @JvmStatic
+    @BindingAdapter("handleNotSolvedProblem", "tierPosition")
+    fun handleNotSolvedProblem(
+        view: TextView,
+        handleNotSolvedProblem: MutableList<Stats>?,
+        position: Int?
+    ) {
+        view.visibility = View.GONE
+        position?.let { pos ->
+            // 티어가 0~31 까지 있고 5단위로 티어가 바뀌기떄문에 start 와 end 값 세팅
+            // 0 은 언랭 티어기떄문에 브론즈 티어는 1부터 시작
+            val start = (0 + pos) * 5 + 1
+            val end = start + 4
+            var solvedCount = 0
+            handleNotSolvedProblem?.let {
+                for (i in start..end) {
+                    // 해당 티어에 해결한 문제가 있을때만 그림
+                    if (it[i].solved != 0) {
+                        solvedCount++
+                    }
+                }
+                if (solvedCount == 0) {
+                    view.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
     /**
      * @param barChart horizontalBarChart 수직 막대그래프
      * @param problems 유저가 해결한 문제에대한 정보가 담긴 객체
@@ -196,88 +233,16 @@ object BindingAdapterUtils {
      */
     @JvmStatic
     @BindingAdapter("setSolvedProblemTypeBarChart")
-    fun setSolvedProblemTypeBarChart(barChart: HorizontalBarChart, problems: Problems?) {
+    fun setSolvedProblemTypeBarChart(recyclerView: RecyclerView, problems: Problems?) {
         problems?.problemList?.let {
             // 메인화면에 보여줄 그래프는 10개로 세팅
-            val solvedType = MpChartUtils.getTypeStatsSize(it, 10, false)
-            val values = mutableListOf<BarEntry>()
-
-            solvedType.onEachIndexed { index, it ->
-                values.add(BarEntry(index.toFloat(), it.value.toFloat()))
+            val adapter = recyclerView.adapter as? SolvedProblemStatsAdapter
+            val problemHashMap = MpChartUtils.getTypeStatsSize(it,10,false)
+            Timber.e("hashmap $problemHashMap")
+            problemHashMap.toList().map { item->
+                adapter?.addItem(item)
             }
 
-            val set = BarDataSet(values, "유형별 통계")
-                .apply {
-                    setDrawIcons(false)
-                    setDrawValues(true)
-                    valueFormatter = MpChartUtils.ScoreCustomFormatter()
-                    valueTextColor = Color.RED
-                    colors = mutableListOf(
-                        barChart.context.resources.getColor(
-                            R.color.barchart_color
-                        )
-                    )
-                }
-
-
-            val dataSets = mutableListOf<IBarDataSet>()
-            dataSets.add(set)
-
-            val datas = BarData(dataSets)
-                .apply {
-                    setValueTextSize(10f)
-
-                    barWidth = 0.5f
-                }
-            Timber.e("solved Type :$solvedType")
-            barChart.run {
-                setDrawBarShadow(true) // 그래프 그림자
-                setTouchEnabled(false) // 차트 터치 막기
-                setDrawValueAboveBar(true) // 입력?값이 차트 위or아래에 그려질 건지 (true=위, false=아래)
-                setPinchZoom(false) // 두손가락으로 줌 설정
-                setDrawGridBackground(false) // 격자구조
-                description.isEnabled = false // 그래프 오른쪽 하단에 라벨 표시
-                legend.isEnabled = false // 차트 범례 설정(legend object chart)
-
-                // horizontal chart bar  이기때문에 x 축과 y축이 반대임
-                xAxis.run { // 아래 라벨 x축
-                    isEnabled = true // 라벨 표시 설정 이속성은 valueFormatter 와 연관있는듯
-                    valueFormatter =
-                        MpChartUtils.LabelCustomFormatter(solvedType.keys.toList()) // 라벨 값 포멧 설정
-                    position = XAxis.XAxisPosition.BOTTOM // 라벨 위치 설정
-                    setDrawGridLines(false) // 격자구조
-                    setDrawLimitLinesBehindData(true)
-                    setDrawAxisLine(false)
-                    setLabelCount(
-                        solvedType.toList().size,
-                        false
-                    ) // mpchart 는 그리려는 그래프(Bar) 가 많아지면 특정 구간마다 레이블이 작성되는데 이속성을 통해 모든 그래프마다 레이블 보여주게 함
-                    textSize = 12f // 라벨 크기
-                    textColor = Color.BLACK
-                }
-
-                axisLeft.run { // 왼쪽 y축
-                    isEnabled = false
-                    axisMinimum = 0f // 최소값
-                    axisMaximum = 100f // 최대값
-                    granularity = 10f // 값 만큼 라인선 설정
-                    setDrawLabels(false) // 값 셋팅 설정
-                    textColor = Color.RED // 색상 설정
-                    axisLineColor = Color.BLACK // 축 색상 설정
-                    gridColor = Color.BLUE // 격자 색상 설정
-                }
-                axisRight.run { // 오른쪽 y축(왼쪽과동일)
-                    isEnabled = false
-                    textSize = 15f
-                }
-
-                animateY(1500) // y축 애니메이션
-                animateX(1000) // x축 애니메이션
-            }
-
-            barChart.moveViewToX(0f)
-            barChart.invalidate()
-            barChart.data = datas
         }
     }
 
@@ -361,93 +326,16 @@ object BindingAdapterUtils {
 
     @JvmStatic
     @BindingAdapter("bind_loadCategoryStatus")
-    fun loadCategoryStatus(barChart: HorizontalBarChart, problems: Problems?) {
+    fun loadCategoryStatus(recyclerView: RecyclerView, problems: Problems?) {
         problems?.problemList?.let {
             // 메인화면에 보여줄 그래프는 10개로 세팅
-            val solvedType = MpChartUtils.getTypeStatsSize(it, isAll = true)
-            Timber.e("solved Type :$solvedType")
-            val values = mutableListOf<BarEntry>()
-//            val colorList = ColorTemplate.VORDIPLOM_COLORS
-
-            solvedType.onEachIndexed { index, it ->
-                values.add(BarEntry(index.toFloat(), it.value.toFloat()))
+            val adapter = recyclerView.adapter as? SolvedProblemStatsAdapter
+            val problemHashMap = MpChartUtils.getTypeStatsSize(it, isAll = true)
+            Timber.e("hashmap $problemHashMap")
+            problemHashMap.toList().map { item->
+                adapter?.addItem(item)
             }
 
-            val set = BarDataSet(values, "유형별 통계")
-                .apply {
-                    setDrawIcons(false)
-                    setDrawValues(true)
-                    valueTextSize = 9f
-                    valueFormatter = MpChartUtils.ScoreCustomFormatter()
-                    valueTextColor = Color.RED
-
-                    colors = mutableListOf(
-                        barChart.context.resources.getColor(
-                            R.color.barchart_color
-                        )
-                    )
-                }
-
-
-            val dataSets = mutableListOf<IBarDataSet>()
-            dataSets.add(set)
-
-            val datas = BarData(dataSets)
-                .apply {
-                    setValueTextSize(10f)
-                    barWidth = 0.5f
-                }
-
-            barChart.run {
-                invalidate()
-                data = datas
-                enableScroll()
-
-                setVisibleXRangeMaximum(10f) // 한페이지에 10개만 보이게하기
-                setDrawBarShadow(true) // 그래프 그림자
-                setDrawValueAboveBar(true) // 입력?값이 차트 위or아래에 그려질 건지 (true=위, false=아래)
-                setPinchZoom(false) // 두손가락으로 줌 설정
-                setDrawGridBackground(false) // 격자구조
-                description.isEnabled = false // 그래프 오른쪽 하단에 라벨 표시
-                legend.isEnabled = false // 차트 범례 설정(legend object chart)
-
-                // horizontal chart bar  이기때문에 x 축과 y축이 반대임
-                xAxis.run { // 아래 라벨 x축
-                    isEnabled = true // 라벨 표시 설정 이속성은 valueFormatter 와 연관있는듯
-                    valueFormatter =
-                        MpChartUtils.LabelCustomFormatter(solvedType.keys.toList()) // 라벨 값 포멧 설정
-                    position = XAxis.XAxisPosition.BOTTOM // 라벨 위치 설정
-                    setDrawGridLines(false) // 격자구조
-                    setDrawLimitLinesBehindData(false)
-                    setDrawAxisLine(false)
-                    setLabelCount(
-                        10,
-                        false
-                    ) // mpchart 는 그리려는 그래프(Bar) 가 많아지면 특정 구간마다 레이블이 작성되는데 이속성을 통해 모든 그래프마다 레이블 보여주게 함
-                    textSize = 12f // 라벨 크기
-                    textColor = Color.BLACK
-                }
-
-                axisLeft.run { // 왼쪽 y축
-                    isEnabled = false
-                    axisMinimum = 0f // 최소값
-                    axisMaximum = 1000f // 최대값
-                    granularity = 100f // 값 만큼 라인선 설정
-
-
-                    setDrawLabels(true) // 값 셋팅 설정
-                    textColor = Color.RED // 색상 설정
-                    axisLineColor = Color.BLACK // 축 색상 설정
-                    gridColor = Color.BLUE // 격자 색상 설정
-                }
-                axisRight.run { // 오른쪽 y축(왼쪽과동일)
-                    isEnabled = false
-                    textSize = 15f
-                }
-
-                animateY(1500) // y축 애니메이션
-                animateX(1000) // x축 애니메이션
-            }
         }
 
 
