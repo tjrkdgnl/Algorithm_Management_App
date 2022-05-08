@@ -149,7 +149,7 @@
 
                         <ProgressBar
                             android:id="@+id/pg_retry_problem"
-                            android:visibility="@{viewmodel.isShowRetryProblemProgressBar()?View.GONE:View.VISIBLE}"
+                            android:visibility="@{viewmodel.isLoadingProgress()?View.VISIBLE:View.GONE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="@+id/cl_retry_problem_layout"
