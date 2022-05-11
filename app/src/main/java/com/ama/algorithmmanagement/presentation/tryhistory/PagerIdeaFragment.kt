@@ -28,6 +28,7 @@ import com.ama.algorithmmanagement.presentation.tryhistory.adapter.IdeaAdapter
 import com.google.firebase.storage.FirebaseStorage
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -103,27 +104,27 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
                 mIdeaInfoViewModel.ideaList.addAll(it.ideaList)
             }
         })
-
-        settingPermission()
     }
 
     private fun settingPermission() {
         val permissionListener = object : PermissionListener {
             // 어떠한 형식을 상속받는 익명 클래스의 객체를 생성하기 위해 다음과 같이 작성
             override fun onPermissionGranted() {
-                Toast.makeText(context, "권한 허가", Toast.LENGTH_SHORT).show()
+                Timber.d("권한 허가")
+                // 사진 아이디어 등록
+                setPhotoIdea()
             }
 
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
-//                ActivityCompat.finishAffinity(activity!!) // 권한 거부시 앱 종료
+                Timber.d("권한 거부")
+                Toast.makeText(context, "저장소 또는 카메라 권한을 거부하셨습니다\n기능을 이용하시려면 권한을 허용해주세요", Toast.LENGTH_SHORT).show()
             }
         }
 
         TedPermission.with(context)
             .setPermissionListener(permissionListener)
-            .setRationaleMessage("카메라 사진 권한 필요")
-            .setDeniedMessage("카메라 권한 요청 거부")
+            .setRationaleMessage("사진 촬영을 위한 카메라 및 저장소 권한이 필요 합니다")
+            .setDeniedMessage("카메라 또는 저장소 권한 요청을 거부하셨습니다")
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA
@@ -201,7 +202,7 @@ class PagerIdeaFragment(val problemId: Int?) : KBaseFragment<FragmentIdeaBinding
                 }
             }
             R.id.fab_sub_text -> { showWriteIdeaDialog() }
-            R.id.fab_sub_camera -> { setPhotoIdea() }
+            R.id.fab_sub_camera -> { settingPermission() }
         }
     }
 

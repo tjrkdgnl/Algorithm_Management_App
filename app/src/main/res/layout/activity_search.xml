@@ -58,7 +58,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             loadSearchProblems="@{viewmodel.searchProblems.keywords}"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:overScrollMode="never"/>
 
 
     </LinearLayout>

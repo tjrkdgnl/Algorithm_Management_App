@@ -145,7 +145,9 @@
                             app:layout_constraintTop_toBottomOf="@+id/textView3"
                             app:setRetryProblemList="@{viewmodel.retryProblems}"
                             tools:itemCount="4"
-                            tools:listitem="@layout/item_retry_problem" />
+                            tools:listitem="@layout/item_retry_problem"
+                            android:overScrollMode="never"/>
+
 
                         <ProgressBar
                             android:id="@+id/pg_retry_problem"
@@ -156,6 +158,7 @@
                             app:layout_constraintEnd_toEndOf="@+id/rv_retry_problem"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -476,7 +479,25 @@
                             app:setDateInfoGridList="@{viewmodel.userDateInfo}"
                             app:spanCount="7"
                             tools:itemCount="30"
-                            tools:listitem="@layout/item_user_date_info" />
+                            tools:listitem="@layout/item_user_date_info"
+                            android:overScrollMode="never"/>
+
+                        <LinearLayout
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:onClick="@{()->viewmodel.nextMonth()}"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/rv_date_grid"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/rv_date_grid" >
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_arrow_right"/>
+
+                        </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
