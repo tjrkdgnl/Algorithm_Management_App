@@ -71,9 +71,10 @@ class Repository(
     override suspend fun setUserInfo(
         userId: String,
         password: String,
-        fcmToken: String?
+        fcmToken: String?,
+        solvedToken: String
     ): Boolean {
-        return if (mFirebaseService.setUserInfo(userId, password, fcmToken)) {
+        return if (mFirebaseService.setUserInfo(userId, password, fcmToken,solvedToken)) {
             mSharedPrefUtils.setUserId(userId)
             mUserId = mSharedPrefUtils.getUserId()
 

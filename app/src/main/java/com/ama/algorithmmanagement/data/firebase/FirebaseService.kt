@@ -29,7 +29,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
 
     private val mDate = DateUtils.getDate()
 
-    override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean {
+    override suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?,solvedToken:String): Boolean {
         val tableKey = mFirebaseRef.child(mUserTable).key
 
         if (tableKey == null) {
@@ -38,7 +38,7 @@ class FirebaseService(private val mApp: Application) : BaseFirebaseService {
         }
 
         return if (signUpUserInfo(userId, userPw)) {
-            val userInfo = UserInfo(userId, userPw, fcmToken)
+            val userInfo = UserInfo(userId, userPw, fcmToken,solvedToken)
             mFirebaseRef.child(mUserTable).push().setValue(userInfo)
 
             true

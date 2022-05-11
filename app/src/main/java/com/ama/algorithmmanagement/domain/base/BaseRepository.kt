@@ -18,7 +18,7 @@ interface BaseRepository {
 
     suspend fun getBOJUserInfo() : User
 
-    suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = ""): Boolean
+    suspend fun setUserInfo(userId: String, password: String, fcmToken: String? = "",solvedToken: String): Boolean
 
     suspend fun confirmUserInfo(userId: String) : Boolean
 

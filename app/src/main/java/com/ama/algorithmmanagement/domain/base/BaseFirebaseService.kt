@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface BaseFirebaseService {
 
-    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?): Boolean
+    suspend fun setUserInfo(userId: String, userPw: String, fcmToken: String?,solvedToken:String): Boolean
 
     suspend fun getUserInfo(userId: String): UserInfo?
 

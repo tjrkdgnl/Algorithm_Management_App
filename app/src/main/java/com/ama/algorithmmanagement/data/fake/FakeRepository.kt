@@ -61,8 +61,8 @@ class FakeRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?): Boolean {
-        if (mFakeFirebaseReference.setUserInfo(userId, password, fcmToken)) {
+    override suspend fun setUserInfo(userId: String, password: String, fcmToken: String?,solvedToken: String): Boolean {
+        if (mFakeFirebaseReference.setUserInfo(userId, password, fcmToken,solvedToken)) {
             mSharedPrefUtils.setUserId(userId)
             mUserId = mSharedPrefUtils.getUserId()
             return true

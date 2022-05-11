@@ -53,7 +53,7 @@ class SearchActivity : KBaseActivity<ActivitySearchBinding>(R.layout.activity_se
                 if (p0.toString() == "") {
                     viewModel.clearSearchProblems()
                 }
-                if (p0.toString().isNotEmpty() && p0.toString().isNotBlank()) {
+                else if (p0.toString().isNotEmpty() && p0.toString().isNotBlank()) {
                     viewModel.callSearchQueryProblem(p0.toString())
                 }
             }
