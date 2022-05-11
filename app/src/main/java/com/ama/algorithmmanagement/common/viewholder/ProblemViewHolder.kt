@@ -1,5 +1,6 @@
 package com.ama.algorithmmanagement.common.viewholder
 
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import com.ama.algorithmmanagement.R
@@ -45,6 +46,8 @@ class ProblemViewHolder(private val parent: ViewGroup, listClickListener: (Tagge
             for (i in tagList.indices) {
                 val chip = Chip(parent.context)
                 chip.text = tagList[i].displayNames[0].name
+                chip.isEnabled = false
+                chip.setTextColor(Color.parseColor("#000000"))
                 binding.chipGroupTags.addView(chip)
             }
         }

@@ -13,6 +13,7 @@ import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.domain.entity.TaggedProblem
 import com.ama.algorithmmanagement.presentation.notip.adapter.NoTipProblemsAdapter
 import timber.log.Timber
+import java.util.*
 
 /**
  * 팁을 작성하지 않은 문제
@@ -38,6 +39,7 @@ class NoTipActivity : KBaseActivity<ActivityNoTipBinding>(R.layout.activity_no_t
 
         // 팁 작성 화면으로 이동
         val intent = Intent(this, NewSolvedProblemActivity::class.java)
+        intent.putIntegerArrayListExtra("problems", arrayListOf(clickProblem.problemId) as ArrayList<Int>?)
         startActivity(intent)
 
     }

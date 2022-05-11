@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 setMyIdeaList="@{viewModel.ideaList}"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </LinearLayout>
