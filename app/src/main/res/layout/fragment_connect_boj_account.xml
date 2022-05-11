@@ -16,20 +16,6 @@
         tools:context=".presentation.signup.fragment.ConnectBOJAccountFragment">
 
         <TextView
-            android:id="@+id/skip_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{() -> viewModel.moveToRegisterFrag()}"
-            android:text="건너뛰기"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/solved_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +28,7 @@
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skip_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/solved_connect_text"

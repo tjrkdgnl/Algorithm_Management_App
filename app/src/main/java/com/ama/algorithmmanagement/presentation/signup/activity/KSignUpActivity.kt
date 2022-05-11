@@ -2,8 +2,10 @@ package com.ama.algorithmmanagement.presentation.signup.activity
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.CookieManager
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -69,6 +71,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
                 binding.connectLayout.visibility = View.VISIBLE
                 binding.signUpViewPager.visibility = View.GONE
             } else {
+                getCookieToken(binding.connectWebView.url.toString())
                 binding.connectWebView.loadUrl("")
                 binding.connectLayout.visibility = View.GONE
                 binding.signUpViewPager.visibility = View.VISIBLE
@@ -88,6 +91,20 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
                 successMovePage()
             } else {
                 Toast.makeText(this, "계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getCookieToken(url: String) {
+        val cookieManager = CookieManager.getInstance()
+        val cookie = cookieManager.getCookie(url)
+
+        val cookieList = cookie.split("; ")
+        for (i in cookieList.indices) {
+            if(cookieList[i].contains("solvedacToken")) {
+                signUpViewModel.getSolvedacToken(cookieList[i])
+                Timber.e(cookieList[i])
+                break
             }
         }
     }

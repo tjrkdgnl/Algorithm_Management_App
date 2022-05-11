@@ -44,9 +44,11 @@ class ConnectBOJAccountFragment() : KBaseFragment<FragmentConnectBojAccountBindi
 
         signUpViewModel.isConnectSuccess.observe(viewLifecycleOwner) {
             if(it) {
-                binding.connectNextBtn.visibility = View.VISIBLE
+                if(signUpViewModel.isGetSuccessSolvToken.value == true) {
+                    binding.connectNextBtn.visibility = View.VISIBLE
+                }
                 signUpViewModel.isConnectSuccess.value = false
-                signUpViewModel.isMoveToWebView.value = false
+                signUpViewModel.isGetSuccessSolvToken.value = false
             }
         }
     }
