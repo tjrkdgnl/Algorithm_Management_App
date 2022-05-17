@@ -43,26 +43,27 @@ class KRLoginViewModel(
                 checkLoginInfo.value?.let {
                     if (it) {
                         val userInfo = mRepository.getUserInfo(userId.value!!)
-                        isLoginSuccess.value =
-                            userInfo?.userId.equals(userId.value) && userInfo?.userPw.equals(userPw.value)
+                        userInfo?.let { user ->
+                            isLoginSuccess.value = user.userId == userId.value && user.userPw == userPw.value
+                            if (isLoginSuccess.value == null) {
+                                isLoginSuccess.value = false
+                            }
 
-                        if (isLoginSuccess.value == null) {
-                            isLoginSuccess.value = false
-                        }
+                            Timber.e("%s, %s", userId.value, userPw.value)
+                            if (isAutoCheck.value == null) {
+                                isAutoCheck.value = false
+                            }
 
-                        Timber.e("%s, %s", userId.value, userPw.value)
-                        if (isAutoCheck.value == null) {
-                            isAutoCheck.value = false
+                            if (isLoginSuccess.value!!) {
+                                mSharedPref.setAutoLoginCheck(isAutoCheck.value == true)
+                                mSharedPref.setUserId(user.userId)
+                                mSharedPref.setSolvedacToken(user.solvedToken)
+                            } else {
+                                isLoginSuccess.value = false
+                            }
+                            Timber.e("로그인 결과 : %s, %s", isLoginSuccess.value!!, isAutoCheck.value)
+                            isInputDataEmpty.value = true
                         }
-
-                        if (isLoginSuccess.value!!) {
-                            mSharedPref.setAutoLoginCheck(isAutoCheck.value == true)
-                            mSharedPref.setUserId(userId.value!!)
-                        } else {
-                            isLoginSuccess.value = false
-                        }
-                        Timber.e("로그인 결과 : %s, %s", isLoginSuccess.value!!, isAutoCheck.value)
-                        isInputDataEmpty.value = true
                     } else {
                         Timber.e("id 또는 pwd를 다시 확인해주세요.")
                         isInputDataEmpty.value = false

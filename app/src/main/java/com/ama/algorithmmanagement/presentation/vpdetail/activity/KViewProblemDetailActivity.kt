@@ -36,7 +36,7 @@ class KViewProblemDetailActivity : KBaseActivity<ActivityViewProblemDetailBindin
         super.onCreate(savedInstanceState)
 
         if(intent.hasExtra("problemId")) {
-           problemId = intent.getStringExtra("problemId").toString()
+            problemId = intent.getStringExtra("problemId").toString()
         }
 
         viewProblemDetailViewModel = ViewModelProvider(
