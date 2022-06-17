@@ -64,10 +64,8 @@ class KUserDateInfoAdapter:RecyclerView.Adapter<KUserDateInfoViewHolder>(){
             mList.add(Triple(DateInfo(makeDate,0),i+1,true))
         }
         // 달력 리사이클러뷰 채우고 남는칸 다음 월날짜로 채움
-        if(mList.size%7!=0){
-            for(i in 0 until 7-(mList.size%7)){
-                mList.add(Triple(DateInfo("",-1),i+1,false))
-            }
+        for (i in 0 until 42 - (mList.size)) {
+            mList.add(Triple(DateInfo("", -1), i + 1, false))
         }
 
         // 유저 활동기록이 있는 일은 그데이터로 교채 ex) 1월 3일에 count = 3 일경우 해당 리스트값을 변경
