@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.os.Bundle
 import android.view.View
+import android.webkit.CookieManager
 import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.ama.algorithmmanagement.domain.base.KBaseActivity
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
 import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
+import com.ama.algorithmmanagement.presentation.signup.utils.CookieUtil
 import com.ama.algorithmmanagement.presentation.signup.view_model.KSignUpViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
@@ -48,24 +51,37 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
 
         binding.connectWebView.apply {
             webChromeClient = WebChromeClient()
-            webViewClient = WebViewClient()
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+
+                    if (url != null && url.isNotBlank()) {
+                        val solvedacToken = CookieUtil.extractToken(url)
+
+                        solvedacToken?.let {
+                            signUpViewModel.setSolvedacToken(it)
+                        }
+                    }
+                }
+            }
             settings.javaScriptEnabled = true
         }
 
-        viewPagerAdapter = KViewPagerAdapter(supportFragmentManager, fragments ,lifecycle)
+        viewPagerAdapter = KViewPagerAdapter(supportFragmentManager, fragments, lifecycle)
         binding.signUpViewPager.adapter = viewPagerAdapter
         binding.signUpViewPager.isUserInputEnabled = false
 
         signUpViewModel.isGetFcmToken.observe(this) {
-            if(it) {
+            if (it) {
                 signUpViewModel.fcmToken.value = token
                 signUpViewModel.isGetFcmToken.value = false
             }
         }
 
         signUpViewModel.isMoveToWebView.observe(this) {
-            if(it) {
+            if (it) {
                 binding.connectWebView.loadUrl("https://www.acmicpc.net/login?next=%2Fsso%3Fsso%3Dbm9uY2U9OWQ4NDkwYjY5ZGRmZGUxOGExYzE5ZWUzODk2MTUzMzg%253D%26sig%3D13d257578bcf76ef46b1b6c98ef563c3130f0e3b475c161a2e0efc46a81872d6%26redirect%3Dhttps%253A%252F%252Fsolved.ac%252Fapi%252Fv3%252Fauth%252Fsso%253Fprev%253D%25252F")
+
                 binding.connectLayout.visibility = View.VISIBLE
                 binding.signUpViewPager.visibility = View.GONE
             } else {
@@ -76,14 +92,14 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         }
 
         signUpViewModel.isGoToRegisterFinal.observe(this) {
-            if(it) {
+            if (it) {
                 moveToRegisterFinal()
                 signUpViewModel.isGoToRegisterFinal.value = false
             }
         }
 
         signUpViewModel.isRegisterSuccess.observe(this) {
-            if(it) {
+            if (it) {
                 Toast.makeText(this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 successMovePage()
             } else {
@@ -92,7 +108,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
         }
     }
 
-    private fun setFragment(){
+    private fun setFragment() {
         fragments = arrayListOf(
             ConnectBOJAccountFragment(),
             RegisterFinalFragment()
@@ -114,7 +130,7 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
 
     private fun getFcmToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if(!task.isSuccessful) {
+            if (!task.isSuccessful) {
                 Timber.e("Fetching FCM registration Token failed")
             }
 

@@ -6,6 +6,10 @@ import retrofit2.await
 
 class NetworkService : BaseNetworkService {
 
+    override fun updateToken(solvedacToken: String) {
+        KAPIGenerator.initRetrofit(solvedacToken)
+    }
+
     override suspend fun getProblem(problemId: Int): TaggedProblem {
         return KAPIGenerator.getInstance().getProblem(problemId)
     }

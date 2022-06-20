@@ -19,6 +19,9 @@ class FakeRepository(
     private var mUserId: String? =
         mSharedPrefUtils.getUserId() ?: mApp.getString(R.string.default_user)
     private val mTierType = mSharedPrefUtils.getTierType()
+    override fun updateRetrofitWithToken(token: String) {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun getProblem(problemId: Int): TaggedProblem {
         return mBaseNetworkService.getProblem(problemId)

@@ -6,6 +6,10 @@ import kotlinx.coroutines.delay
 
 class FakeNetworkService(private val mFakeNetWorkDataProvider: FakeNetWorkDataProvider) :
     BaseNetworkService {
+    override fun updateToken(solvedacToken: String) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getProblem(problemId: Int): TaggedProblem {
         delay(300)
         return mFakeNetWorkDataProvider.getProblem(problemId)

@@ -4,6 +4,8 @@ import com.ama.algorithmmanagement.domain.entity.*
 
 interface BaseNetworkService {
 
+    fun updateToken(solvedacToken: String)
+
     suspend fun getProblem(problemId:Int) : TaggedProblem
 
     suspend fun getSolvedProblems(userId: String): Problems

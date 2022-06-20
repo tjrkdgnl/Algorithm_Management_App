@@ -60,8 +60,24 @@ class KSignUpViewModel(
     fun registerAMA() {
         viewModelScope.launch {
             checkUserInfo.value?.let { checkIdAndPw ->
+                val id = userId.value?.let {
+                    if (it.contains("@")) {
+                        it.split("@")[0]
+                    } else {
+                        it
+                    }
+                } ?: ""
+
+                if(id.isBlank()){
+                    Toast.makeText(
+                        AMAApplication.INSTANCE.applicationContext,
+                        "아이디를 입력해주세요", Toast.LENGTH_SHORT
+                    ).show()
+                    return@launch
+                }
+
                 if (checkIdAndPw) {
-                    val confirm = mRepository.confirmUserInfo(userId.value!!)
+                    val confirm = mRepository.confirmUserInfo(id)
                     Timber.e("백준 등록 여부 : $confirm")
                     if (confirm) {
                         val isAlreadySignUp = mRepository.signUpUserInfo(
@@ -72,7 +88,8 @@ class KSignUpViewModel(
                             val signUp = mRepository.setUserInfo(
                                 userId.value!!, userPw.value!!,
                                 fcmToken.value.toString(),
-                            "")
+                                ""
+                            )
                             Timber.e("가입 성공 여부 : $signUp")
                             isRegisterSuccess.value = signUp
                             mSharedPref.setUserId(userId.value!!)
@@ -91,14 +108,21 @@ class KSignUpViewModel(
                     Timber.e(mRepository.getUserInfo(userId.value!!).toString())
                 } else {
                     Timber.e("id 또는 pwd를 다시 확인해주세요.")
-                    Toast.makeText(AMAApplication.INSTANCE.applicationContext,
-                        "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        AMAApplication.INSTANCE.applicationContext,
+                        "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT
+                    ).show()
                 }
             } ?: Toast.makeText(
                 AMAApplication.INSTANCE.applicationContext,
                 "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT
             ).show() // 엘비스 연산자.
         }
+    }
+
+    fun setSolvedacToken(token: String) {
+        mSharedPref.setSolvedacToken(token)
+        mRepository.updateRetrofitWithToken(token)
     }
 
     override fun onCleared() {

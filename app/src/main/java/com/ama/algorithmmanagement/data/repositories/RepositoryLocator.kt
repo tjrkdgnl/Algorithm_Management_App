@@ -10,20 +10,20 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 class RepositoryLocator {
 
-    private lateinit var mRepository: Repository
+    private lateinit var mRepositoryImpl: RepositoryImpl
     private lateinit var mFakeRepository: FakeRepository
 
-    fun getRepository(app: Application): Repository {
-        if (!this::mRepository.isInitialized) {
-            mRepository =
-                Repository(
+    fun getRepository(app: Application): RepositoryImpl {
+        if (!this::mRepositoryImpl.isInitialized) {
+            mRepositoryImpl =
+                RepositoryImpl(
                     app,
                     FirebaseService(app),
                     NetworkService(),
                     AMAApplication.INSTANCE.sharedPrefUtils
                 )
         }
-        return mRepository
+        return mRepositoryImpl
     }
 
     fun getFakeRepository(app: Application): FakeRepository {

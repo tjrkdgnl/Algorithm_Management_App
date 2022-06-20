@@ -27,14 +27,13 @@ object KAPIGenerator {
     }
 
     fun initRetrofit(solvedacToken: String) {
-        this.solvedacToken = solvedacToken
+        AMAApplication.INSTANCE.sharedPrefUtils.setSolvedacToken(solvedacToken)
 
         retrofit = Retrofit.Builder()
             .baseUrl("https://solved.ac/api/v3/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(getOkHttpClient())
             .build()
-
     }
 
     private fun getOkHttpClient(): OkHttpClient {
