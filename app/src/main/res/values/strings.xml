@@ -37,8 +37,8 @@
     <string name="view_problem_info_loading">loading…</string>
     <string name="view_problem_info_top_title">#%s %s</string>
     <string name="view_problem_info_category">문제 카테고리(태그)\n\t\t%s</string>
-    <string name="view_problem_info_avg_try_count">평균 시도 횟수\n\t\t%s</string>
-    <string name="view_problem_info_problem_level">문제 난이도\n\t\t%s</string>
-    <string name="view_problem_info_success_count">맞은 사람 수\n\t\t%s</string>
+    <string name="view_problem_info_avg_try_count">평균 시도 횟수</string>
+    <string name="view_problem_info_problem_level">문제 난이도</string>
+    <string name="view_problem_info_success_count">맞은 사람 수</string>
 
 </resources>
