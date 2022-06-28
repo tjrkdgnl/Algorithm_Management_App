@@ -15,72 +15,226 @@
         android:layout_height="match_parent"
         tools:context=".presentation.signup.fragment.RegisterFinalFragment">
 
+        <ImageButton
+            android:id="@+id/connect_back_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/arrow_back"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:onClick="@{() -> viewModel.moveToLoginPage()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
         <TextView
             android:id="@+id/register_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:text="AMA 가입하기"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/deep_green"
+            android:textSize="24sp"
+            android:fontFamily="@font/nanum_square_eb"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <RelativeLayout
+            android:id="@+id/terms_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/register_title"
+            app:layout_constraintBottom_toTopOf="@+id/person_clause"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+            <CheckBox
+                android:id="@+id/register_use_terms_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/custom_checkbox"
+                android:button="@android:color/transparent"
+                android:checked="@={viewModel.isUseTermsChecked}" />
+
+            <TextView
+                android:id="@+id/register_use_terms_check_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/register_use_terms_check"
+                android:fontFamily="@font/nanum_square_b"
+                android:text="AMA 이용약관 동의 (필수)"
+                android:textColor="@color/gray_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/person_clause"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginTop="20dp"
-            android:background="#d3d3d3"
-            android:text="이용약관~~\n개인정보 처리방침 안내~~"
-            android:textColor="@color/black"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:padding="10dp"
+            android:background="@drawable/stroke_round_box"
+            android:text="이용약관~~\이용약관~~"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_title" />
+            app:layout_constraintTop_toBottomOf="@+id/terms_layout" />
+
+        <RelativeLayout
+            android:id="@+id/personal_terms_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/person_clause"
+            app:layout_constraintBottom_toTopOf="@+id/personal_terms_clause_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+            <CheckBox
+                android:id="@+id/personal_terms_layout_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentStart="true"
+                android:checked="@={viewModel.isPersonalTermsChecked}"
+                android:button="@android:color/transparent"
+                android:background="@drawable/custom_checkbox"
+                />
+
+            <TextView
+                android:id="@+id/personal_terms_layout_check_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/personal_terms_layout_check"
+                android:fontFamily="@font/nanum_square_b"
+                android:text="개인정보 수집 및 이용 동의 (필수)"
+                android:textColor="@color/gray_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/personal_terms_clause_text"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:padding="10dp"
+            android:background="@drawable/stroke_round_box"
+            android:text="개인정보 처리방침 안내~~\n개인정보 처리방침 안내~~"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personal_terms_layout" />
+
+        <RelativeLayout
+            android:id="@+id/terms_all_check_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/personal_terms_clause_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+            <CheckBox
+                android:id="@+id/terms_all_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="10dp"
+                android:layout_toStartOf="@id/terms_all_check_text"
+                android:background="@drawable/custom_checkbox"
+                android:button="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/terms_all_check_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanum_square_b"
+                android:text="약관에 모두 동의하기"
+                android:textColor="@color/gray_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/register_user_id_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            android:hint="백준 아이디"
+            android:layout_marginEnd="40dp"
+            android:hint="백준 아이디 또는 이메일"
+            android:textColorHint="@color/hint_text"
             android:inputType="text"
             android:text="@={viewModel.userId}"
+            android:fontFamily="@font/nanum_square_r"
+            app:layout_constraintTop_toBottomOf="@+id/terms_all_check_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/person_clause" />
+            app:layout_constraintBottom_toTopOf="@id/register_user_pw_edit" />
 
         <EditText
             android:id="@+id/register_user_pw_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:hint="password"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="비밀번호"
+            android:textColorHint="@color/hint_text"
             android:inputType="textPassword"
             android:text="@={viewModel.userPw}"
+            android:fontFamily="@font/nanum_square_r"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_user_id_edit" />
+            app:layout_constraintTop_toBottomOf="@+id/register_user_id_edit"
+            app:layout_constraintBottom_toTopOf="@id/register_btn"/>
 
-        <Button
-            android:id="@+id/login_act_login_btn"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:backgroundTint="@color/black"
+            android:layout_height="70dp"
             android:onClick="@{() -> viewModel.registerAMA()}"
-            android:text="AMA 가입하기"
-            android:textSize="20sp"
+            android:text="회원가입"
+            android:textColor="@color/hint_text"
+            android:textSize="18sp"
+            android:background="@color/gray_background"
+            android:enabled="false"
+            android:fontFamily="@font/nanum_square_otf_ac_eb"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_user_pw_edit" />
-        
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
