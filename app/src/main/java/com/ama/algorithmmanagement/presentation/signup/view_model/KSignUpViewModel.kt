@@ -32,11 +32,20 @@ class KSignUpViewModel(
     val isRegisterSuccess = MutableLiveData<Boolean>()
     val isGetSuccessSolvToken = MutableLiveData<Boolean>()
 
+    val isUseTermsChecked = MutableLiveData<Boolean>()
+    val isPersonalTermsChecked = MutableLiveData<Boolean>()
+
+    val isMoveToBack = MutableLiveData<Boolean>()
+
     private val checkUserInfo = combineWith(userId, userPw) { id, pwd -> id != null && pwd != null }
     private val userInfoObserver = Observer<Boolean> { }
 
     init {
         checkUserInfo.observe(mLifecycleOwner, userInfoObserver)
+    }
+
+    fun moveToLoginPage() {
+        isMoveToBack.value = true
     }
 
     // 연동하기 버튼 눌렀을때

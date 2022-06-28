@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.CookieManager
+import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -18,6 +19,7 @@ import com.ama.algorithmmanagement.data.repositories.RepositoryLocator
 import com.ama.algorithmmanagement.databinding.ActivitySignUpBinding
 import com.ama.algorithmmanagement.domain.base.BaseViewModelFactory
 import com.ama.algorithmmanagement.domain.base.KBaseActivity
+import com.ama.algorithmmanagement.presentation.login.activity.KRLoginActivity
 import com.ama.algorithmmanagement.presentation.main.KMainActivity
 import com.ama.algorithmmanagement.presentation.signup.fragment.ConnectBOJAccountFragment
 import com.ama.algorithmmanagement.presentation.signup.fragment.RegisterFinalFragment
@@ -75,6 +77,9 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
                 binding.connectWebView.loadUrl("")
                 binding.connectLayout.visibility = View.GONE
                 binding.signUpViewPager.visibility = View.VISIBLE
+                binding.connectWebView.clearCache(true)
+                binding.connectWebView.clearHistory()
+                clearCookie()
             }
         }
 
@@ -92,6 +97,25 @@ class KSignUpActivity : KBaseActivity<ActivitySignUpBinding>(R.layout.activity_s
             } else {
                 Toast.makeText(this, "계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        signUpViewModel.isMoveToBack.observe(this) {
+            if(it) {
+                val intent = Intent(this, KRLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                signUpViewModel.isMoveToBack.value = false
+            }
+        }
+    }
+
+    private fun clearCookie(){
+        try {
+            val cookieManager = CookieManager.getInstance()
+            cookieManager.removeSessionCookies({})
+            cookieManager.removeAllCookies({})
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 
