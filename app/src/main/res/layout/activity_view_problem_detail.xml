@@ -36,81 +36,136 @@
                     android:id="@+id/view_problem_top_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#d3d3d3"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/view_problem_title"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="3"
-                        android:text="@{viewModel == null ? @string/view_problem_info_loading : @string/view_problem_info_top_title(viewModel.problemId, viewModel.problemTitle)}"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/nanum_square_otf_ac_eb"
+                        android:text="@{viewModel == null ? @string/view_problem_info_loading : viewModel.problemTitle}"
                         android:textColor="@color/black"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/view_problem_move_web_page"
+                        android:id="@+id/view_problem_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_otf_ac_b"
+                        android:text="@{viewModel == null ? @string/view_problem_info_loading : viewModel.problemCategory}"
+                        android:textColor="@color/deep_green"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/view_problem_move_web_page"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="30dp"
+                    android:layout_gravity="center"
+                    android:onClick="@{() -> viewModel.moveToBojPage()}"
+                    android:background="@color/deep_green"
+                    android:fontFamily="@font/nanum_square_otf_ac_eb"
+                    android:text="문제보러가기"
+                    android:textColor="@color/white_text"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:onClick="@{() -> viewModel.moveToBojPage()}"
-                        android:text="문제보기"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_r"
+                        android:text="@string/view_problem_info_avg_try_count"
+                        android:textColor="@color/gray_text"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_r"
+                        android:text="@string/view_problem_info_problem_level"
+                        android:textColor="@color/gray_text"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_r"
+                        android:text="@string/view_problem_info_success_count"
+                        android:textColor="@color/gray_text"
+                        android:textSize="16sp" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_line"/>
 
                 <LinearLayout
                     android:id="@+id/view_problem_info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/view_problem_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="@{viewModel == null ? @string/view_problem_info_loading : @string/view_problem_info_category(viewModel.problemCategory)}"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/view_problem_avg_try_count"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:text="@{viewModel == null ? @string/view_problem_info_loading : @string/view_problem_info_avg_try_count(viewModel.problemTryCount)}"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_eb"
+                        android:text="@{viewModel == null ? @string/view_problem_info_loading : viewModel.problemTryCount}"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/view_problem_problem_level"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:text="@{viewModel == null ? @string/view_problem_info_loading : @string/view_problem_info_problem_level(viewModel.problemLevel)}"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_eb"
+                        android:text="@{viewModel == null ? @string/view_problem_info_loading : viewModel.problemLevel}"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/view_problem_success_count"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_margin="10dp"
-                        android:text="@{viewModel == null ? @string/view_problem_info_loading : @string/view_problem_info_success_count(viewModel.problemSuccessCount)}"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanum_square_ac_eb"
+                        android:text="@{viewModel == null ? @string/view_problem_info_loading : viewModel.problemSuccessCount}"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
-
-
                 </LinearLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_problem_comment_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/gray_background"
                     android:layout_marginTop="20dp" />
 
             </LinearLayout>

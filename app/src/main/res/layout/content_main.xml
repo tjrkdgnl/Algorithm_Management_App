@@ -58,17 +58,18 @@
                                 android:layout_marginVertical="8dp"
                                 android:layout_marginStart="20dp"
                                 android:background="@drawable/ic_menu"
+                                android:backgroundTint="@color/deep_green"
                                 android:onClick="@{()->viewmodel.toggleDrawer()}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <ImageView
+                                android:layout_width="86dp"
+                                android:layout_height="26dp"
                                 android:layout_gravity="center"
+                                android:background="@drawable/ama_logo_small"
                                 android:layout_margin="8dp"
-                                android:text="AMA"
                                 android:textSize="30sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +96,7 @@
                                 android:clickable="false"
                                 android:focusable="false"
                                 android:hint="문제 검색"
+                                android:background="@drawable/stroke_round_button"
                                 android:onClick="@{()->viewmodel.moveToSearchAct()}" />
                         </com.google.android.material.textfield.TextInputLayout>
 
