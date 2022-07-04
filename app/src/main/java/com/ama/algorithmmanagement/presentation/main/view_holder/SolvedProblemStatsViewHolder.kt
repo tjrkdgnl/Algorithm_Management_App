@@ -17,6 +17,6 @@ class SolvedProblemStatsViewHolder(parent: ViewGroup) :
         fun setData(progress:Int,title:String){
             binding.pgItemProgressProblem.progress = progress
             binding.tvProgressTitle.text = title
-            binding.tvSolvedCount.text = "$progress 개 해결"
+//            binding.tvSolvedCount.text = "$progress 개 해결"
         }
 }

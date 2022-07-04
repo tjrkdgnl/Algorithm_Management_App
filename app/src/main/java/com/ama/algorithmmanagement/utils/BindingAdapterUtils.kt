@@ -180,6 +180,7 @@ object BindingAdapterUtils {
             dataset.colors =
                 ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
             val data = PieData(dataset)
+            data.setValueTextColor(Color.parseColor("#ffffff"))
             data.setValueTextSize(11f)
             pieChart.data = data
         }

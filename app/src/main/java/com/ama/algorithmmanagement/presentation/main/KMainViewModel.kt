@@ -85,6 +85,20 @@ class KMainViewModel(private val mRepository: BaseRepository) : ViewModel() {
     val isLoadingProgress: LiveData<Boolean>
         get() = _isLoadingProgress
 
+    // 레벨 별 통계 버튼 눌렀는지 여부
+    private val _selectedLevelPosition = MutableLiveData(0)
+    val selectedLevelPosition : LiveData<Int>
+        get() = _selectedLevelPosition
+
+
+    // 레벨 별 통계 버튼
+    fun changeToLevelGraph(_position : Int) {
+        if (selectedLevelPosition.value == _position)
+            return
+
+        _selectedLevelPosition.value = _position
+    }
+
 
     // 월별 통계데이터 불러오기
     private fun loadUserDateInfo() {

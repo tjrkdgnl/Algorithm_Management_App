@@ -15,9 +15,11 @@ class RetryProblemInfoViewHolder(parent: ViewGroup) :
     KBaseViewHolder<ItemRetryProblemBinding>(parent, R.layout.item_retry_problem) {
         fun setData(data:TipProblemInfo){
             binding.isSolved = data.tipComment != null
-            binding.tvTitle.text = data.problem?.titleKo
-            binding.tvLevel.text = data.problem?.level.toString()
-            binding.tvDescription.text = TipUtils.tagsConvertToString(data.problem?.tags)
+            binding.tvTitle.text = data.problem?.problemId.toString()
+            binding.tvProblemTitle.text = data.problem?.titleKo
+            binding.tvLevel.text = "Lv. ${data.problem?.level.toString()}"
+//            binding.tvDescription.text = TipUtils.tagsConvertToString(data.problem?.tags)
+            binding.tvDescription.text = data.problem?.problemId.toString()
             binding.executePendingBindings()
 
         }
