@@ -31,6 +31,7 @@ import com.github.mikephil.charting.formatter.IValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.ViewPortHandler
+import kotlinx.coroutines.processNextEventInCurrentThread
 import timber.log.Timber
 import java.util.*
 
@@ -137,7 +138,7 @@ object BindingAdapterUtils {
     /**
      * @param pieChart 원형그래프
      * @param setSolvedProblemTierPieChart 해당유저가 티어별로 푼 문제에 대한 정보
-     * @param position : 티어 0이면 브론즈 1이면 실버  2면 골드.....
+     * @param position : 티어 0이면 브론즈 1이면 실버 2면 골드.....
      * 나의 실력그래프 티어별 통계
      */
     @JvmStatic
@@ -173,23 +174,24 @@ object BindingAdapterUtils {
                 }
             }
             // 티어에 맞는 색상 지정
-            val dataset =
-                PieDataSet(entries, "") // legend label 표시 안함
-            dataset.valueFormatter =
-                MpChartUtils.PieChartValueFormatter() // value Formatter 13.0 과 같은 소수를 "n 문제 해결" 포맷으로 변경
-            dataset.colors =
-                ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
+            val dataset = PieDataSet(entries, "") // legend label 표시 안함
+            dataset.valueFormatter = MpChartUtils.PieChartValueFormatter() // value Formatter 13.0 과 같은 소수를 "n 문제 해결" 포맷으로 변경
+            dataset.colors = ColorUtils.getTierList(ColorUtils.tierConvertInt(pos)) // 티어에 맞는 색상 리스트 적용
+
             val data = PieData(dataset)
+            data.setValueTextColor(Color.parseColor("#ffffff"))
             data.setValueTextSize(11f)
             pieChart.data = data
         }
         // 파이차트 애니메이션
         pieChart.animateX(1000)
         pieChart.animateY(1000)
-
+        pieChart.legend.isEnabled = false // 하단 범례 제거
+        pieChart.holeRadius = 30f         // 가운데 구멍의 넓이 설정
+        pieChart.transparentCircleRadius = 0f
         pieChart.description.isEnabled = false // description 지우기
         pieChart.setEntryLabelTextSize(10f) // 레이블 (브론즈1,브론즈2...) 텍스트 크기
-        pieChart.setEntryLabelColor(R.color.black) // 레이블 (브론즈1,브론즈2,브론즈3 ...) 텍스트 색상
+//        pieChart.setEntryLabelColor(R.color.white) // 레이블 (브론즈1,브론즈2,브론즈3 ...) 텍스트 색상
         pieChart.setTouchEnabled(false) // 터치막기
         pieChart.isRotationEnabled = false // 차트 돌아가게 할지 여부
 

@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.ama.algorithmmanagement.R
 import com.ama.algorithmmanagement.activity.kDefault.NewSolvedProblemActivity
 import com.ama.algorithmmanagement.application.AMAApplication
@@ -80,6 +83,9 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             // 다시풀어볼 문제 어댑터 세팅
             val retryProblemAdapter = RetryProblemsInfoAdapter()
             rvRetryProblem.adapter = retryProblemAdapter
+            // 리사이클러 뷰 구분선 넣기
+            rvRetryProblem.addItemDecoration(DividerItemDecoration(this@KMainActivity, LinearLayout.VERTICAL))
+
             retryProblemAdapter.setOnItemClickListener(object :RetryProblemsInfoAdapter.OnRetryProblemClickListener{
                 override fun onClick(v: View, data: TipProblemInfo) {
                     val builder = AlertDialog.Builder(this@KMainActivity)
@@ -103,14 +109,15 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
             })
             // 월별 통계 어댑터 세팅
             rvDateGrid.adapter = KUserDateInfoAdapter()
-            position = 0 // 처음 보여줄 티어별 그래프는 브론즈
-            tiersTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    position = tab?.position
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
+//            position = 0 // 처음 보여줄 티어별 그래프는 브론즈
+//
+//            tiersTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//                override fun onTabSelected(tab: TabLayout.Tab?) {
+//                    position = tab?.position
+//                }
+//                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+//                override fun onTabReselected(tab: TabLayout.Tab?) {}
+//            })
             // refresh 할때 데이터 다시 세팅
             swipeRefreshLayout.setOnRefreshListener {
                 mainViewModel.fetchData()
@@ -217,6 +224,73 @@ class KMainActivity : KBaseActivity<ActivityMainBinding>(R.layout.activity_main)
                 mainViewModel.initRetryProblemsInfo()
                 startActivity(intent)
             }
+        }
+
+        mainViewModel.selectedLevelPosition.observe(this) {
+            // init all color
+            binding.appBarMain.contentMain.apply {
+                frameBronze.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                frameSilver.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                frameGold.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                framePlatinum.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                frameDiamond.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                frameRuby.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+
+                tvBronze.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+                tvSilver.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+                tvGold.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+                tvPlatinum.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+                tvDiamond.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+                tvRuby.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.black))
+            }
+
+            // set selected color
+            when (it) {
+                0-> {
+                    // bronze
+                    binding.appBarMain.contentMain.apply {
+                        frameBronze.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvBronze.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+                1-> {
+                    // silver
+                    binding.appBarMain.contentMain.apply {
+                        frameSilver.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvSilver.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+                2-> {
+                    // gold
+                    binding.appBarMain.contentMain.apply {
+                        frameGold.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvGold.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+                3-> {
+                    // platinum
+                    binding.appBarMain.contentMain.apply {
+                        framePlatinum.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvPlatinum.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+                4-> {
+                    // diamond
+                    binding.appBarMain.contentMain.apply {
+                        frameDiamond.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvDiamond.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+                5-> {
+                    // ruby
+                    binding.appBarMain.contentMain.apply {
+                        frameRuby.setBackgroundColor(ContextCompat.getColor(this@KMainActivity, R.color.deep_green))
+                        tvRuby.setTextColor(ContextCompat.getColor(this@KMainActivity, R.color.white))
+                    }
+                }
+            }
+
+            binding.appBarMain.contentMain.selectedLevelPosition = it // 처음 보여줄 티어별 그래프는 브론즈
         }
 
     }

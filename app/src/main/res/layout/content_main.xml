@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="position"
+            name="selected_level_position"
             type="Integer" />
 
         <variable
@@ -31,8 +31,8 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,7 +55,6 @@
                                 android:id="@+id/nav_menu"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="8dp"
                                 android:layout_marginStart="20dp"
                                 android:background="@drawable/ic_menu"
                                 android:backgroundTint="@color/deep_green"
@@ -65,11 +64,11 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
-                                android:layout_width="86dp"
-                                android:layout_height="26dp"
+                                android:layout_width="85.7dp"
+                                android:layout_height="25.8dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/ama_logo_small"
-                                android:layout_margin="8dp"
+                                android:layout_marginTop="2dp"
                                 android:textSize="30sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -83,9 +82,9 @@
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginVertical="8dp"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="29dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
@@ -93,6 +92,12 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanum_square_otf_ac_r"
+                                android:includeFontPadding="false"
+                                android:drawableEnd="@drawable/ic_search"
+                                android:paddingStart="30dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/hint_text"
                                 android:clickable="false"
                                 android:focusable="false"
                                 android:hint="문제 검색"
@@ -106,7 +111,7 @@
                         android:id="@+id/cl_retry_problem_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="41dp"
+                        android:layout_marginTop="45dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -114,25 +119,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
-                            android:layout_marginTop="4dp"
                             android:lineSpacingExtra="4sp"
+                            android:fontFamily="@font/nanum_square_otf_ac_eb"
+                            android:includeFontPadding="false"
                             android:text="다시 풀어볼 문제들"
-                            android:textColor="#4e4e4e"
+                            android:textColor="@color/white_black_text"
                             android:textSize="14sp"
                             android:textStyle="normal"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintBottom_toBottomOf="@id/textView3"
+                            app:layout_constraintTop_toTopOf="@id/textView3" />
 
                         <ImageView
                             android:id="@+id/ic_plus"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginEnd="30dp"
-                            android:background="@drawable/add"
+                            android:background="@drawable/ic_add"
+                            android:onClick="@{()->viewmodel.openRetryProblemsInfo()}"
                             app:layout_constraintBottom_toBottomOf="@+id/textView3"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:onClick="@{()->viewmodel.openRetryProblemsInfo()}"
-                            app:layout_constraintTop_toTopOf="@+id/textView3" />
+                            app:layout_constraintTop_toTopOf="@id/textView3" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_retry_problem"
@@ -172,12 +179,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
-                            android:layout_marginTop="50dp"
                             android:lineSpacingExtra="4sp"
+                            android:fontFamily="@font/nanum_square_otf_ac_eb"
+                            android:includeFontPadding="false"
+                            android:layout_marginTop="50dp"
                             android:text="나의 실력 그래프"
-                            android:textColor="#4e4e4e"
+                            android:textColor="@color/white_black_text"
                             android:textSize="14sp"
-                            android:textStyle="normal"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -186,6 +194,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
                             android:layout_marginTop="20dp"
                             android:lineSpacingExtra="6sp"
                             android:text="레벨 별 통계"
@@ -195,69 +205,175 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tiers_tab"
+                        <!-- SELECT TIER MENU -->
+                        <LinearLayout
+                            android:id="@+id/linear_wrap_tier_menu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:layout_marginTop="12dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView8"
-                            app:tabMode="scrollable">
-
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/textView8">
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="브론즈" />
+                                android:orientation="horizontal">
 
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
+                                <FrameLayout
+                                    android:id="@+id/frame_bronze"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(0)}">
+                                    <TextView
+                                        android:id="@+id/tv_bronze"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:layout_gravity="center"
+                                        android:includeFontPadding="false"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="브론즈"/>
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/frame_silver"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(1)}">
+                                    <TextView
+                                        android:id="@+id/tv_silver"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:includeFontPadding="false"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="실버"/>
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/frame_gold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(2)}">
+                                    <TextView
+                                        android:id="@+id/tv_gold"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:includeFontPadding="false"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="골드"/>
+                                </FrameLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="실버" />
+                                android:orientation="horizontal">
 
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="골드" />
+                                <FrameLayout
+                                    android:id="@+id/frame_platinum"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(3)}">
+                                    <TextView
+                                        android:id="@+id/tv_platinum"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:layout_gravity="center"
+                                        android:includeFontPadding="false"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="플래티넘"/>
+                                </FrameLayout>
 
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="플래티넘" />
+                                <FrameLayout
+                                    android:id="@+id/frame_diamond"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(4)}">
+                                    <TextView
+                                        android:id="@+id/tv_diamond"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:includeFontPadding="false"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="다이아몬드"/>
+                                </FrameLayout>
 
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="다이아" />
-
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="루비" />
-
-                        </com.google.android.material.tabs.TabLayout>
+                                <FrameLayout
+                                    android:id="@+id/frame_ruby"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="42dp"
+                                    android:layout_weight="1"
+                                    android:onClick="@{()->viewmodel.changeToLevelGraph(5)}">
+                                    <TextView
+                                        android:id="@+id/tv_ruby"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/nanum_square_otf_ac_r"
+                                        android:includeFontPadding="false"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textSize="14sp"
+                                        android:lineSpacingExtra="4sp"
+                                        android:textColor="@color/input_bold_text"
+                                        android:text="루비"/>
+                                </FrameLayout>
+                            </LinearLayout>
+                        </LinearLayout>
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChart"
-                            position="@{position}"
+                            position="@{selected_level_position}"
                             setSolvedProblemTierPieChart="@{viewmodel.userStats}"
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
+                            android:layout_width="220dp"
+                            android:layout_height="220dp"
+                            android:layout_marginTop="32dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tiers_tab">
-                        </com.github.mikephil.charting.charts.PieChart>
+                            app:layout_constraintTop_toBottomOf="@+id/linear_wrap_tier_menu" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="해당 티어에는 해결한 문제가 없습니다."
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:gravity="center"
                             handleNotSolvedProblem="@{viewmodel.userStats}"
-                            tierPosition="@{position}"
+                            tierPosition="@{selected_level_position}"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:layout_marginTop="32dp"
+                            android:gravity="center"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
+                            android:textSize="12sp"
+                            android:text="해당 티어에는 해결한 문제가 없습니다."
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tiers_tab" />
+                            app:layout_constraintTop_toBottomOf="@+id/linear_wrap_tier_menu" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -299,6 +415,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:fontFamily="@font/nanum_square_otf_ac_r"
+                                android:includeFontPadding="false"
                                 android:lineSpacingExtra="6sp"
                                 android:text="더보기"
                                 android:textColor="#6b6b6b"
@@ -307,13 +425,11 @@
 
                         </LinearLayout>
 
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_type_statics"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:layout_marginTop="12dp"
-                            tools:itemCount="3"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="28dp"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             setSolvedProblemTypeBarChart="@{viewmodel.userSolvedProblem}"
@@ -326,14 +442,14 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="65dp">
 
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="30dp"
-                            android:layout_marginTop="5dp"
                             android:lineSpacingExtra="6sp"
                             android:text="날짜별 통계"
                             android:textColor="#6b6b6b"
@@ -346,8 +462,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginEnd="20dp"
                             android:onClick="@{()->viewmodel.previousMonth()}"
-                            android:background="@drawable/ic_arrow_left"
+                            android:background="@drawable/ic_arrow_forward"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
                             app:layout_constraintEnd_toStartOf="@+id/textView6"
                             app:layout_constraintTop_toTopOf="@+id/textView6" />
@@ -357,9 +474,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginTop="23dp"
                             android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
                             android:lineSpacingExtra="2sp"
-                            android:textColor="#191919"
+                            android:textColor="@color/input_bold_text"
+                            tools:text="2022년 2월"
                             android:text="@{viewmodel.dateStatsCurrentDate}"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -372,7 +493,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_arrow_right"
+                            android:layout_marginStart="20dp"
+                            android:background="@drawable/ic_arrow_back"
                             android:onClick="@{()->viewmodel.nextMonth()}"
                             app:layout_constraintBottom_toBottomOf="@id/textView6"
                             app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -385,14 +507,14 @@
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toTopOf="@+id/rv_date_grid"
                             app:layout_constraintEnd_toEndOf="@+id/rv_date_grid"
-                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintStart_toStartOf="@+id/rv_date_grid"
                             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
-                                android:layout_marginEnd="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="일"
@@ -403,7 +525,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="월"
@@ -414,7 +537,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="화"
@@ -425,8 +549,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
-                                android:layout_marginEnd="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="수"
@@ -437,7 +561,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="목"
@@ -448,7 +573,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="금"
@@ -459,7 +585,8 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:layout_margin="6dp"
+                                android:layout_weight="1"
+                                android:layout_margin="3dp"
                                 android:gravity="center"
                                 android:lineSpacingExtra="4sp"
                                 android:text="토"
@@ -469,9 +596,10 @@
                         </LinearLayout>
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_date_grid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginHorizontal="21dp"
                             app:currentDate="@{viewmodel.dateStatsCurrentDate}"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -484,24 +612,98 @@
                             tools:listitem="@layout/item_user_date_info"
                             android:overScrollMode="never"/>
 
-                        <LinearLayout
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:onClick="@{()->viewmodel.nextMonth()}"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="@+id/rv_date_grid"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/rv_date_grid" >
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_arrow_right"/>
-
-                        </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end|center_vertical"
+                        android:layout_marginHorizontal="24dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="9dp"
+                            android:backgroundTint="@color/date_1"
+                            android:background="@drawable/layout_calendar_legend_radius"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="30dp"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4sp"
+                            android:text="1-3 문제"/>
+
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="9dp"
+                            android:backgroundTint="@color/date_3"
+                            android:background="@drawable/layout_calendar_legend_radius"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4sp"
+                            android:text="10-18 문제"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginBottom="19dp"
+                        android:gravity="end|center_vertical"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="9dp"
+                            android:backgroundTint="@color/date_2"
+                            android:background="@drawable/layout_calendar_legend_radius"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="30dp"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4sp"
+                            android:text="4-9 문제"/>
+
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="9dp"
+                            android:backgroundTint="@color/date_4"
+                            android:background="@drawable/layout_calendar_legend_radius"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_otf_ac_r"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4sp"
+                            android:text="19-29 문제"/>
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>

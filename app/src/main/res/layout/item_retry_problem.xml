@@ -12,20 +12,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="#f2f2f2">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="#1378 구슬꿰기"
+            android:fontFamily="@font/nanum_square_otf_ac_r"
+            android:includeFontPadding="false"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="12dp"
+            tools:text="#1378"
             android:textStyle="normal"
-            android:textSize="16sp"
-            android:textColor="#4e4e4e"
-            android:lineSpacingExtra="2sp"
+            android:textSize="14sp"
+            android:textColor="@color/gray_text"
+            android:lineSpacingExtra="4sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,38 +35,60 @@
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="ID 109"
-            android:textColor="#fff"
-            android:textSize="15sp"
+            android:fontFamily="@font/nanum_square_otf_ac_r"
+            android:includeFontPadding="false"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/gray_text"
+            tools:text="ID 109"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+        <TextView
+            android:id="@+id/tv_problem_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="25dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nanum_square_otf_ac_eb"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@color/white_black_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_level"
+            app:layout_constraintStart_toEndOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="구슬 꿰기" />
+
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="@{isSolved? View.VISIBLE : View.GONE}"
             android:background="@drawable/ic_check"
+            android:visibility="@{isSolved? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/tv_level"
-            app:layout_constraintEnd_toEndOf="@+id/tv_level" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_level"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="LV.1"
-            android:textStyle="normal"
-            android:textSize="14sp"
-            android:textColor="#6b6b6b"
+            android:layout_marginEnd="46dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/nanum_square_otf_ac_eb"
             android:lineSpacingExtra="4sp"
+            android:textColor="@color/gray_text"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+            tools:text="Lv.1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
